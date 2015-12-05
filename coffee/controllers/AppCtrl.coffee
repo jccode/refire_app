@@ -20,5 +20,8 @@ class AppCtrl
 				$scope.closeLogin()
 			, 1000
 
+		$scope.logout = ->
+			console.log 'Logout'
+
 
 angular.module('app').controller 'AppCtrl', ['$scope', '$ionicModal', '$timeout', AppCtrl]

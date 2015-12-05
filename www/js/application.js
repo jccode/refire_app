@@ -37,18 +37,32 @@
         abstract: true,
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
-      }).state('app.search', {
-        url: '/search',
+      }).state('app.health', {
+        url: '/health',
         views: {
           'menuContent': {
-            templateUrl: 'templates/search.html'
+            templateUrl: 'templates/health.html'
           }
         }
-      }).state('app.browse', {
-        url: '/browse',
+      }).state('app.statistics', {
+        url: '/statistics',
         views: {
           'menuContent': {
-            templateUrl: 'templates/browse.html'
+            templateUrl: 'templates/statistics.html'
+          }
+        }
+      }).state('app.setting', {
+        url: '/setting',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/setting.html'
+          }
+        }
+      }).state('app.profile', {
+        url: '/profile',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/profile.html'
           }
         }
       }).state('app.playlists', {
@@ -101,6 +115,9 @@
         return $timeout(function() {
           return $scope.closeLogin();
         }, 1000);
+      };
+      $scope.logout = function() {
+        return console.log('Logout');
       };
     }
 
