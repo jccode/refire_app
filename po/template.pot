@@ -1,0 +1,33 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: menu.html:36
+msgid "Energy Statistics"
+msgstr ""
+
+#: menu.html:31
+msgid "Health Status"
+msgstr ""
+
+#: menu.html:51
+msgid "Log off"
+msgstr ""
+
+#: menu.html:55
+msgid "Login"
+msgstr ""
+
+#: menu.html:25
+msgid "Menu"
+msgstr ""
+
+#: menu.html:46
+msgid "Profile"
+msgstr ""
+
+#: menu.html:41
+msgid "Settings"
+msgstr ""

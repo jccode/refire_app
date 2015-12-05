@@ -1,0 +1,42 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Refire\n"
+"PO-Revision-Date: 2015-12-06 03:23+0800\n"
+"Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
+"Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: menu.html:36
+msgid "Energy Statistics"
+msgstr "节能减排"
+
+#: menu.html:31
+msgid "Health Status"
+msgstr "健康状态"
+
+#: menu.html:51
+msgid "Log off"
+msgstr "退出"
+
+#: menu.html:55
+msgid "Login"
+msgstr "登陆"
+
+#: menu.html:25
+msgid "Menu"
+msgstr "目录"
+
+#: menu.html:46
+msgid "Profile"
+msgstr "我的"
+
+#: menu.html:41
+msgid "Settings"
+msgstr "设置"

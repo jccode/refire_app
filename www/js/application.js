@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic', 'ngCordova']);
+  angular.module('app', ['ionic', 'ngCordova', 'gettext']);
 
 }).call(this);
 
@@ -24,6 +24,22 @@
   })();
 
   angular.module('app').run(['$ionicPlatform', Bootstrap]);
+
+}).call(this);
+
+(function() {
+  var I18N;
+
+  I18N = (function() {
+    function I18N(gettextCatalog) {
+      gettextCatalog.setCurrentLanguage('zh');
+    }
+
+    return I18N;
+
+  })();
+
+  angular.module('app').run(['gettextCatalog', I18N]);
 
 }).call(this);
 

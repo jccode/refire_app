@@ -7,13 +7,15 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var coffee = require('gulp-coffee');
+var gettext = require('gulp-angular-gettext');
+var shell = require('gulp-shell');
 
 var paths = {
     sass: ['./scss/**/*.scss'],
     coffee: ['./coffee/**/*.coffee']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'pot', 'msgmerge', 'translate']);
 
 gulp.task('sass', function(done) {
   // gulp.src('./scss/ionic.app.scss')
@@ -61,4 +63,30 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('pot', function() {
+    return gulp.src(['./www/templates/**/*.html'])
+        .pipe(gettext.extract('template.pot', {
+            // options
+        }))
+        .pipe(gulp.dest('po/'));
+});
+
+gulp.task('msgmerge', function(done) {
+    if(!sh.which('msgmerge')) {
+        console.log( 'msgmerge havn\'t install. You need to install it first.' );
+        process.exit(1);
+    }
+    gulp.src('./po/*.po')
+        .pipe(shell("msgmerge -U <%= file.path %> po/template.pot"));
+});
+
+gulp.task('translate', function() {
+    return gulp.src('po/**/*.po')
+        .pipe(gettext.compile({
+            // options
+        }))
+        .pipe(concat('translations.js'))
+        .pipe(gulp.dest('./www/js'));
 });
