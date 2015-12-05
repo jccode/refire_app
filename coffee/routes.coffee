@@ -46,8 +46,21 @@ class Config
 						templateUrl: 'templates/playlist.html'
 						controller: 'PlaylistCtrl'
 
+			.state 'app.test',
+				url: '/test'
+				views:
+					'menuContent':
+						templateUrl: 'templates/test.html'
+						controller: 'TestCtrl as ctrl'
 
-		$urlRouterProvider.otherwise '/app/playlists'
+			.state 'app.test-native', 
+				url: '/native'
+				views:
+					'menuContent':
+						templateUrl: 'templates/native-test.html'
+						controller: 'NativeTestCtrl as ctrl'
+
+		$urlRouterProvider.otherwise '/app/test'
 
 
 angular.module('app').config ['$stateProvider', '$urlRouterProvider', Config]

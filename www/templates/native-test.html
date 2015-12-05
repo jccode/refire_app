@@ -1,0 +1,72 @@
+<ion-view view-title="Native">
+    <ion-content>
+        <div class="card">
+            <div class="item item-divider">
+                Device
+                <a class="pull-right" ng-click="retrieve_device()">
+                    <i class="icon ion-loop"></i>
+                </a>
+            </div>
+            <div class="item item-text-wrap">
+                <div class="row">
+                    <div class="col"> device </div>
+                    <div class="col"> {{device.device}} </div>
+                </div>
+                <div class="row">
+                    <div class="col"> cordova </div>
+                    <div class="col"> {{device.cordova}} </div>
+                </div>
+                <div class="row">
+                    <div class="col"> model </div>
+                    <div class="col"> {{device.model}} </div>
+                </div>
+                <div class="row">
+                    <div class="col"> platform </div>
+                    <div class="col"> {{device.platform}} </div>
+                </div>
+                <div class="row">
+                    <div class="col"> uuid </div>
+                    <div class="col"> {{device.uuid}} </div>
+                </div>
+                <div class="row">
+                    <div class="col"> version </div>
+                    <div class="col"> {{device.version}} </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="item item-divider">
+                Toast
+            </div>
+            <div class="item">
+                <div class="button-bar">
+                    <a class="button button-assertive" ng-click="toast_sb()">ShortBottom</a>
+                    <a class="button button-positive" ng-click="toast_lc()">LongCenter</a>
+                    <a class="button button-balanced" ng-click="toast_st()">ShortTop</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="item item-divider">
+                Local notification
+            </div>
+            <div class="item">
+                <button class="button button-block button-light" ng-click="scheduleSingleNotification()">
+                    Schedule Single Notification
+                </button>
+                <button class="button button-block button-stable" ng-click="scheduleMultipleNotifications()">
+                    Schedule Multiple Notification
+                </button>
+                <button class="button button-block button-positive" ng-click="updateSingleNotification()">
+                    Update Single Notification
+                </button>
+                <button class="button button-block button-calm" ng-click="cancelAllNotifications()">
+                    Cancel All Notification
+                </button>
+            </div>
+        </div>
+        
+    </ion-content>
+</ion-view>

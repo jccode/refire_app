@@ -1,6 +1,7 @@
 
 
 /* override */
+/* ------------------------------ */
 
 /* menu */
 .bar.bar-stable .title {
@@ -11,4 +12,24 @@
     color: #3E3BAF;
 }
 
+
+/* common */
+/* ------------------------------ */
+
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+
+/* height */
+
+$ion-item-height: 54px;
+
+.h-item-2 {
+    height: 2 * $ion-item-height;
+}
 

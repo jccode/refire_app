@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic']);
+  angular.module('app', ['ionic', 'ngCordova']);
 
 }).call(this);
 
@@ -81,8 +81,24 @@
             controller: 'PlaylistCtrl'
           }
         }
+      }).state('app.test', {
+        url: '/test',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/test.html',
+            controller: 'TestCtrl as ctrl'
+          }
+        }
+      }).state('app.test-native', {
+        url: '/native',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/native-test.html',
+            controller: 'NativeTestCtrl as ctrl'
+          }
+        }
       });
-      $urlRouterProvider.otherwise('/app/playlists');
+      $urlRouterProvider.otherwise('/app/test');
     }
 
     return Config;
@@ -126,6 +142,134 @@
   })();
 
   angular.module('app').controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', AppCtrl]);
+
+}).call(this);
+
+(function() {
+  var NativeTestCtrl;
+
+  NativeTestCtrl = (function() {
+    function NativeTestCtrl($scope, $cordovaDevice, $cordovaToast, $cordovaLocalNotification) {
+      this.$scope = $scope;
+      this.$cordovaDevice = $cordovaDevice;
+      this.$cordovaToast = $cordovaToast;
+      this.$cordovaLocalNotification = $cordovaLocalNotification;
+      this.deviceInfo();
+      this.toast();
+      this.localNotification();
+    }
+
+    NativeTestCtrl.prototype.deviceInfo = function() {
+      return this.$scope.retrieve_device = (function(_this) {
+        return function() {
+          return _this.$scope.device = {
+            device: _this.$cordovaDevice.getDevice(),
+            cordova: _this.$cordovaDevice.getCordova(),
+            model: _this.$cordovaDevice.getModel(),
+            platform: _this.$cordovaDevice.getPlatform(),
+            uuid: _this.$cordovaDevice.getUUID(),
+            version: _this.$cordovaDevice.getVersion()
+          };
+        };
+      })(this);
+    };
+
+    NativeTestCtrl.prototype.deviceInfo_stub = function() {
+      return this.$scope.device = {
+        device: 'iphone',
+        cordova: 'cordova 1.6',
+        model: '6S-plus',
+        platform: 'iOS',
+        uuid: 'xxxx-yyyy-zzzz',
+        version: '6.0'
+      };
+    };
+
+    NativeTestCtrl.prototype.toast = function() {
+      var toast;
+      toast = (function(_this) {
+        return function(duration, position) {
+          return _this.$cordovaToast.show("Here is a message", duration, position).then(function(success) {
+            return console.log("success: " + success);
+          }, function(error) {
+            return console.log("error: " + error);
+          });
+        };
+      })(this);
+      this.$scope.toast_sb = function() {
+        return toast("short", "bottom");
+      };
+      this.$scope.toast_lc = function() {
+        return toast("long", "center");
+      };
+      return this.$scope.toast_st = function() {
+        return toast("short", "top");
+      };
+    };
+
+    NativeTestCtrl.prototype.localNotification = function() {
+      this.$scope.scheduleSingleNotification = (function(_this) {
+        return function() {
+          return _this.$cordovaLocalNotification.schedule({
+            id: 1,
+            title: 'Hello',
+            text: 'Hello ionic',
+            data: {
+              customProperty: 'custom value'
+            }
+          }).then(function(result) {
+            return console.log('[local notification]' + result);
+          });
+        };
+      })(this);
+      this.$scope.scheduleMultipleNotifications = (function(_this) {
+        return function() {
+          return _this.$cordovaLocalNotification.schedule([
+            {
+              id: 1,
+              title: 'Title 1',
+              text: 'text 1',
+              data: {
+                customProperty: 'custom 1 value'
+              }
+            }, {
+              id: 2,
+              title: 'Title 2',
+              text: 'text 2',
+              data: {
+                customProperty: 'custom 2 value'
+              }
+            }
+          ]).then(function(result) {
+            return console.log('[local notification]' + result);
+          });
+        };
+      })(this);
+      this.$scope.updateSingleNotification = (function(_this) {
+        return function() {
+          return _this.$cordovaLocalNotification.update({
+            id: 1,
+            title: 'Hello - UPDATED',
+            text: 'Hello ionic - UPDATED'
+          }).then(function(result) {
+            return console.log('[local notification]' + result);
+          });
+        };
+      })(this);
+      return this.$scope.cancelAllNotifications = (function(_this) {
+        return function() {
+          return _this.$cordovaLocalNotification.cancelAll().then(function(result) {
+            return console.log('[local notification]' + result);
+          });
+        };
+      })(this);
+    };
+
+    return NativeTestCtrl;
+
+  })();
+
+  angular.module('app').controller('NativeTestCtrl', ['$scope', '$cordovaDevice', '$cordovaToast', '$cordovaLocalNotification', NativeTestCtrl]);
 
 }).call(this);
 
@@ -176,5 +320,65 @@
   })();
 
   angular.module('app').controller('PlaylistCtrl', ['$scope', '$stateParams', PlaylistCtrl]);
+
+}).call(this);
+
+(function() {
+  var TestCtrl;
+
+  TestCtrl = (function() {
+    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state) {
+      this.$scope = $scope;
+      this.$ionicPopover = $ionicPopover;
+      this.$ionicHistory = $ionicHistory;
+      this.$state = $state;
+      this.initPopover();
+    }
+
+    TestCtrl.prototype.initPopover = function() {
+      this.$scope.popover = this.$ionicPopover.fromTemplateUrl('templates/action_more.html', {
+        scope: this.$scope
+      }).then((function(_this) {
+        return function(popover) {
+          return _this.$scope.popover = popover;
+        };
+      })(this));
+      this.$scope.openPopover = (function(_this) {
+        return function($event) {
+          return _this.$scope.popover.show($event);
+        };
+      })(this);
+      this.$scope.closePopover = (function(_this) {
+        return function() {
+          return _this.$scope.popover.hide();
+        };
+      })(this);
+      this.$scope.$on('$destroy', (function(_this) {
+        return function() {
+          return _this.$scope.popover.remove();
+        };
+      })(this));
+      this.$scope.actionMore = (function(_this) {
+        return function() {
+          _this.$ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          _this.$scope.closePopover();
+          return _this.$state.go('app.setting');
+        };
+      })(this);
+      return this.$scope.about = (function(_this) {
+        return function() {
+          _this.$scope.closePopover();
+          return _this.$state.go('app.test-native');
+        };
+      })(this);
+    };
+
+    return TestCtrl;
+
+  })();
+
+  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', TestCtrl]);
 
 }).call(this);
