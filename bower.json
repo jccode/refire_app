@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "ngCordova": "~0.1.23-alpha",
-    "angular-gettext": "~2.1.2"
+    "angular-gettext": "~2.1.2",
+    "angular-permission": "~1.1.1"
   }
 }

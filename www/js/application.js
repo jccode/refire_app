@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic', 'ngCordova', 'gettext', 'ngStorage']);
+  angular.module('app', ['ionic', 'ngCordova', 'gettext', 'ngStorage', 'permission']);
 
 }).call(this);
 
@@ -44,10 +44,30 @@
 }).call(this);
 
 (function() {
+  var Roles,
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  Roles = (function() {
+    function Roles(Permission, $rootScope) {
+      $rootScope.roles = ['user', 'admin'];
+      Permission.defineManyRoles(['user', 'admin'], function(stateParams, roleName) {
+        return indexOf.call($rootScope.roles, roleName) >= 0;
+      });
+    }
+
+    return Roles;
+
+  })();
+
+  angular.module('app').run(['Permission', '$rootScope', Roles]);
+
+}).call(this);
+
+(function() {
   var Config;
 
   Config = (function() {
-    function Config($stateProvider, $urlRouterProvider, roles, access) {
+    function Config($stateProvider, $urlRouterProvider) {
       $stateProvider.state('app', {
         url: '/app',
         abstract: true,
@@ -59,9 +79,6 @@
           'menuContent': {
             templateUrl: 'templates/health.html'
           }
-        },
-        data: {
-          access: access["public"]
         }
       }).state('app.statistics', {
         url: '/statistics',
@@ -71,7 +88,9 @@
           }
         },
         data: {
-          access: access.user
+          permissions: {
+            only: ['user', 'admin']
+          }
         }
       }).state('app.setting', {
         url: '/setting',
@@ -79,9 +98,6 @@
           'menuContent': {
             templateUrl: 'templates/setting.html'
           }
-        },
-        data: {
-          access: access["public"]
         }
       }).state('app.profile', {
         url: '/profile',
@@ -91,7 +107,9 @@
           }
         },
         data: {
-          access: access.user
+          permissions: {
+            only: ['user', 'admin']
+          }
         }
       }).state('app.playlists', {
         url: '/playlists',
@@ -118,7 +136,9 @@
           }
         },
         data: {
-          access: access.admin
+          permissions: {
+            only: ['admin']
+          }
         }
       }).state('app.test-native', {
         url: '/native',
@@ -127,9 +147,6 @@
             templateUrl: 'templates/native-test.html',
             controller: 'NativeTestCtrl as ctrl'
           }
-        },
-        data: {
-          access: access.admin
         }
       });
       $urlRouterProvider.otherwise('/app/playlists');
@@ -139,7 +156,7 @@
 
   })();
 
-  angular.module('app').config(['$stateProvider', '$urlRouterProvider', 'userRoles', 'accessLevels', Config]);
+  angular.module('app').config(['$stateProvider', '$urlRouterProvider', Config]);
 
 }).call(this);
 
@@ -361,12 +378,18 @@
   var TestCtrl;
 
   TestCtrl = (function() {
-    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state) {
+    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope) {
       this.$scope = $scope;
       this.$ionicPopover = $ionicPopover;
       this.$ionicHistory = $ionicHistory;
       this.$state = $state;
+      this.$rootScope = $rootScope;
       this.initPopover();
+      this.$scope.changeRole = (function(_this) {
+        return function() {
+          return _this.$rootScope.roles = ['user', 'admin'];
+        };
+      })(this);
     }
 
     TestCtrl.prototype.initPopover = function() {
@@ -413,7 +436,7 @@
 
   })();
 
-  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', TestCtrl]);
+  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', TestCtrl]);
 
 }).call(this);
 
@@ -421,11 +444,11 @@
   var Auth;
 
   Auth = (function() {
-    function Auth($http, $rootScope, $localStorage, roles) {
+    function Auth($http, $rootScope, $localStorage) {
       var $storage, anon_user, get_current_user, set_current_user;
       anon_user = {
         username: '',
-        authorities: [roles["public"]]
+        authorities: []
       };
       $storage = $localStorage.$default({
         user: anon_user
@@ -441,7 +464,7 @@
         $rootScope.user = user;
         return user;
       };
-      this.userRoles = roles;
+      this.userRoles = {};
       this.user = get_current_user();
       this.authorize = (function(_this) {
         return function(access) {
@@ -476,6 +499,6 @@
 
   })();
 
-  angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', 'userRoles', Auth]);
+  angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', Auth]);
 
 }).call(this);

@@ -1,2 +1,2 @@
 
-angular.module 'app', ['ionic', 'ngCordova', 'gettext', 'ngStorage']
+angular.module 'app', ['ionic', 'ngCordova', 'gettext', 'ngStorage', 'permission']

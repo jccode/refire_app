@@ -1,7 +1,9 @@
 
 class TestCtrl
-	constructor: (@$scope, @$ionicPopover, @$ionicHistory, @$state) ->
+	constructor: (@$scope, @$ionicPopover, @$ionicHistory, @$state, @$rootScope) ->
 		@initPopover()
+		@$scope.changeRole = =>
+			@$rootScope.roles = ['user', 'admin']
 
 	initPopover: ->
 		@$scope.popover = @$ionicPopover.fromTemplateUrl('templates/action_more.html', {
@@ -34,4 +36,5 @@ angular.module('app').controller 'TestCtrl', [
 	'$ionicPopover',
 	'$ionicHistory',
 	'$state',
+	'$rootScope',
 	TestCtrl]

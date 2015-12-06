@@ -1,9 +1,9 @@
 
 class Auth
-	constructor: ($http, $rootScope, $localStorage, roles) ->
+	constructor: ($http, $rootScope, $localStorage) ->
 		anon_user =
 			username: ''
-			authorities: [roles.public]
+			authorities: []
 			
 		$storage = $localStorage.$default
 			user: anon_user
@@ -21,7 +21,7 @@ class Auth
 
 		# object to return
 		# 
-		@userRoles = roles
+		@userRoles = {}
 		
 		@user = get_current_user()
 		
@@ -50,4 +50,4 @@ class Auth
 		return @
 
 
-angular.module('app').factory 'Auth', ['$http', '$rootScope', '$localStorage', 'userRoles', Auth]
+angular.module('app').factory 'Auth', ['$http', '$rootScope', '$localStorage', Auth]

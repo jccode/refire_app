@@ -1,6 +1,6 @@
 
 class Config
-	constructor: ($stateProvider, $urlRouterProvider, roles, access) ->
+	constructor: ($stateProvider, $urlRouterProvider) ->
 		# console.log JSON.stringify roles
 		# console.log JSON.stringify access
 
@@ -16,8 +16,6 @@ class Config
 				views:
 					'menuContent':
 						templateUrl: 'templates/health.html'
-				data:
-					access: access.public
 
 			.state 'app.statistics',
 				url: '/statistics'
@@ -25,15 +23,14 @@ class Config
 					'menuContent':
 						templateUrl: 'templates/statistics.html'
 				data:
-					access: access.user
+					permissions:
+						only: ['user', 'admin']
 
 			.state 'app.setting',
 				url: '/setting'
 				views:
 					'menuContent':
 						templateUrl: 'templates/setting.html'
-				data:
-					access: access.public
 
 			.state 'app.profile',
 				url: '/profile'
@@ -41,7 +38,8 @@ class Config
 					'menuContent':
 						templateUrl: 'templates/profile.html'
 				data:
-					access: access.user
+					permissions:
+						only: ['user', 'admin']
 				
 			.state 'app.playlists',
 				url: '/playlists'
@@ -64,7 +62,8 @@ class Config
 						templateUrl: 'templates/test.html'
 						controller: 'TestCtrl as ctrl'
 				data:
-					access: access.admin
+					permissions:
+						only: ['admin']
 
 			.state 'app.test-native', 
 				url: '/native'
@@ -72,11 +71,9 @@ class Config
 					'menuContent':
 						templateUrl: 'templates/native-test.html'
 						controller: 'NativeTestCtrl as ctrl'
-				data:
-					access: access.admin
 
 		$urlRouterProvider.otherwise '/app/playlists'
 
 
 
-angular.module('app').config ['$stateProvider', '$urlRouterProvider', 'userRoles', 'accessLevels', Config]
+angular.module('app').config ['$stateProvider', '$urlRouterProvider', Config]
