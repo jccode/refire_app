@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic', 'ngCordova', 'gettext']);
+  angular.module('app', ['ionic', 'ngCordova', 'gettext', 'ngStorage']);
 
 }).call(this);
 
@@ -47,7 +47,7 @@
   var Config;
 
   Config = (function() {
-    function Config($stateProvider, $urlRouterProvider) {
+    function Config($stateProvider, $urlRouterProvider, roles, access) {
       $stateProvider.state('app', {
         url: '/app',
         abstract: true,
@@ -59,6 +59,9 @@
           'menuContent': {
             templateUrl: 'templates/health.html'
           }
+        },
+        data: {
+          access: access["public"]
         }
       }).state('app.statistics', {
         url: '/statistics',
@@ -66,6 +69,9 @@
           'menuContent': {
             templateUrl: 'templates/statistics.html'
           }
+        },
+        data: {
+          access: access.user
         }
       }).state('app.setting', {
         url: '/setting',
@@ -73,6 +79,9 @@
           'menuContent': {
             templateUrl: 'templates/setting.html'
           }
+        },
+        data: {
+          access: access["public"]
         }
       }).state('app.profile', {
         url: '/profile',
@@ -80,6 +89,9 @@
           'menuContent': {
             templateUrl: 'templates/profile.html'
           }
+        },
+        data: {
+          access: access.user
         }
       }).state('app.playlists', {
         url: '/playlists',
@@ -104,6 +116,9 @@
             templateUrl: 'templates/test.html',
             controller: 'TestCtrl as ctrl'
           }
+        },
+        data: {
+          access: access.admin
         }
       }).state('app.test-native', {
         url: '/native',
@@ -112,16 +127,19 @@
             templateUrl: 'templates/native-test.html',
             controller: 'NativeTestCtrl as ctrl'
           }
+        },
+        data: {
+          access: access.admin
         }
       });
-      $urlRouterProvider.otherwise('/app/test');
+      $urlRouterProvider.otherwise('/app/playlists');
     }
 
     return Config;
 
   })();
 
-  angular.module('app').config(['$stateProvider', '$urlRouterProvider', Config]);
+  angular.module('app').config(['$stateProvider', '$urlRouterProvider', 'userRoles', 'accessLevels', Config]);
 
 }).call(this);
 
@@ -396,5 +414,68 @@
   })();
 
   angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', TestCtrl]);
+
+}).call(this);
+
+(function() {
+  var Auth;
+
+  Auth = (function() {
+    function Auth($http, $rootScope, $localStorage, roles) {
+      var $storage, anon_user, get_current_user, set_current_user;
+      anon_user = {
+        username: '',
+        authorities: [roles["public"]]
+      };
+      $storage = $localStorage.$default({
+        user: anon_user
+      });
+      get_current_user = function() {
+        if (!$rootScope.user) {
+          $rootScope.user = $storage.user;
+        }
+        return $rootScope.user;
+      };
+      set_current_user = function(user) {
+        $storage.user = user;
+        $rootScope.user = user;
+        return user;
+      };
+      this.userRoles = roles;
+      this.user = get_current_user();
+      this.authorize = (function(_this) {
+        return function(access) {
+          return false;
+        };
+      })(this);
+      this.isLoggedIn = (function(_this) {
+        return function(user) {
+          return false;
+        };
+      })(this);
+      this.login = (function(_this) {
+        return function(user, success, error) {
+          return $http.post('/login', user).success(function(user) {
+            set_current_user(user);
+            return success(user);
+          }).error(error);
+        };
+      })(this);
+      this.logout = (function(_this) {
+        return function(success, error) {
+          return $http.post('/logout').success(function() {
+            set_current_user(anon_user);
+            return success();
+          }).error(error);
+        };
+      })(this);
+      return this;
+    }
+
+    return Auth;
+
+  })();
+
+  angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', 'userRoles', Auth]);
 
 }).call(this);
