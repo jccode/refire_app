@@ -1,6 +1,6 @@
 
 class Config
-	constructor: ($stateProvider, $urlRouterProvider) ->
+	constructor: ($stateProvider, $urlRouterProvider, roles) ->
 		# console.log JSON.stringify roles
 		# console.log JSON.stringify access
 
@@ -24,7 +24,7 @@ class Config
 						templateUrl: 'templates/statistics.html'
 				data:
 					permissions:
-						only: ['user', 'admin']
+						only: [roles.user]
 
 			.state 'app.setting',
 				url: '/setting'
@@ -39,7 +39,7 @@ class Config
 						templateUrl: 'templates/profile.html'
 				data:
 					permissions:
-						only: ['user', 'admin']
+						only: [roles.user]
 				
 			.state 'app.playlists',
 				url: '/playlists'
@@ -63,7 +63,7 @@ class Config
 						controller: 'TestCtrl as ctrl'
 				data:
 					permissions:
-						only: ['admin']
+						only: [roles.admin]
 
 			.state 'app.test-native', 
 				url: '/native'
@@ -76,4 +76,4 @@ class Config
 
 
 
-angular.module('app').config ['$stateProvider', '$urlRouterProvider', Config]
+angular.module('app').config ['$stateProvider', '$urlRouterProvider', 'userRoles', Config]

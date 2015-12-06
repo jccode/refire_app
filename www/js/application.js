@@ -28,6 +28,16 @@
 }).call(this);
 
 (function() {
+  angular.module('app').constant({
+    'userRoles': {
+      user: 'user',
+      admin: 'admin'
+    }
+  });
+
+}).call(this);
+
+(function() {
   var I18N;
 
   I18N = (function() {
@@ -48,9 +58,9 @@
     indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   Roles = (function() {
-    function Roles(Permission, $rootScope) {
-      $rootScope.roles = ['user', 'admin'];
-      Permission.defineManyRoles(['user', 'admin'], function(stateParams, roleName) {
+    function Roles(Permission, $rootScope, roles) {
+      $rootScope.roles = [roles.user];
+      Permission.defineManyRoles([roles.user, roles.admin], function(stateParams, roleName) {
         return indexOf.call($rootScope.roles, roleName) >= 0;
       });
     }
@@ -59,7 +69,7 @@
 
   })();
 
-  angular.module('app').run(['Permission', '$rootScope', Roles]);
+  angular.module('app').run(['Permission', '$rootScope', 'userRoles', Roles]);
 
 }).call(this);
 
@@ -67,7 +77,7 @@
   var Config;
 
   Config = (function() {
-    function Config($stateProvider, $urlRouterProvider) {
+    function Config($stateProvider, $urlRouterProvider, roles) {
       $stateProvider.state('app', {
         url: '/app',
         abstract: true,
@@ -89,7 +99,7 @@
         },
         data: {
           permissions: {
-            only: ['user', 'admin']
+            only: [roles.user]
           }
         }
       }).state('app.setting', {
@@ -108,7 +118,7 @@
         },
         data: {
           permissions: {
-            only: ['user', 'admin']
+            only: [roles.user]
           }
         }
       }).state('app.playlists', {
@@ -137,7 +147,7 @@
         },
         data: {
           permissions: {
-            only: ['admin']
+            only: [roles.admin]
           }
         }
       }).state('app.test-native', {
@@ -156,7 +166,7 @@
 
   })();
 
-  angular.module('app').config(['$stateProvider', '$urlRouterProvider', Config]);
+  angular.module('app').config(['$stateProvider', '$urlRouterProvider', 'userRoles', Config]);
 
 }).call(this);
 
@@ -164,35 +174,73 @@
   var AppCtrl;
 
   AppCtrl = (function() {
-    function AppCtrl($scope, $ionicModal, $timeout) {
-      $scope.loginData = {};
-      $ionicModal.fromTemplateUrl('templates/login.html', {
-        scope: $scope
-      }).then(function(modal) {
-        return $scope.modal = modal;
-      });
-      $scope.closeLogin = function() {
-        return $scope.modal.hide();
-      };
-      $scope.login = function() {
-        return $scope.modal.show();
-      };
-      $scope.doLogin = function() {
-        console.log('Doing login', $scope.loginData);
-        return $timeout(function() {
-          return $scope.closeLogin();
-        }, 1000);
-      };
-      $scope.logout = function() {
+    function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, util) {
+      this.$scope = $scope;
+      this.$rootScope = $rootScope;
+      this.$state = $state;
+      this.$ionicModal = $ionicModal;
+      this.$ionicPopup = $ionicPopup;
+      this.$timeout = $timeout;
+      this.auth = auth;
+      this.util = util;
+      this.loginModal();
+      this.permissionCheck();
+      this.$scope.loginData = {};
+      this.$scope.doLogin = (function(_this) {
+        return function() {
+          console.log('Doing login', _this.$scope.loginData);
+          _this.$state.go(_this.forward);
+          return _this.$timeout(function() {
+            return _this.$scope.closeLogin();
+          }, 1000);
+        };
+      })(this);
+      this.$scope.logout = function() {
         return console.log('Logout');
       };
     }
+
+    AppCtrl.prototype.loginModal = function() {
+      this.$ionicModal.fromTemplateUrl('templates/login.html', {
+        scope: this.$scope
+      }).then((function(_this) {
+        return function(modal) {
+          return _this.modal = modal;
+        };
+      })(this));
+      this.$scope.closeLogin = (function(_this) {
+        return function() {
+          return _this.modal.hide();
+        };
+      })(this);
+      return this.$scope.login = (function(_this) {
+        return function() {
+          return _this.modal.show();
+        };
+      })(this);
+    };
+
+    AppCtrl.prototype.permissionCheck = function() {
+      return this.$scope.$on("$stateChangePermissionDenied", (function(_this) {
+        return function(toState, toParams) {
+          if (!_this.auth.isLoggedIn()) {
+            _this.forward = toParams.name;
+            return _this.$scope.login();
+          } else {
+            return _this.$ionicPopup.alert({
+              title: 'Permission denied',
+              template: 'You don\'t have permission to view this page.'
+            });
+          }
+        };
+      })(this));
+    };
 
     return AppCtrl;
 
   })();
 
-  angular.module('app').controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', AppCtrl]);
+  angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', 'Util', AppCtrl]);
 
 }).call(this);
 
@@ -473,7 +521,7 @@
       })(this);
       this.isLoggedIn = (function(_this) {
         return function(user) {
-          return false;
+          return $rootScope.isLoggedIn || false;
         };
       })(this);
       this.login = (function(_this) {
@@ -500,5 +548,26 @@
   })();
 
   angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', Auth]);
+
+}).call(this);
+
+(function() {
+  var Util;
+
+  Util = (function() {
+    function Util($rootScope, $cordovaToast) {
+      this.$rootScope = $rootScope;
+      this.$cordovaToast = $cordovaToast;
+    }
+
+    Util.prototype.toast = function(msg) {
+      return alert(msg);
+    };
+
+    return Util;
+
+  })();
+
+  angular.module('app').service('Util', ['$rootScope', '$cordovaToast', Util]);
 
 }).call(this);

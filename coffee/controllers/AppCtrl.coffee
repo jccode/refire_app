@@ -1,27 +1,57 @@
 
 class AppCtrl
-	constructor: ($scope, $ionicModal, $timeout) ->
-		$scope.loginData = {}
-		$ionicModal.fromTemplateUrl('templates/login.html',
-			scope: $scope
-		).then (modal)->
-			$scope.modal = modal
+	constructor: (@$scope, @$rootScope, @$state, @$ionicModal, @$ionicPopup, @$timeout, @auth, @util) ->
+		@loginModal()
+		@permissionCheck()
+		
+		@$scope.loginData = {}
 
-		$scope.closeLogin = ->
-			$scope.modal.hide()
+		@$scope.doLogin = =>
+			console.log 'Doing login', @$scope.loginData
 
-		$scope.login = ->
-			$scope.modal.show()
-
-		$scope.doLogin = ->
-			console.log 'Doing login', $scope.loginData
-
-			$timeout ->
-				$scope.closeLogin()
+			# @$rootScope.isLoggedIn = true
+			# @$rootScope.roles = ['user', 'admin']
+			# goto next state
+			@$state.go @forward
+			@$timeout =>
+				@$scope.closeLogin()
 			, 1000
 
-		$scope.logout = ->
+		@$scope.logout = ->
 			console.log 'Logout'
 
+		
 
-angular.module('app').controller 'AppCtrl', ['$scope', '$ionicModal', '$timeout', AppCtrl]
+	loginModal: ->
+		@$ionicModal.fromTemplateUrl('templates/login.html',
+			scope: @$scope
+		).then (modal)=>
+			@modal = modal
+
+		@$scope.closeLogin = =>
+			@modal.hide()
+
+		@$scope.login = =>
+			@modal.show()
+
+	permissionCheck: ->
+		@$scope.$on "$stateChangePermissionDenied", (toState, toParams)=>
+			if not @auth.isLoggedIn()
+				@forward = toParams.name
+				@$scope.login()
+			else
+				@$ionicPopup.alert
+					title: 'Permission denied'
+					template: 'You don\'t have permission to view this page.'
+
+
+angular.module('app').controller 'AppCtrl', [
+	'$scope',
+	'$rootScope',
+	'$state', 
+	'$ionicModal',
+	'$ionicPopup',
+	'$timeout',
+	'Auth',
+	'Util',
+	AppCtrl]

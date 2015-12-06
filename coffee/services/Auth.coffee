@@ -29,7 +29,7 @@ class Auth
 			false
 
 		@isLoggedIn = (user) =>
-			false
+			$rootScope.isLoggedIn || false
 
 		@login = (user, success, error) =>
 			$http

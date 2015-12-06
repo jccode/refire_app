@@ -1,9 +1,9 @@
 
 class Roles
-	constructor: (Permission, $rootScope) ->
-		$rootScope.roles = ['user', 'admin']
-		Permission.defineManyRoles ['user','admin'], (stateParams, roleName)->
+	constructor: (Permission, $rootScope, roles) ->
+		$rootScope.roles = [roles.user]
+		Permission.defineManyRoles [roles.user, roles.admin], (stateParams, roleName)->
 			return roleName in $rootScope.roles
 
 
-angular.module('app').run ['Permission', '$rootScope', Roles]
+angular.module('app').run ['Permission', '$rootScope', 'userRoles', Roles]
