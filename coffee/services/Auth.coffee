@@ -18,18 +18,19 @@ class Auth
 			$rootScope.user = user
 			user
 
+		role_prefix = 'ROLE_'
+		l = role_prefix.length
 
 		# object to return
-		# 
-		@userRoles = {}
-		
 		@user = get_current_user()
 		
-		@authorize = (access) =>
-			false
+		@authorize = (role) =>
+			auths = (auth[l..].toLowerCase() for auth in @user.authorities)
+			role in auths
 
 		@isLoggedIn = (user) =>
-			$rootScope.isLoggedIn || false
+			user = user || @user
+			user.username isnt ''
 
 		@login = (user, success, error) =>
 			$http

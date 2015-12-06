@@ -54,14 +54,14 @@
 }).call(this);
 
 (function() {
-  var Roles,
-    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+  var Roles;
 
   Roles = (function() {
-    function Roles(Permission, $rootScope, roles) {
-      $rootScope.roles = [roles.user];
-      Permission.defineManyRoles([roles.user, roles.admin], function(stateParams, roleName) {
-        return indexOf.call($rootScope.roles, roleName) >= 0;
+    function Roles(Permission, $rootScope, auth, roles) {
+      var declare_roles;
+      declare_roles = [roles.user, roles.admin];
+      Permission.defineManyRoles(declare_roles, function(stateParams, roleName) {
+        return auth.authorize(roleName);
       });
     }
 
@@ -69,7 +69,7 @@
 
   })();
 
-  angular.module('app').run(['Permission', '$rootScope', 'userRoles', Roles]);
+  angular.module('app').run(['Permission', '$rootScope', 'Auth', 'userRoles', Roles]);
 
 }).call(this);
 
@@ -489,11 +489,12 @@
 }).call(this);
 
 (function() {
-  var Auth;
+  var Auth,
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   Auth = (function() {
     function Auth($http, $rootScope, $localStorage) {
-      var $storage, anon_user, get_current_user, set_current_user;
+      var $storage, anon_user, get_current_user, l, role_prefix, set_current_user;
       anon_user = {
         username: '',
         authorities: []
@@ -512,16 +513,29 @@
         $rootScope.user = user;
         return user;
       };
-      this.userRoles = {};
+      role_prefix = 'ROLE_';
+      l = role_prefix.length;
       this.user = get_current_user();
       this.authorize = (function(_this) {
-        return function(access) {
-          return false;
+        return function(role) {
+          var auth, auths;
+          auths = (function() {
+            var i, len, ref, results;
+            ref = this.user.authorities;
+            results = [];
+            for (i = 0, len = ref.length; i < len; i++) {
+              auth = ref[i];
+              results.push(auth.slice(l).toLowerCase());
+            }
+            return results;
+          }).call(_this);
+          return indexOf.call(auths, role) >= 0;
         };
       })(this);
       this.isLoggedIn = (function(_this) {
         return function(user) {
-          return $rootScope.isLoggedIn || false;
+          user = user || _this.user;
+          return user.username !== '';
         };
       })(this);
       this.login = (function(_this) {
