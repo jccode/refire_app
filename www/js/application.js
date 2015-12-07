@@ -7,15 +7,16 @@
   var Bootstrap;
 
   Bootstrap = (function() {
-    function Bootstrap($ionicPlatform) {
+    function Bootstrap($ionicPlatform, $http) {
       $ionicPlatform.ready(function() {
         if (window.cordova && window.cordova.plugins.Keyboard) {
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
           cordova.plugins.Keyboard.disableScroll(true);
         }
         if (window.StatusBar) {
-          return StatusBar.styleDefault();
+          StatusBar.styleDefault();
         }
+        return $http.get('http://localhost:8080/');
       });
     }
 
@@ -23,7 +24,7 @@
 
   })();
 
-  angular.module('app').run(['$ionicPlatform', Bootstrap]);
+  angular.module('app').run(['$ionicPlatform', '$http', Bootstrap]);
 
 }).call(this);
 
@@ -167,22 +168,6 @@
   })();
 
   angular.module('app').config(['$stateProvider', '$urlRouterProvider', 'userRoles', Config]);
-
-}).call(this);
-
-(function() {
-  var Ajax;
-
-  Ajax = (function() {
-    function Ajax($httpProvider) {
-      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
-    }
-
-    return Ajax;
-
-  })();
-
-  angular.module('app').config(['$httpProvider', Ajax]);
 
 }).call(this);
 
@@ -509,6 +494,22 @@
 }).call(this);
 
 (function() {
+  var Ajax;
+
+  Ajax = (function() {
+    function Ajax($httpProvider) {
+      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
+    }
+
+    return Ajax;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', Ajax]);
+
+}).call(this);
+
+(function() {
   var Auth,
     indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
@@ -560,9 +561,14 @@
       })(this);
       this.login = (function(_this) {
         return function(user, success, error) {
-          var server_url;
+          var headers, server_url;
           server_url = 'http://localhost:8080';
-          return $http.post(server_url + '/login', user).success(function(user) {
+          headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          };
+          return $http.post(server_url + '/login', user, {
+            headers: headers
+          }).success(function(user) {
             set_current_user(user);
             return success(user);
           }).error(error);

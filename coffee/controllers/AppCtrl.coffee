@@ -28,7 +28,6 @@ class AppCtrl
 		@$scope.logout = ->
 			console.log 'Logout'
 
-		
 
 	loginModal: ->
 		@$ionicModal.fromTemplateUrl('templates/login.html',
