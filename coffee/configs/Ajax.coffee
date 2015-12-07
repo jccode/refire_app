@@ -1,7 +1,21 @@
 
 class Ajax
 	constructor: ($httpProvider) ->
-		$httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest"
 
+		# http://stackoverflow.com/questions/1714786/querystring-encoding-of-a-javascript-object
+		serialize = (obj) ->
+			return Object.keys(obj).reduce((a,k)->
+				a.push(k+'='+encodeURIComponent(obj[k]))
+				return a
+			,[]).join('&')
+		
+		$httpProvider.defaults.withCredentials = true
+		$httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest"
+		$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
+		$httpProvider.defaults.transformRequest = [ (data)=>
+			if angular.isObject(data) and String(data) isnt '[Object File]' then serialize(data) else data
+			]
+
+	
 
 angular.module('app').config ['$httpProvider', Ajax]

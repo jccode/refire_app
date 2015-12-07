@@ -6,6 +6,7 @@ class AppCtrl
 		
 		@$scope.loginData = {}
 
+		self = @
 		@$scope.doLogin = =>
 			console.log 'Doing login', @$scope.loginData
 
@@ -14,8 +15,9 @@ class AppCtrl
 			# goto next state
 			@auth.login @$scope.loginData, (user)->
 				console.log 'login success.', JSON.stringify user
-				@$state.go @forward
-				@$scope.closeLogin()
+				console.log 'goto '+self.forward
+				# self.$state.go self.forward, {}, {notify: false}
+				self.$scope.closeLogin()
 			, (e)->
 				console.log 'login failed'
 				console.log e

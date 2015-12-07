@@ -25,7 +25,8 @@ class Auth
 		@user = get_current_user()
 		
 		@authorize = (role) =>
-			auths = (auth[l..].toLowerCase() for auth in @user.authorities)
+			console.log @user.authorities
+			auths = (auth.authority[l..].toLowerCase() for auth in @user.authorities)
 			role in auths
 
 		@isLoggedIn = (user) =>
@@ -33,11 +34,11 @@ class Auth
 			user.username isnt ''
 
 		@login = (user, success, error) =>
-			server_url='http://localhost:8080'
-			headers = 
-				'Content-Type': 'application/x-www-form-urlencoded'
+			server_url='http://192.168.1.103:8080'
+			# headers = 
+			# 	'Content-Type': 'application/x-www-form-urlencoded'
 			$http
-				.post(server_url+'/login', user, {headers: headers})
+				.post(server_url+'/login', user)
 				.success (user)->
 					set_current_user user
 					success user

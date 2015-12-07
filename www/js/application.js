@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic', 'ngCordova', 'gettext', 'ngStorage', 'permission']);
+  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'gettext', 'ngStorage', 'permission']);
 
 }).call(this);
 
@@ -16,7 +16,7 @@
         if (window.StatusBar) {
           StatusBar.styleDefault();
         }
-        return $http.get('http://localhost:8080/');
+        return $http.get('http://192.168.1.103:8080/guest/angular_login');
       });
     }
 
@@ -172,10 +172,47 @@
 }).call(this);
 
 (function() {
+  var Ajax;
+
+  Ajax = (function() {
+    function Ajax($httpProvider) {
+      var serialize;
+      serialize = function(obj) {
+        return Object.keys(obj).reduce(function(a, k) {
+          a.push(k + '=' + encodeURIComponent(obj[k]));
+          return a;
+        }, []).join('&');
+      };
+      $httpProvider.defaults.withCredentials = true;
+      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
+      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $httpProvider.defaults.transformRequest = [
+        (function(_this) {
+          return function(data) {
+            if (angular.isObject(data) && String(data) !== '[Object File]') {
+              return serialize(data);
+            } else {
+              return data;
+            }
+          };
+        })(this)
+      ];
+    }
+
+    return Ajax;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', Ajax]);
+
+}).call(this);
+
+(function() {
   var AppCtrl;
 
   AppCtrl = (function() {
     function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, util) {
+      var self;
       this.$scope = $scope;
       this.$rootScope = $rootScope;
       this.$state = $state;
@@ -187,13 +224,14 @@
       this.loginModal();
       this.permissionCheck();
       this.$scope.loginData = {};
+      self = this;
       this.$scope.doLogin = (function(_this) {
         return function() {
           console.log('Doing login', _this.$scope.loginData);
           return _this.auth.login(_this.$scope.loginData, function(user) {
             console.log('login success.', JSON.stringify(user));
-            this.$state.go(this.forward);
-            return this.$scope.closeLogin();
+            console.log('goto ' + self.forward);
+            return self.$scope.closeLogin();
           }, function(e) {
             console.log('login failed');
             return console.log(e);
@@ -494,18 +532,38 @@
 }).call(this);
 
 (function() {
-  var Ajax;
+  var Config, CsrfInterceptor,
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  Ajax = (function() {
-    function Ajax($httpProvider) {
-      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
+  CsrfInterceptor = (function() {
+    function CsrfInterceptor($cookies) {
+      var allowMethods, cookieName, headerName;
+      headerName = 'X-XSRF-TOKEN';
+      cookieName = 'XSRF-TOKEN';
+      allowMethods = ['GET'];
+      return {
+        'request': function(request) {
+          var ref;
+          if (ref = request.method, indexOf.call(allowMethods, ref) < 0) {
+            request.headers[headerName] = $cookies.get(cookieName);
+          }
+          return request;
+        }
+      };
     }
 
-    return Ajax;
+    return CsrfInterceptor;
 
   })();
 
-  angular.module('app').config(['$httpProvider', Ajax]);
+  Config = (function() {
+    function Config($httpProvider) {
+      $httpProvider.interceptors.push(['$cookies', CsrfInterceptor]);
+    }
+
+    return Config;
+
+  })();
 
 }).call(this);
 
@@ -540,13 +598,14 @@
       this.authorize = (function(_this) {
         return function(role) {
           var auth, auths;
+          console.log(_this.user.authorities);
           auths = (function() {
             var i, len, ref, results;
             ref = this.user.authorities;
             results = [];
             for (i = 0, len = ref.length; i < len; i++) {
               auth = ref[i];
-              results.push(auth.slice(l).toLowerCase());
+              results.push(auth.authority.slice(l).toLowerCase());
             }
             return results;
           }).call(_this);
@@ -561,14 +620,9 @@
       })(this);
       this.login = (function(_this) {
         return function(user, success, error) {
-          var headers, server_url;
-          server_url = 'http://localhost:8080';
-          headers = {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          };
-          return $http.post(server_url + '/login', user, {
-            headers: headers
-          }).success(function(user) {
+          var server_url;
+          server_url = 'http://192.168.1.103:8080';
+          return $http.post(server_url + '/login', user).success(function(user) {
             set_current_user(user);
             return success(user);
           }).error(error);
