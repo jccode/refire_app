@@ -171,6 +171,22 @@
 }).call(this);
 
 (function() {
+  var Ajax;
+
+  Ajax = (function() {
+    function Ajax($httpProvider) {
+      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
+    }
+
+    return Ajax;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', Ajax]);
+
+}).call(this);
+
+(function() {
   var AppCtrl;
 
   AppCtrl = (function() {
@@ -189,10 +205,14 @@
       this.$scope.doLogin = (function(_this) {
         return function() {
           console.log('Doing login', _this.$scope.loginData);
-          _this.$state.go(_this.forward);
-          return _this.$timeout(function() {
-            return _this.$scope.closeLogin();
-          }, 1000);
+          return _this.auth.login(_this.$scope.loginData, function(user) {
+            console.log('login success.', JSON.stringify(user));
+            this.$state.go(this.forward);
+            return this.$scope.closeLogin();
+          }, function(e) {
+            console.log('login failed');
+            return console.log(e);
+          });
         };
       })(this);
       this.$scope.logout = function() {
@@ -540,7 +560,9 @@
       })(this);
       this.login = (function(_this) {
         return function(user, success, error) {
-          return $http.post('/login', user).success(function(user) {
+          var server_url;
+          server_url = 'http://localhost:8080';
+          return $http.post(server_url + '/login', user).success(function(user) {
             set_current_user(user);
             return success(user);
           }).error(error);
@@ -548,7 +570,9 @@
       })(this);
       this.logout = (function(_this) {
         return function(success, error) {
-          return $http.post('/logout').success(function() {
+          var server_url;
+          server_url = 'http://localhost:8080';
+          return $http.post(server_url + '/logout').success(function() {
             set_current_user(anon_user);
             return success();
           }).error(error);

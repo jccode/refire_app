@@ -12,10 +12,18 @@ class AppCtrl
 			# @$rootScope.isLoggedIn = true
 			# @$rootScope.roles = ['user', 'admin']
 			# goto next state
-			@$state.go @forward
-			@$timeout =>
+			@auth.login @$scope.loginData, (user)->
+				console.log 'login success.', JSON.stringify user
+				@$state.go @forward
 				@$scope.closeLogin()
-			, 1000
+			, (e)->
+				console.log 'login failed'
+				console.log e
+			
+			# @$state.go @forward
+			# @$timeout =>
+			# 	@$scope.closeLogin()
+			# , 1000
 
 		@$scope.logout = ->
 			console.log 'Logout'

@@ -33,16 +33,18 @@ class Auth
 			user.username isnt ''
 
 		@login = (user, success, error) =>
+			server_url='http://localhost:8080'
 			$http
-				.post('/login', user)
+				.post(server_url+'/login', user)
 				.success (user)->
 					set_current_user user
 					success user
 				.error error
 
 		@logout = (success, error) =>
+			server_url='http://localhost:8080'
 			$http
-				.post('/logout')
+				.post(server_url+'/logout')
 				.success ->
 					set_current_user anon_user
 					success()
