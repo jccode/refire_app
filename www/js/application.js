@@ -7,16 +7,15 @@
   var Bootstrap;
 
   Bootstrap = (function() {
-    function Bootstrap($ionicPlatform, $http) {
+    function Bootstrap($ionicPlatform, $http, settings) {
       $ionicPlatform.ready(function() {
         if (window.cordova && window.cordova.plugins.Keyboard) {
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
           cordova.plugins.Keyboard.disableScroll(true);
         }
         if (window.StatusBar) {
-          StatusBar.styleDefault();
+          return StatusBar.styleDefault();
         }
-        return $http.get('http://192.168.1.103:8080/guest/angular_login');
       });
     }
 
@@ -24,7 +23,7 @@
 
   })();
 
-  angular.module('app').run(['$ionicPlatform', '$http', Bootstrap]);
+  angular.module('app').run(['$ionicPlatform', '$http', 'settings', Bootstrap]);
 
 }).call(this);
 
@@ -168,6 +167,15 @@
   })();
 
   angular.module('app').config(['$stateProvider', '$urlRouterProvider', 'userRoles', Config]);
+
+}).call(this);
+
+(function() {
+  angular.module('app').constant({
+    'settings': {
+      apiurl: 'http://localhost:8080'
+    }
+  });
 
 }).call(this);
 
@@ -578,7 +586,7 @@
     indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   Auth = (function() {
-    function Auth($http, $rootScope, $localStorage) {
+    function Auth($http, $rootScope, $localStorage, settings) {
       var $storage, anon_user, get_current_user, l, role_prefix, set_current_user;
       anon_user = {
         username: '',
@@ -626,9 +634,7 @@
       })(this);
       this.login = (function(_this) {
         return function(user, success, error) {
-          var server_url;
-          server_url = 'http://192.168.1.103:8080';
-          return $http.post(server_url + '/login', user).success(function(user) {
+          return $http.post(settings.apiurl + '/login', user).success(function(user) {
             set_current_user(user);
             return success(user);
           }).error(error);
@@ -636,9 +642,7 @@
       })(this);
       this.logout = (function(_this) {
         return function(success, error) {
-          var server_url;
-          server_url = 'http://localhost:8080';
-          return $http.post(server_url + '/logout').success(function() {
+          return $http.post(settings.apiurl + '/logout').success(function() {
             set_current_user(anon_user);
             return success();
           }).error(error);
@@ -651,7 +655,7 @@
 
   })();
 
-  angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', Auth]);
+  angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', 'settings', Auth]);
 
 }).call(this);
 

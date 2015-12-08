@@ -1,6 +1,6 @@
 
 class Auth
-	constructor: ($http, $rootScope, $localStorage) ->
+	constructor: ($http, $rootScope, $localStorage, settings) ->
 		anon_user =
 			username: ''
 			authorities: []
@@ -34,20 +34,16 @@ class Auth
 			user.username isnt ''
 
 		@login = (user, success, error) =>
-			server_url='http://192.168.1.103:8080'
-			# headers = 
-			# 	'Content-Type': 'application/x-www-form-urlencoded'
 			$http
-				.post(server_url+'/login', user)
+				.post(settings.apiurl+'/login', user)
 				.success (user)->
 					set_current_user user
 					success user
 				.error error
 
 		@logout = (success, error) =>
-			server_url='http://localhost:8080'
 			$http
-				.post(server_url+'/logout')
+				.post(settings.apiurl+'/logout')
 				.success ->
 					set_current_user anon_user
 					success()
@@ -56,4 +52,4 @@ class Auth
 		return @
 
 
-angular.module('app').factory 'Auth', ['$http', '$rootScope', '$localStorage', Auth]
+angular.module('app').factory 'Auth', ['$http', '$rootScope', '$localStorage', 'settings', Auth]

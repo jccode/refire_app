@@ -1,6 +1,6 @@
 
 class Bootstrap
-	constructor: ($ionicPlatform, $http) ->
+	constructor: ($ionicPlatform, $http, settings) ->
 		$ionicPlatform.ready ->
 			if window.cordova and window.cordova.plugins.Keyboard
 				cordova.plugins.Keyboard.hideKeyboardAccessoryBar true
@@ -8,7 +8,7 @@ class Bootstrap
 			if window.StatusBar
 				StatusBar.styleDefault()
 
-			$http.get('http://192.168.1.103:8080/guest/angular_login')
+			# $http.get settings.apiurl+'/guest/angular_login'
 
 
-angular.module('app').run ['$ionicPlatform', '$http', Bootstrap]
+angular.module('app').run ['$ionicPlatform', '$http', 'settings', Bootstrap]

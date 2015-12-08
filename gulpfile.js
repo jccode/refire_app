@@ -9,6 +9,9 @@ var sh = require('shelljs');
 var coffee = require('gulp-coffee');
 var gettext = require('gulp-angular-gettext');
 var shell = require('gulp-shell');
+var replace = require('gulp-replace-task');
+var args = require('yargs').argv;
+var fs = require('fs');
 
 var paths = {
     sass: ['./scss/**/*.scss'],
@@ -89,4 +92,18 @@ gulp.task('translate', function() {
         }))
         .pipe(concat('translations.js'))
         .pipe(gulp.dest('./www/js'));
+});
+
+gulp.task('replace', function() {
+    var env = args.env || 'dev';
+    var filename = env + '.json';
+    var settings = JSON.parse(fs.readFileSync('./config/env/'+filename, 'utf-8'));
+
+    gulp.src('./config/settings.coffee')
+        .pipe(replace({
+            patterns: [
+                {match: 'apiurl', replacement: settings.apiurl}
+            ]
+        }))
+        .pipe(gulp.dest('./coffee/'));
 });
