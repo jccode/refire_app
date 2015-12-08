@@ -211,7 +211,7 @@
   var AppCtrl;
 
   AppCtrl = (function() {
-    function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, util) {
+    function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, $ionicHistory) {
       var self;
       this.$scope = $scope;
       this.$rootScope = $rootScope;
@@ -220,7 +220,7 @@
       this.$ionicPopup = $ionicPopup;
       this.$timeout = $timeout;
       this.auth = auth;
-      this.util = util;
+      this.$ionicHistory = $ionicHistory;
       this.loginModal();
       this.permissionCheck();
       this.$scope.loginData = {};
@@ -230,8 +230,12 @@
           console.log('Doing login', _this.$scope.loginData);
           return _this.auth.login(_this.$scope.loginData, function(user) {
             console.log('login success.', JSON.stringify(user));
-            console.log('goto ' + self.forward);
-            return self.$scope.closeLogin();
+            _this.$ionicHistory.nextViewOptions({
+              disableBack: true
+            });
+            _this.$state.go(_this.forward.name);
+            console.log(self.forward.name);
+            return _this.$scope.closeLogin();
           }, function(e) {
             console.log('login failed');
             return console.log(e);
@@ -267,7 +271,9 @@
       return this.$scope.$on("$stateChangePermissionDenied", (function(_this) {
         return function(toState, toParams) {
           if (!_this.auth.isLoggedIn()) {
-            _this.forward = toParams.name;
+            console.log(toState);
+            console.log(toParams);
+            _this.forward = toParams;
             return _this.$scope.login();
           } else {
             return _this.$ionicPopup.alert({
@@ -283,7 +289,7 @@
 
   })();
 
-  angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', 'Util', AppCtrl]);
+  angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', '$ionicHistory', AppCtrl]);
 
 }).call(this);
 
@@ -594,14 +600,14 @@
       };
       role_prefix = 'ROLE_';
       l = role_prefix.length;
-      this.user = get_current_user();
+      this.user = get_current_user;
       this.authorize = (function(_this) {
         return function(role) {
           var auth, auths;
-          console.log(_this.user.authorities);
+          console.log(_this.user().authorities);
           auths = (function() {
             var i, len, ref, results;
-            ref = this.user.authorities;
+            ref = this.user().authorities;
             results = [];
             for (i = 0, len = ref.length; i < len; i++) {
               auth = ref[i];
@@ -614,7 +620,7 @@
       })(this);
       this.isLoggedIn = (function(_this) {
         return function(user) {
-          user = user || _this.user;
+          user = user || _this.user();
           return user.username !== '';
         };
       })(this);

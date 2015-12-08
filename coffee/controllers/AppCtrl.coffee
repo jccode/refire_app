@@ -1,23 +1,29 @@
 
 class AppCtrl
-	constructor: (@$scope, @$rootScope, @$state, @$ionicModal, @$ionicPopup, @$timeout, @auth, @util) ->
+	constructor: (@$scope, @$rootScope, @$state, @$ionicModal, @$ionicPopup, @$timeout, @auth, @$ionicHistory) ->
 		@loginModal()
 		@permissionCheck()
 		
 		@$scope.loginData = {}
 
 		self = @
-		@$scope.doLogin = =>
+		@$scope.doLogin = ()=>
 			console.log 'Doing login', @$scope.loginData
 
 			# @$rootScope.isLoggedIn = true
 			# @$rootScope.roles = ['user', 'admin']
 			# goto next state
-			@auth.login @$scope.loginData, (user)->
+			@auth.login @$scope.loginData, (user)=>
 				console.log 'login success.', JSON.stringify user
-				console.log 'goto '+self.forward
-				# self.$state.go self.forward, {}, {notify: false}
-				self.$scope.closeLogin()
+				# console.log 'goto '+self.forward
+				#
+				@$ionicHistory.nextViewOptions
+					disableBack: true
+				@$state.go @forward.name
+				console.log self.forward.name
+				# self.forward.data.permissions.redirectTo = self.forward.name
+				@$scope.closeLogin()
+				# self.$state.go self.forward.name, {}, {location:'replace',notify:false}
 			, (e)->
 				console.log 'login failed'
 				console.log e
@@ -46,7 +52,9 @@ class AppCtrl
 	permissionCheck: ->
 		@$scope.$on "$stateChangePermissionDenied", (toState, toParams)=>
 			if not @auth.isLoggedIn()
-				@forward = toParams.name
+				console.log toState
+				console.log toParams
+				@forward = toParams
 				@$scope.login()
 			else
 				@$ionicPopup.alert
@@ -62,5 +70,5 @@ angular.module('app').controller 'AppCtrl', [
 	'$ionicPopup',
 	'$timeout',
 	'Auth',
-	'Util',
+	'$ionicHistory',
 	AppCtrl]

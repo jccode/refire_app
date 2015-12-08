@@ -22,15 +22,15 @@ class Auth
 		l = role_prefix.length
 
 		# object to return
-		@user = get_current_user()
+		@user = get_current_user
 		
 		@authorize = (role) =>
-			console.log @user.authorities
-			auths = (auth.authority[l..].toLowerCase() for auth in @user.authorities)
+			console.log @user().authorities
+			auths = (auth.authority[l..].toLowerCase() for auth in @user().authorities)
 			role in auths
 
 		@isLoggedIn = (user) =>
-			user = user || @user
+			user = user || @user()
 			user.username isnt ''
 
 		@login = (user, success, error) =>
