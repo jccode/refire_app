@@ -173,45 +173,9 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      apiurl: 'http://localhost:8080'
+      apiurl: 'http://192.168.1.103:8080'
     }
   });
-
-}).call(this);
-
-(function() {
-  var Ajax;
-
-  Ajax = (function() {
-    function Ajax($httpProvider) {
-      var serialize;
-      serialize = function(obj) {
-        return Object.keys(obj).reduce(function(a, k) {
-          a.push(k + '=' + encodeURIComponent(obj[k]));
-          return a;
-        }, []).join('&');
-      };
-      $httpProvider.defaults.withCredentials = true;
-      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
-      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-      $httpProvider.defaults.transformRequest = [
-        (function(_this) {
-          return function(data) {
-            if (angular.isObject(data) && String(data) !== '[Object File]') {
-              return serialize(data);
-            } else {
-              return data;
-            }
-          };
-        })(this)
-      ];
-    }
-
-    return Ajax;
-
-  })();
-
-  angular.module('app').config(['$httpProvider', Ajax]);
 
 }).call(this);
 
@@ -219,7 +183,7 @@
   var AppCtrl;
 
   AppCtrl = (function() {
-    function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, $ionicHistory) {
+    function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, $ionicHistory, Util) {
       var self;
       this.$scope = $scope;
       this.$rootScope = $rootScope;
@@ -229,30 +193,42 @@
       this.$timeout = $timeout;
       this.auth = auth;
       this.$ionicHistory = $ionicHistory;
+      this.Util = Util;
       this.loginModal();
       this.permissionCheck();
       this.$scope.loginData = {};
       self = this;
       this.$scope.doLogin = (function(_this) {
         return function() {
-          console.log('Doing login', _this.$scope.loginData);
+          console.log('Doing login', JSON.stringify(_this.$scope.loginData));
           return _this.auth.login(_this.$scope.loginData, function(user) {
             console.log('login success.', JSON.stringify(user));
             _this.$ionicHistory.nextViewOptions({
               disableBack: true
             });
             _this.$state.go(_this.forward.name);
-            console.log(self.forward.name);
             return _this.$scope.closeLogin();
           }, function(e) {
-            console.log('login failed');
-            return console.log(e);
+            this.Util.toast('login failed.' + JSON.stringify(e));
+            return console.log('login failed', JSON.stringify(e));
           });
         };
       })(this);
-      this.$scope.logout = function() {
-        return console.log('Logout');
-      };
+      this.$scope.logout = (function(_this) {
+        return function() {
+          return _this.auth.logout(function() {
+            _this.Util.toast('logout successful');
+            console.log('logout successful');
+            _this.$ionicHistory.nextViewOptions({
+              disableBack: true
+            });
+            return _this.$state.go('app.playlists');
+          }, function(e) {
+            _this.Util.toast('logout failed. ' + JSON.stringify(e));
+            return console.log('logout failed. ' + JSON.stringify(e));
+          });
+        };
+      })(this);
     }
 
     AppCtrl.prototype.loginModal = function() {
@@ -297,7 +273,7 @@
 
   })();
 
-  angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', '$ionicHistory', AppCtrl]);
+  angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', '$ionicHistory', 'Util', AppCtrl]);
 
 }).call(this);
 
@@ -305,15 +281,64 @@
   var NativeTestCtrl;
 
   NativeTestCtrl = (function() {
-    function NativeTestCtrl($scope, $cordovaDevice, $cordovaToast, $cordovaLocalNotification) {
+    function NativeTestCtrl($scope, settings, $ionicPopup, Util, $cordovaDevice, $cordovaToast, $cordovaLocalNotification, $cordovaImagePicker, $cordovaFileTransfer) {
       this.$scope = $scope;
+      this.settings = settings;
+      this.$ionicPopup = $ionicPopup;
+      this.Util = Util;
       this.$cordovaDevice = $cordovaDevice;
       this.$cordovaToast = $cordovaToast;
       this.$cordovaLocalNotification = $cordovaLocalNotification;
+      this.$cordovaImagePicker = $cordovaImagePicker;
+      this.$cordovaFileTransfer = $cordovaFileTransfer;
       this.deviceInfo();
       this.toast();
       this.localNotification();
+      this.imagePicker();
     }
+
+    NativeTestCtrl.prototype.imagePicker = function() {
+      var options;
+      this.$scope.imgloaded = false;
+      options = {
+        maximumImagesCount: 1,
+        width: 800,
+        height: 800,
+        quality: 90
+      };
+      this.$scope.get_pictures = (function(_this) {
+        return function() {
+          return _this.$cordovaImagePicker.getPictures(options).then(function(results) {
+            console.log('img url:', JSON.stringify(results));
+            _this.$scope.imgurl = results[0];
+            return _this.$scope.imgloaded = true;
+          }, function(error) {
+            return this.$ionicPopup.alert(JSON.stringify(error));
+          });
+        };
+      })(this);
+      return this.$scope.upload_img = (function(_this) {
+        return function() {
+          var name, path, upload_options;
+          path = _this.$scope.imgurl;
+          name = path.substring(path.lastIndexOf('/') + 1);
+          upload_options = {
+            fileKey: 'file',
+            fileName: name,
+            params: {
+              name: name
+            }
+          };
+          return _this.$cordovaFileTransfer.upload(_this.settings.apiurl + '/api/upload', path, upload_options).then(function(result) {
+            console.log('upload success! ', JSON.stringify(result));
+            return this.Util.toast('upload success! ' + JSON.stringify(result));
+          }, function(err) {
+            console.log('upload failed! ', JSON.stringify(err));
+            return this.Util.toast('upload failed! ' + JSON.stringify(result));
+          });
+        };
+      })(this);
+    };
 
     NativeTestCtrl.prototype.deviceInfo = function() {
       return this.$scope.retrieve_device = (function(_this) {
@@ -425,7 +450,7 @@
 
   })();
 
-  angular.module('app').controller('NativeTestCtrl', ['$scope', '$cordovaDevice', '$cordovaToast', '$cordovaLocalNotification', NativeTestCtrl]);
+  angular.module('app').controller('NativeTestCtrl', ['$scope', 'settings', '$ionicPopup', 'Util', '$cordovaDevice', '$cordovaToast', '$cordovaLocalNotification', '$cordovaImagePicker', '$cordovaFileTransfer', NativeTestCtrl]);
 
 }).call(this);
 
@@ -546,38 +571,38 @@
 }).call(this);
 
 (function() {
-  var Config, CsrfInterceptor,
-    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+  var Ajax;
 
-  CsrfInterceptor = (function() {
-    function CsrfInterceptor($cookies) {
-      var allowMethods, cookieName, headerName;
-      headerName = 'X-XSRF-TOKEN';
-      cookieName = 'XSRF-TOKEN';
-      allowMethods = ['GET'];
-      return {
-        'request': function(request) {
-          var ref;
-          if (ref = request.method, indexOf.call(allowMethods, ref) < 0) {
-            request.headers[headerName] = $cookies.get(cookieName);
-          }
-          return request;
-        }
+  Ajax = (function() {
+    function Ajax($httpProvider) {
+      var serialize;
+      serialize = function(obj) {
+        return Object.keys(obj).reduce(function(a, k) {
+          a.push(k + '=' + encodeURIComponent(obj[k]));
+          return a;
+        }, []).join('&');
       };
+      $httpProvider.defaults.withCredentials = true;
+      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
+      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $httpProvider.defaults.transformRequest = [
+        (function(_this) {
+          return function(data) {
+            if (angular.isObject(data) && String(data) !== '[Object File]') {
+              return serialize(data);
+            } else {
+              return data;
+            }
+          };
+        })(this)
+      ];
     }
 
-    return CsrfInterceptor;
+    return Ajax;
 
   })();
 
-  Config = (function() {
-    function Config($httpProvider) {
-      $httpProvider.interceptors.push(['$cookies', CsrfInterceptor]);
-    }
-
-    return Config;
-
-  })();
+  angular.module('app').config(['$httpProvider', Ajax]);
 
 }).call(this);
 
@@ -663,19 +688,69 @@
   var Util;
 
   Util = (function() {
-    function Util($rootScope, $cordovaToast) {
+    function Util($rootScope, $window, $ionicPopup, $cordovaToast) {
       this.$rootScope = $rootScope;
+      this.$window = $window;
+      this.$ionicPopup = $ionicPopup;
       this.$cordovaToast = $cordovaToast;
     }
 
-    Util.prototype.toast = function(msg) {
-      return alert(msg);
+    Util.prototype.toast = function(msg, fn) {
+      if (this.$window.cordova) {
+        return this.$cordovaToast.show(msg, 'short', 'bottom').then(function(success) {
+          return fn('ok');
+        }, function(error) {
+          return fn(error);
+        });
+      } else {
+        return this.$ionicPopup.alert({
+          template: msg
+        }).then(function(res) {
+          return fn(res);
+        });
+      }
     };
 
     return Util;
 
   })();
 
-  angular.module('app').service('Util', ['$rootScope', '$cordovaToast', Util]);
+  angular.module('app').service('Util', ['$rootScope', '$window', '$ionicPopup', '$cordovaToast', Util]);
+
+}).call(this);
+
+(function() {
+  var Config, CsrfInterceptor,
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  CsrfInterceptor = (function() {
+    function CsrfInterceptor($cookies) {
+      var allowMethods, cookieName, headerName;
+      headerName = 'X-XSRF-TOKEN';
+      cookieName = 'XSRF-TOKEN';
+      allowMethods = ['GET'];
+      return {
+        'request': function(request) {
+          var ref;
+          if (ref = request.method, indexOf.call(allowMethods, ref) < 0) {
+            request.headers[headerName] = $cookies.get(cookieName);
+          }
+          return request;
+        }
+      };
+    }
+
+    return CsrfInterceptor;
+
+  })();
+
+  Config = (function() {
+    function Config($httpProvider) {
+      $httpProvider.interceptors.push(['$cookies', CsrfInterceptor]);
+    }
+
+    return Config;
+
+  })();
 
 }).call(this);

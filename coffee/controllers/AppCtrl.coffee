@@ -1,6 +1,6 @@
 
 class AppCtrl
-	constructor: (@$scope, @$rootScope, @$state, @$ionicModal, @$ionicPopup, @$timeout, @auth, @$ionicHistory) ->
+	constructor: (@$scope, @$rootScope, @$state, @$ionicModal, @$ionicPopup, @$timeout, @auth, @$ionicHistory, @Util) ->
 		@loginModal()
 		@permissionCheck()
 		
@@ -8,7 +8,7 @@ class AppCtrl
 
 		self = @
 		@$scope.doLogin = ()=>
-			console.log 'Doing login', @$scope.loginData
+			console.log 'Doing login', JSON.stringify @$scope.loginData
 
 			# @$rootScope.isLoggedIn = true
 			# @$rootScope.roles = ['user', 'admin']
@@ -20,21 +20,24 @@ class AppCtrl
 				@$ionicHistory.nextViewOptions
 					disableBack: true
 				@$state.go @forward.name
-				console.log self.forward.name
-				# self.forward.data.permissions.redirectTo = self.forward.name
 				@$scope.closeLogin()
-				# self.$state.go self.forward.name, {}, {location:'replace',notify:false}
 			, (e)->
-				console.log 'login failed'
-				console.log e
-			
-			# @$state.go @forward
-			# @$timeout =>
-			# 	@$scope.closeLogin()
-			# , 1000
+				@Util.toast 'login failed.'+JSON.stringify e
+				console.log 'login failed', JSON.stringify e
 
-		@$scope.logout = ->
-			console.log 'Logout'
+
+		@$scope.logout = ()=>
+			# console.log 'Logout'
+			# console.log @auth.logout
+			@auth.logout ()=>
+				@Util.toast 'logout successful'
+				console.log 'logout successful'
+				@$ionicHistory.nextViewOptions
+					disableBack: true
+				@$state.go 'app.playlists'
+			, (e)=>
+				@Util.toast 'logout failed. '+ JSON.stringify e
+				console.log 'logout failed. '+ JSON.stringify e
 
 
 	loginModal: ->
@@ -71,4 +74,5 @@ angular.module('app').controller 'AppCtrl', [
 	'$timeout',
 	'Auth',
 	'$ionicHistory',
+	'Util',
 	AppCtrl]

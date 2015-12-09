@@ -1,9 +1,41 @@
 
 class NativeTestCtrl
-	constructor: (@$scope, @$cordovaDevice, @$cordovaToast, @$cordovaLocalNotification) ->
+	constructor: (@$scope, @settings, @$ionicPopup, @Util, @$cordovaDevice, @$cordovaToast, @$cordovaLocalNotification, @$cordovaImagePicker, @$cordovaFileTransfer) ->
 		@deviceInfo()
 		@toast()
 		@localNotification()
+		@imagePicker()
+
+	imagePicker: ->
+		@$scope.imgloaded = false
+		options =
+			maximumImagesCount: 1
+			width: 800
+			height: 800
+			quality: 90
+		@$scope.get_pictures = =>
+			@$cordovaImagePicker.getPictures options
+				.then (results)=>
+					console.log 'img url:', JSON.stringify results
+					@$scope.imgurl = results[0]
+					@$scope.imgloaded = true
+				, (error)->
+					@$ionicPopup.alert JSON.stringify error
+		@$scope.upload_img = =>
+			path = @$scope.imgurl
+			name = path.substring(path.lastIndexOf('/')+1)
+			upload_options =
+				fileKey: 'file'
+				fileName: name
+				params:
+					name: name
+			@$cordovaFileTransfer.upload @settings.apiurl+'/api/upload', path, upload_options
+				.then (result)->
+					console.log 'upload success! ', JSON.stringify result
+					@Util.toast 'upload success! ' + JSON.stringify result
+				, (err) ->
+					console.log 'upload failed! ', JSON.stringify err
+					@Util.toast 'upload failed! ' + JSON.stringify result
 
 	deviceInfo: ->
 		@$scope.retrieve_device = =>
@@ -80,7 +112,12 @@ class NativeTestCtrl
 
 angular.module('app').controller 'NativeTestCtrl', [
 	'$scope',
+	'settings',
+	'$ionicPopup',
+	'Util', 
 	'$cordovaDevice',
 	'$cordovaToast',
-	'$cordovaLocalNotification', 
+	'$cordovaLocalNotification',
+	'$cordovaImagePicker',
+	'$cordovaFileTransfer',
 	NativeTestCtrl]

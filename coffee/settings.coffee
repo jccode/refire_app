@@ -1,4 +1,4 @@
  
 angular.module('app').constant
 	'settings':
-		apiurl: 'http://localhost:8080'
+		apiurl: 'http://192.168.1.103:8080'

@@ -33,7 +33,13 @@
     {
       "locator": "https://github.com/katzer/cordova-plugin-local-notifications.git",
       "id": "de.appplant.cordova.plugin.local-notification"
-    }
+    },
+    {
+      "locator": "https://github.com/wymsee/cordova-imagePicker.git",
+      "id": "com.synconset.imagepicker"
+    },
+    "org.apache.cordova.file-transfer",
+    "cordova-plugin-geolocation"
   ],
   "cordovaPlatforms": []
 }

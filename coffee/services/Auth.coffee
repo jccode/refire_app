@@ -34,6 +34,7 @@ class Auth
 			user.username isnt ''
 
 		@login = (user, success, error) =>
+			# console.log 'post: ', settings.apiurl+'/login'
 			$http
 				.post(settings.apiurl+'/login', user)
 				.success (user)->
