@@ -29,7 +29,7 @@ class NativeTestCtrl
 				fileName: name
 				params:
 					name: name
-			@$cordovaFileTransfer.upload @settings.apiurl+'/api/upload', path, upload_options
+			@$cordovaFileTransfer.upload @settings.apiurl+'/upload', path, upload_options
 				.then (result)->
 					console.log 'upload success! ', JSON.stringify result
 					@Util.toast 'upload success! ' + JSON.stringify result

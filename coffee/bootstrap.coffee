@@ -8,7 +8,5 @@ class Bootstrap
 			if window.StatusBar
 				StatusBar.styleDefault()
 
-			# $http.get settings.apiurl+'/guest/angular_login'
-
 
 angular.module('app').run ['$ionicPlatform', '$http', 'settings', Bootstrap]

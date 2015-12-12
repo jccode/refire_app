@@ -1,4 +1,5 @@
  
 angular.module('app').constant
 	'settings':
-		apiurl: '@@apiurl'
+		baseurl: '@@baseurl'
+		apiurl: '@@baseurl/api'

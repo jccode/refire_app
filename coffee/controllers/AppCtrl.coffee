@@ -26,7 +26,7 @@ class AppCtrl
 				console.log 'login failed', JSON.stringify e
 
 
-		@$scope.logout = ()=>
+		@$scope.logout_old = ()=>
 			# console.log 'Logout'
 			# console.log @auth.logout
 			@auth.logout ()=>
@@ -38,6 +38,14 @@ class AppCtrl
 			, (e)=>
 				@Util.toast 'logout failed. '+ JSON.stringify e
 				console.log 'logout failed. '+ JSON.stringify e
+
+		@$scope.logout = =>
+			@auth.logout()
+			@Util.toast 'logout successful'
+			console.log 'logout successful'
+			@$ionicHistory.nextViewOptions
+				disableBack: true
+			@$state.go 'app.playlists'
 
 
 	loginModal: ->

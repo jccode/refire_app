@@ -102,7 +102,7 @@ gulp.task('replace', function() {
     gulp.src('./config/settings.coffee')
         .pipe(replace({
             patterns: [
-                {match: 'apiurl', replacement: settings.apiurl}
+                {match: 'baseurl', replacement: settings.baseurl}
             ]
         }))
         .pipe(gulp.dest('./coffee/'));
