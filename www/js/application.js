@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64']);
+  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64', 'ngMessages']);
 
 }).call(this);
 
@@ -140,7 +140,8 @@
         url: '/signup',
         views: {
           'menuContent': {
-            templateUrl: 'templates/signup.html'
+            templateUrl: 'templates/signup.html',
+            controller: 'SignupCtrl as ctrl'
           }
         }
       }).state('app.playlists', {
@@ -223,7 +224,6 @@
           };
         })(this)
       ];
-      $httpProvider.defaults.headers.common["Access-Control-Request-Headers"] = "accept, origin, authorization";
     }
 
     return Ajax;
@@ -561,6 +561,34 @@
 }).call(this);
 
 (function() {
+  var SignupCtrl;
+
+  SignupCtrl = (function() {
+    function SignupCtrl($scope, User) {
+      this.$scope = $scope;
+      this.User = User;
+    }
+
+    SignupCtrl.prototype.signup = function(form) {
+      if (form.$valid) {
+        console.log(this.user);
+        return this.User.save(this.user).$promise.then(function(ret) {
+          return console.log(ret);
+        }, function(err) {
+          return console.log(err);
+        });
+      }
+    };
+
+    return SignupCtrl;
+
+  })();
+
+  angular.module('app').controller('SignupCtrl', ['$scope', 'User', SignupCtrl]);
+
+}).call(this);
+
+(function() {
   var TestCtrl;
 
   TestCtrl = (function() {
@@ -789,8 +817,9 @@
   var User;
 
   User = (function() {
-    function User($resource, settings) {
+    function User($resource, $http, settings) {
       this.$resource = $resource;
+      this.$http = $http;
       this.settings = settings;
       this.url = this.settings.apiurl + '/users/:id';
       this.User = this.$resource(this.url, {
@@ -802,11 +831,19 @@
       return this.User.query();
     };
 
+    User.prototype.save = function(user) {
+      return this.User.save(user);
+    };
+
+    User.prototype.exist = function(username) {
+      return this.$http.get(this.settings.baseurl + '/guest/api/userexist?username=' + username);
+    };
+
     return User;
 
   })();
 
-  angular.module('app').service('User', ['$resource', 'settings', User]);
+  angular.module('app').service('User', ['$resource', '$http', 'settings', User]);
 
 }).call(this);
 
@@ -842,5 +879,105 @@
   })();
 
   angular.module('app').service('Util', ['$rootScope', '$window', '$ionicPopup', '$cordovaToast', Util]);
+
+}).call(this);
+
+(function() {
+  var CompareTo;
+
+  CompareTo = (function() {
+    function CompareTo() {
+      var link;
+      link = function(scope, element, attributes, ngModel) {
+        ngModel.$validators.compareTo = function(modelValue) {
+          return modelValue === scope.otherValue.$modelValue;
+        };
+        return scope.$watch("otherValue", function() {
+          return ngModel.$validate();
+        });
+      };
+      return {
+        require: 'ngModel',
+        scope: {
+          otherValue: "=compareTo"
+        },
+        link: link
+      };
+    }
+
+    return CompareTo;
+
+  })();
+
+  angular.module('app').directive('compareTo', CompareTo);
+
+}).call(this);
+
+(function() {
+  var GreaterThan;
+
+  GreaterThan = (function() {
+    function GreaterThan() {
+      var link;
+      link = function(scope, element, attributes, ngModel) {
+        ngModel.$validators.greaterThan = function(value) {
+          return parseInt(value) >= parseInt(scope.greaterThanNumber);
+        };
+        return scope.$watch("greaterThanNumber", function() {
+          return ngModel.$validate();
+        });
+      };
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        scope: {
+          greaterThanNumber: '=greaterThan'
+        },
+        link: link
+      };
+    }
+
+    return GreaterThan;
+
+  })();
+
+  angular.module('app').directive('greateThan', GreaterThan);
+
+}).call(this);
+
+(function() {
+  var UserExist;
+
+  UserExist = (function() {
+    function UserExist($q, User) {
+      var link;
+      link = function(scope, element, attributes, ngModel) {
+        return ngModel.$asyncValidators.userExist = function(value) {
+          var deferred;
+          deferred = $q.defer();
+          User.exist(value).then(function(result) {
+            if (result.data) {
+              return deferred.reject();
+            } else {
+              return deferred.resolve();
+            }
+          }, function(err) {
+            return deferred.reject();
+          });
+          return deferred.promise;
+        };
+      };
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: link
+      };
+    }
+
+    return UserExist;
+
+  })();
+
+  angular.module('app').directive('userExist', ['$q', 'User', UserExist]);
 
 }).call(this);

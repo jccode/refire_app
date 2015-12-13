@@ -18,6 +18,6 @@ class Ajax
 			if angular.isObject(data) and String(data) isnt '[Object File]' then serialize(data) else data
 			]
 
-		$httpProvider.defaults.headers.common["Access-Control-Request-Headers"] = "accept, origin, authorization"
+		# $httpProvider.defaults.headers.common["Access-Control-Request-Headers"] = "accept, origin, authorization"
 
 angular.module('app').config ['$httpProvider', Ajax]

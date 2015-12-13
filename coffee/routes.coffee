@@ -46,6 +46,7 @@ class Config
 				views:
 					'menuContent':
 						templateUrl: 'templates/signup.html'
+						controller: 'SignupCtrl as ctrl'
 				
 			.state 'app.playlists',
 				url: '/playlists'

@@ -8,8 +8,12 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: signup.html:11
+#: signup.html:19
 msgid "Confirm password"
+msgstr ""
+
+#: signup.html:23
+msgid "confirm password isn't the same"
 msgstr ""
 
 #: menu.html:36
@@ -47,7 +51,7 @@ msgid "Menu"
 msgstr ""
 
 #: login.html:16
-#: signup.html:8
+#: signup.html:13
 msgid "Password"
 msgstr ""
 
@@ -59,16 +63,28 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: signup.html:15
-msgid "Register"
-msgstr ""
-
 #: menu.html:41
 msgid "Settings"
 msgstr ""
 
+#: errorlist.html:3
+msgid "This field is required!"
+msgstr ""
+
+#: errorlist.html:11
+msgid "This field is too long"
+msgstr ""
+
+#: errorlist.html:7
+msgid "This field is too short!"
+msgstr ""
+
+#: signup.html:10
+msgid "User is exist"
+msgstr ""
+
 #: login.html:12
-#: signup.html:5
+#: signup.html:6
 msgid "Username"
 msgstr ""
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2015-12-13 15:21+0800\n"
+"PO-Revision-Date: 2015-12-13 21:18+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
@@ -17,9 +17,13 @@ msgstr ""
 msgid "Close"
 msgstr "关闭"
 
-#: signup.html:11
+#: signup.html:19
 msgid "Confirm password"
 msgstr "重复密码"
+
+#: signup.html:23
+msgid "confirm password isn't the same"
+msgstr "密码不一致"
 
 #: menu.html:36
 msgid "Energy Statistics"
@@ -53,7 +57,7 @@ msgstr "退出登陆成功"
 msgid "Menu"
 msgstr "目录"
 
-#: login.html:16 signup.html:8
+#: login.html:16 signup.html:13
 msgid "Password"
 msgstr "密码"
 
@@ -65,15 +69,27 @@ msgstr "权限受限"
 msgid "Profile"
 msgstr "我的"
 
-#: signup.html:15
-msgid "Register"
-msgstr "注册"
-
 #: menu.html:41
 msgid "Settings"
 msgstr "设置"
 
-#: login.html:12 signup.html:5
+#: errorlist.html:3
+msgid "This field is required!"
+msgstr "此字段必填"
+
+#: errorlist.html:11
+msgid "This field is too long"
+msgstr "此字段太长"
+
+#: errorlist.html:7
+msgid "This field is too short!"
+msgstr "此字段长度不够"
+
+#: signup.html:10
+msgid "User is exist"
+msgstr "用户名已存在"
+
+#: login.html:12 signup.html:6
 msgid "Username"
 msgstr "用户名"
 
@@ -81,5 +97,14 @@ msgstr "用户名"
 msgid "You don't have permission to view this page."
 msgstr "你没有权限查看这个页面"
 
-#~ msgid "Log in"
-#~ msgstr "登陆"
+#~ msgid "Maximum length of this field is {{max}} characters!"
+#~ msgstr "这个字段最长为{{max}}字符"
+
+#~ msgid "Minimum length of this field is {{min}} characters!"
+#~ msgstr "这个字段最少要{{min}}字符"
+
+msgid "Register"
+msgstr "注册"
+
+msgid "Log in"
+msgstr "登陆"

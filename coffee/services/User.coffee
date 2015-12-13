@@ -1,11 +1,17 @@
 
 class User
-	constructor: (@$resource, @settings)->
+	constructor: (@$resource, @$http, @settings)->
 		@url = @settings.apiurl + '/users/:id'
 		@User = @$resource @url, {id: '@id'}
 
 	all: ->
 		@User.query()
 
+	save: (user)->
+		@User.save(user)
 
-angular.module('app').service 'User', ['$resource', 'settings', User]
+	exist: (username) ->
+		@$http.get @settings.baseurl + '/guest/api/userexist?username=' + username
+		
+
+angular.module('app').service 'User', ['$resource', '$http', 'settings', User]
