@@ -1,6 +1,6 @@
 
 class AppCtrl
-	constructor: (@$scope, @$rootScope, @$state, @$ionicModal, @$ionicPopup, @$timeout, @auth, @$ionicHistory, @Util) ->
+	constructor: (@$scope, @$rootScope, @$state, @$ionicModal, @$ionicPopup, @$timeout, @auth, @$ionicHistory, @gettext, @gettextCatalog, @Util) ->
 		@loginModal()
 		@permissionCheck()
 		
@@ -16,9 +16,10 @@ class AppCtrl
 				if @forward
 					@$state.go @forward.name
 				@$scope.closeLogin()
-				@Util.toast 'login success'
+				@Util.toast @gettextCatalog.getString 'login success'
 			, (e)->
-				@Util.toast 'login failed.'+JSON.stringify e
+				# @Util.toast @gettext('login failed')+"."+JSON.stringify e
+				@Util.toast "#{@gettextCatalog.getString('login failed')}.#{JSON.stringify e}"
 				# console.log 'login failed', JSON.stringify e
 
 
@@ -35,7 +36,7 @@ class AppCtrl
 
 		@$scope.logout = =>
 			@auth.logout()
-			@Util.toast 'logout successful'
+			@Util.toast "#{@gettextCatalog.getString 'logout successful'}"
 			# console.log 'logout successful'
 			@$ionicHistory.nextViewOptions
 				disableBack: true
@@ -63,8 +64,8 @@ class AppCtrl
 				@$scope.login()
 			else
 				@$ionicPopup.alert
-					title: 'Permission denied'
-					template: 'You don\'t have permission to view this page.'
+					title: @gettextCatalog.getString 'Permission denied'
+					template: @gettextCatalog.getString('You don\'t have permission to view this page.')
 
 		@$scope.$on "error:401", (response)=>
 			# console.log '401'+response
@@ -81,5 +82,7 @@ angular.module('app').controller 'AppCtrl', [
 	'$timeout',
 	'Auth',
 	'$ionicHistory',
+	'gettext',
+	'gettextCatalog',
 	'Util',
 	AppCtrl]

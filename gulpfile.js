@@ -69,7 +69,7 @@ gulp.task('git-check', function(done) {
 });
 
 gulp.task('pot', function() {
-    return gulp.src(['./www/templates/**/*.html'])
+    return gulp.src(['./www/templates/**/*.html', './www/js/**/*.js'])
         .pipe(gettext.extract('template.pot', {
             // options
         }))

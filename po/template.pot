@@ -4,6 +4,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
+#: login.html:5
+msgid "Close"
+msgstr ""
+
+#: signup.html:11
+msgid "Confirm password"
+msgstr ""
+
 #: menu.html:36
 msgid "Energy Statistics"
 msgstr ""
@@ -16,18 +24,54 @@ msgstr ""
 msgid "Log off"
 msgstr ""
 
+#: login.html:20
+#: login.html:3
 #: menu.html:55
 msgid "Login"
+msgstr ""
+
+#: application.js:270
+msgid "login failed"
+msgstr ""
+
+#: application.js:268
+msgid "login success"
+msgstr ""
+
+#: application.js:277
+msgid "logout successful"
 msgstr ""
 
 #: menu.html:25
 msgid "Menu"
 msgstr ""
 
+#: login.html:16
+#: signup.html:8
+msgid "Password"
+msgstr ""
+
+#: application.js:314
+msgid "Permission denied"
+msgstr ""
+
 #: menu.html:46
 msgid "Profile"
 msgstr ""
 
+#: signup.html:15
+msgid "Register"
+msgstr ""
+
 #: menu.html:41
 msgid "Settings"
+msgstr ""
+
+#: login.html:12
+#: signup.html:5
+msgid "Username"
+msgstr ""
+
+#: application.js:315
+msgid "You don't have permission to view this page."
 msgstr ""

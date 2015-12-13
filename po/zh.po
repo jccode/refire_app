@@ -5,13 +5,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2015-12-06 03:23+0800\n"
+"PO-Revision-Date: 2015-12-13 15:21+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: login.html:5
+msgid "Close"
+msgstr "关闭"
+
+#: signup.html:11
+msgid "Confirm password"
+msgstr "重复密码"
 
 #: menu.html:36
 msgid "Energy Statistics"
@@ -25,18 +33,53 @@ msgstr "健康状态"
 msgid "Log off"
 msgstr "退出"
 
-#: menu.html:55
+#: login.html:20 login.html:3 menu.html:55
 msgid "Login"
 msgstr "登陆"
+
+#: application.js:270
+msgid "login failed"
+msgstr "登陆失败"
+
+#: application.js:268
+msgid "login success"
+msgstr "登陆成功"
+
+#: application.js:277
+msgid "logout successful"
+msgstr "退出登陆成功"
 
 #: menu.html:25
 msgid "Menu"
 msgstr "目录"
 
+#: login.html:16 signup.html:8
+msgid "Password"
+msgstr "密码"
+
+#: application.js:314
+msgid "Permission denied"
+msgstr "权限受限"
+
 #: menu.html:46
 msgid "Profile"
 msgstr "我的"
 
+#: signup.html:15
+msgid "Register"
+msgstr "注册"
+
 #: menu.html:41
 msgid "Settings"
 msgstr "设置"
+
+#: login.html:12 signup.html:5
+msgid "Username"
+msgstr "用户名"
+
+#: application.js:315
+msgid "You don't have permission to view this page."
+msgstr "你没有权限查看这个页面"
+
+#~ msgid "Log in"
+#~ msgstr "登陆"

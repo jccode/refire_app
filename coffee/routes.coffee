@@ -40,6 +40,12 @@ class Config
 				data:
 					permissions:
 						only: [roles.user]
+
+			.state 'app.signup',
+				url: '/signup'
+				views:
+					'menuContent':
+						templateUrl: 'templates/signup.html'
 				
 			.state 'app.playlists',
 				url: '/playlists'

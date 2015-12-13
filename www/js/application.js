@@ -136,6 +136,13 @@
             only: [roles.user]
           }
         }
+      }).state('app.signup', {
+        url: '/signup',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/signup.html'
+          }
+        }
       }).state('app.playlists', {
         url: '/playlists',
         views: {
@@ -231,7 +238,7 @@
   var AppCtrl;
 
   AppCtrl = (function() {
-    function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, $ionicHistory, Util) {
+    function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, $ionicHistory, gettext, gettextCatalog, Util) {
       var self;
       this.$scope = $scope;
       this.$rootScope = $rootScope;
@@ -241,6 +248,8 @@
       this.$timeout = $timeout;
       this.auth = auth;
       this.$ionicHistory = $ionicHistory;
+      this.gettext = gettext;
+      this.gettextCatalog = gettextCatalog;
       this.Util = Util;
       this.loginModal();
       this.permissionCheck();
@@ -256,16 +265,16 @@
               _this.$state.go(_this.forward.name);
             }
             _this.$scope.closeLogin();
-            return _this.Util.toast('login success');
+            return _this.Util.toast(_this.gettextCatalog.getString('login success'));
           }, function(e) {
-            return this.Util.toast('login failed.' + JSON.stringify(e));
+            return this.Util.toast((this.gettextCatalog.getString('login failed')) + "." + (JSON.stringify(e)));
           });
         };
       })(this);
       this.$scope.logout = (function(_this) {
         return function() {
           _this.auth.logout();
-          _this.Util.toast('logout successful');
+          _this.Util.toast("" + (_this.gettextCatalog.getString('logout successful')));
           _this.$ionicHistory.nextViewOptions({
             disableBack: true
           });
@@ -302,8 +311,8 @@
             return _this.$scope.login();
           } else {
             return _this.$ionicPopup.alert({
-              title: 'Permission denied',
-              template: 'You don\'t have permission to view this page.'
+              title: _this.gettextCatalog.getString('Permission denied'),
+              template: _this.gettextCatalog.getString('You don\'t have permission to view this page.')
             });
           }
         };
@@ -320,7 +329,7 @@
 
   })();
 
-  angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', '$ionicHistory', 'Util', AppCtrl]);
+  angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', '$ionicHistory', 'gettext', 'gettextCatalog', 'Util', AppCtrl]);
 
 }).call(this);
 
