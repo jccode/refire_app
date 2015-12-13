@@ -6,14 +6,14 @@ class Util
 		if @$window.cordova
 			@$cordovaToast.show msg, 'short', 'bottom'
 				.then (success)->
-					fn 'ok'
+					fn and fn 'ok'
 				, (error) ->
-					fn error
+					fn and fn error
 		else
 			@$ionicPopup.alert
 				template: msg
 			.then (res)->
-				fn res
+				fn and fn res
 
 
 angular.module('app').service 'Util', ['$rootScope', '$window', '$ionicPopup', '$cordovaToast', Util]

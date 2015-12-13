@@ -8,41 +8,35 @@ class AppCtrl
 
 		self = @
 		@$scope.doLogin = ()=>
-			console.log 'Doing login', JSON.stringify @$scope.loginData
-
-			# @$rootScope.isLoggedIn = true
-			# @$rootScope.roles = ['user', 'admin']
-			# goto next state
+			# console.log 'Doing login', JSON.stringify @$scope.loginData
 			@auth.login @$scope.loginData, (user)=>
-				console.log 'login success.', JSON.stringify user
-				# console.log 'goto '+self.forward
-				#
+				# console.log 'login success.', JSON.stringify user
 				@$ionicHistory.nextViewOptions
 					disableBack: true
-				@$state.go @forward.name
+				if @forward
+					@$state.go @forward.name
 				@$scope.closeLogin()
+				@Util.toast 'login success'
 			, (e)->
 				@Util.toast 'login failed.'+JSON.stringify e
-				console.log 'login failed', JSON.stringify e
+				# console.log 'login failed', JSON.stringify e
 
 
-		@$scope.logout_old = ()=>
-			# console.log 'Logout'
-			# console.log @auth.logout
-			@auth.logout ()=>
-				@Util.toast 'logout successful'
-				console.log 'logout successful'
-				@$ionicHistory.nextViewOptions
-					disableBack: true
-				@$state.go 'app.playlists'
-			, (e)=>
-				@Util.toast 'logout failed. '+ JSON.stringify e
-				console.log 'logout failed. '+ JSON.stringify e
+		# @$scope.logout_old = ()=>
+		# 	@auth.logout ()=>
+		# 		@Util.toast 'logout successful'
+		# 		console.log 'logout successful'
+		# 		@$ionicHistory.nextViewOptions
+		# 			disableBack: true
+		# 		@$state.go 'app.playlists'
+		# 	, (e)=>
+		# 		@Util.toast 'logout failed. '+ JSON.stringify e
+		# 		console.log 'logout failed. '+ JSON.stringify e
 
 		@$scope.logout = =>
 			@auth.logout()
 			@Util.toast 'logout successful'
-			console.log 'logout successful'
+			# console.log 'logout successful'
 			@$ionicHistory.nextViewOptions
 				disableBack: true
 			@$state.go 'app.playlists'
@@ -63,14 +57,19 @@ class AppCtrl
 	permissionCheck: ->
 		@$scope.$on "$stateChangePermissionDenied", (toState, toParams)=>
 			if not @auth.isLoggedIn()
-				console.log toState
-				console.log toParams
+				# console.log toState
+				# console.log toParams
 				@forward = toParams
 				@$scope.login()
 			else
 				@$ionicPopup.alert
 					title: 'Permission denied'
 					template: 'You don\'t have permission to view this page.'
+
+		@$scope.$on "error:401", (response)=>
+			# console.log '401'+response
+			@forward = null
+			@$scope.login()
 
 
 angular.module('app').controller 'AppCtrl', [

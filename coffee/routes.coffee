@@ -61,9 +61,9 @@ class Config
 					'menuContent':
 						templateUrl: 'templates/test.html'
 						controller: 'TestCtrl as ctrl'
-				data:
-					permissions:
-						only: [roles.admin]
+				# data:
+				# 	permissions:
+				# 		only: [roles.admin]
 
 			.state 'app.test-native', 
 				url: '/native'

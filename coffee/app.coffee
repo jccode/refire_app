@@ -1,2 +1,2 @@
 
-angular.module 'app', ['ionic', 'ngCookies', 'ngCordova', 'gettext', 'ngStorage', 'permission', 'base64']
+angular.module 'app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64']

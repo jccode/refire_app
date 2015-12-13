@@ -1,9 +1,11 @@
 
 class Auth
 	constructor: ($http, $rootScope, $localStorage, $base64, settings, event) ->
+		self = @
 		anon_user =
 			username: ''
 			authorities: []
+			auth: ''
 			
 		$storage = $localStorage.$default
 			user: anon_user
@@ -16,7 +18,7 @@ class Auth
 		set_current_user = (user)->
 			$storage.user = user
 			$rootScope.user = user
-			@user = user
+			self.user = user
 			user
 
 		role_prefix = 'ROLE_'
@@ -34,32 +36,34 @@ class Auth
 			user = user || @user
 			user.username isnt ''
 
-		@login_old = (user, success, error) =>
-			$http
-				.post(settings.baseurl+'/login', user)
-				.success (user)->
-					set_current_user user
-					success user
-				.error error
+		# @login_old = (user, success, error) =>
+		# 	$http
+		# 		.post(settings.baseurl+'/login', user)
+		# 		.success (user)->
+		# 			set_current_user user
+		# 			success user
+		# 		.error error
 
 		@login = (user, success, error) =>
+			auth = $base64.encode(user.username + ':' + user.password)
 			headers =
-				Authorization: 'Basic ' + $base64.encode(user.username + ':' + user.password)
+				Authorization: 'Basic ' + auth
 			$http
-				.post(settings.apiurl + '/user', user, {headers: headers})
+				.get(settings.apiurl + '/user', {headers: headers})
 				.success (user)->
+					user.auth = auth
 					set_current_user user
 					success user
 					$rootScope.$broadcast event.LOGIN, user
 				.error error
 
-		@logout_old = (success, error) =>
-			$http
-				.post(settings.baseurl+'/logout')
-				.success ->
-					set_current_user anon_user
-					success()
-				.error error
+		# @logout_old = (success, error) =>
+		# 	$http
+		# 		.post(settings.baseurl+'/logout')
+		# 		.success ->
+		# 			set_current_user anon_user
+		# 			success()
+		# 		.error error
 
 		@logout = () =>
 			set_current_user anon_user

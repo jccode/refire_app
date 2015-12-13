@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'gettext', 'ngStorage', 'permission', 'base64']);
+  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64']);
 
 }).call(this);
 
@@ -7,7 +7,7 @@
   var Bootstrap;
 
   Bootstrap = (function() {
-    function Bootstrap($ionicPlatform, $http, settings) {
+    function Bootstrap($ionicPlatform, $http, $rootScope, auth, event) {
       $ionicPlatform.ready(function() {
         if (window.cordova && window.cordova.plugins.Keyboard) {
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -17,13 +17,24 @@
           return StatusBar.styleDefault();
         }
       });
+      $http.defaults.headers.common['Authorization'] = 'Basic ' + auth.user.auth;
+      $rootScope.$on(event.LOGIN, (function(_this) {
+        return function(event, user) {
+          return $http.defaults.headers.common['Authorization'] = 'Basic ' + user.auth;
+        };
+      })(this));
+      $rootScope.$on(event.LOGOUT, (function(_this) {
+        return function(event) {
+          return $http.defaults.headers.common['Authorization'] = '';
+        };
+      })(this));
     }
 
     return Bootstrap;
 
   })();
 
-  angular.module('app').run(['$ionicPlatform', '$http', 'settings', Bootstrap]);
+  angular.module('app').run(['$ionicPlatform', '$http', '$rootScope', 'Auth', 'event', Bootstrap]);
 
 }).call(this);
 
@@ -148,11 +159,6 @@
             templateUrl: 'templates/test.html',
             controller: 'TestCtrl as ctrl'
           }
-        },
-        data: {
-          permissions: {
-            only: [roles.admin]
-          }
         }
       }).state('app.test-native', {
         url: '/native',
@@ -177,8 +183,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://192.168.1.103:8080',
-      apiurl: 'http://192.168.1.103:8080/api'
+      baseurl: 'http://127.0.0.1:8080',
+      apiurl: 'http://127.0.0.1:8080/api'
     }
   });
 
@@ -188,8 +194,8 @@
   var Ajax;
 
   Ajax = (function() {
-    function Ajax($httpProvider, $rootScope, event) {
-      var basic_auth_header, serialize;
+    function Ajax($httpProvider) {
+      var serialize;
       serialize = function(obj) {
         return Object.keys(obj).reduce(function(a, k) {
           a.push(k + '=' + encodeURIComponent(obj[k]));
@@ -210,59 +216,14 @@
           };
         })(this)
       ];
-      basic_auth_header = function(user) {
-        return 'Basic ' + $base64.encode(user.username + ':' + user.password);
-      };
-      $httpProvider.defaults.headers.common['Authorization'] = basic_auth_header($rootScope.user);
-      $rootScope.$on(event.LOGIN, function(event, user) {
-        return $httpProvider.defaults.headers.common['Authorization'] = basic_auth_header(user);
-      });
-      $rootScope.$on(event.LOGOUT, function(event) {
-        return $httpProvider.defaults.headers.common['Authorization'] = '';
-      });
+      $httpProvider.defaults.headers.common["Access-Control-Request-Headers"] = "accept, origin, authorization";
     }
 
     return Ajax;
 
   })();
 
-  angular.module('app').config(['$httpProvider', '$rootScope', 'event', Ajax]);
-
-}).call(this);
-
-(function() {
-  var Config, CsrfInterceptor,
-    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  CsrfInterceptor = (function() {
-    function CsrfInterceptor($cookies) {
-      var allowMethods, cookieName, headerName;
-      headerName = 'X-XSRF-TOKEN';
-      cookieName = 'XSRF-TOKEN';
-      allowMethods = ['GET'];
-      return {
-        'request': function(request) {
-          var ref;
-          if (ref = request.method, indexOf.call(allowMethods, ref) < 0) {
-            request.headers[headerName] = $cookies.get(cookieName);
-          }
-          return request;
-        }
-      };
-    }
-
-    return CsrfInterceptor;
-
-  })();
-
-  Config = (function() {
-    function Config($httpProvider) {
-      $httpProvider.interceptors.push(['$cookies', CsrfInterceptor]);
-    }
-
-    return Config;
-
-  })();
+  angular.module('app').config(['$httpProvider', Ajax]);
 
 }).call(this);
 
@@ -287,32 +248,17 @@
       self = this;
       this.$scope.doLogin = (function(_this) {
         return function() {
-          console.log('Doing login', JSON.stringify(_this.$scope.loginData));
           return _this.auth.login(_this.$scope.loginData, function(user) {
-            console.log('login success.', JSON.stringify(user));
             _this.$ionicHistory.nextViewOptions({
               disableBack: true
             });
-            _this.$state.go(_this.forward.name);
-            return _this.$scope.closeLogin();
+            if (_this.forward) {
+              _this.$state.go(_this.forward.name);
+            }
+            _this.$scope.closeLogin();
+            return _this.Util.toast('login success');
           }, function(e) {
-            this.Util.toast('login failed.' + JSON.stringify(e));
-            return console.log('login failed', JSON.stringify(e));
-          });
-        };
-      })(this);
-      this.$scope.logout_old = (function(_this) {
-        return function() {
-          return _this.auth.logout(function() {
-            _this.Util.toast('logout successful');
-            console.log('logout successful');
-            _this.$ionicHistory.nextViewOptions({
-              disableBack: true
-            });
-            return _this.$state.go('app.playlists');
-          }, function(e) {
-            _this.Util.toast('logout failed. ' + JSON.stringify(e));
-            return console.log('logout failed. ' + JSON.stringify(e));
+            return this.Util.toast('login failed.' + JSON.stringify(e));
           });
         };
       })(this);
@@ -320,7 +266,6 @@
         return function() {
           _this.auth.logout();
           _this.Util.toast('logout successful');
-          console.log('logout successful');
           _this.$ionicHistory.nextViewOptions({
             disableBack: true
           });
@@ -350,11 +295,9 @@
     };
 
     AppCtrl.prototype.permissionCheck = function() {
-      return this.$scope.$on("$stateChangePermissionDenied", (function(_this) {
+      this.$scope.$on("$stateChangePermissionDenied", (function(_this) {
         return function(toState, toParams) {
           if (!_this.auth.isLoggedIn()) {
-            console.log(toState);
-            console.log(toParams);
             _this.forward = toParams;
             return _this.$scope.login();
           } else {
@@ -363,6 +306,12 @@
               template: 'You don\'t have permission to view this page.'
             });
           }
+        };
+      })(this));
+      return this.$scope.$on("error:401", (function(_this) {
+        return function(response) {
+          _this.forward = null;
+          return _this.$scope.login();
         };
       })(this));
     };
@@ -606,16 +555,17 @@
   var TestCtrl;
 
   TestCtrl = (function() {
-    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope) {
+    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope, user) {
       this.$scope = $scope;
       this.$ionicPopover = $ionicPopover;
       this.$ionicHistory = $ionicHistory;
       this.$state = $state;
       this.$rootScope = $rootScope;
+      this.user = user;
       this.initPopover();
-      this.$scope.changeRole = (function(_this) {
+      this.$scope.get_users = (function(_this) {
         return function() {
-          return _this.$rootScope.roles = ['user', 'admin'];
+          return _this.$scope.users = _this.user.all();
         };
       })(this);
     }
@@ -664,7 +614,77 @@
 
   })();
 
-  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', TestCtrl]);
+  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', TestCtrl]);
+
+}).call(this);
+
+(function() {
+  var Config, CsrfInterceptor,
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  CsrfInterceptor = (function() {
+    function CsrfInterceptor($cookies) {
+      var allowMethods, cookieName, headerName;
+      headerName = 'X-XSRF-TOKEN';
+      cookieName = 'XSRF-TOKEN';
+      allowMethods = ['GET'];
+      return {
+        'request': function(request) {
+          var ref;
+          if (ref = request.method, indexOf.call(allowMethods, ref) < 0) {
+            request.headers[headerName] = $cookies.get(cookieName);
+          }
+          return request;
+        }
+      };
+    }
+
+    return CsrfInterceptor;
+
+  })();
+
+  Config = (function() {
+    function Config($httpProvider) {
+      $httpProvider.interceptors.push(['$cookies', CsrfInterceptor]);
+    }
+
+    return Config;
+
+  })();
+
+}).call(this);
+
+(function() {
+  var Config, Interceptor;
+
+  Interceptor = (function() {
+    function Interceptor($log, $rootScope, $q) {
+      return {
+        response: function(response) {
+          $rootScope.$broadcast("success:" + response.status, response);
+          return response;
+        },
+        responseError: function(response) {
+          $rootScope.$broadcast("error:" + response.status, response);
+          return $q.reject(response);
+        }
+      };
+    }
+
+    return Interceptor;
+
+  })();
+
+  Config = (function() {
+    function Config($httpProvider) {
+      $httpProvider.interceptors.push(['$log', '$rootScope', '$q', Interceptor]);
+    }
+
+    return Config;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', Config]);
 
 }).call(this);
 
@@ -674,10 +694,12 @@
 
   Auth = (function() {
     function Auth($http, $rootScope, $localStorage, $base64, settings, event) {
-      var $storage, anon_user, get_current_user, l, role_prefix, set_current_user;
+      var $storage, anon_user, get_current_user, l, role_prefix, self, set_current_user;
+      self = this;
       anon_user = {
         username: '',
-        authorities: []
+        authorities: [],
+        auth: ''
       };
       $storage = $localStorage.$default({
         user: anon_user
@@ -691,7 +713,7 @@
       set_current_user = function(user) {
         $storage.user = user;
         $rootScope.user = user;
-        this.user = user;
+        self.user = user;
         return user;
       };
       role_prefix = 'ROLE_';
@@ -720,34 +742,20 @@
           return user.username !== '';
         };
       })(this);
-      this.login_old = (function(_this) {
-        return function(user, success, error) {
-          return $http.post(settings.baseurl + '/login', user).success(function(user) {
-            set_current_user(user);
-            return success(user);
-          }).error(error);
-        };
-      })(this);
       this.login = (function(_this) {
         return function(user, success, error) {
-          var headers;
+          var auth, headers;
+          auth = $base64.encode(user.username + ':' + user.password);
           headers = {
-            Authorization: 'Basic ' + $base64.encode(user.username + ':' + user.password)
+            Authorization: 'Basic ' + auth
           };
-          return $http.post(settings.apiurl + '/user', user, {
+          return $http.get(settings.apiurl + '/user', {
             headers: headers
           }).success(function(user) {
+            user.auth = auth;
             set_current_user(user);
             success(user);
             return $rootScope.$broadcast(event.LOGIN, user);
-          }).error(error);
-        };
-      })(this);
-      this.logout_old = (function(_this) {
-        return function(success, error) {
-          return $http.post(settings.baseurl + '/logout').success(function() {
-            set_current_user(anon_user);
-            return success();
           }).error(error);
         };
       })(this);
@@ -769,6 +777,31 @@
 }).call(this);
 
 (function() {
+  var User;
+
+  User = (function() {
+    function User($resource, settings) {
+      this.$resource = $resource;
+      this.settings = settings;
+      this.url = this.settings.apiurl + '/users/:id';
+      this.User = this.$resource(this.url, {
+        id: '@id'
+      });
+    }
+
+    User.prototype.all = function() {
+      return this.User.query();
+    };
+
+    return User;
+
+  })();
+
+  angular.module('app').service('User', ['$resource', 'settings', User]);
+
+}).call(this);
+
+(function() {
   var Util;
 
   Util = (function() {
@@ -782,15 +815,15 @@
     Util.prototype.toast = function(msg, fn) {
       if (this.$window.cordova) {
         return this.$cordovaToast.show(msg, 'short', 'bottom').then(function(success) {
-          return fn('ok');
+          return fn && fn('ok');
         }, function(error) {
-          return fn(error);
+          return fn && fn(error);
         });
       } else {
         return this.$ionicPopup.alert({
           template: msg
         }).then(function(res) {
-          return fn(res);
+          return fn && fn(res);
         });
       }
     };
