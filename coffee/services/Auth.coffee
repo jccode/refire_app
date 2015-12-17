@@ -49,7 +49,7 @@ class Auth
 			headers =
 				Authorization: 'Basic ' + auth
 			$http
-				.get(settings.apiurl + '/user', {headers: headers})
+				.get(settings.apiurl + '/user/', {headers: headers})
 				.success (user)->
 					user.auth = auth
 					set_current_user user

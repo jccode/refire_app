@@ -1,6 +1,6 @@
 
 class Ajax
-	constructor: ($httpProvider) ->
+	constructor: ($httpProvider, $resourceProvider) ->
 
 		# http://stackoverflow.com/questions/1714786/querystring-encoding-of-a-javascript-object
 		serialize = (obj) ->
@@ -19,5 +19,6 @@ class Ajax
 			]
 
 		# $httpProvider.defaults.headers.common["Access-Control-Request-Headers"] = "accept, origin, authorization"
+		$resourceProvider.defaults.stripTrailingSlashes = false
 
-angular.module('app').config ['$httpProvider', Ajax]
+angular.module('app').config ['$httpProvider', '$resourceProvider', Ajax]

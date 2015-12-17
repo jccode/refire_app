@@ -191,8 +191,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://127.0.0.1:8080',
-      apiurl: 'http://127.0.0.1:8080/api'
+      baseurl: 'http://127.0.0.1:8000',
+      apiurl: 'http://127.0.0.1:8000/api'
     }
   });
 
@@ -202,7 +202,7 @@
   var Ajax;
 
   Ajax = (function() {
-    function Ajax($httpProvider) {
+    function Ajax($httpProvider, $resourceProvider) {
       var serialize;
       serialize = function(obj) {
         return Object.keys(obj).reduce(function(a, k) {
@@ -224,13 +224,14 @@
           };
         })(this)
       ];
+      $resourceProvider.defaults.stripTrailingSlashes = false;
     }
 
     return Ajax;
 
   })();
 
-  angular.module('app').config(['$httpProvider', Ajax]);
+  angular.module('app').config(['$httpProvider', '$resourceProvider', Ajax]);
 
 }).call(this);
 
@@ -317,7 +318,7 @@
           }
         };
       })(this));
-      return this.$scope.$on("error:401", (function(_this) {
+      return this.$scope.$on("error:403", (function(_this) {
         return function(response) {
           _this.forward = null;
           return _this.$scope.login();
@@ -786,7 +787,7 @@
           headers = {
             Authorization: 'Basic ' + auth
           };
-          return $http.get(settings.apiurl + '/user', {
+          return $http.get(settings.apiurl + '/user/', {
             headers: headers
           }).success(function(user) {
             user.auth = auth;
@@ -821,7 +822,7 @@
       this.$resource = $resource;
       this.$http = $http;
       this.settings = settings;
-      this.url = this.settings.apiurl + '/users/:id';
+      this.url = this.settings.apiurl + '/user/:id';
       this.User = this.$resource(this.url, {
         id: '@id'
       });
