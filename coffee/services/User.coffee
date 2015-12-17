@@ -1,7 +1,7 @@
 
 class User
 	constructor: (@$resource, @$http, @settings)->
-		@url = @settings.apiurl + '/user/:id'
+		@url = @settings.baseurl + '/api/user/:id'
 		@User = @$resource @url, {id: '@id'}
 
 	all: ->

@@ -10,14 +10,16 @@ class Bootstrap
 				StatusBar.styleDefault()
 		
 		# authentication
-		$http.defaults.headers.common['Authorization'] = 'Basic ' + auth.user.auth
+		$http.defaults.headers.common['Authorization'] = 'Token ' + auth.user.token
 
 		# events
 		$rootScope.$on event.LOGIN, (event, user) =>
-			$http.defaults.headers.common['Authorization'] = 'Basic ' + user.auth
+			console.log 'login success. broadcast.'
+			console.log user
+			$http.defaults.headers.common['Authorization'] = 'Token ' + user.token
 		
 		$rootScope.$on event.LOGOUT, (event) =>
-			$http.defaults.headers.common['Authorization'] = ''
+			$http.defaults.headers.common['Authorization'] = undefined
 		
 
 angular.module('app').run ['$ionicPlatform', '$http', '$rootScope', 'Auth', 'event', Bootstrap]

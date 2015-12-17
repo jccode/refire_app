@@ -67,10 +67,12 @@ class AppCtrl
 					title: @gettextCatalog.getString 'Permission denied'
 					template: @gettextCatalog.getString('You don\'t have permission to view this page.')
 
-		@$scope.$on "error:403", (response)=>
-			# console.log '401'+response
+		loginRequireHandler = (response) =>
 			@forward = null
 			@$scope.login()
+			
+		@$scope.$on "error:403", loginRequireHandler
+		@$scope.$on "error:401", loginRequireHandler
 
 
 angular.module('app').controller 'AppCtrl', [

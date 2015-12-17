@@ -17,15 +17,17 @@
           return StatusBar.styleDefault();
         }
       });
-      $http.defaults.headers.common['Authorization'] = 'Basic ' + auth.user.auth;
+      $http.defaults.headers.common['Authorization'] = 'Token ' + auth.user.token;
       $rootScope.$on(event.LOGIN, (function(_this) {
         return function(event, user) {
-          return $http.defaults.headers.common['Authorization'] = 'Basic ' + user.auth;
+          console.log('login success. broadcast.');
+          console.log(user);
+          return $http.defaults.headers.common['Authorization'] = 'Token ' + user.token;
         };
       })(this));
       $rootScope.$on(event.LOGOUT, (function(_this) {
         return function(event) {
-          return $http.defaults.headers.common['Authorization'] = '';
+          return $http.defaults.headers.common['Authorization'] = void 0;
         };
       })(this));
     }
@@ -305,6 +307,7 @@
     };
 
     AppCtrl.prototype.permissionCheck = function() {
+      var loginRequireHandler;
       this.$scope.$on("$stateChangePermissionDenied", (function(_this) {
         return function(toState, toParams) {
           if (!_this.auth.isLoggedIn()) {
@@ -318,12 +321,14 @@
           }
         };
       })(this));
-      return this.$scope.$on("error:403", (function(_this) {
+      loginRequireHandler = (function(_this) {
         return function(response) {
           _this.forward = null;
           return _this.$scope.login();
         };
-      })(this));
+      })(this);
+      this.$scope.$on("error:403", loginRequireHandler);
+      return this.$scope.$on("error:401", loginRequireHandler);
     };
 
     return AppCtrl;
@@ -736,8 +741,8 @@
       self = this;
       anon_user = {
         username: '',
-        authorities: [],
-        auth: ''
+        groups: [],
+        token: ''
       };
       $storage = $localStorage.$default({
         user: anon_user
@@ -759,19 +764,8 @@
       this.user = get_current_user();
       this.authorize = (function(_this) {
         return function(role) {
-          var auth, auths;
-          console.log(_this.user.authorities);
-          auths = (function() {
-            var i, len, ref, results;
-            ref = this.user.authorities;
-            results = [];
-            for (i = 0, len = ref.length; i < len; i++) {
-              auth = ref[i];
-              results.push(auth.authority.slice(l).toLowerCase());
-            }
-            return results;
-          }).call(_this);
-          return indexOf.call(auths, role) >= 0;
+          console.log(_this.user.groups);
+          return indexOf.call(_this.user.groups, role) >= 0;
         };
       })(this);
       this.isLoggedIn = (function(_this) {
@@ -782,19 +776,34 @@
       })(this);
       this.login = (function(_this) {
         return function(user, success, error) {
-          var auth, headers;
-          auth = $base64.encode(user.username + ':' + user.password);
-          headers = {
-            Authorization: 'Basic ' + auth
-          };
-          return $http.get(settings.apiurl + '/user/', {
-            headers: headers
-          }).success(function(user) {
-            user.auth = auth;
-            set_current_user(user);
-            success(user);
-            return $rootScope.$broadcast(event.LOGIN, user);
-          }).error(error);
+          return $http.post(settings.baseurl + '/api-token-auth/', {
+            username: user.username,
+            password: user.password
+          }, {
+            headers: {
+              Authorization: void 0
+            }
+          }).success(function(ret) {
+            user.token = ret.token;
+            return $http.get(settings.baseurl + '/userprofile/curruser/', {
+              headers: {
+                Authorization: 'Token ' + ret.token
+              }
+            }).success(function(user) {
+              var persist_user;
+              persist_user = {
+                id: user.id,
+                username: user.username,
+                password: user.password,
+                phone: user.phone,
+                groups: user.groups,
+                token: ret.token
+              };
+              set_current_user(persist_user);
+              success(persist_user);
+              return $rootScope.$broadcast(event.LOGIN, persist_user);
+            });
+          });
         };
       })(this);
       this.logout = (function(_this) {
@@ -822,7 +831,7 @@
       this.$resource = $resource;
       this.$http = $http;
       this.settings = settings;
-      this.url = this.settings.apiurl + '/user/:id';
+      this.url = this.settings.baseurl + '/api/user/:id';
       this.User = this.$resource(this.url, {
         id: '@id'
       });

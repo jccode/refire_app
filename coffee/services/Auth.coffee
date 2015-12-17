@@ -4,8 +4,8 @@ class Auth
 		self = @
 		anon_user =
 			username: ''
-			authorities: []
-			auth: ''
+			groups: []
+			token: ''
 			
 		$storage = $localStorage.$default
 			user: anon_user
@@ -28,42 +28,55 @@ class Auth
 		@user = get_current_user()
 		
 		@authorize = (role) =>
-			console.log @user.authorities
-			auths = (auth.authority[l..].toLowerCase() for auth in @user.authorities)
-			role in auths
+			console.log @user.groups
+			# auths = (auth.groups[l..].toLowerCase() for auth in @user.groups)
+			role in @user.groups
 
 		@isLoggedIn = (user) =>
 			user = user || @user
 			user.username isnt ''
 
-		# @login_old = (user, success, error) =>
+		# @login_o2 = (user, success, error) =>
+		# 	auth = $base64.encode(user.username + ':' + user.password)
+		# 	headers =
+		# 		Authorization: 'Basic ' + auth
 		# 	$http
-		# 		.post(settings.baseurl+'/login', user)
+		# 		.get(settings.apiurl + '/user/', {headers: headers})
 		# 		.success (user)->
+		# 			user.auth = auth
 		# 			set_current_user user
 		# 			success user
+		# 			$rootScope.$broadcast event.LOGIN, user
 		# 		.error error
 
 		@login = (user, success, error) =>
-			auth = $base64.encode(user.username + ':' + user.password)
-			headers =
-				Authorization: 'Basic ' + auth
 			$http
-				.get(settings.apiurl + '/user/', {headers: headers})
-				.success (user)->
-					user.auth = auth
-					set_current_user user
-					success user
-					$rootScope.$broadcast event.LOGIN, user
-				.error error
-
-		# @logout_old = (success, error) =>
-		# 	$http
-		# 		.post(settings.baseurl+'/logout')
-		# 		.success ->
-		# 			set_current_user anon_user
-		# 			success()
-		# 		.error error
+				.post(settings.baseurl + '/api-token-auth/', {
+					username: user.username,
+					password: user.password }, {
+						headers:
+							Authorization: undefined
+					})
+				.success (ret)->
+					# console.log ret
+					user.token = ret.token
+					$http.get(settings.baseurl + '/userprofile/curruser/', {
+						headers:
+							Authorization: 'Token '+ ret.token
+						})
+						.success (user)->
+							# console.log user
+							persist_user =
+								id: user.id
+								username: user.username
+								password: user.password
+								phone: user.phone
+								groups: user.groups
+								token: ret.token
+							
+							set_current_user persist_user
+							success persist_user
+							$rootScope.$broadcast event.LOGIN, persist_user
 
 		@logout = () =>
 			set_current_user anon_user
