@@ -16,6 +16,7 @@ class SignupCtrl
 				console.log user
 			, (err) ->
 				console.log 'signup error'
+				console.log err
 			
 		
 

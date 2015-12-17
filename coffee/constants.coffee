@@ -7,4 +7,5 @@ angular.module('app').constant
 	'event':
 		LOGIN: 'login'
 		LOGOUT: 'logout'
+		SIGNUP: 'signup'
 

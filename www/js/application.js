@@ -8,6 +8,7 @@
 
   Bootstrap = (function() {
     function Bootstrap($ionicPlatform, $http, $rootScope, auth, event) {
+      var auth_header;
       $ionicPlatform.ready(function() {
         if (window.cordova && window.cordova.plugins.Keyboard) {
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -17,12 +18,18 @@
           return StatusBar.styleDefault();
         }
       });
-      $http.defaults.headers.common['Authorization'] = 'Token ' + auth.user.token;
+      auth_header = function(user) {
+        return $http.defaults.headers.common['Authorization'] = 'Token ' + user.token;
+      };
+      auth_header(auth.user);
       $rootScope.$on(event.LOGIN, (function(_this) {
         return function(event, user) {
-          console.log('login success. broadcast.');
-          console.log(user);
-          return $http.defaults.headers.common['Authorization'] = 'Token ' + user.token;
+          return auth_header(user);
+        };
+      })(this));
+      $rootScope.$on(event.SIGNUP, (function(_this) {
+        return function(event, user) {
+          return auth_header(user);
         };
       })(this));
       $rootScope.$on(event.LOGOUT, (function(_this) {
@@ -48,7 +55,8 @@
     },
     'event': {
       LOGIN: 'login',
-      LOGOUT: 'logout'
+      LOGOUT: 'logout',
+      SIGNUP: 'signup'
     }
   });
 
@@ -193,8 +201,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://127.0.0.1:8000',
-      apiurl: 'http://127.0.0.1:8000/api'
+      baseurl: 'http://localhost:8000',
+      apiurl: 'http://localhost:8000/api'
     }
   });
 
@@ -270,7 +278,7 @@
             _this.$scope.closeLogin();
             return _this.Util.toast(_this.gettextCatalog.getString('login success'));
           }, function(e) {
-            return this.Util.toast((this.gettextCatalog.getString('login failed')) + "." + (JSON.stringify(e)));
+            return _this.Util.toast((_this.gettextCatalog.getString('login failed')) + "." + (JSON.stringify(e)));
           });
         };
       })(this);
@@ -583,7 +591,8 @@
           console.log('signup success');
           return console.log(user);
         }, function(err) {
-          return console.log('signup error');
+          console.log('signup error');
+          return console.log(err);
         });
       }
     };
@@ -670,8 +679,8 @@
   CsrfInterceptor = (function() {
     function CsrfInterceptor($cookies) {
       var allowMethods, cookieName, headerName;
-      headerName = 'X-XSRF-TOKEN';
-      cookieName = 'XSRF-TOKEN';
+      headerName = 'X-CSRFToken';
+      cookieName = 'csrftoken';
       allowMethods = ['GET'];
       return {
         'request': function(request) {
@@ -696,6 +705,8 @@
     return Config;
 
   })();
+
+  angular.module('app').config(['$httpProvider', Config]);
 
 }).call(this);
 
@@ -796,7 +807,6 @@
               persist_user = {
                 id: user.id,
                 username: user.username,
-                password: user.password,
                 phone: user.phone,
                 groups: user.groups,
                 token: ret.token
@@ -811,7 +821,17 @@
       this.signup = (function(_this) {
         return function(user, success, error) {
           return $http.post(settings.baseurl + '/userprofile/signup/', user).success(function(user) {
-            return console.log(user);
+            var persist_user;
+            persist_user = {
+              id: user.id,
+              username: user.username,
+              phone: user.username,
+              groups: user.groups,
+              token: user.token
+            };
+            set_current_user(persist_user);
+            success(persist_user);
+            return $rootScope.$broadcast(event.SIGNUP, persist_user);
           }).error(error);
         };
       })(this);

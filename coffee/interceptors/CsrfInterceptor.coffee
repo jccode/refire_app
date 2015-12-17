@@ -1,8 +1,8 @@
 
 class CsrfInterceptor
 	constructor: ($cookies)->
-		headerName = 'X-XSRF-TOKEN'
-		cookieName = 'XSRF-TOKEN'
+		headerName = 'X-CSRFToken' # X-XSRF-TOKEN
+		cookieName = 'csrftoken' # 'XSRF-TOKEN'
 		allowMethods = ['GET']
 		
 		return {
@@ -18,4 +18,4 @@ class Config
 		$httpProvider.interceptors.push ['$cookies', CsrfInterceptor]
 
 
-# angular.module('app').config ['$httpProvider', Config]
+angular.module('app').config ['$httpProvider', Config]

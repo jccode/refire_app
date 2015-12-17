@@ -69,7 +69,7 @@ class Auth
 							persist_user =
 								id: user.id
 								username: user.username
-								password: user.password
+								# password: user.password
 								phone: user.phone
 								groups: user.groups
 								token: ret.token
@@ -84,7 +84,16 @@ class Auth
 			$http
 				.post(settings.baseurl + '/userprofile/signup/', user)
 				.success (user)->
-					console.log user
+					# console.log user
+					persist_user =
+						id: user.id
+						username: user.username
+						phone: user.username
+						groups: user.groups
+						token: user.token
+					set_current_user persist_user
+					success persist_user
+					$rootScope.$broadcast event.SIGNUP, persist_user
 				.error error
 
 		@logout = () =>
