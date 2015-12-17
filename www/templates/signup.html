@@ -3,11 +3,12 @@
         <form name="signupForm" novalidate="" ng-submit="signup(signupForm)">
             <div class="list">
                 <label class="item item-input" ng-class="{'has-errors': signupForm.username.$invalid && signupForm.$submitted, 'no-errors': signupForm.username.$valid && signupForm.$submitted }">
-                    <input type="text" name="username" placeholder="{{'Username'|translate}}" ng-model="ctrl.user.username" ng-model-options="{ debounce: 100 }" ng-minlength="3" ng-maxlength="20" required user-exist />
+                    <input type="text" name="username" placeholder="{{'Username'|translate}}" ng-model="ctrl.user.username" ng-model-options="{ debounce: 100 }" ng-minlength="3" ng-maxlength="20" ng-pattern="/^(13|15|18)\d{9}$/" required user-exist />
                 </label>
                 <div class="error-container" ng-show="signupForm.username.$error && signupForm.$submitted" ng-messages="signupForm.username.$error">
                     <div ng-messages-include="templates/errorlist.html"></div>
                     <div class="error" ng-message="userExist"><i class="ion-information-circled"></i> <span translate>User is exist</span></div>
+                    <div class="error" ng-message="pattern"><i class="ion-information-circled"></i> <span translate>mobile number invalid</span></div>
                 </div>
                 <label class="item item-input" ng-class="{'has-errors': signupForm.password.$invalid && signupForm.$submitted, 'no-errors': signupForm.password.$valid && singupForm.$submitted }">
                     <input type="password" name="password" placeholder="{{'Password'|translate}}" ng-model="ctrl.user.password" required ng-minlength="5" ng-maxlength="22"/>

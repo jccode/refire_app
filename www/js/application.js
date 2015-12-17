@@ -570,18 +570,20 @@
   var SignupCtrl;
 
   SignupCtrl = (function() {
-    function SignupCtrl($scope, User) {
+    function SignupCtrl($scope, User, auth) {
       this.$scope = $scope;
       this.User = User;
+      this.auth = auth;
     }
 
     SignupCtrl.prototype.signup = function(form) {
       if (form.$valid) {
         console.log(this.user);
-        return this.User.save(this.user).$promise.then(function(ret) {
-          return console.log(ret);
+        return this.auth.signup(this.user, function(user) {
+          console.log('signup success');
+          return console.log(user);
         }, function(err) {
-          return console.log(err);
+          return console.log('signup error');
         });
       }
     };
@@ -590,7 +592,7 @@
 
   })();
 
-  angular.module('app').controller('SignupCtrl', ['$scope', 'User', SignupCtrl]);
+  angular.module('app').controller('SignupCtrl', ['$scope', 'User', 'Auth', SignupCtrl]);
 
 }).call(this);
 
@@ -802,8 +804,15 @@
               set_current_user(persist_user);
               success(persist_user);
               return $rootScope.$broadcast(event.LOGIN, persist_user);
-            });
-          });
+            }).error(error);
+          }).error(error);
+        };
+      })(this);
+      this.signup = (function(_this) {
+        return function(user, success, error) {
+          return $http.post(settings.baseurl + '/userprofile/signup/', user).success(function(user) {
+            return console.log(user);
+          }).error(error);
         };
       })(this);
       this.logout = (function(_this) {
@@ -846,7 +855,7 @@
     };
 
     User.prototype.exist = function(username) {
-      return this.$http.get(this.settings.baseurl + '/guest/api/userexist?username=' + username);
+      return this.$http.get(this.settings.baseurl + '/userprofile/userexist/?q=' + username);
     };
 
     return User;

@@ -77,6 +77,15 @@ class Auth
 							set_current_user persist_user
 							success persist_user
 							$rootScope.$broadcast event.LOGIN, persist_user
+						.error error
+				.error error
+
+		@signup = (user, success, error) =>
+			$http
+				.post(settings.baseurl + '/userprofile/signup/', user)
+				.success (user)->
+					console.log user
+				.error error
 
 		@logout = () =>
 			set_current_user anon_user

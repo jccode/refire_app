@@ -11,7 +11,7 @@ class User
 		@User.save(user)
 
 	exist: (username) ->
-		@$http.get @settings.baseurl + '/guest/api/userexist?username=' + username
+		@$http.get @settings.baseurl + '/userprofile/userexist/?q=' + username
 		
 
 angular.module('app').service 'User', ['$resource', '$http', 'settings', User]
