@@ -630,20 +630,40 @@
   var TestCtrl;
 
   TestCtrl = (function() {
-    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope, user) {
+    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope, user, sms) {
       this.$scope = $scope;
       this.$ionicPopover = $ionicPopover;
       this.$ionicHistory = $ionicHistory;
       this.$state = $state;
       this.$rootScope = $rootScope;
       this.user = user;
+      this.sms = sms;
       this.initPopover();
       this.$scope.get_users = (function(_this) {
         return function() {
           return _this.$scope.users = _this.user.all();
         };
       })(this);
+      this.initSms();
     }
+
+    TestCtrl.prototype.initSms = function() {
+      this.$scope.wating_sms = false;
+      return this.$scope.send_sms = (function(_this) {
+        return function(phone) {
+          if (!_this.$scope.wating_sms) {
+            console.log(phone);
+            _this.$scope.wating_sms = true;
+            return _this.sms.send(phone).then(function(ret) {
+              return console.log(ret);
+            }, function(err) {
+              console.log(err);
+              return _this.$scope.wating_sms = false;
+            });
+          }
+        };
+      })(this);
+    };
 
     TestCtrl.prototype.initPopover = function() {
       this.$scope.popover = this.$ionicPopover.fromTemplateUrl('templates/action_more.html', {
@@ -689,7 +709,7 @@
 
   })();
 
-  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', TestCtrl]);
+  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', 'Sms', TestCtrl]);
 
 }).call(this);
 
@@ -870,6 +890,30 @@
   })();
 
   angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', '$base64', 'settings', 'event', Auth]);
+
+}).call(this);
+
+(function() {
+  var Sms;
+
+  Sms = (function() {
+    function Sms($http, settings) {
+      this.$http = $http;
+      this.settings = settings;
+      this.url = this.settings.baseurl + "/sms/send/";
+    }
+
+    Sms.prototype.send = function(phone) {
+      return this.$http.post(this.url, {
+        'phone': phone
+      });
+    };
+
+    return Sms;
+
+  })();
+
+  angular.module('app').service('Sms', ['$http', 'settings', Sms]);
 
 }).call(this);
 

@@ -1,9 +1,24 @@
 
 class TestCtrl
-	constructor: (@$scope, @$ionicPopover, @$ionicHistory, @$state, @$rootScope, @user) ->
+	constructor: (@$scope, @$ionicPopover, @$ionicHistory, @$state, @$rootScope, @user, @sms) ->
 		@initPopover()
 		@$scope.get_users = =>
 			@$scope.users = @user.all()
+		@initSms()
+		
+	initSms: ->
+		@$scope.wating_sms = false
+		@$scope.send_sms = (phone)=>
+			unless @$scope.wating_sms
+				console.log phone
+				@$scope.wating_sms = true
+				@sms.send phone
+					.then (ret)=>
+						console.log ret
+					, (err)=>
+						console.log err
+						@$scope.wating_sms = false
+							
 
 	initPopover: ->
 		@$scope.popover = @$ionicPopover.fromTemplateUrl('templates/action_more.html', {
@@ -31,6 +46,8 @@ class TestCtrl
 			@$state.go 'app.test-native'
 
 
+
+
 angular.module('app').controller 'TestCtrl', [
 	'$scope',
 	'$ionicPopover',
@@ -38,4 +55,5 @@ angular.module('app').controller 'TestCtrl', [
 	'$state',
 	'$rootScope',
 	'User',
+	'Sms',
 	TestCtrl]

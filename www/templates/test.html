@@ -8,8 +8,20 @@
     <ion-content>
         <h1>Test</h1>
         <!-- <video src="img/1.mp4" controls="controls"> video is not supported. </video> -->
-        <button class="button button-light" ng-click="get_users()"> get users </button>
-        <a href="#/app/signup">sign up</a>
+
+        <div class="list">
+            <button class="button button-light button-block item" ng-click="get_users()"> get users </button>
+            <a class="item" href="#/app/signup">sign up</a>
+            <div class="item-input-inset">
+                <label class="item item-input-wrapper">
+                    <input type="text" name="phone" ng-model="phone" placeholder="phone" />
+                </label>
+                <button class="button button-small button-positive" ng-disabled="wating_sms" ng-click="send_sms(phone)"> send </button>
+            </div>
+        </div>
+        
+        
+        
 
         <ion-list>
             <ion-item ng-repeat="user in users">
