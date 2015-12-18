@@ -12,6 +12,7 @@
     "ngCordova": "~0.1.23-alpha",
     "ngstorage": "~0.3.10",
     "angular-resource": "~1.4.8",
-    "angular-messages": "~1.4.8"
+    "angular-messages": "~1.4.8",
+    "sass-css3-mixins": "*"
   }
 }

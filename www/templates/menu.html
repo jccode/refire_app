@@ -1,6 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="false">
     <ion-side-menu-content>
-        <ion-nav-bar class="bar-assertive">
+        <ion-nav-bar class="bar-calm">
             <ion-nav-back-button>
             </ion-nav-back-button>
 
@@ -21,31 +21,77 @@
     </ion-side-menu-content>
 
     <ion-side-menu side="left">
-        <ion-header-bar class="bar-stable">
+        <ion-header-bar class="menu-title">
             <h1 class="title" translate>Menu</h1>
         </ion-header-bar>
         <ion-content>
             <ion-list>
+                <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/home">
+                    <i class="icon ion-ios-home"></i>
+                    <translate> Home </translate>
+                    <i class="icon ion-chevron-right"></i>
+                </ion-item>
+
+                <ion-item class=" item-group-header" >
+                    <translate> Bus Infomation </translate>
+                </ion-item>
+
+                <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/buslocation">
+                    <i class="icon ion-location"></i>
+                    <translate> Bus Location </translate>
+                    <i class="icon ion-chevron-right"></i>
+                </ion-item>
+                <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/busoverview">
+                    <i class="icon ion-speedometer"></i>
+                    <translate> Engine & Milage </translate>
+                    <i class="icon ion-chevron-right"></i>
+                </ion-item>
                 <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/health">
-                    <i class="icon ion-battery-half"></i>
-                    <translate> Health Status </translate>
+                    <i class="icon ion-cloud"></i>
+                    <translate> Clean Enviroment </translate>
+                    <i class="icon ion-chevron-right"></i>
+                </ion-item>
+
+                <ion-item class="item-group-header">
+                    <translate> Payment </translate>
+                </ion-item>
+
+                <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/health">
+                    <i class="icon ion-card"></i>
+                    <translate> Pay Ticket </translate>
                     <i class="icon ion-chevron-right"></i>
                 </ion-item>
                 <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/statistics">
-                    <i class="icon ion-arrow-graph-up-right"></i>
-                    <translate>Energy Statistics</translate>
+                    <i class="icon ion-cash"></i>
+                    <translate>Your Tickets</translate>
                     <i class="icon ion-chevron-right"></i>
                 </ion-item>
+                <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/statistics">
+                    <i class="icon ion-trophy"></i>
+                    <translate>Rewards</translate>
+                    <i class="icon ion-chevron-right"></i>
+                </ion-item>
+
+                <ion-item class="item-group-header">
+                    <translate> Others </translate>
+                </ion-item>
+                <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/profile">
+                    <i class="icon ion-android-warning"></i>
+                    <translate>Messages</translate>
+                    <i class="icon ion-chevron-right"></i>
+                </ion-item>                
                 <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/setting">
                     <i class="icon ion-gear-b"></i>
                     <translate>Settings</translate>
                     <i class="icon ion-chevron-right"></i>
                 </ion-item>
                 <ion-item menu-close class="item-icon-left item-icon-right" href="#/app/profile">
-                    <i class="icon ion-person"></i>
-                    <translate>Profile</translate>
+                    <i class="icon ion-help-buoy"></i>
+                    <translate>About Us</translate>
                     <i class="icon ion-chevron-right"></i>
                 </ion-item>
+
+                <!-- 
                 <ion-item menu-close class="item-icon-left item-icon-right" ng-click="logout()">
                     <i class="icon ion-log-out"></i>
                     <translate>Log off</translate>
@@ -54,6 +100,8 @@
                 <ion-item menu-close ng-click="login()">
                     <translate>Login</translate>
                 </ion-item>
+                -->
+                
                 <ion-item menu-close href="#/app/playlists">
                     Playlists
                 </ion-item>

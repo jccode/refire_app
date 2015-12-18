@@ -1,26 +1,17 @@
-/* override */
-/* ------------------------------ */
-/* menu */
-.bar.bar-stable .title {
-  color: #077AEE; }
+/* -------------------------------------------------------------
+  Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
+  By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
 
-.menu.menu-left .list .item {
-  color: #3E3BAF; }
+  List of CSS3 Sass Mixins File to be @imported and @included as you need
 
-/* common */
-/* ------------------------------ */
-.pull-right {
-  float: right; }
+  The purpose of this library is to facilitate the use of CSS3 on different browsers avoiding HARD TO READ and NEVER
+  ENDING css files
 
-.pull-left {
-  float: left; }
+  note: All CSS3 Properties are being supported by Safari 5
+  more info: http://www.findmebyip.com/litmus/#css3-properties
 
-/* height */
-.h-item-2 {
-  height: 108px; }
-
-/* validation */
-/* ------------------------------ */
+------------------------------------------------------------- */
+/* form validation */
 .error-container {
   margin: 5px 0; }
 
@@ -48,3 +39,37 @@
 
 .no-errors {
   border-bottom: 3px solid green; }
+
+/* varibles */
+/* override */
+/* menu */
+.bar.menu-title {
+  background: #0d5c88;
+  border-bottom: 1px solid #0d5c88; }
+  .bar.menu-title .title {
+    color: #ccc; }
+
+.menu.menu-left .list .item {
+  color: #127BB6; }
+  .menu.menu-left .list .item .icon {
+    font-size: 22px; }
+    .menu.menu-left .list .item .icon.ion-chevron-right {
+      font-size: 14px;
+      color: #555; }
+  .menu.menu-left .list .item.item-complex .item-content {
+    padding: 10px 49px 10px 46px;
+    font-size: 14px; }
+  .menu.menu-left .list .item.item-group-header {
+    padding: 20px 49px 4px 12px;
+    color: #555; }
+
+/* common */
+.pull-right {
+  float: right; }
+
+.pull-left {
+  float: left; }
+
+/* height */
+.h-item-2 {
+  height: 108px; }

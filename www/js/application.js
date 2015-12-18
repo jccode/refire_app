@@ -108,6 +108,27 @@
         abstract: true,
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
+      }).state('app.home', {
+        url: '/home',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/home.html'
+          }
+        }
+      }).state('app.buslocation', {
+        url: '/buslocation',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/bus_location.html'
+          }
+        }
+      }).state('app.busoverview', {
+        url: '/busoverview',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/bus_overview.html'
+          }
+        }
       }).state('app.health', {
         url: '/health',
         views: {
@@ -187,7 +208,7 @@
           }
         }
       });
-      $urlRouterProvider.otherwise('/app/playlists');
+      $urlRouterProvider.otherwise('/app/home');
     }
 
     return Config;
