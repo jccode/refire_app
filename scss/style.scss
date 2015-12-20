@@ -51,16 +51,6 @@ $menu-title-bgcolor: darken($menu-font-color, 10%);
 }
 
 
-/* common */
-// ========================================
-
-.pull-right {
-    float: right;
-}
-
-.pull-left {
-    float: left;
-}
 
 
 /* height */
@@ -351,6 +341,107 @@ $ion-item-height: 54px;
 }
 
 
+/* Payment */
+// ----------------------------------------
+
+.payment {
+    font-size: 13px;
+    background: #f2f2f2;
+
+    img.wechat-pay {
+        /* width: 99px; */ /* height: 99px; */
+        width: 70px; height: 70px;
+    }
+
+    img.alipay {
+        /* width: 190px; */ /* height: 99px; */
+        width: 133px; height: 70px;
+    }
+
+    .ico-title {
+        
+        
+        label {
+            float: left;
+        }
+        
+        h2 {
+            margin-left: 40px;
+            font-size: 13px;
+            font-weight: bold;
+            height: 24px;
+            line-height: 24px;
+        }
+    }
+    
+    .beacon-section {
+        @include background-gradient(#f7f7f7, #e3e3e3);
+
+        h1 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 35px 0 0 30px;
+        }
+
+        .beacon-container {
+            position: relative;
+            width: 107px;
+            height: 78px;
+            background: rgba(255,255,255,.7);
+            @include border-radius(5px);
+            margin: 10px 0px 10px 21px;
+            font-size: 12px;
+            overflow: hidden;
+            text-align: center;
+
+            img {
+                width: 45px;
+                height: 47px;
+                display: block;
+                margin: 7px auto 2px;
+            }
+        }
+
+        .ico-title {
+            margin-left: 9px;
+        }
+
+        .item-select {
+            margin-left: 10px;
+            display: inline-block;
+            width: 180px;
+        }
+    }
+
+    .payment-method {
+
+        .ico-title {
+            margin-left: 14px;
+            margin-top: 37px;
+            margin-bottom: 18px;
+        }
+
+        .pay-container {
+            @include background-gradient(#fff, #f0f0f0);
+            position: relative;
+            overflow: hidden;
+
+            img {
+                display: block;
+                margin: 21px auto;
+            }
+        }
+        .desc {
+            background: #fff;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+        }
+    }
+}
+
+
+
 /* color */
 
 $green-1: #009900;
@@ -384,3 +475,30 @@ $red-1: #cc0000;
 }
 
 
+
+
+
+/* common */
+// ========================================
+
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+
+.round-ico {
+    $round-ico-width: 24px;
+    
+    @include circle($round-ico-width);
+    @extend .bg-green-1;
+    display: inline-block;
+    height: $round-ico-width;
+    line-height: $round-ico-width;
+    color: #fff;
+    font-size: 12px;
+    padding-left: 8px;
+}

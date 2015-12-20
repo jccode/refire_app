@@ -136,6 +136,13 @@
             templateUrl: 'templates/health.html'
           }
         }
+      }).state('app.pay', {
+        url: '/pay',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/pay.html'
+          }
+        }
       }).state('app.statistics', {
         url: '/statistics',
         views: {
