@@ -41,6 +41,19 @@ class Config
 					'menuContent':
 						templateUrl: 'templates/pay.html'
 
+			.state 'app.pay-confirm',
+				url: '/pay-confirm/:type'
+				views:
+					'menuContent':
+						templateUrl: 'templates/pay-confirm.html'
+
+			.state 'app.tickets',
+				url: '/tickets'
+				views:
+					'menuContent':
+						templateUrl: 'templates/tickets.html'
+						controller: 'TicketsCtrl'
+
 			.state 'app.statistics',
 				url: '/statistics'
 				views:

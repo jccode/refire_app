@@ -52,6 +52,53 @@ $menu-title-bgcolor: darken($menu-font-color, 10%);
 
 
 
+/* Color */
+
+$green-1: #009900;
+$green-2: #339933;
+$green-3: #34cd34;
+$orange-1: #ff9900;
+$red-1: #cc0000;
+
+.c-green-1 {
+    color: $green-1;
+}
+.bg-green-1 {
+    background: $green-1 !important;
+}
+.c-green-2 {
+    color: $green-2;
+}
+.bg-green-2 {
+    background: $green-2 !important;
+}
+.c-orange-1 {
+    color: $orange-1;
+}
+.bg-orange-1 {
+    background: $orange-1 !important;
+}
+.c-red-1 {
+    color: $red-1;
+}
+.bg-red-1 {
+    background: $red-1 !important;
+}
+
+
+/* buttons */
+.button-orange {
+    @include background-gradient(#E67E2D, #DF5126);
+    color: #fff;
+    border: none;
+}
+.button-gray {
+    @include background-gradient(#CCC, #999);
+    color: #fff;
+    border: none;
+}
+
+
 
 /* height */
 
@@ -344,9 +391,26 @@ $ion-item-height: 54px;
 /* Payment */
 // ----------------------------------------
 
-.payment {
+.payment, .payment-confirm {
     font-size: 13px;
     background: #f2f2f2;
+
+    .ico-title {
+        label {
+            float: left;
+        }
+        
+        h2 {
+            margin: 0 0 0 40px;
+            font-size: 13px;
+            font-weight: bold;
+            height: 24px;
+            line-height: 24px;
+        }
+    }    
+}
+
+.payment {
 
     img.wechat-pay {
         /* width: 99px; */ /* height: 99px; */
@@ -358,22 +422,6 @@ $ion-item-height: 54px;
         width: 133px; height: 70px;
     }
 
-    .ico-title {
-        
-        
-        label {
-            float: left;
-        }
-        
-        h2 {
-            margin-left: 40px;
-            font-size: 13px;
-            font-weight: bold;
-            height: 24px;
-            line-height: 24px;
-        }
-    }
-    
     .beacon-section {
         @include background-gradient(#f7f7f7, #e3e3e3);
 
@@ -403,7 +451,7 @@ $ion-item-height: 54px;
         }
 
         .ico-title {
-            margin-left: 9px;
+            margin: 18px 0 4px 9px;
         }
 
         .item-select {
@@ -437,44 +485,74 @@ $ion-item-height: 54px;
             line-height: 28px;
             text-align: center;
         }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
     }
 }
 
+.payment-confirm {
+    .ico-title {
+        margin: 19px 0 19px 15px;
+    }
+    .pay-method {
+        @include background-gradient(#fff, #f0f0f0);
+        img {
+            height: 52px;
+            margin: 6px 0 6px 10px;
+        }
+    }
+    .bill {
+        background: #fff;
+        padding: 0 21px;
+        overflow: hidden;
+        
+        h2 {
+            font-size: 13px;
+            font-weight: bold;
+            margin: 33px 0 9px
+        }
+        ul.purchase li, .total {
+            height: 28px;
+            line-height: 28px;
 
-
-/* color */
-
-$green-1: #009900;
-$green-2: #339933;
-$orange-1: #ff9900;
-$red-1: #cc0000;
-
-.c-green-1 {
-    color: $green-1;
-}
-.bg-green-1 {
-    background: $green-1 !important;
-}
-.c-green-2 {
-    color: $green-2;
-}
-.bg-green-2 {
-    background: $green-2 !important;
-}
-.c-orange-1 {
-    color: $orange-1;
-}
-.bg-orange-1 {
-    background: $orange-1 !important;
-}
-.c-red-1 {
-    color: $red-1;
-}
-.bg-red-1 {
-    background: $red-1 !important;
+            span {
+                margin-left: 2px;
+            }
+            
+            span:last-child {
+                float: right;
+                margin-right: 2px;
+            }
+        }
+        .purchase {
+            border-bottom: 1px solid #000;
+        }
+        .total {
+            margin: 2px 0 20px;
+            font-weight: bold;
+        }
+        
+    }
+    .btns {
+        padding: 40px 39px 0;
+        
+    }
 }
 
+.tickets {
+    .item {
+        .icon {
+            font-size: 22px;
 
+            &:first-child {
+                color: $green-3;
+            }
+        }
+    }
+}
 
 
 

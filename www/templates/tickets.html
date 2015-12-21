@@ -1,0 +1,12 @@
+<ion-view view-title="Your tickets">
+    <ion-content class="tickets">
+        <ion-list>
+            <ion-item ng-repeat="ticket in tickets" class="item-icon-left item-icon-right">
+                <i class="icon ion-checkmark-circled"></i>
+                <h2>{{ticket.line}}</h2>
+                <p>{{ticket.timestamp}}</p>
+                <i class="icon ion-chevron-right"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

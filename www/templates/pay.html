@@ -1,63 +1,63 @@
 <ion-view view-title="PAYMENT">
-    <ion-content>
-        <div class="payment">
-            <div class="beacon-section row"> <!-- ibeacon detected -->
-                <div class="col-33">
-                    <div class="beacon-container">
-                        <img src="img/ibeacon-on.png" alt="iBeacon detected" />
-                        <div translate>iBeacon Detected</div>
-                    </div>
-                </div>
-                <div class="col-67">
-                    <h1>BUS M474</h1>
+    <ion-content class="payment">
+
+        <div class="beacon-section row"> <!-- ibeacon detected -->
+            <div class="col-33">
+                <div class="beacon-container">
+                    <img src="img/ibeacon-on.png" alt="iBeacon detected" />
+                    <div translate>iBeacon Detected</div>
                 </div>
             </div>
-            <div class="beacon-section row"> <!-- ibeacon not detected -->
-                <div class="col-67">
-                    <div class="ico-title">
-                        <label class="round-ico"> 1 </label>
-                        <h2> Select Bus </h2>
-                    </div>
-                    <div class="item item-select">
-                        <select>
-                            <option>M474</option>
-                            <option selected>M383</option>
-                            <option>K105</option>
-                        </select>
-                    </div>
-                    
-                </div>
-                <div class="col-33">
-                    <div class="beacon-container">
-                        <img src="img/ibeacon-off.png" alt="iBeacon detected" />
-                        <div translate>iBeacon Detected</div>
-                    </div>
-                </div>
+            <div class="col-67">
+                <h1>BUS M474</h1>
             </div>
-            <div class="payment-method">
+        </div>
+        <div class="beacon-section row"> <!-- ibeacon not detected -->
+            <div class="col-67">
                 <div class="ico-title">
-                    <label class="round-ico"> 2 </label>
-                    <h2> Select your payment method </h2>
+                    <label class="round-ico"> 1 </label>
+                    <h2> Select Bus </h2>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="pay-container">
-                            <img src="img/wechat.png" alt="wechat pay" class="wechat-pay" />
-                        </div>
-                        <div class="desc" translate >
-                            Wechat Wallet
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="pay-container">
-                            <img src="img/alipay.png" alt="ali pay" class="alipay" />
-                        </div>
-                        <div class="desc" translate >
-                            AliPay
-                        </div>
-                    </div>
+                <div class="item item-select">
+                    <select>
+                        <option>M474</option>
+                        <option selected>M383</option>
+                        <option>K105</option>
+                    </select>
+                </div>
+                
+            </div>
+            <div class="col-33">
+                <div class="beacon-container">
+                    <img src="img/ibeacon-off.png" alt="iBeacon detected" />
+                    <div translate>iBeacon Detected</div>
                 </div>
             </div>
         </div>
+        <div class="payment-method">
+            <div class="ico-title">
+                <label class="round-ico"> 2 </label>
+                <h2> Select your payment method </h2>
+            </div>
+            <div class="row">
+                <a class="col" href="#/app/pay-confirm/1">
+                    <div class="pay-container">
+                        <img src="img/wechat.png" alt="wechat pay" class="wechat-pay" />
+                    </div>
+                    <div class="desc" translate >
+                        Wechat Wallet
+                    </div>
+                </a>
+                <a class="col" href="#/app/pay-confirm/2">
+                    <div class="pay-container">
+                        <img src="img/alipay.png" alt="ali pay" class="alipay" />
+                    </div>
+                    <div class="desc" translate >
+                        AliPay
+                    </div>
+                </a>
+            </div>
+        </div>
+
     </ion-content>
 </ion-view>

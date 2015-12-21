@@ -143,6 +143,21 @@
             templateUrl: 'templates/pay.html'
           }
         }
+      }).state('app.pay-confirm', {
+        url: '/pay-confirm/:type',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/pay-confirm.html'
+          }
+        }
+      }).state('app.tickets', {
+        url: '/tickets',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/tickets.html',
+            controller: 'TicketsCtrl'
+          }
+        }
       }).state('app.statistics', {
         url: '/statistics',
         views: {
@@ -717,6 +732,31 @@
   })();
 
   angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', 'Sms', TestCtrl]);
+
+}).call(this);
+
+(function() {
+  var TicketsCtrl;
+
+  TicketsCtrl = (function() {
+    function TicketsCtrl($scope) {
+      this.$scope = $scope;
+      this.$scope.tickets = [
+        {
+          line: 'Bus M474',
+          timestamp: '2015-12-22 13:15'
+        }, {
+          line: 'Bus 299',
+          timestamp: '2015-12-24 14:20'
+        }
+      ];
+    }
+
+    return TicketsCtrl;
+
+  })();
+
+  angular.module('app').controller('TicketsCtrl', ['$scope', TicketsCtrl]);
 
 }).call(this);
 
