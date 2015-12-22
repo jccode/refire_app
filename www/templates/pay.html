@@ -1,7 +1,7 @@
 <ion-view view-title="PAYMENT">
     <ion-content class="payment">
 
-        <div class="beacon-section row"> <!-- ibeacon detected -->
+        <div class="beacon-section row" ng-show="ibeacon_detected"> <!-- ibeacon detected -->
             <div class="col-33">
                 <div class="beacon-container">
                     <img src="img/ibeacon-on.png" alt="iBeacon detected" />
@@ -12,7 +12,7 @@
                 <h1>BUS M474</h1>
             </div>
         </div>
-        <div class="beacon-section row"> <!-- ibeacon not detected -->
+        <div class="beacon-section row" ng-hide="ibeacon_detected"> <!-- ibeacon not detected -->
             <div class="col-67">
                 <div class="ico-title">
                     <label class="round-ico"> 1 </label>
@@ -36,7 +36,7 @@
         </div>
         <div class="payment-method">
             <div class="ico-title">
-                <label class="round-ico"> 2 </label>
+                <label class="round-ico"> {{step}} </label>
                 <h2> Select your payment method </h2>
             </div>
             <div class="row">

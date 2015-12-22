@@ -57,6 +57,11 @@
       LOGIN: 'login',
       LOGOUT: 'logout',
       SIGNUP: 'signup'
+    },
+    'storageKey': {
+      PAY_STEP_SEQNO: 'pay_step_seqno',
+      PAY_BUS_LINE: 'pay_bus_line',
+      TICKETS: 'tickets'
     }
   });
 
@@ -140,14 +145,16 @@
         url: '/pay',
         views: {
           'menuContent': {
-            templateUrl: 'templates/pay.html'
+            templateUrl: 'templates/pay.html',
+            controller: 'PayCtrl'
           }
         }
       }).state('app.pay-confirm', {
         url: '/pay-confirm/:type',
         views: {
           'menuContent': {
-            templateUrl: 'templates/pay-confirm.html'
+            templateUrl: 'templates/pay-confirm.html',
+            controller: 'PayConfirmCtrl as ctrl'
           }
         }
       }).state('app.tickets', {
@@ -564,6 +571,70 @@
   })();
 
   angular.module('app').controller('NativeTestCtrl', ['$scope', 'settings', '$ionicPopup', 'Util', '$cordovaDevice', '$cordovaToast', '$cordovaLocalNotification', '$cordovaImagePicker', '$cordovaFileTransfer', NativeTestCtrl]);
+
+}).call(this);
+
+(function() {
+  var PayConfirmCtrl;
+
+  PayConfirmCtrl = (function() {
+    function PayConfirmCtrl($scope, $state, $stateParams, $localStorage, $sessionStorage, storageKey) {
+      var type;
+      this.$scope = $scope;
+      this.$state = $state;
+      this.$stateParams = $stateParams;
+      this.$localStorage = $localStorage;
+      this.$sessionStorage = $sessionStorage;
+      this.storageKey = storageKey;
+      type = this.$stateParams.type;
+      this.pay_method_logo = type === "1" ? 'img/wechat.png' : 'img/alipay.png';
+      this.step = this.$sessionStorage[this.storageKey.PAY_STEP_SEQNO] + 1;
+      this.tickets = this.$localStorage[this.storageKey.TICKETS] || [];
+    }
+
+    PayConfirmCtrl.prototype.pay = function() {
+      this.$localStorage[this.storageKey.TICKETS] = this.tickets.push({
+        line: this.$sessionStorage[this.storageKey.PAY_BUS_LINE],
+        timestamp: moment().format('YYYY-MM-dd hh:mm')
+      });
+      return this.$state.go('app.tickets');
+    };
+
+    PayConfirmCtrl.prototype.cancel = function() {
+      return history.back();
+    };
+
+    return PayConfirmCtrl;
+
+  })();
+
+  angular.module('app').controller('PayConfirmCtrl', ['$scope', '$state', '$stateParams', '$localStorage', '$sessionStorage', 'storageKey', PayConfirmCtrl]);
+
+}).call(this);
+
+(function() {
+  var PayCtrl;
+
+  PayCtrl = (function() {
+    function PayCtrl($scope, $localStorage, $sessionStorage, storageKey) {
+      var defaultVal;
+      this.$scope = $scope;
+      this.$localStorage = $localStorage;
+      this.$sessionStorage = $sessionStorage;
+      this.storageKey = storageKey;
+      this.$scope.ibeacon_detected = false;
+      this.$scope.step = this.$scope.ibeacon_detected ? 1 : 2;
+      defaultVal = {};
+      defaultVal[this.storageKey.PAY_BUS_LINE] = 'M474';
+      this.storage = this.$sessionStorage.$default(defaultVal);
+      this.storage[this.storageKey.PAY_STEP_SEQNO] = this.$scope.step;
+    }
+
+    return PayCtrl;
+
+  })();
+
+  angular.module('app').controller('PayCtrl', ['$scope', '$localStorage', '$sessionStorage', 'storageKey', PayCtrl]);
 
 }).call(this);
 
