@@ -19,10 +19,10 @@
                     <h2> Select Bus </h2>
                 </div>
                 <div class="item item-select">
-                    <select>
-                        <option>M474</option>
-                        <option selected>M383</option>
-                        <option>K105</option>
+                    <select ng-model="ctrl.busline">
+                        <option value="M474">M474</option>
+                        <option value="M383">M383</option>
+                        <option value="K105">K105</option>
                     </select>
                 </div>
                 
@@ -40,7 +40,7 @@
                 <h2> Select your payment method </h2>
             </div>
             <div class="row">
-                <a class="col" href="#/app/pay-confirm/1">
+                <a class="col" ng-click="pay_confirm(1)"> <!-- href="#/app/pay-confirm/1" -->
                     <div class="pay-container">
                         <img src="img/wechat.png" alt="wechat pay" class="wechat-pay" />
                     </div>
@@ -48,7 +48,7 @@
                         Wechat Wallet
                     </div>
                 </a>
-                <a class="col" href="#/app/pay-confirm/2">
+                <a class="col" ng-click="pay_confirm(2)" > <!-- href="#/app/pay-confirm/2" -->
                     <div class="pay-container">
                         <img src="img/alipay.png" alt="ali pay" class="alipay" />
                     </div>

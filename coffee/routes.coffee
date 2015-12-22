@@ -40,7 +40,7 @@ class Config
 				views:
 					'menuContent':
 						templateUrl: 'templates/pay.html'
-						controller: 'PayCtrl'
+						controller: 'PayCtrl as ctrl'
 
 			.state 'app.pay-confirm',
 				url: '/pay-confirm/:type'

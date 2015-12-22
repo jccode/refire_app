@@ -146,7 +146,7 @@
         views: {
           'menuContent': {
             templateUrl: 'templates/pay.html',
-            controller: 'PayCtrl'
+            controller: 'PayCtrl as ctrl'
           }
         }
       }).state('app.pay-confirm', {
@@ -578,7 +578,7 @@
   var PayConfirmCtrl;
 
   PayConfirmCtrl = (function() {
-    function PayConfirmCtrl($scope, $state, $stateParams, $localStorage, $sessionStorage, storageKey) {
+    function PayConfirmCtrl($scope, $state, $stateParams, $localStorage, $sessionStorage, storageKey, $ionicHistory) {
       var type;
       this.$scope = $scope;
       this.$state = $state;
@@ -586,6 +586,7 @@
       this.$localStorage = $localStorage;
       this.$sessionStorage = $sessionStorage;
       this.storageKey = storageKey;
+      this.$ionicHistory = $ionicHistory;
       type = this.$stateParams.type;
       this.pay_method_logo = type === "1" ? 'img/wechat.png' : 'img/alipay.png';
       this.step = this.$sessionStorage[this.storageKey.PAY_STEP_SEQNO] + 1;
@@ -593,9 +594,13 @@
     }
 
     PayConfirmCtrl.prototype.pay = function() {
-      this.$localStorage[this.storageKey.TICKETS] = this.tickets.push({
+      this.tickets.push({
         line: this.$sessionStorage[this.storageKey.PAY_BUS_LINE],
-        timestamp: moment().format('YYYY-MM-dd hh:mm')
+        timestamp: moment().format('YYYY-MM-DD HH:mm')
+      });
+      this.$localStorage[this.storageKey.TICKETS] = this.tickets;
+      this.$ionicHistory.nextViewOptions({
+        disableBack: true
       });
       return this.$state.go('app.tickets');
     };
@@ -608,7 +613,7 @@
 
   })();
 
-  angular.module('app').controller('PayConfirmCtrl', ['$scope', '$state', '$stateParams', '$localStorage', '$sessionStorage', 'storageKey', PayConfirmCtrl]);
+  angular.module('app').controller('PayConfirmCtrl', ['$scope', '$state', '$stateParams', '$localStorage', '$sessionStorage', 'storageKey', '$ionicHistory', PayConfirmCtrl]);
 
 }).call(this);
 
@@ -616,25 +621,35 @@
   var PayCtrl;
 
   PayCtrl = (function() {
-    function PayCtrl($scope, $localStorage, $sessionStorage, storageKey) {
+    function PayCtrl($scope, $state, $localStorage, $sessionStorage, storageKey) {
       var defaultVal;
       this.$scope = $scope;
+      this.$state = $state;
       this.$localStorage = $localStorage;
       this.$sessionStorage = $sessionStorage;
       this.storageKey = storageKey;
       this.$scope.ibeacon_detected = false;
       this.$scope.step = this.$scope.ibeacon_detected ? 1 : 2;
+      this.busline = 'M474';
       defaultVal = {};
-      defaultVal[this.storageKey.PAY_BUS_LINE] = 'M474';
+      defaultVal[this.storageKey.PAY_BUS_LINE] = this.busline;
       this.storage = this.$sessionStorage.$default(defaultVal);
       this.storage[this.storageKey.PAY_STEP_SEQNO] = this.$scope.step;
+      this.$scope.pay_confirm = (function(_this) {
+        return function(state) {
+          _this.storage[_this.storageKey.PAY_BUS_LINE] = _this.busline;
+          return _this.$state.go('app.pay-confirm', {
+            type: state
+          });
+        };
+      })(this);
     }
 
     return PayCtrl;
 
   })();
 
-  angular.module('app').controller('PayCtrl', ['$scope', '$localStorage', '$sessionStorage', 'storageKey', PayCtrl]);
+  angular.module('app').controller('PayCtrl', ['$scope', '$state', '$localStorage', '$sessionStorage', 'storageKey', PayCtrl]);
 
 }).call(this);
 
@@ -810,24 +825,18 @@
   var TicketsCtrl;
 
   TicketsCtrl = (function() {
-    function TicketsCtrl($scope) {
+    function TicketsCtrl($scope, $localStorage, storageKey) {
       this.$scope = $scope;
-      this.$scope.tickets = [
-        {
-          line: 'Bus M474',
-          timestamp: '2015-12-22 13:15'
-        }, {
-          line: 'Bus 299',
-          timestamp: '2015-12-24 14:20'
-        }
-      ];
+      this.$localStorage = $localStorage;
+      this.storageKey = storageKey;
+      this.$scope.tickets = this.$localStorage[this.storageKey.TICKETS];
     }
 
     return TicketsCtrl;
 
   })();
 
-  angular.module('app').controller('TicketsCtrl', ['$scope', TicketsCtrl]);
+  angular.module('app').controller('TicketsCtrl', ['$scope', '$localStorage', 'storageKey', TicketsCtrl]);
 
 }).call(this);
 
