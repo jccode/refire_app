@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64', 'ngMessages']);
+  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64', 'ngMessages', 'angularMoment']);
 
 }).call(this);
 
@@ -175,6 +175,14 @@
         data: {
           permissions: {
             only: [roles.user]
+          }
+        }
+      }).state('app.messages', {
+        url: '/messages',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/messages.html',
+            controller: 'MessageCtrl'
           }
         }
       }).state('app.setting', {
@@ -394,6 +402,24 @@
   })();
 
   angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', '$ionicHistory', 'gettext', 'gettextCatalog', 'Util', AppCtrl]);
+
+}).call(this);
+
+(function() {
+  var MessageCtrl;
+
+  MessageCtrl = (function() {
+    function MessageCtrl($scope, Message) {
+      this.$scope = $scope;
+      this.Message = Message;
+      this.$scope.messages = this.Message.all();
+    }
+
+    return MessageCtrl;
+
+  })();
+
+  angular.module('app').controller('MessageCtrl', ['$scope', 'Message', MessageCtrl]);
 
 }).call(this);
 
@@ -1017,6 +1043,31 @@
   })();
 
   angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', '$base64', 'settings', 'event', Auth]);
+
+}).call(this);
+
+(function() {
+  var Messages;
+
+  Messages = (function() {
+    function Messages($resource, settings) {
+      this.$resource = $resource;
+      this.settings = settings;
+      this.url = this.settings.baseurl + "/api/news/:id";
+      this.message = this.$resource(this.url, {
+        id: '@id'
+      });
+    }
+
+    Messages.prototype.all = function() {
+      return this.message.query();
+    };
+
+    return Messages;
+
+  })();
+
+  angular.module('app').service('Message', ['$resource', 'settings', Messages]);
 
 }).call(this);
 

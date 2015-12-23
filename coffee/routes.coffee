@@ -65,6 +65,13 @@ class Config
 					permissions:
 						only: [roles.user]
 
+			.state 'app.messages',
+				url: '/messages'
+				views:
+					'menuContent':
+						templateUrl: 'templates/messages.html'
+						controller: 'MessageCtrl'
+
 			.state 'app.setting',
 				url: '/setting'
 				views:

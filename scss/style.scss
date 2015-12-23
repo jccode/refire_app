@@ -554,6 +554,41 @@ $ion-item-height: 54px;
     }
 }
 
+.messages-center {
+    background: #eee;
+    padding: 7px;
+    font-size: 13px;
+    
+    .msg-item {
+        background: #fff;
+        margin-bottom: 7px;
+        padding: 16px 16px 23px 40px;
+        position: relative;
+        
+        i.icon {
+            position: absolute;
+            margin-left: -26px;
+        }
+        
+        img {
+            width: 100%;
+            margin: 7px 0 7px;
+        }
+
+        h2 {
+            margin-bottom: 5px;
+        }
+
+        div {
+            white-space: normal;
+            margin: 15px 0;
+        }
+
+        a {
+            color: $calm;
+        }
+    }
+}
 
 
 /* common */

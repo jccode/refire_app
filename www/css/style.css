@@ -530,6 +530,29 @@
   .tickets .item .icon:first-child {
     color: #34cd34; }
 
+.messages-center {
+  background: #eee;
+  padding: 7px;
+  font-size: 13px; }
+  .messages-center .msg-item {
+    background: #fff;
+    margin-bottom: 7px;
+    padding: 16px 16px 23px 40px;
+    position: relative; }
+    .messages-center .msg-item i.icon {
+      position: absolute;
+      margin-left: -26px; }
+    .messages-center .msg-item img {
+      width: 100%;
+      margin: 7px 0 7px; }
+    .messages-center .msg-item h2 {
+      margin-bottom: 5px; }
+    .messages-center .msg-item div {
+      white-space: normal;
+      margin: 15px 0; }
+    .messages-center .msg-item a {
+      color: #127BB6; }
+
 /* common */
 .pull-right {
   float: right; }
