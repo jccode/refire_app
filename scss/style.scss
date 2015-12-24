@@ -750,6 +750,23 @@ $ion-item-height: 54px;
     $left-battery-h: 100px;
     $top-battery-h: -49px;
 
+    $width-arrow: 9px;
+    $height-arrow: 11px;
+    
+    $left-arrow-h0: 125px;
+    $top-arrow-h0: 50px;
+    $left-arrow-h1: 125px;
+    $top-arrow-h1: 95px;        /* rotateZ(90deg)*/
+    $left-arrow-h2: 0px;
+    $top-arrow-h2: 110px;
+
+    $left-arrow-e0: 232px;
+    $top-arrow-e0: 50px;
+    $left-arrow-e1: 232px;
+    $top-arrow-e1: 87px;
+    $left-arrow-e2: 0px;
+    $top-arrow-e2: 110px;
+
     .bg {
         position: absolute;
         width: 100%;
@@ -833,6 +850,30 @@ $ion-item-height: 54px;
         margin-left: $left-battery-h;
         margin-top: $top-battery-h;
     }
+    .flow-h, .flow-h2, .flow-e, .flow-e2 {
+        background: url("../img/engineflow/arrow.png") no-repeat center center;
+        position: absolute;
+        width: $width-arrow;
+        height: $height-arrow;
+        top: 50%;
+        left: 50%;
+        
+    }
+    .flow-h, .flow-h2 {
+        margin-left: $left-arrow-h0;
+        margin-top: $top-arrow-h0;
+        @include animation(flow-h 2s infinite);
+    }
+    .flow-e, .flow-e2 {
+        margin-left: $left-arrow-e0;
+        margin-top: $top-arrow-e0;
+        @include animation(flow-e 2s infinite);
+    }
+    .flow-h2, .flow-e2 {
+        @include css3-prefix('animation-delay', .2s);
+    }
+
+    
 
     @mixin scale($factor) {
         .main {
@@ -893,6 +934,49 @@ $ion-item-height: 54px;
     @include mq(mobileExtra, tablet) {
         @include scale(.6)
     }
+
+    
+    // animation
+    @include keyframes(flow-h) {
+        0% {
+            margin-left: $left-arrow-h0;
+            margin-top: $top-arrow-h0;
+        }
+        33% {
+            margin-left: $left-arrow-h1;
+            margin-top: $top-arrow-h1;
+            transform: rotateZ(0);
+        }
+        35% {
+            transform: rotateZ(90deg);
+        }
+        100% {
+            margin-left: $left-arrow-h2;
+            margin-top: $top-arrow-h2;
+            transform: rotateZ(90deg);
+        }
+    }
+
+    @include keyframes(flow-e) {
+        0% {
+            margin-left: $left-arrow-e0;
+            margin-top: $top-arrow-e0;
+        }
+        33% {
+            margin-left: $left-arrow-e1;
+            margin-top: $top-arrow-e1;
+            transform: rotateZ(0);
+        }
+        35% {
+            transform: rotateZ(90deg);
+        }
+        100% {
+            margin-left: $left-arrow-e2;
+            margin-top: $top-arrow-e2;
+            transform: rotateZ(90deg);
+        }
+    }
+
 }
 
 

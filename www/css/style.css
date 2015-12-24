@@ -639,7 +639,8 @@
 
 .ef-dashboard {
   position: relative;
-  /* background: #000; */ }
+  /* background: #000; */
+  /* rotateZ(90deg)*/ }
   .ef-dashboard .bg {
     position: absolute;
     width: 100%;
@@ -709,6 +710,38 @@
     left: 50%;
     margin-left: 100px;
     margin-top: -49px; }
+  .ef-dashboard .flow-h, .ef-dashboard .flow-h2, .ef-dashboard .flow-e, .ef-dashboard .flow-e2 {
+    background: url("../img/engineflow/arrow.png") no-repeat center center;
+    position: absolute;
+    width: 9px;
+    height: 11px;
+    top: 50%;
+    left: 50%; }
+  .ef-dashboard .flow-h, .ef-dashboard .flow-h2 {
+    margin-left: 125px;
+    margin-top: 50px;
+    -webkit-animation: flow-h 2s infinite;
+    -khtml-animation: flow-h 2s infinite;
+    -moz-animation: flow-h 2s infinite;
+    -ms-animation: flow-h 2s infinite;
+    -o-animation: flow-h 2s infinite;
+    animation: flow-h 2s infinite; }
+  .ef-dashboard .flow-e, .ef-dashboard .flow-e2 {
+    margin-left: 232px;
+    margin-top: 50px;
+    -webkit-animation: flow-e 2s infinite;
+    -khtml-animation: flow-e 2s infinite;
+    -moz-animation: flow-e 2s infinite;
+    -ms-animation: flow-e 2s infinite;
+    -o-animation: flow-e 2s infinite;
+    animation: flow-e 2s infinite; }
+  .ef-dashboard .flow-h2, .ef-dashboard .flow-e2 {
+    -webkit-animation-delay: 0.2s;
+    -khtml-animation-delay: 0.2s;
+    -moz-animation-delay: 0.2s;
+    -ms-animation-delay: 0.2s;
+    -o-animation-delay: 0.2s;
+    animation-delay: 0.2s; }
   @media (max-width: 24.99em) {
     .ef-dashboard .main {
       background-size: 540px 324px;
@@ -779,6 +812,156 @@
       height: 388.8px; }
     .ef-dashboard .bg .footer {
       height: 46.8px; } }
+
+@-webkit-keyframes flow-h {
+  0% {
+    margin-left: 125px;
+    margin-top: 50px; }
+  33% {
+    margin-left: 125px;
+    margin-top: 95px;
+    transform: rotateZ(0); }
+  35% {
+    transform: rotateZ(90deg); }
+  100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
+
+@-moz-keyframes flow-h {
+  0% {
+    margin-left: 125px;
+    margin-top: 50px; }
+  33% {
+    margin-left: 125px;
+    margin-top: 95px;
+    transform: rotateZ(0); }
+  35% {
+    transform: rotateZ(90deg); }
+  100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
+
+@-ms-keyframes flow-h {
+  .ef-dashboard 0% {
+    margin-left: 125px;
+    margin-top: 50px; }
+  .ef-dashboard 33% {
+    margin-left: 125px;
+    margin-top: 95px;
+    transform: rotateZ(0); }
+  .ef-dashboard 35% {
+    transform: rotateZ(90deg); }
+  .ef-dashboard 100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
+
+@-o-keyframes flow-h {
+  0% {
+    margin-left: 125px;
+    margin-top: 50px; }
+  33% {
+    margin-left: 125px;
+    margin-top: 95px;
+    transform: rotateZ(0); }
+  35% {
+    transform: rotateZ(90deg); }
+  100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
+
+@keyframes flow-h {
+  0% {
+    margin-left: 125px;
+    margin-top: 50px; }
+  33% {
+    margin-left: 125px;
+    margin-top: 95px;
+    transform: rotateZ(0); }
+  35% {
+    transform: rotateZ(90deg); }
+  100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
+
+@-webkit-keyframes flow-e {
+  0% {
+    margin-left: 232px;
+    margin-top: 50px; }
+  33% {
+    margin-left: 232px;
+    margin-top: 87px;
+    transform: rotateZ(0); }
+  35% {
+    transform: rotateZ(90deg); }
+  100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
+
+@-moz-keyframes flow-e {
+  0% {
+    margin-left: 232px;
+    margin-top: 50px; }
+  33% {
+    margin-left: 232px;
+    margin-top: 87px;
+    transform: rotateZ(0); }
+  35% {
+    transform: rotateZ(90deg); }
+  100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
+
+@-ms-keyframes flow-e {
+  .ef-dashboard 0% {
+    margin-left: 232px;
+    margin-top: 50px; }
+  .ef-dashboard 33% {
+    margin-left: 232px;
+    margin-top: 87px;
+    transform: rotateZ(0); }
+  .ef-dashboard 35% {
+    transform: rotateZ(90deg); }
+  .ef-dashboard 100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
+
+@-o-keyframes flow-e {
+  0% {
+    margin-left: 232px;
+    margin-top: 50px; }
+  33% {
+    margin-left: 232px;
+    margin-top: 87px;
+    transform: rotateZ(0); }
+  35% {
+    transform: rotateZ(90deg); }
+  100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
+
+@keyframes flow-e {
+  0% {
+    margin-left: 232px;
+    margin-top: 50px; }
+  33% {
+    margin-left: 232px;
+    margin-top: 87px;
+    transform: rotateZ(0); }
+  35% {
+    transform: rotateZ(90deg); }
+  100% {
+    margin-left: 0px;
+    margin-top: 110px;
+    transform: rotateZ(90deg); } }
 
 /* common */
 .pull-right {
