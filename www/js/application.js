@@ -200,6 +200,13 @@
             templateUrl: 'templates/setting.html'
           }
         }
+      }).state('app.aboutme', {
+        url: '/aboutme',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/aboutme.html'
+          }
+        }
       }).state('app.profile', {
         url: '/profile',
         views: {

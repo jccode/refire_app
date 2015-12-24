@@ -1,6 +1,7 @@
 
 
 @import "www/lib/sass-css3-mixins/css3-mixins.scss";
+@import "www/lib/sass-mq/_mq.scss";
 @import "_form_validation.scss";
 @import "_my_mixin.scss";
 // @import "_ionic_colors.scss";
@@ -12,6 +13,24 @@
 $calm: #127BB6 !default;
 $menu-font-color: $calm;
 $menu-title-bgcolor: darken($menu-font-color, 10%);
+
+
+/* mq setting */
+// ========================================
+
+$mq-breakpoints: (
+    mobile:  320px,
+    mobileExtra: 400px,
+    tablet:  740px,
+    desktop: 980px,
+    wide:    1300px,
+    // Tweakpoints
+    desktopAd: 810px,
+    mobileLandscape: 480px
+);
+$mq-show-breakpoints: (mobile, mobileExtra, mobileLandscape, tablet, desktop, wide);
+@include mq-show-breakpoints;
+
 
 
 /* override */
@@ -702,6 +721,145 @@ $ion-item-height: 54px;
         }
     }
 }
+
+.energyflow {
+}
+
+.ef-dashboard {
+    /* background: #000; */
+    
+    $width-bg: 1080px;
+    $height-main: 648px;
+    $height-head: 104px;
+    $height-footer: 78px;
+    
+    $width-footer-left: 199px;
+    $height-footer-left: 115px;
+
+    $width-gear: 137px;
+    $height-gear: 360px;
+
+    $width-battery-e: 105px/2;
+    $height-battery-e: 196px/2;
+    $left-battery-e: 210px;
+    $top-battery-e: -49px;
+
+    $width-battery-h: 105px/2;
+    $height-battery-h: 196px/2;
+    $left-battery-h: 100px;
+    $top-battery-h: -49px;
+
+    // normal, 1080
+    .main {
+        background: url("../img/engineflow/background.jpg") no-repeat center center;
+        width: 100%;
+        height: $height-main;
+        position: relative;
+    }
+    .head {
+        background: url("../img/engineflow/menu-bar-top.png") no-repeat center center;
+        width: 100%;
+        height: $height-head;
+    }
+    .footer {
+        background: url("../img/engineflow/menu-bar-bottom.png") no-repeat center center;
+        width: 100%;
+        height: $height-footer;
+        position: relative;
+    }
+    .footer-left {
+        background: url("../img/engineflow/menu-bar-bottom-left.png") no-repeat center left;
+        width: $width-footer-left;
+        height: $height-footer-left;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        margin-left: - $width-bg/2;
+    }
+    .gear {
+        background: url("../img/engineflow/gear-D.png") no-repeat center right;
+        width: $width-gear;
+        height: $height-gear;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        margin-top: - $height-gear/2;
+        margin-right: - $width-bg/2;
+    }
+    .battery-e {
+        background: url("../img/engineflow/battery-e-20.png") no-repeat center center;
+        width: $width-battery-e;
+        height: $height-battery-e;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: $top-battery-e;
+        margin-left: $left-battery-e;
+        background-size: cover;
+    }
+    .battery-h {
+        background: url("../img/engineflow/battery-h-90.png") no-repeat center center;
+        width: $width-battery-h;
+        height: $height-battery-h;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background-size: cover;
+        margin-left: $left-battery-h;
+        margin-top: $top-battery-h;
+    }
+
+    @mixin scale($factor) {
+        .main {
+            background-size: $width-bg*$factor $height-main*$factor;
+            height: $height-main*$factor;
+        }
+        .head {
+            background-size: $width-bg*$factor $height-head*$factor;
+            height: $height-head*$factor;
+        }
+        .footer {
+            background-size: $width-bg*$factor $height-footer*$factor;
+            height: $height-footer*$factor;
+        }
+        .footer-left {
+            background-size: $width-footer-left*$factor $height-footer-left*$factor;
+            height: $height-footer-left*$factor;
+            margin-left: - $width-bg*$factor / 2;
+        }
+        .gear {
+            background-size: $width-gear*$factor $height-gear*$factor;
+            height: $height-gear*$factor;
+            margin-top: - $height-gear*$factor/2;
+            margin-right: - $width-bg*$factor/2;
+        }
+        .battery-e {
+            width: $width-battery-e*$factor;
+            height: $height-battery-e*$factor;
+            margin-top: $top-battery-e*$factor;
+            margin-left: $left-battery-e*$factor;
+        }
+        .battery-h {
+            width: $width-battery-h*$factor;
+            height: $height-battery-h*$factor;
+            margin-top: $top-battery-h*$factor;
+            margin-left: $left-battery-h*$factor;
+        }
+    }
+
+    // narrow phone (<400), iphone4,5,6
+    @include mq(mobile, mobileExtra) {
+        @include scale(.5)
+    }
+
+    // bigger phone (>400), iphone 6+
+    @include mq(mobileExtra, tablet) {
+        @include scale(.6)
+    }
+}
+
+
+
 
 
 /* common */
