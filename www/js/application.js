@@ -165,6 +165,13 @@
             controller: 'TicketsCtrl'
           }
         }
+      }).state('app.rewards', {
+        url: '/rewards',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/rewards.html'
+          }
+        }
       }).state('app.statistics', {
         url: '/statistics',
         views: {

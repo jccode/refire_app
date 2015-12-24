@@ -59,6 +59,7 @@ $green-2: #339933;
 $green-3: #34cd34;
 $orange-1: #ff9900;
 $red-1: #cc0000;
+$yellow-1: #ffd63d;
 
 .c-green-1 {
     color: $green-1;
@@ -84,7 +85,12 @@ $red-1: #cc0000;
 .bg-red-1 {
     background: $red-1 !important;
 }
-
+.c-yellow-1 {
+    color: $yellow-1;
+}
+.bg-yellow-1 {
+    background: $yellow-1 !important;
+}
 
 /* buttons */
 .button-orange {
@@ -586,6 +592,67 @@ $ion-item-height: 54px;
 
         a {
             color: $calm;
+        }
+    }
+}
+
+.rewards {
+    background: #eee;
+    font-size: 14px;
+    
+    .instruction {
+        background: #cfe3f1;
+        margin-bottom: 8px;
+        padding: 14px 31px 15px 57px;
+
+        i.icon {
+            position: absolute;
+            margin-left: -45px;
+            margin-top: 5px;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        h2 {
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+
+    .goal {
+        .icon {
+            font-size: 20px;
+            /* color: #fff; */
+        }
+        progress {
+            width: 170px;
+            margin: 0 10px 0 0;
+            height: 15px;
+            float: left;
+            
+            -webkit-appearance: none;
+	        border: none;
+        }
+        progress::-webkit-progress-bar {
+            background: #999;
+        }
+        progress::-webkit-progress-value {
+            background: #009900;
+        }
+        
+        .line {
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+            
+            progress, p {
+                display: inline-block;
+                font-size: 12px;
+            }
+            p {
+                height: 15px;
+                line-height: 15px;
+            }
         }
     }
 }

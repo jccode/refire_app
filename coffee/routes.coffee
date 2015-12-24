@@ -56,6 +56,12 @@ class Config
 						templateUrl: 'templates/tickets.html'
 						controller: 'TicketsCtrl'
 
+			.state 'app.rewards',
+				url: '/rewards'
+				views:
+					'menuContent':
+						templateUrl: 'templates/rewards.html'
+
 			.state 'app.statistics',
 				url: '/statistics'
 				views:

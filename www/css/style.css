@@ -88,6 +88,12 @@
 .bg-red-1 {
   background: #cc0000 !important; }
 
+.c-yellow-1 {
+  color: #ffd63d; }
+
+.bg-yellow-1 {
+  background: #ffd63d !important; }
+
 /* buttons */
 .button-orange {
   background-color: #E67E2D;
@@ -552,6 +558,47 @@
       margin: 15px 0; }
     .messages-center .msg-item a {
       color: #127BB6; }
+
+.rewards {
+  background: #eee;
+  font-size: 14px; }
+  .rewards .instruction {
+    background: #cfe3f1;
+    margin-bottom: 8px;
+    padding: 14px 31px 15px 57px; }
+    .rewards .instruction i.icon {
+      position: absolute;
+      margin-left: -45px;
+      margin-top: 5px;
+      font-size: 28px;
+      color: #fff; }
+    .rewards .instruction h2 {
+      font-size: 14px;
+      font-weight: bold; }
+  .rewards .goal .icon {
+    font-size: 20px;
+    /* color: #fff; */ }
+  .rewards .goal progress {
+    width: 170px;
+    margin: 0 10px 0 0;
+    height: 15px;
+    float: left;
+    -webkit-appearance: none;
+    border: none; }
+  .rewards .goal progress::-webkit-progress-bar {
+    background: #999; }
+  .rewards .goal progress::-webkit-progress-value {
+    background: #009900; }
+  .rewards .goal .line {
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px; }
+    .rewards .goal .line progress, .rewards .goal .line p {
+      display: inline-block;
+      font-size: 12px; }
+    .rewards .goal .line p {
+      height: 15px;
+      line-height: 15px; }
 
 /* common */
 .pull-right {
