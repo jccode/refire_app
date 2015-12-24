@@ -742,76 +742,6 @@
     -ms-animation-delay: 0.2s;
     -o-animation-delay: 0.2s;
     animation-delay: 0.2s; }
-  @media (max-width: 24.99em) {
-    .ef-dashboard .main {
-      background-size: 540px 324px;
-      height: 324px; }
-    .ef-dashboard .head {
-      background-size: 540px 52px;
-      height: 52px; }
-    .ef-dashboard .footer {
-      background-size: 540px 39px;
-      height: 39px; }
-    .ef-dashboard .footer-left {
-      background-size: 99.5px 57.5px;
-      height: 57.5px;
-      margin-left: -270px; }
-    .ef-dashboard .gear {
-      background-size: 68.5px 180px;
-      height: 180px;
-      margin-top: -90px;
-      margin-right: -270px; }
-    .ef-dashboard .battery-e {
-      width: 26.25px;
-      height: 49px;
-      margin-top: -24.5px;
-      margin-left: 105px; }
-    .ef-dashboard .battery-h {
-      width: 26.25px;
-      height: 49px;
-      margin-top: -24.5px;
-      margin-left: 50px; }
-    .ef-dashboard .bg .head {
-      height: 52px; }
-    .ef-dashboard .bg .main {
-      height: 324px; }
-    .ef-dashboard .bg .footer {
-      height: 39px; } }
-  @media (min-width: 25em) and (max-width: 46.24em) {
-    .ef-dashboard .main {
-      background-size: 648px 388.8px;
-      height: 388.8px; }
-    .ef-dashboard .head {
-      background-size: 648px 62.4px;
-      height: 62.4px; }
-    .ef-dashboard .footer {
-      background-size: 648px 46.8px;
-      height: 46.8px; }
-    .ef-dashboard .footer-left {
-      background-size: 119.4px 69px;
-      height: 69px;
-      margin-left: -324px; }
-    .ef-dashboard .gear {
-      background-size: 82.2px 216px;
-      height: 216px;
-      margin-top: -108px;
-      margin-right: -324px; }
-    .ef-dashboard .battery-e {
-      width: 31.5px;
-      height: 58.8px;
-      margin-top: -29.4px;
-      margin-left: 126px; }
-    .ef-dashboard .battery-h {
-      width: 31.5px;
-      height: 58.8px;
-      margin-top: -29.4px;
-      margin-left: 60px; }
-    .ef-dashboard .bg .head {
-      height: 62.4px; }
-    .ef-dashboard .bg .main {
-      height: 388.8px; }
-    .ef-dashboard .bg .footer {
-      height: 46.8px; } }
 
 @-webkit-keyframes flow-h {
   0% {
@@ -962,6 +892,412 @@
     margin-left: 0px;
     margin-top: 110px;
     transform: rotateZ(90deg); } }
+  @media (max-width: 24.99em) {
+    .ef-dashboard .main {
+      background-size: 540px 324px;
+      height: 324px; }
+    .ef-dashboard .head {
+      background-size: 540px 52px;
+      height: 52px; }
+    .ef-dashboard .footer {
+      background-size: 540px 39px;
+      height: 39px; }
+    .ef-dashboard .footer-left {
+      background-size: 99.5px 57.5px;
+      height: 57.5px;
+      margin-left: -270px; }
+    .ef-dashboard .gear {
+      background-size: 68.5px 180px;
+      height: 180px;
+      margin-top: -90px;
+      margin-right: -270px; }
+    .ef-dashboard .battery-e {
+      width: 26.25px;
+      height: 49px;
+      margin-top: -24.5px;
+      margin-left: 105px; }
+    .ef-dashboard .battery-h {
+      width: 26.25px;
+      height: 49px;
+      margin-top: -24.5px;
+      margin-left: 50px; }
+    .ef-dashboard .bg .head {
+      height: 52px; }
+    .ef-dashboard .bg .main {
+      height: 324px; }
+    .ef-dashboard .bg .footer {
+      height: 39px; }
+    .ef-dashboard .flow-h, .ef-dashboard .flow-h2, .ef-dashboard .flow-e, .ef-dashboard .flow-e2 {
+      width: 4.5px;
+      height: 5.5px; }
+    @-webkit-keyframes flow-h_5 {
+      0% {
+        margin-left: 62.5px;
+        margin-top: 25px; }
+      33% {
+        margin-left: 62.5px;
+        margin-top: 47.5px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    @-moz-keyframes flow-h_5 {
+      0% {
+        margin-left: 62.5px;
+        margin-top: 25px; }
+      33% {
+        margin-left: 62.5px;
+        margin-top: 47.5px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    @-ms-keyframes flow-h_5 {
+      .ef-dashboard 0% {
+        margin-left: 62.5px;
+        margin-top: 25px; }
+      .ef-dashboard 33% {
+        margin-left: 62.5px;
+        margin-top: 47.5px;
+        transform: rotateZ(0); }
+      .ef-dashboard 35% {
+        transform: rotateZ(90deg); }
+      .ef-dashboard 100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    @-o-keyframes flow-h_5 {
+      0% {
+        margin-left: 62.5px;
+        margin-top: 25px; }
+      33% {
+        margin-left: 62.5px;
+        margin-top: 47.5px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    @keyframes flow-h_5 {
+      0% {
+        margin-left: 62.5px;
+        margin-top: 25px; }
+      33% {
+        margin-left: 62.5px;
+        margin-top: 47.5px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    @-webkit-keyframes flow-e_5 {
+      0% {
+        margin-left: 116px;
+        margin-top: 25px; }
+      33% {
+        margin-left: 116px;
+        margin-top: 43.5px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    @-moz-keyframes flow-e_5 {
+      0% {
+        margin-left: 116px;
+        margin-top: 25px; }
+      33% {
+        margin-left: 116px;
+        margin-top: 43.5px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    @-ms-keyframes flow-e_5 {
+      .ef-dashboard 0% {
+        margin-left: 116px;
+        margin-top: 25px; }
+      .ef-dashboard 33% {
+        margin-left: 116px;
+        margin-top: 43.5px;
+        transform: rotateZ(0); }
+      .ef-dashboard 35% {
+        transform: rotateZ(90deg); }
+      .ef-dashboard 100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    @-o-keyframes flow-e_5 {
+      0% {
+        margin-left: 116px;
+        margin-top: 25px; }
+      33% {
+        margin-left: 116px;
+        margin-top: 43.5px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    @keyframes flow-e_5 {
+      0% {
+        margin-left: 116px;
+        margin-top: 25px; }
+      33% {
+        margin-left: 116px;
+        margin-top: 43.5px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 55px;
+        transform: rotateZ(90deg); } }
+    .ef-dashboard .flow-h, .ef-dashboard .flow-h2 {
+      margin-left: 62.5px;
+      margin-top: 25px;
+      -webkit-animation: flow-h_5 2s infinite;
+      -khtml-animation: flow-h_5 2s infinite;
+      -moz-animation: flow-h_5 2s infinite;
+      -ms-animation: flow-h_5 2s infinite;
+      -o-animation: flow-h_5 2s infinite;
+      animation: flow-h_5 2s infinite; }
+    .ef-dashboard .flow-e, .ef-dashboard .flow-e2 {
+      margin-left: 116px;
+      margin-top: 25px;
+      -webkit-animation: flow-e_5 2s infinite;
+      -khtml-animation: flow-e_5 2s infinite;
+      -moz-animation: flow-e_5 2s infinite;
+      -ms-animation: flow-e_5 2s infinite;
+      -o-animation: flow-e_5 2s infinite;
+      animation: flow-e_5 2s infinite; }
+    .ef-dashboard .flow-h2, .ef-dashboard .flow-e2 {
+      -webkit-animation-delay: 0.2s;
+      -khtml-animation-delay: 0.2s;
+      -moz-animation-delay: 0.2s;
+      -ms-animation-delay: 0.2s;
+      -o-animation-delay: 0.2s;
+      animation-delay: 0.2s; } }
+  @media (min-width: 25em) and (max-width: 46.24em) {
+    .ef-dashboard .main {
+      background-size: 648px 388.8px;
+      height: 388.8px; }
+    .ef-dashboard .head {
+      background-size: 648px 62.4px;
+      height: 62.4px; }
+    .ef-dashboard .footer {
+      background-size: 648px 46.8px;
+      height: 46.8px; }
+    .ef-dashboard .footer-left {
+      background-size: 119.4px 69px;
+      height: 69px;
+      margin-left: -324px; }
+    .ef-dashboard .gear {
+      background-size: 82.2px 216px;
+      height: 216px;
+      margin-top: -108px;
+      margin-right: -324px; }
+    .ef-dashboard .battery-e {
+      width: 31.5px;
+      height: 58.8px;
+      margin-top: -29.4px;
+      margin-left: 126px; }
+    .ef-dashboard .battery-h {
+      width: 31.5px;
+      height: 58.8px;
+      margin-top: -29.4px;
+      margin-left: 60px; }
+    .ef-dashboard .bg .head {
+      height: 62.4px; }
+    .ef-dashboard .bg .main {
+      height: 388.8px; }
+    .ef-dashboard .bg .footer {
+      height: 46.8px; }
+    .ef-dashboard .flow-h, .ef-dashboard .flow-h2, .ef-dashboard .flow-e, .ef-dashboard .flow-e2 {
+      width: 5.4px;
+      height: 6.6px; }
+    @-webkit-keyframes flow-h_6 {
+      0% {
+        margin-left: 75px;
+        margin-top: 30px; }
+      33% {
+        margin-left: 75px;
+        margin-top: 57px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    @-moz-keyframes flow-h_6 {
+      0% {
+        margin-left: 75px;
+        margin-top: 30px; }
+      33% {
+        margin-left: 75px;
+        margin-top: 57px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    @-ms-keyframes flow-h_6 {
+      .ef-dashboard 0% {
+        margin-left: 75px;
+        margin-top: 30px; }
+      .ef-dashboard 33% {
+        margin-left: 75px;
+        margin-top: 57px;
+        transform: rotateZ(0); }
+      .ef-dashboard 35% {
+        transform: rotateZ(90deg); }
+      .ef-dashboard 100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    @-o-keyframes flow-h_6 {
+      0% {
+        margin-left: 75px;
+        margin-top: 30px; }
+      33% {
+        margin-left: 75px;
+        margin-top: 57px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    @keyframes flow-h_6 {
+      0% {
+        margin-left: 75px;
+        margin-top: 30px; }
+      33% {
+        margin-left: 75px;
+        margin-top: 57px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    @-webkit-keyframes flow-e_6 {
+      0% {
+        margin-left: 139.2px;
+        margin-top: 30px; }
+      33% {
+        margin-left: 139.2px;
+        margin-top: 52.2px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    @-moz-keyframes flow-e_6 {
+      0% {
+        margin-left: 139.2px;
+        margin-top: 30px; }
+      33% {
+        margin-left: 139.2px;
+        margin-top: 52.2px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    @-ms-keyframes flow-e_6 {
+      .ef-dashboard 0% {
+        margin-left: 139.2px;
+        margin-top: 30px; }
+      .ef-dashboard 33% {
+        margin-left: 139.2px;
+        margin-top: 52.2px;
+        transform: rotateZ(0); }
+      .ef-dashboard 35% {
+        transform: rotateZ(90deg); }
+      .ef-dashboard 100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    @-o-keyframes flow-e_6 {
+      0% {
+        margin-left: 139.2px;
+        margin-top: 30px; }
+      33% {
+        margin-left: 139.2px;
+        margin-top: 52.2px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    @keyframes flow-e_6 {
+      0% {
+        margin-left: 139.2px;
+        margin-top: 30px; }
+      33% {
+        margin-left: 139.2px;
+        margin-top: 52.2px;
+        transform: rotateZ(0); }
+      35% {
+        transform: rotateZ(90deg); }
+      100% {
+        margin-left: 0px;
+        margin-top: 66px;
+        transform: rotateZ(90deg); } }
+    .ef-dashboard .flow-h, .ef-dashboard .flow-h2 {
+      margin-left: 75px;
+      margin-top: 30px;
+      -webkit-animation: flow-h_6 2s infinite;
+      -khtml-animation: flow-h_6 2s infinite;
+      -moz-animation: flow-h_6 2s infinite;
+      -ms-animation: flow-h_6 2s infinite;
+      -o-animation: flow-h_6 2s infinite;
+      animation: flow-h_6 2s infinite; }
+    .ef-dashboard .flow-e, .ef-dashboard .flow-e2 {
+      margin-left: 139.2px;
+      margin-top: 30px;
+      -webkit-animation: flow-e_6 2s infinite;
+      -khtml-animation: flow-e_6 2s infinite;
+      -moz-animation: flow-e_6 2s infinite;
+      -ms-animation: flow-e_6 2s infinite;
+      -o-animation: flow-e_6 2s infinite;
+      animation: flow-e_6 2s infinite; }
+    .ef-dashboard .flow-h2, .ef-dashboard .flow-e2 {
+      -webkit-animation-delay: 0.2s;
+      -khtml-animation-delay: 0.2s;
+      -moz-animation-delay: 0.2s;
+      -ms-animation-delay: 0.2s;
+      -o-animation-delay: 0.2s;
+      animation-delay: 0.2s; } }
 
 /* common */
 .pull-right {

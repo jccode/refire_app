@@ -872,8 +872,22 @@ $ion-item-height: 54px;
     .flow-h2, .flow-e2 {
         @include css3-prefix('animation-delay', .2s);
     }
-
     
+    // animation
+    @include keyframes(flow-h) {
+        0% { margin-left: $left-arrow-h0; margin-top: $top-arrow-h0; }
+        33% {margin-left: $left-arrow-h1; margin-top: $top-arrow-h1; transform: rotateZ(0);}
+        35% {transform: rotateZ(90deg);}
+        100% {margin-left: $left-arrow-h2; margin-top: $top-arrow-h2; transform: rotateZ(90deg);}
+    }
+
+    @include keyframes(flow-e) {
+        0% {margin-left: $left-arrow-e0; margin-top: $top-arrow-e0;}
+        33% {margin-left: $left-arrow-e1; margin-top: $top-arrow-e1; transform: rotateZ(0);}
+        35% {transform: rotateZ(90deg);}
+        100% {margin-left: $left-arrow-e2; margin-top: $top-arrow-e2; transform: rotateZ(90deg);}
+    }
+
 
     @mixin scale($factor) {
         .main {
@@ -923,59 +937,54 @@ $ion-item-height: 54px;
                 height: $height-footer*$factor;
             }
         }
+
+        .flow-h, .flow-h2, .flow-e, .flow-e2 {
+            width: $width-arrow*$factor;
+            height: $height-arrow*$factor;
+        }
+
+            // scale 0.6
+        @include keyframes(flow-h_#{str-slice(to-string($factor),3)}) {
+            0% { margin-left: $left-arrow-h0*$factor; margin-top: $top-arrow-h0*$factor; }
+            33% {margin-left: $left-arrow-h1*$factor; margin-top: $top-arrow-h1*$factor; transform: rotateZ(0);}
+            35% {transform: rotateZ(90deg);}
+            100% {margin-left: $left-arrow-h2*$factor; margin-top: $top-arrow-h2*$factor; transform: rotateZ(90deg);}
+        }
+
+        @include keyframes(flow-e_#{str-slice(to-string($factor),3)}) {
+            0% {margin-left: $left-arrow-e0*$factor; margin-top: $top-arrow-e0*$factor;}
+            33% {margin-left: $left-arrow-e1*$factor; margin-top: $top-arrow-e1*$factor; transform: rotateZ(0);}
+            35% {transform: rotateZ(90deg);}
+            100% {margin-left: $left-arrow-e2*$factor; margin-top: $top-arrow-e2*$factor; transform: rotateZ(90deg);}
+        }
+        .flow-h, .flow-h2 {
+            margin-left: $left-arrow-h0*$factor;
+            margin-top: $top-arrow-h0*$factor;
+            @include animation(flow-h_#{str-slice(to-string($factor),3)} 2s infinite);
+        }
+        .flow-e, .flow-e2 {
+            margin-left: $left-arrow-e0*$factor;
+            margin-top: $top-arrow-e0*$factor;
+            @include animation(flow-e_#{str-slice(to-string($factor),3)} 2s infinite);
+        }
+        .flow-h2, .flow-e2 {
+            @include css3-prefix('animation-delay', .2s);
+        }
     }
 
     // narrow phone (<400), iphone4,5,6
     @include mq($until:mobileExtra) {
-        @include scale(.5)
+        @include scale(0.5)
     }
 
     // bigger phone (>400), iphone 6+
     @include mq(mobileExtra, tablet) {
-        @include scale(.6)
+        @include scale(0.6)
     }
 
     
-    // animation
-    @include keyframes(flow-h) {
-        0% {
-            margin-left: $left-arrow-h0;
-            margin-top: $top-arrow-h0;
-        }
-        33% {
-            margin-left: $left-arrow-h1;
-            margin-top: $top-arrow-h1;
-            transform: rotateZ(0);
-        }
-        35% {
-            transform: rotateZ(90deg);
-        }
-        100% {
-            margin-left: $left-arrow-h2;
-            margin-top: $top-arrow-h2;
-            transform: rotateZ(90deg);
-        }
-    }
 
-    @include keyframes(flow-e) {
-        0% {
-            margin-left: $left-arrow-e0;
-            margin-top: $top-arrow-e0;
-        }
-        33% {
-            margin-left: $left-arrow-e1;
-            margin-top: $top-arrow-e1;
-            transform: rotateZ(0);
-        }
-        35% {
-            transform: rotateZ(90deg);
-        }
-        100% {
-            margin-left: $left-arrow-e2;
-            margin-top: $top-arrow-e2;
-            transform: rotateZ(90deg);
-        }
-    }
+
 
 }
 

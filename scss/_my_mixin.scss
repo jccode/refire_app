@@ -27,3 +27,7 @@
     font-size: $size;
     font-size: calculateRem($size);
 }
+
+@function to-string($value) {
+  @return inspect($value);
+}
