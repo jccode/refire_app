@@ -124,7 +124,8 @@
         url: '/buslocation',
         views: {
           'menuContent': {
-            templateUrl: 'templates/bus_location.html'
+            templateUrl: 'templates/bus_location.html',
+            controller: 'BuslocationCtrl as ctrl'
           }
         }
       }).state('app.busoverview', {
@@ -409,6 +410,124 @@
   })();
 
   angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', '$ionicHistory', 'gettext', 'gettextCatalog', 'Util', AppCtrl]);
+
+}).call(this);
+
+(function() {
+  var BuslocationCtrl;
+
+  BuslocationCtrl = (function() {
+    function BuslocationCtrl($scope, $q, $cordovaGeolocation) {
+      var height;
+      this.$scope = $scope;
+      this.$q = $q;
+      this.$cordovaGeolocation = $cordovaGeolocation;
+      height = document.getElementById("maplocation").offsetHeight;
+      document.getElementById("map").style.height = height + "px";
+      this.get_current_pos().then((function(_this) {
+        return function(pos) {
+          _this.currpos = pos;
+          _this.init_map(_this.currpos);
+          _this.simulate_bus_pos(pos);
+          return _this.show_route();
+        };
+      })(this));
+    }
+
+    BuslocationCtrl.prototype.init_map = function(pos) {
+      this.map = new BMap.Map("map");
+      return this.map.centerAndZoom(new BMap.Point(pos.longitude, pos.latitude), 12);
+    };
+
+    BuslocationCtrl.prototype.simulate_bus_pos = function(pos) {
+      this.buspos = {
+        longitude: pos.longitude + Math.random() / 10,
+        latitude: pos.latitude + Math.random() / 10
+      };
+      return this.buspos;
+    };
+
+    BuslocationCtrl.prototype.show_positions = function(positions) {
+      var eicon, end, endLabel, sicon, start, startLabel;
+      start = positions[0], end = positions[1];
+      start.title = "Your position";
+      end.title = "M474 5 mins";
+      start.marker.setTitle("Your position");
+      end.marker.setTitle("M474 5 mins");
+      startLabel = new BMap.Label("YOUR POSITION", {
+        offset: new BMap.Size(-25, -50)
+      });
+      endLabel = new BMap.Label("M474<br> 5 mins", {
+        offset: new BMap.Size(-25, -50)
+      });
+      this.set_label_style(startLabel, '#339966');
+      this.set_label_style(endLabel, '#0099ff');
+      start.marker.setLabel(startLabel);
+      end.marker.setLabel(endLabel);
+      sicon = new BMap.Icon("http://api0.map.bdimg.com/images/marker_red_sprite.png", new BMap.Size(39, 25));
+      start.marker.setIcon(sicon);
+      eicon = new BMap.Icon("img/bus.png", {
+        offset: new BMap.Size(32, 32)
+      });
+      return end.marker.setIcon(eicon);
+    };
+
+    BuslocationCtrl.prototype.set_label_style = function(label, bgColor) {
+      return label.setStyle({
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: '12px',
+        background: bgColor,
+        border: 'none',
+        borderRadius: "8px",
+        padding: '10px',
+        width: '80px',
+        height: '50px',
+        whiteSpace: 'normal',
+        textAlign: 'center'
+      });
+    };
+
+    BuslocationCtrl.prototype.show_route = function() {
+      var driving, p1, p2;
+      p1 = new BMap.Point(this.currpos.longitude, this.currpos.latitude);
+      p2 = new BMap.Point(this.buspos.longitude, this.buspos.latitude);
+      driving = new BMap.DrivingRoute(this.map, {
+        renderOptions: {
+          map: this.map,
+          autoViewport: true
+        },
+        policy: 0,
+        onMarkersSet: this.show_positions.bind(this)
+      });
+      return driving.search(p1, p2);
+    };
+
+    BuslocationCtrl.prototype.get_current_pos = function() {
+      var defer, fallback_pos, posOptions;
+      posOptions = {
+        timeout: 3000,
+        enableHighAccuracy: true
+      };
+      fallback_pos = {
+        longitude: 116.404,
+        latitude: 39.915
+      };
+      defer = this.$q.defer();
+      this.$cordovaGeolocation.getCurrentPosition(posOptions).then(function(pos) {
+        return defer.resolve(pos.coords);
+      }, function(err) {
+        console.log('Fail to get current postion. Use fallback postion instead.');
+        return defer.resolve(fallback_pos);
+      });
+      return defer.promise;
+    };
+
+    return BuslocationCtrl;
+
+  })();
+
+  angular.module('app').controller('BuslocationCtrl', ['$scope', '$q', '$cordovaGeolocation', BuslocationCtrl]);
 
 }).call(this);
 

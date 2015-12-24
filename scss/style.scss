@@ -657,6 +657,52 @@ $ion-item-height: 54px;
     }
 }
 
+.map-location {
+    #map {
+        width: 100%;
+        height: 400px;
+    }
+
+    .arriving {
+        position: fixed;
+        bottom: 80px;
+        left: 0;
+        height: 100px;
+        width: 100%;
+    }
+
+    h2 {
+        background: #fcfcfc;
+        font-size: 14px;
+        font-weight: bold;
+        border-top: 1px solid #f5fbf3;
+        height: 42px;
+        line-height: 42px;
+        padding: 0 10px;
+        margin: 0;
+    }
+    
+    .timetable {
+        background: #f3f3f3;
+        .row {
+            border-bottom: 1px solid #eee;
+            height: 37px;
+            line-height: 27px;
+            
+            .col:first-child {
+                text-align: right;
+            }
+            .col:nth-child(2) {
+                background: #eee;
+                text-align: center;
+            }
+            .col:last-child {
+                text-align: left;
+            }
+        }
+    }
+}
+
 
 /* common */
 // ========================================

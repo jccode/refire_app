@@ -600,6 +600,41 @@
       height: 15px;
       line-height: 15px; }
 
+.map-location #map {
+  width: 100%;
+  height: 400px; }
+
+.map-location .arriving {
+  position: fixed;
+  bottom: 80px;
+  left: 0;
+  height: 100px;
+  width: 100%; }
+
+.map-location h2 {
+  background: #fcfcfc;
+  font-size: 14px;
+  font-weight: bold;
+  border-top: 1px solid #f5fbf3;
+  height: 42px;
+  line-height: 42px;
+  padding: 0 10px;
+  margin: 0; }
+
+.map-location .timetable {
+  background: #f3f3f3; }
+  .map-location .timetable .row {
+    border-bottom: 1px solid #eee;
+    height: 37px;
+    line-height: 27px; }
+    .map-location .timetable .row .col:first-child {
+      text-align: right; }
+    .map-location .timetable .row .col:nth-child(2) {
+      background: #eee;
+      text-align: center; }
+    .map-location .timetable .row .col:last-child {
+      text-align: left; }
+
 /* common */
 .pull-right {
   float: right; }

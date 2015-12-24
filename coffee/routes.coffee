@@ -22,6 +22,7 @@ class Config
 				views:
 					'menuContent':
 						templateUrl: 'templates/bus_location.html'
+						controller: 'BuslocationCtrl as ctrl'
 						
 			.state 'app.busoverview',
 				url: '/busoverview'
