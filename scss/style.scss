@@ -29,7 +29,7 @@ $mq-breakpoints: (
     mobileLandscape: 480px
 );
 $mq-show-breakpoints: (mobile, mobileExtra, mobileLandscape, tablet, desktop, wide);
-@include mq-show-breakpoints;
+/* @include mq-show-breakpoints;   */
 
 
 
@@ -726,6 +726,7 @@ $ion-item-height: 54px;
 }
 
 .ef-dashboard {
+    position: relative;
     /* background: #000; */
     
     $width-bg: 1080px;
@@ -748,6 +749,30 @@ $ion-item-height: 54px;
     $height-battery-h: 196px/2;
     $left-battery-h: 100px;
     $top-battery-h: -49px;
+
+    .bg {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        
+        .head {
+            width: 100%;
+            height: $height-head;
+            background: url("../img/engineflow/menu-bar-top.png") repeat-x center center;
+        }
+        .main {
+            width: 100%;
+            height: $height-main;
+            background: #000;
+        }
+        .footer {
+            width: 100%;
+            height: $height-footer;
+            background: url("../img/engineflow/menu-bar-bottom.png") repeat-x center center;
+        }
+    }
 
     // normal, 1080
     .main {
@@ -788,6 +813,7 @@ $ion-item-height: 54px;
     }
     .battery-e {
         background: url("../img/engineflow/battery-e-20.png") no-repeat center center;
+        background-size: cover;
         width: $width-battery-e;
         height: $height-battery-e;
         position: absolute;
@@ -795,16 +821,15 @@ $ion-item-height: 54px;
         left: 50%;
         margin-top: $top-battery-e;
         margin-left: $left-battery-e;
-        background-size: cover;
     }
     .battery-h {
         background: url("../img/engineflow/battery-h-90.png") no-repeat center center;
+        background-size: cover;
         width: $width-battery-h;
         height: $height-battery-h;
         position: absolute;
         top: 50%;
         left: 50%;
-        background-size: cover;
         margin-left: $left-battery-h;
         margin-top: $top-battery-h;
     }
@@ -845,10 +870,22 @@ $ion-item-height: 54px;
             margin-top: $top-battery-h*$factor;
             margin-left: $left-battery-h*$factor;
         }
+
+        .bg {
+            .head {
+                height: $height-head*$factor;
+            }
+            .main {
+                height: $height-main*$factor;
+            }
+            .footer {
+                height: $height-footer*$factor;
+            }
+        }
     }
 
     // narrow phone (<400), iphone4,5,6
-    @include mq(mobile, mobileExtra) {
+    @include mq($until:mobileExtra) {
         @include scale(.5)
     }
 

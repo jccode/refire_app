@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* -------------------------------------------------------------
   Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
   By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
@@ -43,37 +42,7 @@
 
 /* varibles */
 /* mq setting */
-body:before {
-  background-color: #FCF8E3;
-  border-bottom: 1px solid #FBEED5;
-  border-left: 1px solid #FBEED5;
-  color: #C09853;
-  font: small-caption;
-  padding: 3px 6px;
-  pointer-events: none;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 100; }
-  @media (min-width: 20em) {
-    body:before {
-      content: "mobile ≥ 320px (20em)"; } }
-  @media (min-width: 25em) {
-    body:before {
-      content: "mobileExtra ≥ 400px (25em)"; } }
-  @media (min-width: 30em) {
-    body:before {
-      content: "mobileLandscape ≥ 480px (30em)"; } }
-  @media (min-width: 46.25em) {
-    body:before {
-      content: "tablet ≥ 740px (46.25em)"; } }
-  @media (min-width: 61.25em) {
-    body:before {
-      content: "desktop ≥ 980px (61.25em)"; } }
-  @media (min-width: 81.25em) {
-    body:before {
-      content: "wide ≥ 1300px (81.25em)"; } }
-
+/* @include mq-show-breakpoints;   */
 /* override */
 /* menu */
 .bar.menu-title {
@@ -669,7 +638,26 @@ body:before {
       text-align: left; }
 
 .ef-dashboard {
+  position: relative;
   /* background: #000; */ }
+  .ef-dashboard .bg {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1; }
+    .ef-dashboard .bg .head {
+      width: 100%;
+      height: 104px;
+      background: url("../img/engineflow/menu-bar-top.png") repeat-x center center; }
+    .ef-dashboard .bg .main {
+      width: 100%;
+      height: 648px;
+      background: #000; }
+    .ef-dashboard .bg .footer {
+      width: 100%;
+      height: 78px;
+      background: url("../img/engineflow/menu-bar-bottom.png") repeat-x center center; }
   .ef-dashboard .main {
     background: url("../img/engineflow/background.jpg") no-repeat center center;
     width: 100%;
@@ -703,25 +691,25 @@ body:before {
     margin-right: -540px; }
   .ef-dashboard .battery-e {
     background: url("../img/engineflow/battery-e-20.png") no-repeat center center;
+    background-size: cover;
     width: 52.5px;
     height: 98px;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-top: -49px;
-    margin-left: 210px;
-    background-size: cover; }
+    margin-left: 210px; }
   .ef-dashboard .battery-h {
     background: url("../img/engineflow/battery-h-90.png") no-repeat center center;
+    background-size: cover;
     width: 52.5px;
     height: 98px;
     position: absolute;
     top: 50%;
     left: 50%;
-    background-size: cover;
     margin-left: 100px;
     margin-top: -49px; }
-  @media (min-width: 20em) and (max-width: 24.99em) {
+  @media (max-width: 24.99em) {
     .ef-dashboard .main {
       background-size: 540px 324px;
       height: 324px; }
@@ -749,7 +737,13 @@ body:before {
       width: 26.25px;
       height: 49px;
       margin-top: -24.5px;
-      margin-left: 50px; } }
+      margin-left: 50px; }
+    .ef-dashboard .bg .head {
+      height: 52px; }
+    .ef-dashboard .bg .main {
+      height: 324px; }
+    .ef-dashboard .bg .footer {
+      height: 39px; } }
   @media (min-width: 25em) and (max-width: 46.24em) {
     .ef-dashboard .main {
       background-size: 648px 388.8px;
@@ -778,7 +772,13 @@ body:before {
       width: 31.5px;
       height: 58.8px;
       margin-top: -29.4px;
-      margin-left: 60px; } }
+      margin-left: 60px; }
+    .ef-dashboard .bg .head {
+      height: 62.4px; }
+    .ef-dashboard .bg .main {
+      height: 388.8px; }
+    .ef-dashboard .bg .footer {
+      height: 46.8px; } }
 
 /* common */
 .pull-right {
