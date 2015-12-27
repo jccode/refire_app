@@ -126,7 +126,8 @@
         templateUrl: 'templates/home/energy.html'
       }).state('app.home.video', {
         url: '/video/:type',
-        templateUrl: 'templates/home/video.html'
+        templateUrl: 'templates/home/video.html',
+        controller: 'VideoCtrl'
       }).state('app.home.tree', {
         url: '/tree',
         templateUrl: 'templates/home/tree.html'
@@ -288,43 +289,6 @@
       apiurl: 'http://localhost:8000/api'
     }
   });
-
-}).call(this);
-
-(function() {
-  var Ajax;
-
-  Ajax = (function() {
-    function Ajax($httpProvider, $resourceProvider) {
-      var serialize;
-      serialize = function(obj) {
-        return Object.keys(obj).reduce(function(a, k) {
-          a.push(k + '=' + encodeURIComponent(obj[k]));
-          return a;
-        }, []).join('&');
-      };
-      $httpProvider.defaults.withCredentials = true;
-      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
-      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-      $httpProvider.defaults.transformRequest = [
-        (function(_this) {
-          return function(data) {
-            if (angular.isObject(data) && String(data) !== '[Object File]') {
-              return serialize(data);
-            } else {
-              return data;
-            }
-          };
-        })(this)
-      ];
-      $resourceProvider.defaults.stripTrailingSlashes = false;
-    }
-
-    return Ajax;
-
-  })();
-
-  angular.module('app').config(['$httpProvider', '$resourceProvider', Ajax]);
 
 }).call(this);
 
@@ -558,7 +522,8 @@
       this.$state = $state;
       this.$scope.onReadySwiper = (function(_this) {
         return function(swiper) {
-          return swiper.on("click", function(swiper) {
+          window.swiper = swiper;
+          return swiper.on("tap", function(swiper) {
             var idx, item, param, state, url;
             idx = swiper.clickedIndex;
             item = swiper.slides[idx];
@@ -1037,6 +1002,86 @@
   })();
 
   angular.module('app').controller('TicketsCtrl', ['$scope', '$localStorage', 'storageKey', TicketsCtrl]);
+
+}).call(this);
+
+(function() {
+  var VideoCtrl;
+
+  VideoCtrl = (function() {
+    function VideoCtrl($scope, $state, $stateParams) {
+      var id;
+      this.$scope = $scope;
+      this.$state = $state;
+      this.$stateParams = $stateParams;
+      id = this.$stateParams.type;
+      this.$scope.video_src = this.get_video_src(id);
+    }
+
+    VideoCtrl.prototype.get_video_src = function(id) {
+      return "http://192.168.1.104/video/" + id + ".mp4";
+    };
+
+    return VideoCtrl;
+
+  })();
+
+  angular.module('app').controller('VideoCtrl', ['$scope', '$state', '$stateParams', VideoCtrl]);
+
+}).call(this);
+
+(function() {
+  var TrustedFilter;
+
+  TrustedFilter = (function() {
+    function TrustedFilter($sce) {
+      return function(url) {
+        return $sce.trustAsResourceUrl(url);
+      };
+    }
+
+    return TrustedFilter;
+
+  })();
+
+  angular.module('app').filter('trusted', ['$sce', TrustedFilter]);
+
+}).call(this);
+
+(function() {
+  var Ajax;
+
+  Ajax = (function() {
+    function Ajax($httpProvider, $resourceProvider) {
+      var serialize;
+      serialize = function(obj) {
+        return Object.keys(obj).reduce(function(a, k) {
+          a.push(k + '=' + encodeURIComponent(obj[k]));
+          return a;
+        }, []).join('&');
+      };
+      $httpProvider.defaults.withCredentials = true;
+      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
+      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $httpProvider.defaults.transformRequest = [
+        (function(_this) {
+          return function(data) {
+            if (angular.isObject(data) && String(data) !== '[Object File]') {
+              return serialize(data);
+            } else {
+              return data;
+            }
+          };
+        })(this)
+      ];
+      $resourceProvider.defaults.stripTrailingSlashes = false;
+    }
+
+    return Ajax;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', '$resourceProvider', Ajax]);
 
 }).call(this);
 

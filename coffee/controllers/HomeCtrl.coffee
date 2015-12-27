@@ -2,12 +2,12 @@
 class HomeCtrl
 	constructor: (@$scope, @$ionicSideMenuDelegate, @$state)->
 		@$scope.onReadySwiper = (swiper)=>
-			# window.swiper = swiper
+			window.swiper = swiper
 			
 			# swiper.on "slideChangeStart", (swiper)->
 			# 	console.log 'changed. active:'+ swiper.activeIndex+"; clicked:"+swiper.clickedIndex
 
-			swiper.on "click", (swiper)=>
+			swiper.on "tap", (swiper)=>
 				# console.log "click "+swiper.clickedIndex
 				idx = swiper.clickedIndex
 				item = swiper.slides[idx]

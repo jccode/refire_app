@@ -25,6 +25,7 @@ class Config
 			.state 'app.home.video',
 				url: '/video/:type'
 				templateUrl: 'templates/home/video.html'
+				controller: 'VideoCtrl'
 
 			.state 'app.home.tree',
 				url: '/tree'
