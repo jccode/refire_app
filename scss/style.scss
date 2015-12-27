@@ -981,14 +981,34 @@ $ion-item-height: 54px;
     @include mq(mobileExtra, tablet) {
         @include scale(0.6)
     }
-
-    
-
-
-
 }
 
+.home {
+    .my-slide {
+        padding: 14px;
+        @include background-gradient(#5f5f5f, #2a2a2a);
 
+        .swiper-slide {
+            
+            .my-slide-content {
+                img {
+                    /* width: 93px; height: 70px; */
+                    width: 100%;
+                }
+                div {
+                    background: #fff;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    padding: 5px 7px;
+                    height: 37px;
+                    line-height: 13px;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+}
 
 
 

@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64', 'ngMessages', 'angularMoment']);
+  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64', 'ngMessages', 'angularMoment', 'ksSwiper']);
 
 }).call(this);
 
@@ -117,7 +117,8 @@
         url: '/home',
         views: {
           'menuContent': {
-            templateUrl: 'templates/home.html'
+            templateUrl: 'templates/home.html',
+            controller: 'HomeCtrl'
           }
         }
       }).state('app.buslocation', {
@@ -535,6 +536,34 @@
   })();
 
   angular.module('app').controller('BuslocationCtrl', ['$scope', '$q', '$cordovaGeolocation', BuslocationCtrl]);
+
+}).call(this);
+
+(function() {
+  var HomeCtrl;
+
+  HomeCtrl = (function() {
+    function HomeCtrl($scope, $ionicSideMenuDelegate) {
+      this.$scope = $scope;
+      this.$ionicSideMenuDelegate = $ionicSideMenuDelegate;
+      this.$scope.onReadySwiper = function(swiper) {
+        console.log("swiper ready");
+        window.swiper = swiper;
+        swiper.on("slideChangeStart", function(swiper) {
+          return console.log('changed. active:' + swiper.activeIndex + "; clicked:" + swiper.clickedIndex);
+        });
+        return swiper.on("click", function(swiper) {
+          console.log("click " + swiper.clickedIndex);
+          return console.log(swiper);
+        });
+      };
+    }
+
+    return HomeCtrl;
+
+  })();
+
+  angular.module('app').controller('HomeCtrl', ['$scope', '$ionicSideMenuDelegate', HomeCtrl]);
 
 }).call(this);
 

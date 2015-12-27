@@ -16,6 +16,7 @@ class Config
 				views:
 					'menuContent':
 						templateUrl: 'templates/home.html'
+						controller: 'HomeCtrl'
 
 			.state 'app.buslocation',
 				url: '/buslocation'
