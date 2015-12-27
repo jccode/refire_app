@@ -121,6 +121,15 @@
             controller: 'HomeCtrl'
           }
         }
+      }).state('app.home.energy', {
+        url: '/energy',
+        templateUrl: 'templates/home/energy.html'
+      }).state('app.home.video', {
+        url: '/video/:type',
+        templateUrl: 'templates/home/video.html'
+      }).state('app.home.tree', {
+        url: '/tree',
+        templateUrl: 'templates/home/tree.html'
       }).state('app.buslocation', {
         url: '/buslocation',
         views: {
@@ -543,27 +552,30 @@
   var HomeCtrl;
 
   HomeCtrl = (function() {
-    function HomeCtrl($scope, $ionicSideMenuDelegate) {
+    function HomeCtrl($scope, $ionicSideMenuDelegate, $state) {
       this.$scope = $scope;
       this.$ionicSideMenuDelegate = $ionicSideMenuDelegate;
-      this.$scope.onReadySwiper = function(swiper) {
-        console.log("swiper ready");
-        window.swiper = swiper;
-        swiper.on("slideChangeStart", function(swiper) {
-          return console.log('changed. active:' + swiper.activeIndex + "; clicked:" + swiper.clickedIndex);
-        });
-        return swiper.on("click", function(swiper) {
-          console.log("click " + swiper.clickedIndex);
-          return console.log(swiper);
-        });
-      };
+      this.$state = $state;
+      this.$scope.onReadySwiper = (function(_this) {
+        return function(swiper) {
+          return swiper.on("click", function(swiper) {
+            var idx, item, param, state, url;
+            idx = swiper.clickedIndex;
+            item = swiper.slides[idx];
+            url = item.getAttribute("href");
+            state = item.getAttribute('data-state');
+            param = item.getAttribute('data-param');
+            return _this.$state.go(state, param && JSON.parse(param) || {});
+          });
+        };
+      })(this);
     }
 
     return HomeCtrl;
 
   })();
 
-  angular.module('app').controller('HomeCtrl', ['$scope', '$ionicSideMenuDelegate', HomeCtrl]);
+  angular.module('app').controller('HomeCtrl', ['$scope', '$ionicSideMenuDelegate', '$state', HomeCtrl]);
 
 }).call(this);
 

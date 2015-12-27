@@ -18,6 +18,18 @@ class Config
 						templateUrl: 'templates/home.html'
 						controller: 'HomeCtrl'
 
+			.state 'app.home.energy',
+				url: '/energy'
+				templateUrl: 'templates/home/energy.html'
+
+			.state 'app.home.video',
+				url: '/video/:type'
+				templateUrl: 'templates/home/video.html'
+
+			.state 'app.home.tree',
+				url: '/tree'
+				templateUrl: 'templates/home/tree.html'
+
 			.state 'app.buslocation',
 				url: '/buslocation'
 				views:

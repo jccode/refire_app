@@ -7,7 +7,7 @@
                     <img ng-src="http://api.randomuser.me/portraits/thumb/men/{{s}}.jpg"/>
                 </ks-swiper-slide>
                 -->
-                <ks-swiper-slide class="swiper-slide">
+                <ks-swiper-slide class="swiper-slide" href="#/app/home/energy" data-state="app.home.energy">
                     <div class="my-slide-content">
                         <img src="img/slide-preview/thumb-energy.jpg" alt="energy" />
                         <div>
@@ -15,37 +15,25 @@
                         </div>
                     </div>
                 </ks-swiper-slide>
-                <ks-swiper-slide class="swiper-slide">
+                <ks-swiper-slide class="swiper-slide" href="#/app/home/video/1" data-state="app.home.video" data-param='{"type":"1"}'>
                     <div class="my-slide-content">
                         <img src="img/slide-preview/thumb-video.jpg" alt="video" />
                         <div> Example Videos </div>
                     </div>
                 </ks-swiper-slide>
-                <ks-swiper-slide class="swiper-slide">
+                <ks-swiper-slide class="swiper-slide" href="#/app/home/tree" data-state="app.home.tree">
                     <div class="my-slide-content">
                         <img src="img/slide-preview/thumb-trees-2.jpg" alt="tree" />
                         <div>Trees saved</div>
                     </div>
                 </ks-swiper-slide>
-                <ks-swiper-slide class="swiper-slide">
+                <ks-swiper-slide class="swiper-slide" href="#/app/home/video/2" data-state="app.home.video" data-param='{"type":"2"}'>
                     <div class="my-slide-content">
                         <img src="img/slide-preview/thumb-video.jpg" alt="tree" />
                         <div> Example <br> Video2 </div>
                     </div>
                 </ks-swiper-slide>
-                <ks-swiper-slide class="swiper-slide">
-                    <div class="my-slide-content">
-                        <img src="img/slide-preview/thumb-video.jpg" alt="tree" />
-                        <div> Example <br> Video2 </div>
-                    </div>
-                </ks-swiper-slide>
-                <ks-swiper-slide class="swiper-slide">
-                    <div class="my-slide-content">
-                        <img src="img/slide-preview/thumb-video.jpg" alt="tree" />
-                        <div> Example <br> Video2 </div>
-                    </div>
-                </ks-swiper-slide>
-                <ks-swiper-slide class="swiper-slide">
+                <ks-swiper-slide class="swiper-slide" href="#/app/home/video/3" data-state="app.home.video" data-param='{"type":"3"}'>
                     <div class="my-slide-content">
                         <img src="img/slide-preview/thumb-video.jpg" alt="tree" />
                         <div> Example <br> Video2 </div>
@@ -54,7 +42,7 @@
             </ks-swiper-container>
         </div>
         <div class="slide-detail">
-            
+            <div ui-view>slide detail</div>
         </div>
     </ion-content>
 </ion-view>
