@@ -1339,7 +1339,41 @@ $ion-item-height: 54px;
     }
 }
 
+.login {
+    background: url("../img/authentication-background.jpg") no-repeat 0 0;
 
+    .list {
+        padding: 20px 38px;
+
+        .item {
+            background: none;
+            border: none;
+            margin-bottom: 15px;
+            padding: 0;
+            height: 36px;
+            line-height: 36px;
+
+            input[type='text'], input[type='password'] {
+                background: #fff;
+                padding: 10px 15px;
+                height: 36px;
+            }
+
+            button {
+                margin: 0;
+                min-height: 36px;
+                height: 36px;
+            }
+
+            .forgetpwd {
+                font-size: 10px;
+                color: #458cbb;
+                height: 36px;
+                line-height: 36px;
+            }
+        }
+    }
+}
 
 
 /* common */

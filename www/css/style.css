@@ -1616,6 +1616,31 @@
     .setting .refresh-rate .select-wrapper select {
       max-width: 100%; }
 
+.login {
+  background: url("../img/authentication-background.jpg") no-repeat 0 0; }
+  .login .list {
+    padding: 20px 38px; }
+    .login .list .item {
+      background: none;
+      border: none;
+      margin-bottom: 15px;
+      padding: 0;
+      height: 36px;
+      line-height: 36px; }
+      .login .list .item input[type='text'], .login .list .item input[type='password'] {
+        background: #fff;
+        padding: 10px 15px;
+        height: 36px; }
+      .login .list .item button {
+        margin: 0;
+        min-height: 36px;
+        height: 36px; }
+      .login .list .item .forgetpwd {
+        font-size: 10px;
+        color: #458cbb;
+        height: 36px;
+        line-height: 36px; }
+
 /* common */
 .pull-right {
   float: right; }

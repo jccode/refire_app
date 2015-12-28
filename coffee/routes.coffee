@@ -165,6 +165,12 @@ class Config
 						templateUrl: 'templates/native-test.html'
 						controller: 'NativeTestCtrl as ctrl'
 
+			.state 'app.login',
+				url: '/login'
+				views:
+					'menuContent':
+						templateUrl: 'templates/login.html'
+
 		$urlRouterProvider.otherwise '/app/home/energy'
 
 
