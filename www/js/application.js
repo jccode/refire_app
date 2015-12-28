@@ -161,6 +161,11 @@
             templateUrl: 'templates/pay.html',
             controller: 'PayCtrl as ctrl'
           }
+        },
+        data: {
+          permissions: {
+            only: [roles.user]
+          }
         }
       }).state('app.pay-confirm', {
         url: '/pay-confirm/:type',
@@ -177,12 +182,22 @@
             templateUrl: 'templates/tickets.html',
             controller: 'TicketsCtrl'
           }
+        },
+        data: {
+          permissions: {
+            only: [roles.user]
+          }
         }
       }).state('app.rewards', {
         url: '/rewards',
         views: {
           'menuContent': {
             templateUrl: 'templates/rewards.html'
+          }
+        },
+        data: {
+          permissions: {
+            only: [roles.user]
           }
         }
       }).state('app.statistics', {
@@ -210,6 +225,11 @@
         views: {
           'menuContent': {
             templateUrl: 'templates/setting.html'
+          }
+        },
+        data: {
+          permissions: {
+            only: [roles.user]
           }
         }
       }).state('app.aboutme', {
@@ -272,7 +292,7 @@
           }
         }
       });
-      $urlRouterProvider.otherwise('/app/home');
+      $urlRouterProvider.otherwise('/app/home/energy');
     }
 
     return Config;

@@ -563,7 +563,7 @@
 
 .rewards {
   background: #eee;
-  font-size: 14px; }
+  font-size: 13px; }
   .rewards .instruction {
     background: #cfe3f1;
     margin-bottom: 8px;
@@ -578,11 +578,10 @@
       font-size: 14px;
       font-weight: bold; }
   .rewards .goal .icon {
-    font-size: 20px;
-    /* color: #fff; */ }
+    font-size: 20px; }
   .rewards .goal progress {
     width: 170px;
-    margin: 0 10px 0 0;
+    margin: 0 10px 10px 0;
     height: 15px;
     float: left;
     -webkit-appearance: none;
@@ -601,6 +600,17 @@
     .rewards .goal .line p {
       height: 15px;
       line-height: 15px; }
+  .rewards .goal .item {
+    font-size: 13px;
+    margin-bottom: 10px;
+    border-top: none;
+    border-bottom: 1px solid #ccc;
+    padding-bottoM: 5px; }
+  .rewards .goal h2 {
+    font-size: 13px; }
+  .rewards .goal .discount {
+    border-top: 1px solid #eee;
+    padding-top: 5px; }
 
 .map-location #map {
   width: 100%;

@@ -617,7 +617,7 @@ $ion-item-height: 54px;
 
 .rewards {
     background: #eee;
-    font-size: 14px;
+    font-size: 13px;
     
     .instruction {
         background: #cfe3f1;
@@ -639,13 +639,13 @@ $ion-item-height: 54px;
     }
 
     .goal {
+        
         .icon {
             font-size: 20px;
-            /* color: #fff; */
         }
         progress {
             width: 170px;
-            margin: 0 10px 0 0;
+            margin: 0 10px 10px 0;
             height: 15px;
             float: left;
             
@@ -672,6 +672,23 @@ $ion-item-height: 54px;
                 height: 15px;
                 line-height: 15px;
             }
+        }
+
+        .item {
+            font-size: 13px;
+            margin-bottom: 10px;
+            border-top: none;
+            border-bottom: 1px solid #ccc;
+            padding-bottoM: 5px;
+        }
+
+        h2 {
+            font-size: 13px;
+        }
+
+        .discount {
+            border-top: 1px solid #eee;
+            padding-top: 5px;
         }
     }
 }
