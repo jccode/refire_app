@@ -1500,6 +1500,112 @@
       .chart-detail .data-tb .row .col:last-child {
         background: #fafafa; }
 
+.setting {
+  background: #f0f0f0; }
+  .setting h1 {
+    font-size: 18px;
+    font-weight: bold;
+    height: 45px;
+    line-height: 45px;
+    margin: 5px 20px; }
+    .setting h1 a.button {
+      float: right;
+      color: #2b91f7; }
+  .setting h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px; }
+  .setting .profile {
+    background: #fdfdfd;
+    padding: 21px 17px 17px 22px; }
+    .setting .profile .avatar-wrapper {
+      /* width: 120px; */
+      /* height: 120px; */
+      float: right;
+      /* margin-right: 10px; */
+      border: 1px solid #127bb6;
+      -webkit-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border-radius: 5px; }
+      .setting .profile .avatar-wrapper img {
+        width: 100px;
+        height: 100px;
+        width: 100px;
+        height: 100px;
+        -webkit-border-radius: 100px;
+        -khtml-border-radius: 100px;
+        -moz-border-radius: 100px;
+        -ms-border-radius: 100px;
+        -o-border-radius: 100px;
+        border-radius: 100px;
+        margin: 20px; }
+  .setting .social.list {
+    background: #f2f2f2;
+    padding: 10px 17px 17px 22px;
+    height: 170px; }
+    .setting .social.list .item {
+      border: none;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      background: #f2f2f2;
+      padding-left: 0; }
+      .setting .social.list .item i.fa {
+        margin-right: 10px; }
+  .setting .shift {
+    text-align: center;
+    background-color: #fefefe;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(#f5f5f5));
+    background-image: -webkit-linear-gradient(top, #fefefe, #f5f5f5);
+    background-image: -moz-linear-gradient(top, #fefefe, #f5f5f5);
+    background-image: -ms-linear-gradient(top, #fefefe, #f5f5f5);
+    background-image: -o-linear-gradient(top, #fefefe, #f5f5f5);
+    background-image: linear-gradient(top, #fefefe, #f5f5f5);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fefefe', endColorStr='#f5f5f5'); }
+    .setting .shift .row {
+      padding: 0;
+      border-bottom: 1px solid #ebebeb;
+      height: 63px; }
+      .setting .shift .row + .row {
+        margin: 0; }
+      .setting .shift .row .col {
+        padding: 12px; }
+        .setting .shift .row .col p {
+          color: #8e8480; }
+  .setting .drive-hours {
+    padding: 9px 65px;
+    background-color: #f4f4f4;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#eee));
+    background-image: -webkit-linear-gradient(top, #f4f4f4, #eee);
+    background-image: -moz-linear-gradient(top, #f4f4f4, #eee);
+    background-image: -ms-linear-gradient(top, #f4f4f4, #eee);
+    background-image: -o-linear-gradient(top, #f4f4f4, #eee);
+    background-image: linear-gradient(top, #f4f4f4, #eee);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f4f4f4', endColorStr='#eee');
+    text-align: center; }
+    .setting .drive-hours .total-hours {
+      padding: 14px 0 21px;
+      background: #f9f9f9;
+      -webkit-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border-radius: 5px; }
+      .setting .drive-hours .total-hours h3 {
+        font-size: 18px; }
+      .setting .drive-hours .total-hours p {
+        color: #8e8480; }
+  .setting .refresh-rate .select-wrapper {
+    float: left;
+    width: 150px;
+    padding: 20px;
+    margin-left: 21px; }
+    .setting .refresh-rate .select-wrapper select {
+      max-width: 100%; }
+
 /* common */
 .pull-right {
   float: right; }

@@ -19,6 +19,7 @@
     "sass-mq": "~3.2.5",
     "Swiper": "swiper#~3.2.7",
     "Chart.js": "~1.0.2",
-    "angular-chart.js": "~0.8.8"
+    "angular-chart.js": "~0.8.8",
+    "font-awesome": "~4.5.0"
   }
 }
