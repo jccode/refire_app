@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64', 'ngMessages', 'angularMoment', 'ksSwiper']);
+  angular.module('app', ['ionic', 'ngCookies', 'ngCordova', 'ngResource', 'gettext', 'ngStorage', 'permission', 'base64', 'ngMessages', 'angularMoment', 'ksSwiper', 'chart.js']);
 
 }).call(this);
 
@@ -558,12 +558,40 @@
       this.$scope = $scope;
       this.$stateParams = $stateParams;
       this.$scope.type = this.$stateParams.type;
+      this.init_chart();
       this.$scope.onTabSelect = (function(_this) {
         return function(type) {
           return _this.$scope.type = type;
         };
       })(this);
     }
+
+    HealthCtrl.prototype.init_chart = function() {
+      var i, j, results;
+      this.$scope.labels = (function() {
+        results = [];
+        for (j = 1; j <= 30; j++){ results.push(j); }
+        return results;
+      }).apply(this);
+      this.$scope.series = ['Series A'];
+      this.$scope.data = [
+        (function() {
+          var k, len, ref, results1;
+          ref = this.$scope.labels;
+          results1 = [];
+          for (k = 0, len = ref.length; k < len; k++) {
+            i = ref[k];
+            results1.push(Math.round(Math.random() * 100));
+          }
+          return results1;
+        }).call(this)
+      ];
+      console.log(this.$scope.labels);
+      console.log(this.$scope.data);
+      return this.$scope.onClick = function(points, evt) {
+        return console.log(points, evt);
+      };
+    };
 
     return HealthCtrl;
 
