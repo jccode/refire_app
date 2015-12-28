@@ -147,10 +147,11 @@
           }
         }
       }).state('app.health', {
-        url: '/health',
+        url: '/health/:type',
         views: {
           'menuContent': {
-            templateUrl: 'templates/health.html'
+            templateUrl: 'templates/health.html',
+            controller: 'HealthCtrl'
           }
         }
       }).state('app.pay', {
@@ -289,6 +290,43 @@
       apiurl: 'http://localhost:8000/api'
     }
   });
+
+}).call(this);
+
+(function() {
+  var Ajax;
+
+  Ajax = (function() {
+    function Ajax($httpProvider, $resourceProvider) {
+      var serialize;
+      serialize = function(obj) {
+        return Object.keys(obj).reduce(function(a, k) {
+          a.push(k + '=' + encodeURIComponent(obj[k]));
+          return a;
+        }, []).join('&');
+      };
+      $httpProvider.defaults.withCredentials = true;
+      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
+      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $httpProvider.defaults.transformRequest = [
+        (function(_this) {
+          return function(data) {
+            if (angular.isObject(data) && String(data) !== '[Object File]') {
+              return serialize(data);
+            } else {
+              return data;
+            }
+          };
+        })(this)
+      ];
+      $resourceProvider.defaults.stripTrailingSlashes = false;
+    }
+
+    return Ajax;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', '$resourceProvider', Ajax]);
 
 }).call(this);
 
@@ -509,6 +547,29 @@
   })();
 
   angular.module('app').controller('BuslocationCtrl', ['$scope', '$q', '$cordovaGeolocation', BuslocationCtrl]);
+
+}).call(this);
+
+(function() {
+  var HealthCtrl;
+
+  HealthCtrl = (function() {
+    function HealthCtrl($scope, $stateParams) {
+      this.$scope = $scope;
+      this.$stateParams = $stateParams;
+      this.$scope.type = this.$stateParams.type;
+      this.$scope.onTabSelect = (function(_this) {
+        return function(type) {
+          return _this.$scope.type = type;
+        };
+      })(this);
+    }
+
+    return HealthCtrl;
+
+  })();
+
+  angular.module('app').controller('HealthCtrl', ['$scope', '$stateParams', HealthCtrl]);
 
 }).call(this);
 
@@ -1045,43 +1106,6 @@
   })();
 
   angular.module('app').filter('trusted', ['$sce', TrustedFilter]);
-
-}).call(this);
-
-(function() {
-  var Ajax;
-
-  Ajax = (function() {
-    function Ajax($httpProvider, $resourceProvider) {
-      var serialize;
-      serialize = function(obj) {
-        return Object.keys(obj).reduce(function(a, k) {
-          a.push(k + '=' + encodeURIComponent(obj[k]));
-          return a;
-        }, []).join('&');
-      };
-      $httpProvider.defaults.withCredentials = true;
-      $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
-      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-      $httpProvider.defaults.transformRequest = [
-        (function(_this) {
-          return function(data) {
-            if (angular.isObject(data) && String(data) !== '[Object File]') {
-              return serialize(data);
-            } else {
-              return data;
-            }
-          };
-        })(this)
-      ];
-      $resourceProvider.defaults.stripTrailingSlashes = false;
-    }
-
-    return Ajax;
-
-  })();
-
-  angular.module('app').config(['$httpProvider', '$resourceProvider', Ajax]);
 
 }).call(this);
 

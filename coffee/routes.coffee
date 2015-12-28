@@ -45,10 +45,11 @@ class Config
 						templateUrl: 'templates/bus_overview.html'
 
 			.state 'app.health',
-				url: '/health'
+				url: '/health/:type'
 				views:
 					'menuContent':
 						templateUrl: 'templates/health.html'
+						controller: 'HealthCtrl'
 
 			.state 'app.pay',
 				url: '/pay'

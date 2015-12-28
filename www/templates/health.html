@@ -1,5 +1,31 @@
-<ion-view view-title="Health Status">
-  <ion-content>
-    <h1>Health Status</h1>
-  </ion-content>
+
+<ion-view view-title="Clean enviroment">
+
+    <ion-tabs class="tabs-top">
+        <ion-tab title="This month" href="#/app/health/1" on-select="onTabSelect(1)"> 
+            <ion-view>
+                <div ng-include src="'templates/health/detail.html'"></div>
+            </ion-view>
+        </ion-tab>
+        <ion-tab title="3 Months" href="#/app/health/2" on-select="onTabSelect(2)">
+            <ion-view>
+                <div ng-include src="'templates/health/detail.html'"></div>
+            </ion-view>
+        </ion-tab>
+
+        <ion-tab title="6 Months" href="#/app/health/3" on-select="onTabSelect(3)">
+            <ion-view>
+                <div ng-include src="'templates/health/detail.html'"></div>
+            </ion-view>
+        </ion-tab>
+        
+        <ion-tab title="Period" href="#/app/health/4" on-select="onTabSelect(4)"> 
+            <ion-view>
+                <div ng-include src="'templates/health/detail.html'"></div>
+            </ion-view>
+        </ion-tab>
+
+    </ion-tabs>
+
 </ion-view>
+
