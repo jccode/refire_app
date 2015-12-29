@@ -313,8 +313,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://localhost:8000',
-      apiurl: 'http://localhost:8000/api'
+      baseurl: 'http://112.74.93.116',
+      apiurl: 'http://112.74.93.116/api'
     }
   });
 
