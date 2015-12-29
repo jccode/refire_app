@@ -1,6 +1,6 @@
 
 class SignupCtrl
-	constructor: (@$scope, @User, @auth) ->
+	constructor: (@$scope, @$state, @$sessionStorage, @User, @auth, @storageKey) ->
 		
 		
 	signup: (form)->
@@ -17,12 +17,20 @@ class SignupCtrl
 			, (err) ->
 				console.log 'signup error'
 				console.log err
-			
+
+	verify: (form)->
+		if form.$valid
+			console.log @user
+			@$sessionStorage[@storageKey.SIGNUP_USER] = @user
+			@$state.go 'app.smsverify'
 		
 
 angular.module('app').controller 'SignupCtrl', [
 	'$scope',
+	'$state',
+	'$sessionStorage',
 	'User',
 	'Auth',
+	'storageKey',
 	SignupCtrl
-	]
+]

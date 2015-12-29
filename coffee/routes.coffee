@@ -133,6 +133,20 @@ class Config
 					'menuContent':
 						templateUrl: 'templates/signup.html'
 						controller: 'SignupCtrl as ctrl'
+
+			.state 'app.smsverify',
+				url: '/sms'
+				views:
+					'menuContent':
+						templateUrl: 'templates/sms.html'
+						controller: 'SmsCtrl as ctrl'
+
+			.state 'app.createprofile',
+				url: '/createprofile'
+				views:
+					'menuContent':
+						templateUrl: 'templates/newprofile.html'
+						controller: 'NewProfileCtrl as ctrl'
 				
 			.state 'app.playlists',
 				url: '/playlists'

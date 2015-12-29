@@ -122,7 +122,18 @@ $yellow-1: #ffd63d;
     color: #fff;
     border: none;
 }
-
+.button-short {
+    height: 36px;
+    line-height: 36px;
+    min-height: 36px;
+}
+input.input-blueborder {
+    height: 36px;
+    line-height: 36px;
+    padding: 5px 10px ;
+    border: 1px solid #127bb6;
+    @include border-radius(3px);
+}
 
 
 /* height */
@@ -1339,31 +1350,39 @@ $ion-item-height: 54px;
     }
 }
 
+.list.gap {
+    padding: 20px 38px;
+
+    .item {
+        background: none;
+        border: none;
+        margin-bottom: 15px;
+        padding: 0;
+        height: 36px;
+        line-height: 36px;
+
+        input[type='text'], input[type='password'] {
+            background: #fff;
+            padding: 10px 15px;
+            height: 36px;
+        }
+
+        .button {
+            margin: 0;
+            min-height: 36px;
+            height: 36px;
+            font-size: 14px;
+        }
+
+    }
+}
+
 .login {
     background: url("../img/authentication-background.jpg") no-repeat 0 0;
 
     .list {
-        padding: 20px 38px;
 
         .item {
-            background: none;
-            border: none;
-            margin-bottom: 15px;
-            padding: 0;
-            height: 36px;
-            line-height: 36px;
-
-            input[type='text'], input[type='password'] {
-                background: #fff;
-                padding: 10px 15px;
-                height: 36px;
-            }
-
-            button {
-                margin: 0;
-                min-height: 36px;
-                height: 36px;
-            }
 
             .forgetpwd {
                 font-size: 10px;
@@ -1412,6 +1431,74 @@ $ion-item-height: 54px;
             }
         }
     }
+}
+
+.signup {
+    background: #f0f0f0;
+    
+    .list {
+        .item {
+            input[type='text'], input[type='password'] {
+                border: 1px solid #127bb6;
+                @include border-radius(3px);
+            }
+
+            .icon {
+                font-size: 16px;
+                color: #919191;
+            }
+        }
+    }
+}
+
+.sms-verify {
+    background: #f0f0f0;
+    padding-top: 22px;
+
+    .sms-container {
+        @include background-gradient(#fefefe, #eee);
+        font-size: 13px;
+        padding: 26px 36px;
+
+        h1 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        p {
+            line-height: 14px;
+            color: #333;
+        }
+
+        .countdown {
+            background: #fdfdfd;
+            padding: 15px 54px 5px;
+            margin: 17px;
+            @include border-radius(5px);
+            text-align: center;
+
+            h1 {
+                margin-bottom: 2px;
+            }
+            
+            i.icon {
+                color: #009900;
+                font-size: 36px;
+            }
+        }
+
+        .sms-code {
+            input[type='text'] {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
+    }
+    
+}
+
+.newprofile {
+    
 }
 
 

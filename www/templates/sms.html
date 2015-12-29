@@ -1,0 +1,17 @@
+<ion-view view-title="Verify SMS">
+    <ion-content class="sms-verify" >
+        <div class="sms-container">
+            <h1 translate > Verifying your Account </h1>
+            <p translate>We have sent you an SMS with a verification code. Please use the receive the received SMS code below.</p>
+            <div class="countdown">
+                <h1>60 seconds</h1>
+                <p translate>util sms code invalid</p>
+                <i class="icon ion-ios-email-outline"></i>
+            </div>
+            <div class="sms-code">
+                <input type="text" placeholder="{{'SMS code'|translate}}" class="input-blueborder"/>
+                <button class="button button-orange button-short" ng-click="ctrl.verify()"> Verify </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

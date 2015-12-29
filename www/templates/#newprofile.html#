@@ -1,0 +1,19 @@
+<ion-view view-title="Update Profile">
+    <ion-content class="newprofile" >
+        <h1>About You</h1>
+        <div class="imgupload">
+            <div class="avatar-wrapper">
+                <img src="img/default_avatar.png" alt="" />
+            </div>
+            <button class="button button-orange button-short"> <i class="icon ion-android-camera"></i> </button>
+        </div>
+        <div class="list gap">
+            <label class="item item-input">
+                <input type="text" name="nickname" placeholder="{{'Nickname' | translate}}"/>
+            </label>
+            <label class="item item-input">
+                <input type="text" name="Birth Date"/>
+            </label>
+        </div>
+    </ion-content>
+</ion-view>

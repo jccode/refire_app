@@ -61,7 +61,8 @@
     'storageKey': {
       PAY_STEP_SEQNO: 'pay_step_seqno',
       PAY_BUS_LINE: 'pay_bus_line',
-      TICKETS: 'tickets'
+      TICKETS: 'tickets',
+      SIGNUP_USER: 'signup_user'
     }
   });
 
@@ -257,6 +258,22 @@
           'menuContent': {
             templateUrl: 'templates/signup.html',
             controller: 'SignupCtrl as ctrl'
+          }
+        }
+      }).state('app.smsverify', {
+        url: '/sms',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/sms.html',
+            controller: 'SmsCtrl as ctrl'
+          }
+        }
+      }).state('app.createprofile', {
+        url: '/createprofile',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/newprofile.html',
+            controller: 'NewProfileCtrl as ctrl'
           }
         }
       }).state('app.playlists', {
@@ -865,6 +882,24 @@
 }).call(this);
 
 (function() {
+  var NewProfileCtrl;
+
+  NewProfileCtrl = (function() {
+    function NewProfileCtrl($scope, $state) {
+      this.$scope = $scope;
+      this.$state = $state;
+      console.log('new profile ctrl');
+    }
+
+    return NewProfileCtrl;
+
+  })();
+
+  angular.module('app').controller('NewProfileCtrl', ['$scope', '$state', NewProfileCtrl]);
+
+}).call(this);
+
+(function() {
   var PayConfirmCtrl;
 
   PayConfirmCtrl = (function() {
@@ -997,10 +1032,13 @@
   var SignupCtrl;
 
   SignupCtrl = (function() {
-    function SignupCtrl($scope, User, auth) {
+    function SignupCtrl($scope, $state, $sessionStorage, User, auth, storageKey) {
       this.$scope = $scope;
+      this.$state = $state;
+      this.$sessionStorage = $sessionStorage;
       this.User = User;
       this.auth = auth;
+      this.storageKey = storageKey;
     }
 
     SignupCtrl.prototype.signup = function(form) {
@@ -1016,11 +1054,41 @@
       }
     };
 
+    SignupCtrl.prototype.verify = function(form) {
+      if (form.$valid) {
+        console.log(this.user);
+        this.$sessionStorage[this.storageKey.SIGNUP_USER] = this.user;
+        return this.$state.go('app.smsverify');
+      }
+    };
+
     return SignupCtrl;
 
   })();
 
-  angular.module('app').controller('SignupCtrl', ['$scope', 'User', 'Auth', SignupCtrl]);
+  angular.module('app').controller('SignupCtrl', ['$scope', '$state', '$sessionStorage', 'User', 'Auth', 'storageKey', SignupCtrl]);
+
+}).call(this);
+
+(function() {
+  var SmsCtrl;
+
+  SmsCtrl = (function() {
+    function SmsCtrl($scope, $state) {
+      this.$scope = $scope;
+      this.$state = $state;
+      console.log('SmsCtrl');
+    }
+
+    SmsCtrl.prototype.verify = function() {
+      return this.$state.go('app.createprofile');
+    };
+
+    return SmsCtrl;
+
+  })();
+
+  angular.module('app').controller('SmsCtrl', ['$scope', '$state', SmsCtrl]);
 
 }).call(this);
 

@@ -1,7 +1,7 @@
 <ion-view view-title="Sign up">
-    <ion-content class="signup" >
-        <form name="signupForm" novalidate="" ng-submit="ctrl.verify(signupForm)">
-            <div class="list gap">
+    <ion-content>
+        <form name="signupForm" novalidate="" ng-submit="signup(signupForm)">
+            <div class="list">
                 <label class="item item-input" ng-class="{'has-errors': signupForm.username.$invalid && signupForm.$submitted, 'no-errors': signupForm.username.$valid && signupForm.$submitted }">
                     <input type="text" name="username" placeholder="{{'Username'|translate}}" ng-model="ctrl.user.username" ng-model-options="{ debounce: 100 }" ng-minlength="3" ng-maxlength="20" ng-pattern="/^(13|15|18)\d{9}$/" required user-exist />
                 </label>
@@ -10,18 +10,23 @@
                     <div class="error" ng-message="userExist"><i class="ion-information-circled"></i> <span translate>User is exist</span></div>
                     <div class="error" ng-message="pattern"><i class="ion-information-circled"></i> <span translate>mobile number invalid</span></div>
                 </div>
-                <label class="item item-input item-icon-right" ng-class="{'has-errors': signupForm.password.$invalid && signupForm.$submitted, 'no-errors': signupForm.password.$valid && singupForm.$submitted }">
+                <label class="item item-input" ng-class="{'has-errors': signupForm.password.$invalid && signupForm.$submitted, 'no-errors': signupForm.password.$valid && singupForm.$submitted }">
                     <input type="password" name="password" placeholder="{{'Password'|translate}}" ng-model="ctrl.user.password" required ng-minlength="5" ng-maxlength="22"/>
-                    <i class="icon ion-unlocked"></i>
                 </label>
                 <div class="error-container" ng-show="signupForm.password.$error && signupForm.$submitted" ng-messages="signupForm.password.$error">
                     <div ng-messages-include="templates/errorlist.html"></div>
                 </div>
-                <label class="item">
-                    <button class="button button-block button-orange" translate type="submit"> Verify Phone Number </button>
+                <label class="item item-input" ng-class="{'has-errors': signupForm.confirm_password.$invalid && signupForm.$submitted, 'no-errors': signupForm.confirm_password.$valid && singupForm.$submitted }">
+                    <input type="password" name="confirm_password" placeholder="{{'Confirm password'|translate}}" ng-model="ctrl.user.confirm_password" required compare-to="signupForm.password" />
                 </label>
+                <div class="error-container last-error-container" ng-show="signupForm.confirm_password.$error && signupForm.$submitted" ng-messages="signupForm.confirm_password.$error">
+                    <div ng-messages-include="templates/errorlist.html"></div>
+                    <div class="error" ng-message="compareTo"><i class="ion-information-circled"></i> <span translate>confirm password isn't the same</span></div>
+                </div>
             </div>
-
+            <div class="padding">
+                <button class="button button-block button-positive" translate ng-click="ctrl.signup(signupForm)"> Register </button>
+            </div>
         </form>
     </ion-content>
 </ion-view>
