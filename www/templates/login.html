@@ -1,11 +1,11 @@
-<ion-modal-view>
+<ion-modal-view class="login">
     <ion-header-bar class="bar-calm">
         <h1 class="title" translate>Login</h1>
         <div class="buttons">
             <button class="button button-clear" ng-click="closeLogin()" translate>Close</button>
         </div>
     </ion-header-bar>
-    <ion-content class="login">
+    <ion-content >
         <form ng-submit="doLogin()">
             <!-- 
             <div class="list">
@@ -33,12 +33,27 @@
                     <button class="button button-block button-orange" type="submit" translate>Login</button>
                 </label>
                 <label class="item">
-                    <button class="button button-block forgetpwd" type="submit" translate>Forgot your password?</button>
+                    <button class="button button-block forgetpwd" type="button" translate>Forgot your password?</button>
                 </label>
             </div>
-    
         </form>
-        
-
     </ion-content>
+
+    <div class="no-account">
+        <h1 translate>No Account Yet?</h1>
+        <p>
+            <i class="icon ion-checkmark-circled"></i>
+            <span translate>Please register for your FREE account.</span>
+        </p>
+        <p translate class="compack">
+            Reason to sign-up:
+        </p>
+        <ul>
+            <li translate>Collect points for discount on your tickets</li>
+            <li translate>Know when each bus is arriving</li>
+            <li translate>Pay tickets with WeChat or AliPay</li>
+        </ul>
+        <button class="button button-block button-orange" type="button" translate ng-click="signup()">Register New Account</button>
+    </div>
+    
 </ion-modal-view>

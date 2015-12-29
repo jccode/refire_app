@@ -404,6 +404,15 @@
           return _this.$state.go('app.playlists');
         };
       })(this);
+      this.$scope.signup = (function(_this) {
+        return function() {
+          _this.$scope.closeLogin();
+          _this.$ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          return _this.$state.go('app.signup');
+        };
+      })(this);
     }
 
     AppCtrl.prototype.loginModal = function() {

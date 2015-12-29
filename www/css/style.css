@@ -1640,6 +1640,35 @@
         color: #458cbb;
         height: 36px;
         line-height: 36px; }
+  .login .no-account {
+    /* margin: 0 38px; */
+    position: absolute;
+    bottom: 30px;
+    left: 26px;
+    right: 26px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 14px;
+    font-size: 12px; }
+    .login .no-account h1, .login .no-account p, .login .no-account ul {
+      padding: 0 5px 0; }
+    .login .no-account h1 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px; }
+    .login .no-account .icon {
+      color: #349a34;
+      font-size: 20px;
+      vertical-align: middle; }
+    .login .no-account .compack {
+      margin: 0; }
+    .login .no-account ul {
+      margin-bottom: 20px; }
+      .login .no-account ul li {
+        list-style: disc inside;
+        margin: 0;
+        padding: 0 0 0 10px;
+        line-height: 12px;
+        height: 12px; }
 
 /* common */
 .pull-right {

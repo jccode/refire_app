@@ -42,6 +42,11 @@ class AppCtrl
 				disableBack: true
 			@$state.go 'app.playlists'
 
+		@$scope.signup = =>
+			@$scope.closeLogin()
+			@$ionicHistory.nextViewOptions
+				disableBack: true
+			@$state.go 'app.signup'
 
 	loginModal: ->
 		@$ionicModal.fromTemplateUrl('templates/login.html',
