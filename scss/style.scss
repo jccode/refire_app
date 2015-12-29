@@ -1374,6 +1374,17 @@ $ion-item-height: 54px;
             font-size: 14px;
         }
 
+        &.item-icon-right {
+            input[type='text'] {
+                padding-right: 30px;
+            }
+
+            .fa {
+                position: absolute;
+                top: 11px;
+                right: 9px;
+            }
+        }
     }
 }
 
@@ -1498,7 +1509,64 @@ $ion-item-height: 54px;
 }
 
 .newprofile {
-    
+    h1 {
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .gap {
+        .item {
+            input[type='text'], input[type='password'] {
+                border: 1px solid #127bb6;
+                @include border-radius(3px);
+            }
+        }
+    }
+    .basicinfo {
+        padding: 18px 38px 0;
+        background: #f0f0f0;
+
+        .imgupload {
+            .avatar-wrapper {
+                display: inline-block;
+                margin-right: 2px;
+                img {
+                    width: 105px;
+                    height: 105px;
+                    border: 1px solid #127bb6;
+                    @include border-radius(3px);
+                    
+                }
+            }
+        }
+
+        .gap {
+            padding: 10px 0 1px;
+        }
+    }
+
+    .social {
+        @include background-gradient(#fefefe, #f0f0f0);
+        border-bottom: 1px solid #fff;
+        
+        h1 {
+            padding: 18px 38px 0;
+        }
+        .gap {
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+    }
+
+    .btns {
+        background: #f0f0f0;
+        padding: 12px 38px;
+        .button {
+            width: 100%;
+        }
+        .col-67 {
+            padding-left: 10px;
+        }
+    }
 }
 
 

@@ -1,5 +1,50 @@
 <ion-view view-title="Update Profile">
     <ion-content class="newprofile" >
-        <h1>New profile</h1>
+        <div class="basicinfo">
+            <h1>About You</h1>
+            <div class="imgupload">
+                <div class="avatar-wrapper">
+                    <img src="img/default_avatar.png" alt="" />
+                </div>
+                <button class="button button-orange button-short"> <i class="icon ion-android-camera"></i> </button>
+            </div>
+            <div class="list gap">
+                <label class="item item-input">
+                    <input type="text" name="nickname" class="" placeholder="{{'Nickname' | translate}}"/>
+                </label>
+                <label class="item item-input">
+                    <input type="text" name="birthday" value="" placeholder="{{'Birth Date'|translate}}" />
+                </label>
+            </div>
+        </div>
+        <div class="social">
+            <h1>Social Media</h1>
+            <div class="list gap">
+                <label class="item item-input item-icon-right">
+                    <input type="text" name="qq" placeholder="{{'QQ Acount' | translate}}"/>
+                    <i class="fa fa-qq"></i>
+                </label>
+                <label class="item item-input item-icon-right">
+                    <input type="text" name="wechat" placeholder="{{'WeChat Acount' | translate}}"/>
+                    <i class="fa fa-weixin"></i>
+                </label>
+                <label class="item item-input item-icon-right">
+                    <input type="text" name="weibo" placeholder="{{'Weibo Acount' | translate}}"/>
+                    <i class="fa fa-weibo"></i>
+                </label>
+            </div>
+        </div>
+        <div class="btns row">
+            <div class="col-33">
+                <button class="button button-gray button-short" translate>
+                    Skip
+                </button>
+            </div>
+            <div class="col-67">
+                <button class="button button-orange button-short" translate>
+                    Finalize Account
+                </button>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

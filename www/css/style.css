@@ -1651,6 +1651,12 @@ input.input-blueborder {
       min-height: 36px;
       height: 36px;
       font-size: 14px; }
+    .list.gap .item.item-icon-right input[type='text'] {
+      padding-right: 30px; }
+    .list.gap .item.item-icon-right .fa {
+      position: absolute;
+      top: 11px;
+      right: 9px; }
 
 .login {
   background: url("../img/authentication-background.jpg") no-repeat 0 0; }
@@ -1742,6 +1748,62 @@ input.input-blueborder {
     .sms-verify .sms-container .sms-code input[type='text'] {
       display: inline-block;
       margin-right: 10px; }
+
+.newprofile h1 {
+  font-size: 14px;
+  font-weight: bold; }
+
+.newprofile .gap .item input[type='text'], .newprofile .gap .item input[type='password'] {
+  border: 1px solid #127bb6;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
+
+.newprofile .basicinfo {
+  padding: 18px 38px 0;
+  background: #f0f0f0; }
+  .newprofile .basicinfo .imgupload .avatar-wrapper {
+    display: inline-block;
+    margin-right: 2px; }
+    .newprofile .basicinfo .imgupload .avatar-wrapper img {
+      width: 105px;
+      height: 105px;
+      border: 1px solid #127bb6;
+      -webkit-border-radius: 3px;
+      -khtml-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -ms-border-radius: 3px;
+      -o-border-radius: 3px;
+      border-radius: 3px; }
+  .newprofile .basicinfo .gap {
+    padding: 10px 0 1px; }
+
+.newprofile .social {
+  background-color: #fefefe;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(#f0f0f0));
+  background-image: -webkit-linear-gradient(top, #fefefe, #f0f0f0);
+  background-image: -moz-linear-gradient(top, #fefefe, #f0f0f0);
+  background-image: -ms-linear-gradient(top, #fefefe, #f0f0f0);
+  background-image: -o-linear-gradient(top, #fefefe, #f0f0f0);
+  background-image: linear-gradient(top, #fefefe, #f0f0f0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fefefe', endColorStr='#f0f0f0');
+  border-bottom: 1px solid #fff; }
+  .newprofile .social h1 {
+    padding: 18px 38px 0; }
+  .newprofile .social .gap {
+    padding-top: 1px;
+    padding-bottom: 1px; }
+
+.newprofile .btns {
+  background: #f0f0f0;
+  padding: 12px 38px; }
+  .newprofile .btns .button {
+    width: 100%; }
+  .newprofile .btns .col-67 {
+    padding-left: 10px; }
 
 /* common */
 .pull-right {
