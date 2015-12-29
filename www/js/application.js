@@ -885,17 +885,31 @@
   var NewProfileCtrl;
 
   NewProfileCtrl = (function() {
-    function NewProfileCtrl($scope, $state) {
+    function NewProfileCtrl($scope, $state, moment) {
       this.$scope = $scope;
       this.$state = $state;
+      this.moment = moment;
       console.log('new profile ctrl');
+      this.userprofile = {};
+      this.$scope.datepickerObject = {
+        callback: (function(_this) {
+          return function(val) {
+            return _this.datePickerCallback(val);
+          };
+        })(this)
+      };
     }
+
+    NewProfileCtrl.prototype.datePickerCallback = function(val) {
+      this.$scope.datepickerObject.inputDate = val;
+      return this.userprofile.birthday = this.moment(val).format('YYYY-MM-DD');
+    };
 
     return NewProfileCtrl;
 
   })();
 
-  angular.module('app').controller('NewProfileCtrl', ['$scope', '$state', NewProfileCtrl]);
+  angular.module('app').controller('NewProfileCtrl', ['$scope', '$state', 'moment', NewProfileCtrl]);
 
 }).call(this);
 

@@ -12,8 +12,13 @@
                 <label class="item item-input">
                     <input type="text" name="nickname" class="" placeholder="{{'Nickname' | translate}}"/>
                 </label>
-                <label class="item item-input">
-                    <input type="text" name="birthday" value="" placeholder="{{'Birth Date'|translate}}" />
+                <label class="item item-input item-icon-right">
+                    <ionic-datepicker input-obj="datepickerObject" style="width: 100%;">
+                        <!-- <button class="button button-block button-positive"> {{datepickerObject.inputDate | date:'dd - MMMM - yyyy'}}</button> -->
+                        <input type="text" name="birthday" ng-model="ctrl.userprofile.birthday" placeholder="{{'Birth Date'|translate}}" />
+                        <i class="fa fa-calendar"></i>
+                    </ionic-datepicker>
+                    
                 </label>
             </div>
         </div>
