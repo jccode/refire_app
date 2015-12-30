@@ -51,6 +51,7 @@
   angular.module('app').constant({
     'userRoles': {
       user: 'user',
+      driver: 'driver',
       admin: 'admin'
     },
     'event': {
@@ -911,8 +912,6 @@
       var cuser, ret;
       if (form.$valid) {
         cuser = this.$rootScope.user;
-        console.log(this.userprofile);
-        console.log(cuser);
         this.userprofile.uid = cuser.id;
         this.userprofile.phone = cuser.username;
         ret = this.userProfileSvc.save(this.userprofile);
@@ -1119,14 +1118,19 @@
   var SettingCtrl;
 
   SettingCtrl = (function() {
-    function SettingCtrl($scope, $state, gettextCatalog, $ionicHistory, auth, util) {
+    function SettingCtrl($scope, $rootScope, $state, gettextCatalog, $ionicHistory, auth, userProfile, util, roles) {
       this.$scope = $scope;
+      this.$rootScope = $rootScope;
       this.$state = $state;
       this.gettextCatalog = gettextCatalog;
       this.$ionicHistory = $ionicHistory;
       this.auth = auth;
+      this.userProfile = userProfile;
       this.util = util;
-      console.log('setting ctrl');
+      this.roles = roles;
+      this.user = this.$rootScope.user;
+      this.isdriver = this.auth.authorize(this.roles.driver);
+      this.profile = this.userProfile.get(this.user.id);
     }
 
     SettingCtrl.prototype.logoff = function() {
@@ -1142,7 +1146,7 @@
 
   })();
 
-  angular.module('app').controller('SettingCtrl', ['$scope', '$state', 'gettextCatalog', '$ionicHistory', 'Auth', 'Util', SettingCtrl]);
+  angular.module('app').controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'gettextCatalog', '$ionicHistory', 'Auth', 'userProfile', 'Util', 'userRoles', SettingCtrl]);
 
 }).call(this);
 
@@ -1604,7 +1608,6 @@
       this.user = get_current_user();
       this.authorize = (function(_this) {
         return function(role) {
-          console.log(_this.user.groups);
           return indexOf.call(_this.user.groups, role) >= 0;
         };
       })(this);
@@ -1806,6 +1809,12 @@
       }
       fd['uid'] = data['uid'];
       return fd;
+    };
+
+    UserProfile.prototype.get = function(id) {
+      return this.userProfile.get({
+        id: id
+      });
     };
 
     return UserProfile;

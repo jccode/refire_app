@@ -3,6 +3,7 @@
 angular.module('app').constant
 	'userRoles':
 		user: 'user'
+		driver: 'driver'
 		admin: 'admin'
 	'event':
 		LOGIN: 'login'

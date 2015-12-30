@@ -1,38 +1,38 @@
 <ion-view view-title="Setting">
     <ion-content class="setting">
-        <h1> Your Profile
-        <a class="button icon-left ion-locked button-clear" ng-click="ctrl.logoff()">&nbsp; Log off</a> 
+        <h1> <translate> Your Profile </translate>
+        <a class="button icon-left ion-locked button-clear" ng-click="ctrl.logoff()" translate>&nbsp; Logoff</a> 
         </h1>
         
         <div class="profile">
             <div class="row">
                 <div class="col">
                     <h3 translate>Nickname</h3>
-                    <p>Floor Peters</p>
+                    <p>{{ctrl.profile.nickname}}</p>
                     <h3 translate>Mobile No.</h3>
-                    <p>+86 137 1231 1231</p>
+                    <p>{{ctrl.profile.phone}}</p>
                     <h3>Date of Birth</h3>
-                    <p>22-12-1988</p>
+                    <p>{{ctrl.profile.birthday}}</p>
                 </div>
                 <div class="col">
                     <div class="avatar-wrapper">
-                    <img src="img/avatar.jpg" alt="" />
+                    <img ng-src="{{ctrl.profile.avatar || 'img/default_avatar.png'}}" alt="" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="social list hide">
+        <div class="social list" ng-hide="ctrl.isdriver">
             <div class="item">
-                <i class="fa fa-qq fa-lg"></i> 22312321
+                <i class="fa fa-qq fa-lg"></i> {{ctrl.profile.qq}}
             </div>
             <div class="item item-icon-left">
-                <i class="fa fa-weixin fa-lg"></i> 22312321
+                <i class="fa fa-weixin fa-lg"></i> {{ctrl.profile.wechat}}
             </div>
             <div class="item item-icon-left">
-                <i class="fa fa-weibo fa-lg"></i> 22312321
+                <i class="fa fa-weibo fa-lg"></i> {{ctrl.profile.weibo}}
             </div>
         </div>
-        <div class="shift">
+        <div class="shift" ng-show="ctrl.isdriver">
             <div class="row">
                 <div class="col">
                     <h3>M474</h3>
@@ -54,24 +54,24 @@
                 </div>
             </div>
         </div>
-        <div class="drive-hours">
+        <div class="drive-hours" ng-show="ctrl.isdriver">
             <div class="total-hours">
                 <h3>420 Hours</h3> 
                 <p>Total Driving Hours</p>
             </div>
         </div>
 
-        <h1>Data Refresh Rate</h1>
-
-        <div class="refresh-rate">
-            <div class="item item-select select-wrapper">
-                <select >
-                    <option value="30">30 seconds</option>
-                    <option value="60">60 seconds</option>
-                    <option value="90">90 seconds</option>
-                </select>
+        <div class="refresh-setting">
+            <h1>Data Refresh Rate</h1>
+            <div class="refresh-rate">
+                <div class="item item-select select-wrapper">
+                    <select >
+                        <option value="30">30 seconds</option>
+                        <option value="60">60 seconds</option>
+                        <option value="90">90 seconds</option>
+                    </select>
+                </div>
             </div>
         </div>
-
     </ion-content>
 </ion-view>

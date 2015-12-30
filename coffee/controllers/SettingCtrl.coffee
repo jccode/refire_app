@@ -1,7 +1,9 @@
 
 class SettingCtrl
-	constructor: (@$scope, @$state, @gettextCatalog, @$ionicHistory, @auth, @util)->
-		console.log 'setting ctrl'
+	constructor: (@$scope, @$rootScope, @$state, @gettextCatalog, @$ionicHistory, @auth, @userProfile, @util, @roles)->
+		@user = @$rootScope.user
+		@isdriver = @auth.authorize @roles.driver
+		@profile = @userProfile.get @user.id
 
 	logoff: ()->
 		@auth.logout()
@@ -12,10 +14,13 @@ class SettingCtrl
 
 angular.module('app').controller 'SettingCtrl', [
 	'$scope',
+	'$rootScope',
 	'$state',
 	'gettextCatalog',
 	'$ionicHistory',
 	'Auth',
+	'userProfile',
 	'Util',
+	'userRoles',
 	SettingCtrl
 ]

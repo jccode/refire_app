@@ -24,7 +24,9 @@ class UserProfile
 		addFormData key, value for key, value of data
 		fd['uid'] = data['uid']
 		fd
-		
+
+	get: (id)->
+		@userProfile.get {id: id}
 
 
 angular.module('app').service 'userProfile', ['$resource', 'settings', UserProfile]

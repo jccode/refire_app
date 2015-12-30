@@ -161,6 +161,7 @@ $ion-item-height: 54px;
             float: right;
             margin-top: 10px;
             margin-right: 10px;
+            white-space: nowrap;
         }
 
         .milage-remain {
@@ -417,6 +418,19 @@ $ion-item-height: 54px;
                 }
                 &:last-child {
                     background: #FAFAFA;
+                }
+            }
+        }
+    }
+
+
+
+    /* responsive */
+    @include mq($until:mobileExtra) {
+        .batterys {
+            .data-tb {
+                .col:first-child {
+                    display:none;
                 }
             }
         }
@@ -1336,7 +1350,14 @@ $ion-item-height: 54px;
         }
     }
 
+    .refresh-setting {
+        @include background-gradient(#fefefe, #f0f0f0);
+        height: 150px;
+    }
+
     .refresh-rate {
+        /* margin-bottom: 20px; */
+        
         .select-wrapper {
             float: left;
             width: 150px;

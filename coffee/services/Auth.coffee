@@ -28,7 +28,7 @@ class Auth
 		@user = get_current_user()
 		
 		@authorize = (role) =>
-			console.log @user.groups
+			# console.log @user.groups
 			# auths = (auth.groups[l..].toLowerCase() for auth in @user.groups)
 			role in @user.groups
 

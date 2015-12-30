@@ -19,8 +19,8 @@ class NewProfileCtrl
 	submit: (form)->
 		if form.$valid
 			cuser = @$rootScope.user
-			console.log @userprofile
-			console.log cuser
+			# console.log @userprofile
+			# console.log cuser
 			
 			@userprofile.uid = cuser.id
 			@userprofile.phone = cuser.username
