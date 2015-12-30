@@ -1,7 +1,7 @@
 
 class SmsCtrl
 	constructor: (@$scope, @$state, @$interval, @$sessionStorage, @storageKey, @gettextCatalog, @sms, @auth)->
-		@COUNTDOWN = 10
+		@COUNTDOWN = 90
 		@countdown = 0
 		@setButton("V")
 		@user = @$sessionStorage[@storageKey.SIGNUP_USER]
@@ -11,14 +11,13 @@ class SmsCtrl
 		@sendSms @user['username'], @successCallback.bind(@), @errorCallback.bind(@)
 
 	sendSms: (phone, success, failed)->
-		# util @countdown <= 0
-		# 	@sms.send phone
-		# 		.then (ret)=>
-		# 			success ret
-		# 		, (err)=>
-		# 			failed err
-		
-		success 1024
+		if @countdown <= 0
+			@sms.send phone
+				.then (ret)=>
+					success ret.data
+				, (err)=>
+					failed err
+		# success 1024
 		# failed @gettextCatalog.getString 'send sms failed'
 
 	successCallback: (code)->
@@ -46,7 +45,7 @@ class SmsCtrl
 		@setButton("S")
 
 	doVerify: ()->
-		return @countdown > 0 and @receivecode == @verifycode
+		return @countdown > 0 and @receivecode.toString() is @verifycode.toString()
 
 	verify: ()->
 		if @doVerify()

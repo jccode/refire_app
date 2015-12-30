@@ -1666,11 +1666,11 @@ input.input-blueborder {
     height: 36px;
     line-height: 36px; }
   .login .no-account {
-    /* margin: 0 38px; */
-    position: absolute;
-    bottom: 30px;
-    left: 26px;
-    right: 26px;
+    margin: 38px 26px 0;
+    /* position: fixed; */
+    /* bottom: 30px; */
+    /* left: 26px; */
+    /* right: 26px; */
     background: rgba(255, 255, 255, 0.8);
     padding: 14px;
     font-size: 12px; }

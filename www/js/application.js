@@ -918,8 +918,8 @@
         ret = this.userProfileSvc.save(this.userprofile);
         return ret.$promise.then((function(_this) {
           return function(ret) {
-            console.log('save success. #{JSON.stringify(ret)} ');
-            return _this.util.toast(_this.gettextCatalog.getString('update profile successful.'));
+            _this.util.toast(_this.gettextCatalog.getString('update profile successful.'));
+            return _this.skip();
           };
         })(this), (function(_this) {
           return function(err) {
@@ -956,18 +956,13 @@
       if (ext.toLowerCase() === "jpg") {
         ext = "jpeg";
       }
-      console.log("url " + url + ", name: " + name + " , ext: " + ext);
-      console.log(cordova.file.applicationStorageDirectory);
-      console.log(cordova.file.cacheDirectory);
       return this.$cordovaFile.readAsArrayBuffer(cordova.file.cacheDirectory, name).then((function(_this) {
         return function(ret) {
           var blob;
-          console.log('read success', ret);
           blob = new Blob([ret], {
             type: "image/" + ext,
             name: name
           });
-          console.log(JSON.stringify(blob));
           return _this.userprofile.avatar = blob;
         };
       })(this), (function(_this) {
@@ -1205,7 +1200,7 @@
       this.gettextCatalog = gettextCatalog;
       this.sms = sms;
       this.auth = auth;
-      this.COUNTDOWN = 10;
+      this.COUNTDOWN = 90;
       this.countdown = 0;
       this.setButton("V");
       this.user = this.$sessionStorage[this.storageKey.SIGNUP_USER];
@@ -1217,7 +1212,17 @@
     };
 
     SmsCtrl.prototype.sendSms = function(phone, success, failed) {
-      return success(1024);
+      if (this.countdown <= 0) {
+        return this.sms.send(phone).then((function(_this) {
+          return function(ret) {
+            return success(ret.data);
+          };
+        })(this), (function(_this) {
+          return function(err) {
+            return failed(err);
+          };
+        })(this));
+      }
     };
 
     SmsCtrl.prototype.successCallback = function(code) {
@@ -1250,7 +1255,7 @@
     };
 
     SmsCtrl.prototype.doVerify = function() {
-      return this.countdown > 0 && this.receivecode === this.verifycode;
+      return this.countdown > 0 && this.receivecode.toString() === this.verifycode.toString();
     };
 
     SmsCtrl.prototype.verify = function() {

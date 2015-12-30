@@ -37,23 +37,26 @@
                 </label>
             </div>
         </form>
+
+        <div class="no-account">
+            <h1 translate>No Account Yet?</h1>
+            <p>
+                <i class="icon ion-checkmark-circled"></i>
+                <span translate>Please register for your FREE account.</span>
+            </p>
+            <p translate class="compack">
+                Reason to sign-up:
+            </p>
+            <ul>
+                <li translate>Collect points for discount on your tickets</li>
+                <li translate>Know when each bus is arriving</li>
+                <li translate>Pay tickets with WeChat or AliPay</li>
+            </ul>
+            <button class="button button-block button-orange" type="button" translate ng-click="signup()">Register New Account</button>
+        </div>
+        
     </ion-content>
 
-    <div class="no-account">
-        <h1 translate>No Account Yet?</h1>
-        <p>
-            <i class="icon ion-checkmark-circled"></i>
-            <span translate>Please register for your FREE account.</span>
-        </p>
-        <p translate class="compack">
-            Reason to sign-up:
-        </p>
-        <ul>
-            <li translate>Collect points for discount on your tickets</li>
-            <li translate>Know when each bus is arriving</li>
-            <li translate>Pay tickets with WeChat or AliPay</li>
-        </ul>
-        <button class="button button-block button-orange" type="button" translate ng-click="signup()">Register New Account</button>
-    </div>
+
     
 </ion-modal-view>

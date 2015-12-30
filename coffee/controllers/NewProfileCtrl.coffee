@@ -27,8 +27,9 @@ class NewProfileCtrl
 			
 			ret = @userProfileSvc.save @userprofile
 			ret.$promise.then (ret)=>
-				console.log 'save success. #{JSON.stringify(ret)} '
+				# console.log "save success. #{JSON.stringify(ret)} "
 				@util.toast @gettextCatalog.getString 'update profile successful.'
+				@skip()
 			, (err) =>
 				console.log 'save failed. #{err}'
 				@util.toast @gettextCatalog.getString 'update profile failed. #{err}'
@@ -53,14 +54,14 @@ class NewProfileCtrl
 		if ext.toLowerCase() is "jpg"
 			ext = "jpeg"
 			
-		console.log "url #{url}, name: #{name} , ext: #{ext}"
-		console.log cordova.file.applicationStorageDirectory
-		console.log cordova.file.cacheDirectory
+		# console.log "url #{url}, name: #{name} , ext: #{ext}"
+		# console.log cordova.file.applicationStorageDirectory
+		# console.log cordova.file.cacheDirectory
 		@$cordovaFile.readAsArrayBuffer(cordova.file.cacheDirectory, name)
 			.then (ret)=>
-				console.log 'read success', ret
+				# console.log 'read success', ret
 				blob = new Blob([ret], {type: "image/"+ext, name: name})
-				console.log JSON.stringify blob
+				# console.log JSON.stringify blob
 				@userprofile.avatar = blob
 				
 			, (err)=>
