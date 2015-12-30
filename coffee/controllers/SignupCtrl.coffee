@@ -20,7 +20,7 @@ class SignupCtrl
 
 	verify: (form)->
 		if form.$valid
-			console.log @user
+			# console.log @user
 			@$sessionStorage[@storageKey.SIGNUP_USER] = @user
 			@$state.go 'app.smsverify'
 		

@@ -108,6 +108,7 @@ class Config
 				views:
 					'menuContent':
 						templateUrl: 'templates/setting.html'
+						controller: 'SettingCtrl as ctrl'
 				data:
 					permissions:
 						only: [roles.user]

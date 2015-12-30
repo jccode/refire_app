@@ -4,13 +4,18 @@
             <h1 translate > Verifying your Account </h1>
             <p translate>We have sent you an SMS with a verification code. Please use the receive the received SMS code below.</p>
             <div class="countdown">
-                <h1>60 seconds</h1>
+                <h1>{{ctrl.countdown}} seconds</h1>
                 <p translate>util sms code invalid</p>
                 <i class="icon ion-ios-email-outline"></i>
             </div>
             <div class="sms-code">
-                <input type="text" placeholder="{{'SMS code'|translate}}" class="input-blueborder"/>
-                <button class="button button-orange button-short" ng-click="ctrl.verify()"> Verify </button>
+                <input type="number" placeholder="{{'SMS code'|translate}}" class="input-blueborder" ng-model="ctrl.verifycode"/>
+                <button class="button button-orange button-short" ng-click="ctrl.action()"> {{ctrl.buttontext}} </button>
+            </div>
+            <div class="error-container" ng-show="ctrl.error">
+                <div class="error">
+                    <i class="ion-information-circled"></i> {{ctrl.error}}
+                </div>
             </div>
         </div>
     </ion-content>

@@ -1642,7 +1642,7 @@ input.input-blueborder {
     padding: 0;
     height: 36px;
     line-height: 36px; }
-    .list.gap .item input[type='text'], .list.gap .item input[type='password'] {
+    .list.gap .item input[type='text'], .list.gap .item input[type='number'], .list.gap .item input[type='password'] {
       background: #fff;
       padding: 10px 15px;
       height: 36px; }
@@ -1745,15 +1745,19 @@ input.input-blueborder {
       .sms-verify .sms-container .countdown i.icon {
         color: #009900;
         font-size: 36px; }
-    .sms-verify .sms-container .sms-code input[type='text'] {
+    .sms-verify .sms-container .sms-code input[type='text'], .sms-verify .sms-container .sms-code input[type='number'] {
       display: inline-block;
-      margin-right: 10px; }
+      margin-right: 10px;
+      font-size: 12px;
+      line-height: 24px; }
+    .sms-verify .sms-container .sms-code .button {
+      font-size: 13px; }
 
 .newprofile h1 {
   font-size: 14px;
   font-weight: bold; }
 
-.newprofile .gap .item input[type='text'], .newprofile .gap .item input[type='password'] {
+.newprofile .gap .item input[type='text'], .newprofile .gap .item input[type='number'], .newprofile .gap .item input[type='password'] {
   border: 1px solid #127bb6;
   -webkit-border-radius: 3px;
   -khtml-border-radius: 3px;

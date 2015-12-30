@@ -225,7 +225,8 @@
         url: '/setting',
         views: {
           'menuContent': {
-            templateUrl: 'templates/setting.html'
+            templateUrl: 'templates/setting.html',
+            controller: 'SettingCtrl as ctrl'
           }
         },
         data: {
@@ -330,8 +331,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://112.74.93.116',
-      apiurl: 'http://112.74.93.116/api'
+      baseurl: 'http://192.168.1.104:8000',
+      apiurl: 'http://192.168.1.104:8000/api'
     }
   });
 
@@ -351,18 +352,6 @@
       };
       $httpProvider.defaults.withCredentials = true;
       $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
-      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-      $httpProvider.defaults.transformRequest = [
-        (function(_this) {
-          return function(data) {
-            if (angular.isObject(data) && String(data) !== '[Object File]') {
-              return serialize(data);
-            } else {
-              return data;
-            }
-          };
-        })(this)
-      ];
       $resourceProvider.defaults.stripTrailingSlashes = false;
     }
 
@@ -885,11 +874,17 @@
   var NewProfileCtrl;
 
   NewProfileCtrl = (function() {
-    function NewProfileCtrl($scope, $state, moment) {
+    function NewProfileCtrl($scope, $rootScope, $state, $ionicHistory, gettextCatalog, moment, $cordovaFile, $cordovaImagePicker, userProfileSvc, util) {
       this.$scope = $scope;
+      this.$rootScope = $rootScope;
       this.$state = $state;
+      this.$ionicHistory = $ionicHistory;
+      this.gettextCatalog = gettextCatalog;
       this.moment = moment;
-      console.log('new profile ctrl');
+      this.$cordovaFile = $cordovaFile;
+      this.$cordovaImagePicker = $cordovaImagePicker;
+      this.userProfileSvc = userProfileSvc;
+      this.util = util;
       this.userprofile = {};
       this.$scope.datepickerObject = {
         callback: (function(_this) {
@@ -905,11 +900,94 @@
       return this.userprofile.birthday = this.moment(val).format('YYYY-MM-DD');
     };
 
+    NewProfileCtrl.prototype.skip = function() {
+      this.$ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+      return this.$state.go('app.home.energy');
+    };
+
+    NewProfileCtrl.prototype.submit = function(form) {
+      var cuser, ret;
+      if (form.$valid) {
+        cuser = this.$rootScope.user;
+        console.log(this.userprofile);
+        console.log(cuser);
+        this.userprofile.uid = cuser.id;
+        this.userprofile.phone = cuser.username;
+        ret = this.userProfileSvc.save(this.userprofile);
+        return ret.$promise.then((function(_this) {
+          return function(ret) {
+            console.log('save success. #{JSON.stringify(ret)} ');
+            return _this.util.toast(_this.gettextCatalog.getString('update profile successful.'));
+          };
+        })(this), (function(_this) {
+          return function(err) {
+            console.log('save failed. #{err}');
+            return _this.util.toast(_this.gettextCatalog.getString('update profile failed. #{err}'));
+          };
+        })(this));
+      }
+    };
+
+    NewProfileCtrl.prototype.imagepicker = function() {
+      var options;
+      options = {
+        maximumImagesCount: 1,
+        width: 105,
+        height: 105,
+        quality: 90
+      };
+      return this.$cordovaImagePicker.getPictures(options).then((function(_this) {
+        return function(results) {
+          console.log('img url', JSON.stringify(results));
+          _this.imgurl = results[0];
+          return _this.resolveFile(results[0]);
+        };
+      })(this), function(err) {
+        return this.Util.toast(JSON.stringify(err));
+      });
+    };
+
+    NewProfileCtrl.prototype.resolveFile = function(url) {
+      var ext, name;
+      name = url.split('/').pop();
+      ext = url.split('.').pop();
+      if (ext.toLowerCase() === "jpg") {
+        ext = "jpeg";
+      }
+      console.log("url " + url + ", name: " + name + " , ext: " + ext);
+      console.log(cordova.file.applicationStorageDirectory);
+      console.log(cordova.file.cacheDirectory);
+      return this.$cordovaFile.readAsArrayBuffer(cordova.file.cacheDirectory, name).then((function(_this) {
+        return function(ret) {
+          var blob;
+          console.log('read success', ret);
+          blob = new Blob([ret], {
+            type: "image/" + ext,
+            name: name
+          });
+          console.log(JSON.stringify(blob));
+          return _this.userprofile.avatar = blob;
+        };
+      })(this), (function(_this) {
+        return function(err) {
+          return console.log('read file error', JSON.stringify(err));
+        };
+      })(this));
+    };
+
+    NewProfileCtrl.prototype.imgtest = function() {
+      var imgs;
+      imgs = ["img/avatar.jpg", "img/wechat.png", "img/ibeacon-on.png"];
+      return this.imgurl = imgs[Math.floor(Math.random() * imgs.length)];
+    };
+
     return NewProfileCtrl;
 
   })();
 
-  angular.module('app').controller('NewProfileCtrl', ['$scope', '$state', 'moment', NewProfileCtrl]);
+  angular.module('app').controller('NewProfileCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', 'gettextCatalog', 'moment', '$cordovaFile', '$cordovaImagePicker', 'userProfile', 'Util', NewProfileCtrl]);
 
 }).call(this);
 
@@ -1043,6 +1121,37 @@
 }).call(this);
 
 (function() {
+  var SettingCtrl;
+
+  SettingCtrl = (function() {
+    function SettingCtrl($scope, $state, gettextCatalog, $ionicHistory, auth, util) {
+      this.$scope = $scope;
+      this.$state = $state;
+      this.gettextCatalog = gettextCatalog;
+      this.$ionicHistory = $ionicHistory;
+      this.auth = auth;
+      this.util = util;
+      console.log('setting ctrl');
+    }
+
+    SettingCtrl.prototype.logoff = function() {
+      this.auth.logout();
+      this.util.toast(this.gettextCatalog.getString('logoff success.'));
+      this.$ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+      return this.$state.go('app.home.energy');
+    };
+
+    return SettingCtrl;
+
+  })();
+
+  angular.module('app').controller('SettingCtrl', ['$scope', '$state', 'gettextCatalog', '$ionicHistory', 'Auth', 'Util', SettingCtrl]);
+
+}).call(this);
+
+(function() {
   var SignupCtrl;
 
   SignupCtrl = (function() {
@@ -1070,7 +1179,6 @@
 
     SignupCtrl.prototype.verify = function(form) {
       if (form.$valid) {
-        console.log(this.user);
         this.$sessionStorage[this.storageKey.SIGNUP_USER] = this.user;
         return this.$state.go('app.smsverify');
       }
@@ -1088,13 +1196,110 @@
   var SmsCtrl;
 
   SmsCtrl = (function() {
-    function SmsCtrl($scope, $state) {
+    function SmsCtrl($scope, $state, $interval, $sessionStorage, storageKey, gettextCatalog, sms, auth) {
       this.$scope = $scope;
       this.$state = $state;
-      console.log('SmsCtrl');
+      this.$interval = $interval;
+      this.$sessionStorage = $sessionStorage;
+      this.storageKey = storageKey;
+      this.gettextCatalog = gettextCatalog;
+      this.sms = sms;
+      this.auth = auth;
+      this.COUNTDOWN = 10;
+      this.countdown = 0;
+      this.setButton("V");
+      this.user = this.$sessionStorage[this.storageKey.SIGNUP_USER];
+      this.initSms();
     }
 
+    SmsCtrl.prototype.initSms = function() {
+      return this.sendSms(this.user['username'], this.successCallback.bind(this), this.errorCallback.bind(this));
+    };
+
+    SmsCtrl.prototype.sendSms = function(phone, success, failed) {
+      return success(1024);
+    };
+
+    SmsCtrl.prototype.successCallback = function(code) {
+      this.receivecode = code;
+      this.countdown = this.COUNTDOWN;
+      this.setButton('V');
+      return this.startCountdown();
+    };
+
+    SmsCtrl.prototype.errorCallback = function(err) {
+      return this.showError(err);
+    };
+
+    SmsCtrl.prototype.startCountdown = function() {
+      return this.timer = this.$interval((function(_this) {
+        return function() {
+          if (_this.countdown > 0) {
+            return _this.countdown--;
+          } else {
+            _this.$interval.cancel(_this.timer);
+            _this.timer = void 0;
+            return _this.afterCountdown();
+          }
+        };
+      })(this), 1000);
+    };
+
+    SmsCtrl.prototype.afterCountdown = function() {
+      return this.setButton("S");
+    };
+
+    SmsCtrl.prototype.doVerify = function() {
+      return this.countdown > 0 && this.receivecode === this.verifycode;
+    };
+
     SmsCtrl.prototype.verify = function() {
+      if (this.doVerify()) {
+        return this.signup();
+      } else {
+        return this.showError('sms code not match!');
+      }
+    };
+
+    SmsCtrl.prototype.setButton = function(state) {
+      if (state === 'S') {
+        this.buttontext = "Resend";
+        return this.buttonstate = "S";
+      } else {
+        this.buttontext = "Verify";
+        return this.buttonstate = "V";
+      }
+    };
+
+    SmsCtrl.prototype.action = function() {
+      if (this.buttonstate === 'V') {
+        return this.verify();
+      } else {
+        this.verifycode = "";
+        this.error = "";
+        return this.initSms();
+      }
+    };
+
+    SmsCtrl.prototype.showError = function(err) {
+      return this.error = err;
+    };
+
+    SmsCtrl.prototype.signup = function() {
+      return this.auth.signup(this.user, (function(_this) {
+        return function(user) {
+          console.log('signup success');
+          console.log(user);
+          return _this.next();
+        };
+      })(this), function(err) {
+        console.log('signup error');
+        console.log(err);
+        return this.showError('signup failed. #{err}');
+      });
+    };
+
+    SmsCtrl.prototype.next = function() {
       return this.$state.go('app.createprofile');
     };
 
@@ -1102,7 +1307,7 @@
 
   })();
 
-  angular.module('app').controller('SmsCtrl', ['$scope', '$state', SmsCtrl]);
+  angular.module('app').controller('SmsCtrl', ['$scope', '$state', '$interval', '$sessionStorage', 'storageKey', 'gettextCatalog', 'Sms', 'Auth', SmsCtrl]);
 
 }).call(this);
 
@@ -1234,6 +1439,40 @@
   })();
 
   angular.module('app').controller('VideoCtrl', ['$scope', '$state', '$stateParams', VideoCtrl]);
+
+}).call(this);
+
+(function() {
+  var BindFile;
+
+  BindFile = (function() {
+    function BindFile() {
+      var link;
+      link = function(scope, el, attrs, ngModel) {
+        el.bind('change', function(event) {
+          ngModel.$setViewValue(event.target.files[0]);
+          return scope.$apply();
+        });
+        return scope.$watch(function() {
+          return ngModel.$viewValue;
+        }, function(value) {
+          if (!value) {
+            return el.val("");
+          }
+        });
+      };
+      return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return BindFile;
+
+  })();
+
+  angular.module('app').directive('bindFile', BindFile);
 
 }).call(this);
 
@@ -1515,6 +1754,60 @@
   })();
 
   angular.module('app').service('User', ['$resource', '$http', 'settings', User]);
+
+}).call(this);
+
+(function() {
+  var UserProfile;
+
+  UserProfile = (function() {
+    function UserProfile($resource, settings) {
+      this.$resource = $resource;
+      this.settings = settings;
+      this.url = this.settings.baseurl + '/api/userprofile/:id/';
+      this.userProfile = this.$resource(this.url, {
+        id: '@uid'
+      }, {
+        update: {
+          method: 'PUT',
+          headers: {
+            'Content-Type': void 0
+          }
+        }
+      });
+    }
+
+    UserProfile.prototype.save = function(user) {
+      var fd;
+      fd = this.formdata(user);
+      return this.userProfile.update(fd);
+    };
+
+    UserProfile.prototype.formdata = function(data) {
+      var addFormData, fd, key, value;
+      fd = new FormData();
+      addFormData = function(key, value) {
+        var ext;
+        if (Object.prototype.toString.apply(value) === "[object Blob]") {
+          ext = value.type.split("/").pop();
+          return fd.append(key, value, "avatar." + ext);
+        } else {
+          return fd.append(key, value);
+        }
+      };
+      for (key in data) {
+        value = data[key];
+        addFormData(key, value);
+      }
+      fd['uid'] = data['uid'];
+      return fd;
+    };
+
+    return UserProfile;
+
+  })();
+
+  angular.module('app').service('userProfile', ['$resource', 'settings', UserProfile]);
 
 }).call(this);
 

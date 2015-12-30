@@ -1361,7 +1361,7 @@ $ion-item-height: 54px;
         height: 36px;
         line-height: 36px;
 
-        input[type='text'], input[type='password'] {
+        input[type='text'], input[type='number'], input[type='password'] {
             background: #fff;
             padding: 10px 15px;
             height: 36px;
@@ -1499,9 +1499,14 @@ $ion-item-height: 54px;
         }
 
         .sms-code {
-            input[type='text'] {
+            input[type='text'],input[type='number'] {
                 display: inline-block;
                 margin-right: 10px;
+                font-size: 12px;
+                line-height: 24px;
+            }
+            .button {
+                font-size: 13px;
             }
         }
     }
@@ -1515,7 +1520,7 @@ $ion-item-height: 54px;
     }
     .gap {
         .item {
-            input[type='text'], input[type='password'] {
+            input[type='text'], input[type='number'], input[type='password'] {
                 border: 1px solid #127bb6;
                 @include border-radius(3px);
             }
@@ -1534,7 +1539,6 @@ $ion-item-height: 54px;
                     height: 105px;
                     border: 1px solid #127bb6;
                     @include border-radius(3px);
-                    
                 }
             }
         }

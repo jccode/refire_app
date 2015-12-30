@@ -1,24 +1,28 @@
 <ion-view view-title="Update Profile">
     <ion-content class="newprofile" >
+        <form name="profileForm" novalidate="" ng-submit="ctrl.submit(profileForm)">
         <div class="basicinfo">
             <h1>About You</h1>
             <div class="imgupload">
                 <div class="avatar-wrapper">
-                    <img src="img/default_avatar.png" alt="" />
+                    <img ng-src="{{ctrl.imgurl || 'img/default_avatar.png'}}" alt="" />
                 </div>
-                <button class="button button-orange button-short"> <i class="icon ion-android-camera"></i> </button>
+                <button type="button" class="button button-orange button-short" ng-click="ctrl.imagepicker()"> <i class="icon ion-android-camera"></i> </button>
+                <input type="file" name="avatar" ng-model="ctrl.userprofile.avatar" bind-file />
             </div>
             <div class="list gap">
                 <label class="item item-input">
-                    <input type="text" name="nickname" class="" placeholder="{{'Nickname' | translate}}"/>
+                    <input type="text" name="nickname" placeholder="{{'Nickname' | translate}}" ng-model="ctrl.userprofile.nickname" ng-maxlength="20"/>
                 </label>
+                <div class="error-container" ng-show="profileForm.nickname.$error && profileForm.$submitted" ng-messages="profileForm.nickname.$error">
+                    <div ng-messages-include="templates/errorlist.html"></div>
+                </div>
                 <label class="item item-input item-icon-right">
                     <ionic-datepicker input-obj="datepickerObject" style="width: 100%;">
                         <!-- <button class="button button-block button-positive"> {{datepickerObject.inputDate | date:'dd - MMMM - yyyy'}}</button> -->
                         <input type="text" name="birthday" ng-model="ctrl.userprofile.birthday" placeholder="{{'Birth Date'|translate}}" />
                         <i class="fa fa-calendar"></i>
                     </ionic-datepicker>
-                    
                 </label>
             </div>
         </div>
@@ -26,30 +30,40 @@
             <h1>Social Media</h1>
             <div class="list gap">
                 <label class="item item-input item-icon-right">
-                    <input type="text" name="qq" placeholder="{{'QQ Acount' | translate}}"/>
+                    <input type="number" name="qq" placeholder="{{'QQ Acount' | translate}}" ng-model="ctrl.userprofile.qq" ng-maxlength="20"/>
                     <i class="fa fa-qq"></i>
                 </label>
+                <div class="error-container" ng-show="profileForm.qq.$error && profileForm.$submitted" ng-messages="profileForm.qq.$error">
+                    <div ng-messages-include="templates/errorlist.html"></div>
+                </div>
                 <label class="item item-input item-icon-right">
-                    <input type="text" name="wechat" placeholder="{{'WeChat Acount' | translate}}"/>
+                    <input type="text" name="wechat" placeholder="{{'WeChat Acount' | translate}}" ng-model="ctrl.userprofile.wechat" ng-maxlength="30"/>
                     <i class="fa fa-weixin"></i>
                 </label>
+                <div class="error-container" ng-show="profileForm.wechat.$error && profileForm.$submitted" ng-messages="profileForm.wechat.$error">
+                    <div ng-messages-include="templates/errorlist.html"></div>
+                </div>
                 <label class="item item-input item-icon-right">
-                    <input type="text" name="weibo" placeholder="{{'Weibo Acount' | translate}}"/>
+                    <input type="text" name="weibo" placeholder="{{'Weibo Acount' | translate}}" ng-model="ctrl.userprofile.weibo" ng-maxlength="40"/>
                     <i class="fa fa-weibo"></i>
                 </label>
+                <div class="error-container" ng-show="profileForm.weibo.$error && profileForm.$submitted" ng-messages="profileForm.weibo.$error">
+                    <div ng-messages-include="templates/errorlist.html"></div>
+                </div>
             </div>
         </div>
         <div class="btns row">
             <div class="col-33">
-                <button class="button button-gray button-short" translate>
+                <button class="button button-gray button-short" translate ng-click="ctrl.skip()">
                     Skip
                 </button>
             </div>
             <div class="col-67">
-                <button class="button button-orange button-short" translate>
+                <button class="button button-orange button-short" translate type="submit">
                     Finalize Account
                 </button>
             </div>
         </div>
+        </form>
     </ion-content>
 </ion-view>

@@ -71,7 +71,7 @@ class SmsCtrl
 			@initSms()
 
 	showError: (err)->
-		@error = err
+		@error = err'signup error'
 
 	signup: ()->
 		@auth.signup @user, (user)=>

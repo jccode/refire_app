@@ -13,10 +13,10 @@ class Ajax
 		$httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest"
 
 		# post data as form
-		$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
-		$httpProvider.defaults.transformRequest = [ (data)=>
-			if angular.isObject(data) and String(data) isnt '[Object File]' then serialize(data) else data
-			]
+		# $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
+		# $httpProvider.defaults.transformRequest = [ (data)=>
+		# 	if angular.isObject(data) and String(data) isnt '[Object File]' then serialize(data) else data
+		# 	]
 
 		# $httpProvider.defaults.headers.common["Access-Control-Request-Headers"] = "accept, origin, authorization"
 		$resourceProvider.defaults.stripTrailingSlashes = false

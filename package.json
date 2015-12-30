@@ -39,7 +39,8 @@
       "id": "com.synconset.imagepicker"
     },
     "org.apache.cordova.file-transfer",
-    "cordova-plugin-geolocation"
+    "cordova-plugin-geolocation",
+    "org.apache.cordova.file"
   ],
   "cordovaPlatforms": []
 }
