@@ -7,8 +7,9 @@ class HomeCtrl
 			# swiper.on "slideChangeStart", (swiper)->
 			# 	console.log 'changed. active:'+ swiper.activeIndex+"; clicked:"+swiper.clickedIndex
 
-			swiper.on "tap", (swiper)=>
-				# console.log "click "+swiper.clickedIndex
+			swiper.on "click", (swiper)=>
+				console.log "click "+swiper.clickedIndex
+				
 				idx = swiper.clickedIndex
 				item = swiper.slides[idx]
 				url = item.getAttribute "href"
@@ -16,6 +17,12 @@ class HomeCtrl
 				param = item.getAttribute 'data-param'
 				# console.log url
 				@$state.go state, param && JSON.parse(param) || {}
+
+			# swiper.on "tap", (swiper)=>
+			# 	console.log "tap "
+
+			# swiper.on "touchStart", (swiper)=>
+			# 	console.log "touch start"
 
 
 angular.module('app').controller 'HomeCtrl', [

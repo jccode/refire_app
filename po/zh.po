@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2015-12-13 21:18+0800\n"
+"PO-Revision-Date: 2015-12-31 02:08+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
@@ -13,43 +13,112 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: setting.html:4
+msgid "&nbsp; Logoff"
+msgstr "&nbsp; 退出"
+
+#: health.html:10
+msgid "3 Months"
+msgstr ""
+
+#: health.html:16
+msgid "6 Months"
+msgstr ""
+
+#: pay.html:55
+msgid "AliPay"
+msgstr "支付宝"
+
+#: newprofile.html:23
+msgid "Birth Date"
+msgstr "生日"
+
+#: menu.html:36
+msgid "Bus Infomation"
+msgstr "巴士信息"
+
+#: menu.html:41
+msgid "Bus Location"
+msgstr "公交位置"
+
+#: rewards.html:6
+msgid ""
+"By using the Hydrogen Bus as your transportation. You build up reward point. "
+"These can provide you with discount ticket prices or other reward."
+msgstr ""
+"使用新能源汽车出行,您可以获得额外的奖励。包括获得积分,车票打折,更多优惠活动正"
+"在推出。"
+
+#: health.html:2
+#, fuzzy
+msgid "Clean enviroment"
+msgstr "节能减排"
+
+#: menu.html:51
+msgid "Clean Enviroment"
+msgstr "节能减排"
+
 #: login.html:5
 msgid "Close"
 msgstr "关闭"
 
-#: signup.html:19
+#: login.html:51
+msgid "Collect points for discount on your tickets"
+msgstr "获取积分可以兑换票价打折"
+
+#: signup_bak.html:20
 msgid "Confirm password"
 msgstr "重复密码"
 
-#: signup.html:23
+#: signup_bak.html:24
 msgid "confirm password isn't the same"
 msgstr "密码不一致"
 
-#: menu.html:36
-msgid "Energy Statistics"
-msgstr "节能减排"
+#: application.js:655
+msgid "December"
+msgstr ""
+
+#: menu.html:46
+msgid "Engine & Milage"
+msgstr "车况信息"
+
+#: newprofile.html:62
+msgid "Finalize Account"
+msgstr "完成注册"
+
+#: login.html:36
+msgid "Forgot your password?"
+msgstr "忘记密码"
 
 #: menu.html:31
-msgid "Health Status"
-msgstr "健康状态"
+msgid "Home"
+msgstr "主页"
 
-#: menu.html:51
-msgid "Log off"
-msgstr "退出"
+#: pay.html:33 pay.html:8
+msgid "iBeacon Detected"
+msgstr "检测到iBeacon"
 
-#: login.html:20 login.html:3 menu.html:55
+#: login.html:52
+msgid "Know when each bus is arriving"
+msgstr "随时掌握公交的到达时间"
+
+#: login.html:3 login.html:33
 msgid "Login"
 msgstr "登陆"
 
-#: application.js:270
+#: application.js:400
 msgid "login failed"
 msgstr "登陆失败"
 
-#: application.js:268
+#: application.js:398
 msgid "login success"
 msgstr "登陆成功"
 
-#: application.js:277
+#: application.js:1214
+msgid "logoff success."
+msgstr "退出登陆成功"
+
+#: application.js:407
 msgid "logout successful"
 msgstr "退出登陆成功"
 
@@ -57,21 +126,97 @@ msgstr "退出登陆成功"
 msgid "Menu"
 msgstr "目录"
 
-#: login.html:16 signup.html:13
+#: menu.html:80
+msgid "Messages"
+msgstr "消息中心"
+
+#: setting.html:12
+msgid "Mobile No."
+msgstr "手机号"
+
+#: signup_bak.html:11 signup.html:11
+msgid "mobile number invalid"
+msgstr "手机号码无效"
+
+#: newprofile.html:15 setting.html:10
+msgid "Nickname"
+msgstr "昵称"
+
+#: login.html:42
+msgid "No Account Yet?"
+msgstr "还没有帐号?"
+
+#: tickets.html:10
+msgid "No records."
+msgstr "无任何记录"
+
+#: menu.html:76
+msgid "Others"
+msgstr "其他"
+
+#: login.html:30 signup_bak.html:14 signup.html:14
 msgid "Password"
 msgstr "密码"
 
-#: application.js:314
+#: menu.html:61
+msgid "Pay Ticket"
+msgstr "购票"
+
+#: login.html:53
+msgid "Pay tickets with WeChat or AliPay"
+msgstr "使用微信支付或支付宝购票乘车"
+
+#: menu.html:56
+msgid "Payment"
+msgstr "支付"
+
+#: health.html:22
+msgid "Period"
+msgstr ""
+
+#: application.js:454
 msgid "Permission denied"
 msgstr "权限受限"
 
-#: menu.html:46
-msgid "Profile"
-msgstr "我的"
+#: login.html:45
+msgid "Please register for your FREE account."
+msgstr "免费注册一个帐号"
 
-#: menu.html:41
+#: newprofile.html:33
+msgid "QQ Acount"
+msgstr "QQ"
+
+#: messages.html:10
+msgid "Read more"
+msgstr "更多"
+
+#: login.html:47
+msgid "Reason to sign-up:"
+msgstr "为什么要注册:"
+
+#: signup_bak.html:28
+msgid "Register"
+msgstr "注册"
+
+#: login.html:55
+msgid "Register New Account"
+msgstr "注册新帐号"
+
+#: menu.html:71
+msgid "Rewards"
+msgstr "奖励"
+
+#: menu.html:85
 msgid "Settings"
 msgstr "设置"
+
+#: newprofile.html:57
+msgid "Skip"
+msgstr "跳过"
+
+#: sms.html:12
+msgid "SMS code"
+msgstr "验证码"
 
 #: errorlist.html:3
 msgid "This field is required!"
@@ -85,17 +230,92 @@ msgstr "此字段太长"
 msgid "This field is too short!"
 msgstr "此字段长度不够"
 
-#: signup.html:10
+#: health.html:5
+msgid "This month"
+msgstr ""
+
+#: health/detail.html:11
+msgid "Total"
+msgstr ""
+
+#: health/detail.html:14
+msgid "Total Distance Driven"
+msgstr ""
+
+#: health/detail.html:22
+msgid "Total Emission Reduction"
+msgstr ""
+
+#: health/detail.html:18
+msgid "Total Energy Saving"
+msgstr ""
+
+#: application.js:1002
+msgid "update profile failed. #{err}"
+msgstr "更新用户信息失败"
+
+#: application.js:996
+msgid "update profile successful."
+msgstr "更新用户信息成功"
+
+#: signup_bak.html:10 signup.html:10
 msgid "User is exist"
 msgstr "用户名已存在"
 
-#: login.html:12 signup.html:6
+#: login.html:27 signup_bak.html:6 signup.html:6
 msgid "Username"
 msgstr "用户名"
 
-#: application.js:315
+#: sms.html:8
+msgid "util sms code invalid"
+msgstr "后短信验证码失效"
+
+#: signup.html:21
+msgid "Verify Phone Number"
+msgstr "验证手机号"
+
+#: sms.html:4
+msgid "Verifying your Account"
+msgstr "验证帐号"
+
+#: sms.html:5
+msgid ""
+"We have sent you an SMS with a verification code. Please use the receive the "
+"received SMS code below."
+msgstr "我们给你发送了一条短信验证码。请在下面使用它进行验证。"
+
+#: newprofile.html:40
+msgid "WeChat Acount"
+msgstr "微信"
+
+#: pay.html:47
+msgid "Wechat Wallet"
+msgstr "微信钱包"
+
+#: newprofile.html:47
+msgid "Weibo Acount"
+msgstr "微博"
+
+#: application.js:455
 msgid "You don't have permission to view this page."
 msgstr "你没有权限查看这个页面"
+
+#: setting.html:3
+msgid "Your Profile"
+msgstr "我的"
+
+#: menu.html:66
+msgid "Your Tickets"
+msgstr "购票记录"
+
+#~ msgid "Energy Statistics"
+#~ msgstr "节能减排"
+
+#~ msgid "Health Status"
+#~ msgstr "健康状态"
+
+#~ msgid "Log off"
+#~ msgstr "退出"
 
 #~ msgid "Maximum length of this field is {{max}} characters!"
 #~ msgstr "这个字段最长为{{max}}字符"
@@ -103,8 +323,5 @@ msgstr "你没有权限查看这个页面"
 #~ msgid "Minimum length of this field is {{min}} characters!"
 #~ msgstr "这个字段最少要{{min}}字符"
 
-msgid "Register"
-msgstr "注册"
-
-msgid "Log in"
-msgstr "登陆"
+#~ msgid "Log in"
+#~ msgstr "登陆"

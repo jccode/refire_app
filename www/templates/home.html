@@ -1,12 +1,15 @@
 <ion-view view-title="Home">
     <ion-content class="home">
-        <div class="my-slide">
-            <ks-swiper-container initial-slide="0" loop="false" show-nav-buttons="false" slides-per-view="3" space-between="14" pagination-clickable="false" on-ready="onReadySwiper(swiper)" override-parameters="{}" >
-                <!-- 
-                <ks-swiper-slide class="swiper-slide" ng-repeat="s in [1,2,3,4,5,6,7,8,9,10,11,12,13,14]">
-                    <img ng-src="http://api.randomuser.me/portraits/thumb/men/{{s}}.jpg"/>
+        <div class="my-slide" >
+            <ks-swiper-container initial-slide="0" loop="false" show-nav-buttons="false" slides-per-view="3" space-between="14" pagination-clickable="true" on-ready="onReadySwiper(swiper)" override-parameters="{'preventClicks':'false','preventClicksPropagation':'false','slideToClickedSlide':'true'}" >
+
+                <ks-swiper-slide class="swiper-slide" href="#/app/home/video/1" data-state="app.home.video" data-param='{"type":"1"}'>
+                    <div class="my-slide-content">
+                        <img src="img/slide-preview/thumb-video.jpg" alt="video" />
+                        <div> Example Videos </div>
+                    </div>
                 </ks-swiper-slide>
-                -->
+
                 <ks-swiper-slide class="swiper-slide" href="#/app/home/energy" data-state="app.home.energy">
                     <div class="my-slide-content">
                         <img src="img/slide-preview/thumb-energy.jpg" alt="energy" />
@@ -15,30 +18,21 @@
                         </div>
                     </div>
                 </ks-swiper-slide>
-                <ks-swiper-slide class="swiper-slide" href="#/app/home/video/1" data-state="app.home.video" data-param='{"type":"1"}'>
+
+                <ks-swiper-slide class="swiper-slide" href="#/app/home/video/2" data-state="app.home.video" data-param='{"type":"2"}'>
                     <div class="my-slide-content">
                         <img src="img/slide-preview/thumb-video.jpg" alt="video" />
                         <div> Example Videos </div>
                     </div>
                 </ks-swiper-slide>
+                
                 <ks-swiper-slide class="swiper-slide" href="#/app/home/tree" data-state="app.home.tree">
                     <div class="my-slide-content">
                         <img src="img/slide-preview/thumb-trees-2.jpg" alt="tree" />
                         <div>Trees saved</div>
                     </div>
                 </ks-swiper-slide>
-                <ks-swiper-slide class="swiper-slide" href="#/app/home/video/2" data-state="app.home.video" data-param='{"type":"2"}'>
-                    <div class="my-slide-content">
-                        <img src="img/slide-preview/thumb-video.jpg" alt="tree" />
-                        <div> Example <br> Video2 </div>
-                    </div>
-                </ks-swiper-slide>
-                <ks-swiper-slide class="swiper-slide" href="#/app/home/video/3" data-state="app.home.video" data-param='{"type":"3"}'>
-                    <div class="my-slide-content">
-                        <img src="img/slide-preview/thumb-video.jpg" alt="tree" />
-                        <div> Example <br> Video2 </div>
-                    </div>
-                </ks-swiper-slide>
+                
             </ks-swiper-container>
         </div>
         <div class="slide-detail">

@@ -332,8 +332,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://192.168.1.104:8000',
-      apiurl: 'http://192.168.1.104:8000/api'
+      baseurl: 'http://112.74.93.116',
+      apiurl: 'http://112.74.93.116/api'
     }
   });
 
@@ -597,14 +597,28 @@
   var HealthCtrl;
 
   HealthCtrl = (function() {
-    function HealthCtrl($scope, $stateParams) {
+    function HealthCtrl($scope, $stateParams, gettextCatalog) {
       this.$scope = $scope;
       this.$stateParams = $stateParams;
+      this.gettextCatalog = gettextCatalog;
       this.$scope.type = this.$stateParams.type;
-      this.init_chart();
+      this.init_1m();
+      this.$scope.total_distance = '400 KM';
+      this.$scope.total_energy_saving = '300 KMK';
+      this.$scope.total_emission_reduction = '200 KWH';
       this.$scope.onTabSelect = (function(_this) {
         return function(type) {
-          return _this.$scope.type = type;
+          _this.$scope.type = type;
+          switch (type) {
+            case 1:
+              return _this.init_1m();
+            case 2:
+              return _this.init_3m();
+            case 3:
+              return _this.init_6m();
+            default:
+              return init_period();
+          }
         };
       })(this);
     }
@@ -636,11 +650,73 @@
       };
     };
 
+    HealthCtrl.prototype.init_1m = function() {
+      var i, j, results;
+      this.$scope.head = this.gettextCatalog.getString('December');
+      this.$scope.labels = (function() {
+        results = [];
+        for (j = 1; j <= 30; j++){ results.push(j); }
+        return results;
+      }).apply(this);
+      return this.$scope.data = [
+        (function() {
+          var k, len, ref, results1;
+          ref = this.$scope.labels;
+          results1 = [];
+          for (k = 0, len = ref.length; k < len; k++) {
+            i = ref[k];
+            results1.push(Math.round(Math.random() * 100));
+          }
+          return results1;
+        }).call(this)
+      ];
+    };
+
+    HealthCtrl.prototype.init_3m = function() {
+      var i;
+      this.$scope.head = '10 ~ 12';
+      this.$scope.labels = [10, 11, 12];
+      return this.$scope.data = [
+        (function() {
+          var j, len, ref, results;
+          ref = this.$scope.labels;
+          results = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            i = ref[j];
+            results.push(Math.round(Math.random() * 100));
+          }
+          return results;
+        }).call(this)
+      ];
+    };
+
+    HealthCtrl.prototype.init_6m = function() {
+      var i;
+      this.$scope.head = '7 ~ 12';
+      this.$scope.labels = [7, 8, 9, 10, 11, 12];
+      return this.$scope.data = [
+        (function() {
+          var j, len, ref, results;
+          ref = this.$scope.labels;
+          results = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            i = ref[j];
+            results.push(Math.round(Math.random() * 100));
+          }
+          return results;
+        }).call(this)
+      ];
+    };
+
+    HealthCtrl.prototype.init_period = function() {
+      return this.init_6m();
+    };
+
     return HealthCtrl;
 
   })();
 
-  angular.module('app').controller('HealthCtrl', ['$scope', '$stateParams', HealthCtrl]);
+  angular.module('app').controller('HealthCtrl', ['$scope', '$stateParams', 'gettextCatalog', HealthCtrl]);
 
 }).call(this);
 
@@ -655,8 +731,9 @@
       this.$scope.onReadySwiper = (function(_this) {
         return function(swiper) {
           window.swiper = swiper;
-          return swiper.on("tap", function(swiper) {
+          return swiper.on("click", function(swiper) {
             var idx, item, param, state, url;
+            console.log("click " + swiper.clickedIndex);
             idx = swiper.clickedIndex;
             item = swiper.slides[idx];
             url = item.getAttribute("href");
@@ -1440,7 +1517,12 @@
     }
 
     VideoCtrl.prototype.get_video_src = function(id) {
-      return "http://192.168.1.104/video/" + id + ".mp4";
+      switch (id) {
+        case "1":
+          return "img/video/energyflow_sd_high.mp4";
+        case "2":
+          return "img/video/fuelcell_sd_high.mp4";
+      }
     };
 
     return VideoCtrl;

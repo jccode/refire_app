@@ -4,45 +4,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
+#: setting.html:4
+msgid "&nbsp; Logoff"
+msgstr ""
+
+#: health.html:10
+msgid "3 Months"
+msgstr ""
+
+#: health.html:16
+msgid "6 Months"
+msgstr ""
+
+#: pay.html:55
+msgid "AliPay"
+msgstr ""
+
+#: newprofile.html:23
+msgid "Birth Date"
+msgstr ""
+
+#: menu.html:36
+msgid "Bus Infomation"
+msgstr ""
+
+#: menu.html:41
+msgid "Bus Location"
+msgstr ""
+
+#: rewards.html:6
+msgid "By using the Hydrogen Bus as your transportation. You build up reward point. These can provide you with discount ticket prices or other reward."
+msgstr ""
+
+#: health.html:2
+msgid "Clean enviroment"
+msgstr ""
+
+#: menu.html:51
+msgid "Clean Enviroment"
+msgstr ""
+
 #: login.html:5
 msgid "Close"
 msgstr ""
 
-#: signup.html:19
+#: login.html:51
+msgid "Collect points for discount on your tickets"
+msgstr ""
+
+#: signup_bak.html:20
 msgid "Confirm password"
 msgstr ""
 
-#: signup.html:23
+#: signup_bak.html:24
 msgid "confirm password isn't the same"
 msgstr ""
 
-#: menu.html:36
-msgid "Energy Statistics"
+#: application.js:655
+msgid "December"
+msgstr ""
+
+#: menu.html:46
+msgid "Engine & Milage"
+msgstr ""
+
+#: newprofile.html:62
+msgid "Finalize Account"
+msgstr ""
+
+#: login.html:36
+msgid "Forgot your password?"
 msgstr ""
 
 #: menu.html:31
-msgid "Health Status"
+msgid "Home"
 msgstr ""
 
-#: menu.html:51
-msgid "Log off"
+#: pay.html:33
+#: pay.html:8
+msgid "iBeacon Detected"
 msgstr ""
 
-#: login.html:20
+#: login.html:52
+msgid "Know when each bus is arriving"
+msgstr ""
+
 #: login.html:3
-#: menu.html:55
+#: login.html:33
 msgid "Login"
 msgstr ""
 
-#: application.js:270
+#: application.js:400
 msgid "login failed"
 msgstr ""
 
-#: application.js:268
+#: application.js:398
 msgid "login success"
 msgstr ""
 
-#: application.js:277
+#: application.js:1214
+msgid "logoff success."
+msgstr ""
+
+#: application.js:407
 msgid "logout successful"
 msgstr ""
 
@@ -50,21 +114,100 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: login.html:16
-#: signup.html:13
+#: menu.html:80
+msgid "Messages"
+msgstr ""
+
+#: setting.html:12
+msgid "Mobile No."
+msgstr ""
+
+#: signup_bak.html:11
+#: signup.html:11
+msgid "mobile number invalid"
+msgstr ""
+
+#: newprofile.html:15
+#: setting.html:10
+msgid "Nickname"
+msgstr ""
+
+#: login.html:42
+msgid "No Account Yet?"
+msgstr ""
+
+#: tickets.html:10
+msgid "No records."
+msgstr ""
+
+#: menu.html:76
+msgid "Others"
+msgstr ""
+
+#: login.html:30
+#: signup_bak.html:14
+#: signup.html:14
 msgid "Password"
 msgstr ""
 
-#: application.js:314
+#: menu.html:61
+msgid "Pay Ticket"
+msgstr ""
+
+#: login.html:53
+msgid "Pay tickets with WeChat or AliPay"
+msgstr ""
+
+#: menu.html:56
+msgid "Payment"
+msgstr ""
+
+#: health.html:22
+msgid "Period"
+msgstr ""
+
+#: application.js:454
 msgid "Permission denied"
 msgstr ""
 
-#: menu.html:46
-msgid "Profile"
+#: login.html:45
+msgid "Please register for your FREE account."
 msgstr ""
 
-#: menu.html:41
+#: newprofile.html:33
+msgid "QQ Acount"
+msgstr ""
+
+#: messages.html:10
+msgid "Read more"
+msgstr ""
+
+#: login.html:47
+msgid "Reason to sign-up:"
+msgstr ""
+
+#: signup_bak.html:28
+msgid "Register"
+msgstr ""
+
+#: login.html:55
+msgid "Register New Account"
+msgstr ""
+
+#: menu.html:71
+msgid "Rewards"
+msgstr ""
+
+#: menu.html:85
 msgid "Settings"
+msgstr ""
+
+#: newprofile.html:57
+msgid "Skip"
+msgstr ""
+
+#: sms.html:12
+msgid "SMS code"
 msgstr ""
 
 #: errorlist.html:3
@@ -79,15 +222,81 @@ msgstr ""
 msgid "This field is too short!"
 msgstr ""
 
+#: health.html:5
+msgid "This month"
+msgstr ""
+
+#: health/detail.html:11
+msgid "Total"
+msgstr ""
+
+#: health/detail.html:14
+msgid "Total Distance Driven"
+msgstr ""
+
+#: health/detail.html:22
+msgid "Total Emission Reduction"
+msgstr ""
+
+#: health/detail.html:18
+msgid "Total Energy Saving"
+msgstr ""
+
+#: application.js:1002
+msgid "update profile failed. #{err}"
+msgstr ""
+
+#: application.js:996
+msgid "update profile successful."
+msgstr ""
+
+#: signup_bak.html:10
 #: signup.html:10
 msgid "User is exist"
 msgstr ""
 
-#: login.html:12
+#: login.html:27
+#: signup_bak.html:6
 #: signup.html:6
 msgid "Username"
 msgstr ""
 
-#: application.js:315
+#: sms.html:8
+msgid "util sms code invalid"
+msgstr ""
+
+#: signup.html:21
+msgid "Verify Phone Number"
+msgstr ""
+
+#: sms.html:4
+msgid "Verifying your Account"
+msgstr ""
+
+#: sms.html:5
+msgid "We have sent you an SMS with a verification code. Please use the receive the received SMS code below."
+msgstr ""
+
+#: newprofile.html:40
+msgid "WeChat Acount"
+msgstr ""
+
+#: pay.html:47
+msgid "Wechat Wallet"
+msgstr ""
+
+#: newprofile.html:47
+msgid "Weibo Acount"
+msgstr ""
+
+#: application.js:455
 msgid "You don't have permission to view this page."
+msgstr ""
+
+#: setting.html:3
+msgid "Your Profile"
+msgstr ""
+
+#: menu.html:66
+msgid "Your Tickets"
 msgstr ""

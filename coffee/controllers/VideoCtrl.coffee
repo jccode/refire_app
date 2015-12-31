@@ -6,7 +6,9 @@ class VideoCtrl
 
 	get_video_src: (id)->
 		# "img/video/#{id}.mp4"
-		"http://192.168.1.104/video/#{id}.mp4"
+		return switch id
+			when "1" then "img/video/energyflow_sd_high.mp4"
+			when "2" then "img/video/fuelcell_sd_high.mp4"
 		
 
 angular.module('app').controller 'VideoCtrl', [

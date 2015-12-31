@@ -1,26 +1,26 @@
 
 <ion-content class="chart-detail">
    <!--Your Template Content Goes here-->
-   <h1>Decemember {{type}} </h1>
+   <h1> {{head}} </h1>
    <h3>Energy saving(kwh)</h3>
    <div class="chart-container">
        <canvas id="line" class="chart chart-line" chart-data="data"
                chart-labels="labels" chart-legend="false" chart-click="onClick" chart-series="series" >
        </canvas> 
    </div>
-   <h2>Total</h2>
+   <h2 translate>Total</h2>
    <div class="data-tb">
        <div class="row">
-           <div class="col"> Total Distance Driven </div>
-           <div class="col"> 400 KM </div>
+           <div class="col" translate> Total Distance Driven </div>
+           <div class="col"> {{total_distance}} </div>
        </div>
        <div class="row">
-           <div class="col"> Total Energy Saving </div>
-           <div class="col"> 400 L </div>
+           <div class="col" translate> Total Energy Saving </div>
+           <div class="col"> {{total_energy_saving}} </div>
        </div>
        <div class="row">
-           <div class="col"> Total Emission Reduction </div>
-           <div class="col"> 200 KWH </div>
+           <div class="col" translate> Total Emission Reduction </div>
+           <div class="col"> {{total_emission_reduction}} </div>
        </div>
    </div>
 </ion-content>
