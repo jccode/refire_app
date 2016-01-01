@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2015-12-31 02:08+0800\n"
+"PO-Revision-Date: 2016-01-01 22:25+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
@@ -19,19 +19,27 @@ msgstr "&nbsp; 退出"
 
 #: health.html:10
 msgid "3 Months"
-msgstr ""
+msgstr "3个月"
 
 #: health.html:16
 msgid "6 Months"
-msgstr ""
+msgstr "6个月"
 
 #: pay.html:55
 msgid "AliPay"
 msgstr "支付宝"
 
+#: bus_overview.html:15
+msgid "Available"
+msgstr "续驶里程"
+
 #: newprofile.html:23
 msgid "Birth Date"
 msgstr "生日"
+
+#: bus_location.html:6
+msgid "BUS ARRIVING"
+msgstr "巴士到站"
 
 #: menu.html:36
 msgid "Bus Infomation"
@@ -40,6 +48,10 @@ msgstr "巴士信息"
 #: menu.html:41
 msgid "Bus Location"
 msgstr "公交位置"
+
+#: bus_overview.html:158
+msgid "Bus Voltage"
+msgstr ""
 
 #: rewards.html:6
 msgid ""
@@ -50,7 +62,6 @@ msgstr ""
 "在推出。"
 
 #: health.html:2
-#, fuzzy
 msgid "Clean enviroment"
 msgstr "节能减排"
 
@@ -74,12 +85,16 @@ msgstr "重复密码"
 msgid "confirm password isn't the same"
 msgstr "密码不一致"
 
-#: application.js:655
-msgid "December"
-msgstr ""
+#: bus_overview.html:135 bus_overview.html:59 bus_overview.html:96
+msgid "Current"
+msgstr "电流"
 
-#: menu.html:46
-msgid "Engine & Milage"
+#: application.js:1334
+msgid "December"
+msgstr "12月"
+
+#: bus_overview.html:1 menu.html:46
+msgid "Engine and Milage"
 msgstr "车况信息"
 
 #: newprofile.html:62
@@ -94,6 +109,10 @@ msgstr "忘记密码"
 msgid "Home"
 msgstr "主页"
 
+#: bus_overview.html:52
+msgid "Hydrogen"
+msgstr "氢气"
+
 #: pay.html:33 pay.html:8
 msgid "iBeacon Detected"
 msgstr "检测到iBeacon"
@@ -102,23 +121,31 @@ msgstr "检测到iBeacon"
 msgid "Know when each bus is arriving"
 msgstr "随时掌握公交的到达时间"
 
+#: bus_location.html:16
+msgid "Last 2"
+msgstr "下下班"
+
+#: bus_location.html:21
+msgid "Last 3"
+msgstr "第3班"
+
 #: login.html:3 login.html:33
 msgid "Login"
 msgstr "登陆"
 
-#: application.js:400
+#: application.js:1032
 msgid "login failed"
 msgstr "登陆失败"
 
-#: application.js:398
+#: application.js:1030
 msgid "login success"
 msgstr "登陆成功"
 
-#: application.js:1214
+#: application.js:1919
 msgid "logoff success."
 msgstr "退出登陆成功"
 
-#: application.js:407
+#: application.js:1039
 msgid "logout successful"
 msgstr "退出登陆成功"
 
@@ -130,6 +157,10 @@ msgstr "目录"
 msgid "Messages"
 msgstr "消息中心"
 
+#: bus_location.html:10 bus_location.html:15 bus_location.html:20
+msgid "mins"
+msgstr "分钟"
+
 #: setting.html:12
 msgid "Mobile No."
 msgstr "手机号"
@@ -137,6 +168,14 @@ msgstr "手机号"
 #: signup_bak.html:11 signup.html:11
 msgid "mobile number invalid"
 msgstr "手机号码无效"
+
+#: bus_overview.html:154
+msgid "Mother Line Current"
+msgstr ""
+
+#: bus_location.html:11
+msgid "Next Bus"
+msgstr "下一班"
 
 #: newprofile.html:15 setting.html:10
 msgid "Nickname"
@@ -172,15 +211,19 @@ msgstr "支付"
 
 #: health.html:22
 msgid "Period"
-msgstr ""
+msgstr "期限"
 
-#: application.js:454
+#: application.js:1086
 msgid "Permission denied"
 msgstr "权限受限"
 
 #: login.html:45
 msgid "Please register for your FREE account."
 msgstr "免费注册一个帐号"
+
+#: bus_overview.html:4
+msgid "Pull to refresh..."
+msgstr "下拉刷新"
 
 #: newprofile.html:33
 msgid "QQ Acount"
@@ -218,6 +261,14 @@ msgstr "跳过"
 msgid "SMS code"
 msgstr "验证码"
 
+#: bus_overview.html:116
+msgid "Speed"
+msgstr "速度"
+
+#: bus_overview.html:100 bus_overview.html:139 bus_overview.html:63
+msgid "Temp."
+msgstr "温度"
+
 #: errorlist.html:3
 msgid "This field is required!"
 msgstr "此字段必填"
@@ -232,29 +283,41 @@ msgstr "此字段长度不够"
 
 #: health.html:5
 msgid "This month"
-msgstr ""
+msgstr "本月"
+
+#: bus_overview.html:120
+msgid "Torque"
+msgstr "扭矩"
 
 #: health/detail.html:11
 msgid "Total"
-msgstr ""
+msgstr "总的"
 
 #: health/detail.html:14
 msgid "Total Distance Driven"
-msgstr ""
+msgstr "行驶里程总数"
 
 #: health/detail.html:22
 msgid "Total Emission Reduction"
-msgstr ""
+msgstr "减排总数"
 
 #: health/detail.html:18
 msgid "Total Energy Saving"
+msgstr "节能总数"
+
+#: bus_overview.html:20
+msgid "Total Mileage"
+msgstr "总里程"
+
+#: bus_overview.html:150
+msgid "Total overvoltage / undervoltage"
 msgstr ""
 
-#: application.js:1002
+#: application.js:1707
 msgid "update profile failed. #{err}"
 msgstr "更新用户信息失败"
 
-#: application.js:996
+#: application.js:1701
 msgid "update profile successful."
 msgstr "更新用户信息成功"
 
@@ -270,6 +333,10 @@ msgstr "用户名"
 msgid "util sms code invalid"
 msgstr "后短信验证码失效"
 
+#: bus_overview.html:23
+msgid "Vehicle location (GPS)"
+msgstr "车辆位置 (GPS)"
+
 #: signup.html:21
 msgid "Verify Phone Number"
 msgstr "验证手机号"
@@ -277,6 +344,10 @@ msgstr "验证手机号"
 #: sms.html:4
 msgid "Verifying your Account"
 msgstr "验证帐号"
+
+#: bus_overview.html:131 bus_overview.html:55 bus_overview.html:92
+msgid "Voltage"
+msgstr "电压"
 
 #: sms.html:5
 msgid ""
@@ -296,7 +367,7 @@ msgstr "微信钱包"
 msgid "Weibo Acount"
 msgstr "微博"
 
-#: application.js:455
+#: application.js:1087
 msgid "You don't have permission to view this page."
 msgstr "你没有权限查看这个页面"
 

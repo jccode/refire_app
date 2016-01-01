@@ -2,27 +2,27 @@
     <ion-content class="payment-confirm">
         <div class="ico-title">
             <label class="round-ico"> {{ctrl.step}} </label>
-            <h2> Finish Payment </h2>
+            <h2 translate> Finish Payment </h2>
         </div>
         <div class="pay-method">
             <img ng-src="{{ctrl.pay_method_logo}}" alt="wallet" />
         </div>
         <div class="bill">
-            <h2>Your purchase</h2>
+            <h2 translate>Your purchase</h2>
             <ul class="purchase">
                 <li>
-                    <span> 1 bus ticket </span>
-                    <span> 3 RMB </span>
+                    <span> 1 <translate>bus ticket</translate> </span>
+                    <span> 3 <translate>RMB</translate> </span>
                 </li>
             </ul>
             <div class="total">
-                <span>Total Price</span>
-                <span>3 RMB</span>
+                <span translate>Total Price</span>
+                <span>3 <translate>RMB</translate></span>
             </div>
         </div>
         <div class="btns">
-            <button class="button button-block button-orange" ng-click="ctrl.pay()"> Pay </button>
-            <button class="button button-block button-gray" ng-click="ctrl.cancel()"> Cancel </button>
+            <button class="button button-block button-orange" ng-click="ctrl.pay()" translate> Pay </button>
+            <button class="button button-block button-gray" ng-click="ctrl.cancel()" translate> Cancel </button>
         </div>
     </ion-content>
 </ion-view>

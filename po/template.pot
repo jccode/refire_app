@@ -20,16 +20,32 @@ msgstr ""
 msgid "AliPay"
 msgstr ""
 
+#: bus_overview.html:15
+msgid "Available"
+msgstr ""
+
 #: newprofile.html:23
 msgid "Birth Date"
+msgstr ""
+
+#: bus_location.html:6
+msgid "BUS ARRIVING"
 msgstr ""
 
 #: menu.html:36
 msgid "Bus Infomation"
 msgstr ""
 
+#: bus_location.html:1
+msgid "Bus Lbocation"
+msgstr ""
+
 #: menu.html:41
 msgid "Bus Location"
+msgstr ""
+
+#: bus_overview.html:158
+msgid "Bus Voltage"
 msgstr ""
 
 #: rewards.html:6
@@ -60,12 +76,19 @@ msgstr ""
 msgid "confirm password isn't the same"
 msgstr ""
 
-#: application.js:655
+#: bus_overview.html:135
+#: bus_overview.html:59
+#: bus_overview.html:96
+msgid "Current"
+msgstr ""
+
+#: application.js:1334
 msgid "December"
 msgstr ""
 
+#: bus_overview.html:1
 #: menu.html:46
-msgid "Engine & Milage"
+msgid "Engine and Milage"
 msgstr ""
 
 #: newprofile.html:62
@@ -80,6 +103,10 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
+#: bus_overview.html:52
+msgid "Hydrogen"
+msgstr ""
+
 #: pay.html:33
 #: pay.html:8
 msgid "iBeacon Detected"
@@ -89,24 +116,32 @@ msgstr ""
 msgid "Know when each bus is arriving"
 msgstr ""
 
+#: bus_location.html:16
+msgid "Last 2"
+msgstr ""
+
+#: bus_location.html:21
+msgid "Last 3"
+msgstr ""
+
 #: login.html:3
 #: login.html:33
 msgid "Login"
 msgstr ""
 
-#: application.js:400
+#: application.js:1032
 msgid "login failed"
 msgstr ""
 
-#: application.js:398
+#: application.js:1030
 msgid "login success"
 msgstr ""
 
-#: application.js:1214
+#: application.js:1919
 msgid "logoff success."
 msgstr ""
 
-#: application.js:407
+#: application.js:1039
 msgid "logout successful"
 msgstr ""
 
@@ -118,6 +153,12 @@ msgstr ""
 msgid "Messages"
 msgstr ""
 
+#: bus_location.html:10
+#: bus_location.html:15
+#: bus_location.html:20
+msgid "mins"
+msgstr ""
+
 #: setting.html:12
 msgid "Mobile No."
 msgstr ""
@@ -125,6 +166,14 @@ msgstr ""
 #: signup_bak.html:11
 #: signup.html:11
 msgid "mobile number invalid"
+msgstr ""
+
+#: bus_overview.html:154
+msgid "Mother Line Current"
+msgstr ""
+
+#: bus_location.html:11
+msgid "Next Bus"
 msgstr ""
 
 #: newprofile.html:15
@@ -166,12 +215,16 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
-#: application.js:454
+#: application.js:1086
 msgid "Permission denied"
 msgstr ""
 
 #: login.html:45
 msgid "Please register for your FREE account."
+msgstr ""
+
+#: bus_overview.html:4
+msgid "Pull to refresh..."
 msgstr ""
 
 #: newprofile.html:33
@@ -210,6 +263,16 @@ msgstr ""
 msgid "SMS code"
 msgstr ""
 
+#: bus_overview.html:116
+msgid "Speed"
+msgstr ""
+
+#: bus_overview.html:100
+#: bus_overview.html:139
+#: bus_overview.html:63
+msgid "Temp."
+msgstr ""
+
 #: errorlist.html:3
 msgid "This field is required!"
 msgstr ""
@@ -224,6 +287,10 @@ msgstr ""
 
 #: health.html:5
 msgid "This month"
+msgstr ""
+
+#: bus_overview.html:120
+msgid "Torque"
 msgstr ""
 
 #: health/detail.html:11
@@ -242,11 +309,19 @@ msgstr ""
 msgid "Total Energy Saving"
 msgstr ""
 
-#: application.js:1002
+#: bus_overview.html:20
+msgid "Total Mileage"
+msgstr ""
+
+#: bus_overview.html:150
+msgid "Total overvoltage / undervoltage"
+msgstr ""
+
+#: application.js:1707
 msgid "update profile failed. #{err}"
 msgstr ""
 
-#: application.js:996
+#: application.js:1701
 msgid "update profile successful."
 msgstr ""
 
@@ -265,12 +340,22 @@ msgstr ""
 msgid "util sms code invalid"
 msgstr ""
 
+#: bus_overview.html:23
+msgid "Vehicle location (GPS)"
+msgstr ""
+
 #: signup.html:21
 msgid "Verify Phone Number"
 msgstr ""
 
 #: sms.html:4
 msgid "Verifying your Account"
+msgstr ""
+
+#: bus_overview.html:131
+#: bus_overview.html:55
+#: bus_overview.html:92
+msgid "Voltage"
 msgstr ""
 
 #: sms.html:5
@@ -289,7 +374,7 @@ msgstr ""
 msgid "Weibo Acount"
 msgstr ""
 
-#: application.js:455
+#: application.js:1087
 msgid "You don't have permission to view this page."
 msgstr ""
 
