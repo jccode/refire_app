@@ -730,20 +730,45 @@
       this.$state = $state;
       this.$scope.onReadySwiper = (function(_this) {
         return function(swiper) {
-          window.swiper = swiper;
           return swiper.on("click", function(swiper) {
-            var idx, item, param, state, url;
+            var idx, item;
             console.log("click " + swiper.clickedIndex);
             idx = swiper.clickedIndex;
             item = swiper.slides[idx];
-            url = item.getAttribute("href");
-            state = item.getAttribute('data-state');
-            param = item.getAttribute('data-param');
-            return _this.$state.go(state, param && JSON.parse(param) || {});
+            return _this.load_detail(item);
           });
         };
       })(this);
+      this.bind_click_event();
     }
+
+    HomeCtrl.prototype.bind_click_event = function() {
+      var sc;
+      sc = document.getElementById("swiper-container");
+      return sc.addEventListener("tap", this.click_handler.bind(this), false);
+    };
+
+    HomeCtrl.prototype.find_ancestor = function(el, cls) {
+      while ((el = el.parentElement) && !el.classList.contains(cls)) {
+        "a";
+      }
+      return el;
+    };
+
+    HomeCtrl.prototype.click_handler = function(ev) {
+      var el, item;
+      el = ev.target;
+      item = this.find_ancestor(el, "swiper-slide");
+      return this.load_detail(item);
+    };
+
+    HomeCtrl.prototype.load_detail = function(item) {
+      var param, state, url;
+      url = item.getAttribute("href");
+      state = item.getAttribute('data-state');
+      param = item.getAttribute('data-param');
+      return this.$state.go(state, param && JSON.parse(param) || {});
+    };
 
     return HomeCtrl;
 
