@@ -43,6 +43,7 @@ class Config
 				views:
 					'menuContent':
 						templateUrl: 'templates/bus_overview.html'
+						controller: 'BusOverviewCtrl as ctrl'
 
 			.state 'app.health',
 				url: '/health/:type'

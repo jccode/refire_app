@@ -6,3 +6,4 @@ ionic plugin add org.apache.cordova.file
 ionic plugin add org.apache.cordova.file-transfer
 ionic plugin add cordova-plugin-geolocation
 ionic plugin add cordova-plugin-crosswalk-webview
+ionic plugin add com.unarin.cordova.beacon

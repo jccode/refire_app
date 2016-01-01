@@ -1,9 +1,11 @@
 
 class TestCtrl
-	constructor: (@$scope, @$ionicPopover, @$ionicHistory, @$state, @$rootScope, @user, @sms) ->
+	constructor: (@$scope, @$ionicPopover, @$ionicHistory, @$state, @$rootScope, @user, @Beacons, @sms) ->
 		@initPopover()
 		@$scope.get_users = =>
 			@$scope.users = @user.all()
+		@$scope.get_beacons = =>
+			@$scope.beacons = @Beacons.all()
 		@initSms()
 		
 	initSms: ->
@@ -55,5 +57,6 @@ angular.module('app').controller 'TestCtrl', [
 	'$state',
 	'$rootScope',
 	'User',
+	'Beacons',
 	'Sms',
 	TestCtrl]

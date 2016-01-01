@@ -1,5 +1,9 @@
-<ion-view view-title="Engine & Milage">
+<ion-view view-title="{{'Engine and Milage' | translate}}">
     <ion-content>
+        <ion-refresher
+            pulling-text="{{'Pull to refresh...' | translate}}"
+            on-refresh="ctrl.doRefresh()">
+        </ion-refresher>
         <div class="busoverview">
             
             <div class="odometer">
@@ -8,15 +12,15 @@
                 </div>
                 <div class="milage-remain">
                     <h2>211 KM</h2>
-                    <span>Available</span>
+                    <span translate>Available</span>
                 </div>
             </div>
             
             <div class="milage-total">
-                143,200 KM Total Mileage
+                143,200 KM <translate>Total Mileage</translate>
             </div>
             <div class="location row">
-                <div class="col">
+                <div class="col" translate>
                     Vehicle location (GPS)
                 </div>
                 <div class="col">
@@ -45,18 +49,18 @@
                         </div>
                     </div>
                     
-                    <h1>Hydrogen</h1>
+                    <h1 translate>Hydrogen</h1>
                     <div class="data-tb">
                         <div class="row">
-                            <div class="col"> Voltage </div>
+                            <div class="col" translate> Voltage </div>
                             <div class="col"> 12V </div>
                         </div>
                         <div class="row">
-                            <div class="col"> Current </div>
+                            <div class="col" translate> Current </div>
                             <div class="col"> 10A </div>
                         </div>
                         <div class="row">
-                            <div class="col"> Temp. </div>
+                            <div class="col" translate> Temp. </div>
                             <div class="col"> 32 &#8451; </div>
                         </div>                        
                     </div>
@@ -85,15 +89,15 @@
                     <h1>Battery</h1>
                     <div class="data-tb">
                         <div class="row">
-                            <div class="col"> Voltage </div>
+                            <div class="col" translate> Voltage </div>
                             <div class="col"> 12V </div>
                         </div>
                         <div class="row">
-                            <div class="col"> Current </div>
+                            <div class="col" translate> Current </div>
                             <div class="col"> 10A </div>
                         </div>
                         <div class="row">
-                            <div class="col"> Temp. </div>
+                            <div class="col" translate> Temp. </div>
                             <div class="col"> 32 &#8451; </div>
                         </div>                        
                     </div>
@@ -109,11 +113,11 @@
                     <div class="col">
                         <div class="data-tb d2">
                             <div class="row">
-                                <div class="col"> Speed </div>
+                                <div class="col" translate> Speed </div>
                                 <div class="col"> 120 KM/H </div>
                             </div>
                             <div class="row">
-                                <div class="col"> Torque <br /> (x1000) </div>
+                                <div class="col"> <translate>Torque</translate> <br /> (x1000) </div>
                                 <div class="col"> 1,200 RPM </div>
                             </div>
                         </div>
@@ -124,15 +128,15 @@
                     <div class="col">
                         <div class="data-tb">
                             <div class="row">
-                                <div class="col"> Voltage </div>
+                                <div class="col" translate> Voltage </div>
                                 <div class="col"> 12V </div>
                             </div>
                             <div class="row">
-                                <div class="col"> Current </div>
+                                <div class="col" translate> Current </div>
                                 <div class="col"> 10A </div>
                             </div>
                             <div class="row">
-                                <div class="col"> Temp. </div>
+                                <div class="col" translate> Temp. </div>
                                 <div class="col"> 32 &#8451; </div>
                             </div>
                         </div>
@@ -143,15 +147,15 @@
             <!-- Others -->
             <div class="data-tb grey">
                 <div class="row">
-                    <div class="col"> Total overvoltage / undervoltage </div>
+                    <div class="col" translate> Total overvoltage / undervoltage </div>
                     <div class="col"> 1 </div>
                 </div>
                 <div class="row">
-                    <div class="col"> Mother Line Current </div>
+                    <div class="col" translate> Mother Line Current </div>
                     <div class="col"> 12A </div>
                 </div>
                 <div class="row">
-                    <div class="col"> Bus Voltage </div>
+                    <div class="col" translate> Bus Voltage </div>
                     <div class="col"> 120V </div>
                 </div>
             </div>

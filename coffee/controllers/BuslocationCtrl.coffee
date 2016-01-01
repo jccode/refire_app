@@ -1,14 +1,29 @@
 
 class BuslocationCtrl
-	constructor: (@$scope, @$q, @$cordovaGeolocation)->
-		height = document.getElementById("maplocation").offsetHeight
+	constructor: (@$scope, @$q, @$localStorage, @$cordovaGeolocation, @util, @storageKey)->
+		height = document.getElementById("maplocation").offsetHeight - 190
 		document.getElementById("map").style.height = height+"px"
-
+		
+		@init_fallback_pos()
+		
+		@fallback_pos = @storage[@storageKey.LAST_POSITION]
+		
+		@init_map @fallback_pos
+		
 		@get_current_pos().then (pos)=>
 			@currpos = pos
-			@init_map @currpos
+			@map.panTo pos
 			@simulate_bus_pos(pos)
 			@show_route()
+		, (ret)=>
+			console.log "get position failed."
+
+	init_fallback_pos: ()->
+		fallback = {}
+		fallback[@storageKey.LAST_POSITION] =
+			longitude: 116.404
+			latitude: 39.915
+		@storage = @$localStorage.$default fallback
 
 	init_map: (pos)->
 		@map = new BMap.Map "map"
@@ -16,8 +31,8 @@ class BuslocationCtrl
 
 	simulate_bus_pos: (pos)->
 		@buspos =
-			longitude: pos.longitude + Math.random()/10
-			latitude: pos.latitude + Math.random()/10
+			longitude: pos.longitude + Math.random()/20
+			latitude: pos.latitude + Math.random()/20
 		@buspos
 
 	show_positions: (positions)->
@@ -74,24 +89,30 @@ class BuslocationCtrl
 
 	get_current_pos: ->
 		posOptions =
-			timeout: 3000
+			timeout: 10000
 			enableHighAccuracy: true
-		fallback_pos =
-			longitude: 116.404
-			latitude: 39.915
 		defer = @$q.defer()
 		@$cordovaGeolocation.getCurrentPosition(posOptions)
-			.then (pos)->
-				defer.resolve pos.coords
-			, (err) ->
+			.then (pos)=>
+				ret = pos.coords
+				@storage[@storageKey.LAST_POSITION] = ret
+				# console.log ret
+				# console.log @storage[@storageKey.LAST_POSITION]
+				defer.resolve ret
+			, (err) =>
 				console.log 'Fail to get current postion. Use fallback postion instead.'
-				defer.resolve fallback_pos
+				console.log err.code+","+err.message
+				@util.toast "Get current postion failed. #{err.code}:#{err.message}"
+				defer.reject false
 		defer.promise;
 
 
 angular.module('app').controller 'BuslocationCtrl', [
 	'$scope',
 	'$q',
+	'$localStorage',
 	'$cordovaGeolocation',
+	'Util',
+	'storageKey',
 	BuslocationCtrl
 ]

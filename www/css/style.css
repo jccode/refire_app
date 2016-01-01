@@ -640,10 +640,13 @@ input.input-blueborder {
 
 .map-location .arriving {
   position: fixed;
-  bottom: 80px;
+  bottom: 0px;
   left: 0;
-  height: 100px;
-  width: 100%; }
+  height: 170px;
+  width: 100%;
+  padding-bottom: 20px;
+  overflow: hidden;
+  background: #f3f3f3; }
 
 .map-location h2 {
   background: #fcfcfc;

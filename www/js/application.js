@@ -63,7 +63,8 @@
       PAY_STEP_SEQNO: 'pay_step_seqno',
       PAY_BUS_LINE: 'pay_bus_line',
       TICKETS: 'tickets',
-      SIGNUP_USER: 'signup_user'
+      SIGNUP_USER: 'signup_user',
+      LAST_POSITION: 'last_position'
     }
   });
 
@@ -82,6 +83,96 @@
   })();
 
   angular.module('app').run(['gettextCatalog', I18N]);
+
+}).call(this);
+
+(function() {
+  var BeaconBootstrap, start;
+
+  BeaconBootstrap = (function() {
+    function BeaconBootstrap($rootScope1, $cordovaBeacon1, $cordovaToast1, Beacons1) {
+      this.$rootScope = $rootScope1;
+      this.$cordovaBeacon = $cordovaBeacon1;
+      this.$cordovaToast = $cordovaToast1;
+      this.Beacons = Beacons1;
+      this.isAndroid = ionic.Platform.isAndroid();
+      console.log("beacon bootstrap. isAndroid? " + this.isAndroid);
+      this.check_bluetooth();
+    }
+
+    BeaconBootstrap.prototype.check_bluetooth = function() {
+      return this.$cordovaBeacon.isBluetoothEnabled().then((function(_this) {
+        return function(ret) {
+          console.log("bluetooth enabled? " + ret + " ");
+          if (!ret && _this.isAndroid) {
+            _this.$cordovaBeacon.enableBluetooth();
+          }
+          _this.init_beacons();
+          return _this.add_beacon_event_handler();
+        };
+      })(this)).fail((function(_this) {
+        return function(err) {
+          console.log("detect bluetooth failed. " + (JSON.stringifty(err)));
+          return _this.toast("detect bluetooth failed. " + (JSON.stringifty(err)));
+        };
+      })(this));
+    };
+
+    BeaconBootstrap.prototype.init_beacons = function() {
+      return this.Beacons.all().$promise.then((function(_this) {
+        return function(beacons) {
+          var brNotifyEntryStateOnDisplay, bs;
+          console.log(JSON.stringify(beacons));
+          bs = _.map(beacons, function(b) {
+            return {
+              'identifier': b.identifier,
+              'uuid': b.uuid
+            };
+          });
+          bs = _.uniq(bs, function(b) {
+            return b.identifier + b.uuid;
+          });
+          console.log(JSON.stringify(bs));
+          brNotifyEntryStateOnDisplay = true;
+          _this.beacon_regions = _.map(beacons, function(b) {
+            return _this.$cordovaBeacon.createBeaconRegion(b.identifier, b.uuid, null, null, brNotifyEntryStateOnDisplay);
+          });
+          return _.each(_this.beacon_regions, _this.$cordovaBeacon.startRangingBeaconsInRegion);
+        };
+      })(this));
+    };
+
+    BeaconBootstrap.prototype.add_beacon_event_handler = function() {
+      this.$rootScope.$on("$cordovaBeacon:didStartMonitoringForRegion", function(event, pluginResult) {
+        console.log("[Start monitoring for region] " + event);
+        console.log("[Start monitoring for region] " + JSON.stringify(pluginResult));
+        return console.log("[Start monitoring for region] -----------------------------");
+      });
+      this.$rootScope.$on("$cordovaBeacon:didDetermineStateForRegion", function(event, pluginResult) {
+        console.log("[Determine state for region] " + event);
+        console.log("[Determine state for region] " + JSON.stringify(pluginResult));
+        return console.log("[Determine state for region] -----------------------------");
+      });
+      return this.$rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function(event, pluginResult) {
+        console.log("[Range beacons in region] " + event);
+        console.log("[Range beacons in region] " + JSON.stringify(pluginResult));
+        return console.log("[Range beacons in region] -----------------------------");
+      });
+    };
+
+    BeaconBootstrap.prototype.toast = function(msg) {
+      return this.$cordovaToast.show(msg, "short", "bottom");
+    };
+
+    return BeaconBootstrap;
+
+  })();
+
+  start = function($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, Beacons) {
+    return $ionicPlatform.ready(function() {});
+  };
+
+  angular.module('app').run(['$rootScope', '$ionicPlatform', '$cordovaBeacon', '$cordovaToast', 'Beacons', start]);
 
 }).call(this);
 
@@ -145,7 +236,8 @@
         url: '/busoverview',
         views: {
           'menuContent': {
-            templateUrl: 'templates/bus_overview.html'
+            templateUrl: 'templates/bus_overview.html',
+            controller: 'BusOverviewCtrl as ctrl'
           }
         }
       }).state('app.health', {
@@ -332,8 +424,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://112.74.93.116',
-      apiurl: 'http://112.74.93.116/api'
+      baseurl: 'http://192.168.1.104:8000',
+      apiurl: 'http://192.168.1.104:8000/api'
     }
   });
 
@@ -361,6 +453,546 @@
   })();
 
   angular.module('app').config(['$httpProvider', '$resourceProvider', Ajax]);
+
+}).call(this);
+
+(function() {
+  var BindFile;
+
+  BindFile = (function() {
+    function BindFile() {
+      var link;
+      link = function(scope, el, attrs, ngModel) {
+        el.bind('change', function(event) {
+          ngModel.$setViewValue(event.target.files[0]);
+          return scope.$apply();
+        });
+        return scope.$watch(function() {
+          return ngModel.$viewValue;
+        }, function(value) {
+          if (!value) {
+            return el.val("");
+          }
+        });
+      };
+      return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return BindFile;
+
+  })();
+
+  angular.module('app').directive('bindFile', BindFile);
+
+}).call(this);
+
+(function() {
+  var TrustedFilter;
+
+  TrustedFilter = (function() {
+    function TrustedFilter($sce) {
+      return function(url) {
+        return $sce.trustAsResourceUrl(url);
+      };
+    }
+
+    return TrustedFilter;
+
+  })();
+
+  angular.module('app').filter('trusted', ['$sce', TrustedFilter]);
+
+}).call(this);
+
+(function() {
+  var Config, CsrfInterceptor,
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  CsrfInterceptor = (function() {
+    function CsrfInterceptor($cookies) {
+      var allowMethods, cookieName, headerName;
+      headerName = 'X-CSRFToken';
+      cookieName = 'csrftoken';
+      allowMethods = ['GET'];
+      return {
+        'request': function(request) {
+          var ref;
+          if (ref = request.method, indexOf.call(allowMethods, ref) < 0) {
+            request.headers[headerName] = $cookies.get(cookieName);
+          }
+          return request;
+        }
+      };
+    }
+
+    return CsrfInterceptor;
+
+  })();
+
+  Config = (function() {
+    function Config($httpProvider) {
+      $httpProvider.interceptors.push(['$cookies', CsrfInterceptor]);
+    }
+
+    return Config;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', Config]);
+
+}).call(this);
+
+(function() {
+  var Config, Interceptor;
+
+  Interceptor = (function() {
+    function Interceptor($log, $rootScope, $q) {
+      return {
+        response: function(response) {
+          $rootScope.$broadcast("success:" + response.status, response);
+          return response;
+        },
+        responseError: function(response) {
+          $rootScope.$broadcast("error:" + response.status, response);
+          return $q.reject(response);
+        }
+      };
+    }
+
+    return Interceptor;
+
+  })();
+
+  Config = (function() {
+    function Config($httpProvider) {
+      $httpProvider.interceptors.push(['$log', '$rootScope', '$q', Interceptor]);
+    }
+
+    return Config;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', Config]);
+
+}).call(this);
+
+(function() {
+  var Auth,
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  Auth = (function() {
+    function Auth($http, $rootScope, $localStorage, $base64, settings, event) {
+      var $storage, anon_user, get_current_user, l, role_prefix, self, set_current_user;
+      self = this;
+      anon_user = {
+        username: '',
+        groups: [],
+        token: ''
+      };
+      $storage = $localStorage.$default({
+        user: anon_user
+      });
+      get_current_user = function() {
+        if (!$rootScope.user) {
+          $rootScope.user = $storage.user;
+        }
+        return $rootScope.user;
+      };
+      set_current_user = function(user) {
+        $storage.user = user;
+        $rootScope.user = user;
+        self.user = user;
+        return user;
+      };
+      role_prefix = 'ROLE_';
+      l = role_prefix.length;
+      this.user = get_current_user();
+      this.authorize = (function(_this) {
+        return function(role) {
+          return indexOf.call(_this.user.groups, role) >= 0;
+        };
+      })(this);
+      this.isLoggedIn = (function(_this) {
+        return function(user) {
+          user = user || _this.user;
+          return user.username !== '';
+        };
+      })(this);
+      this.login = (function(_this) {
+        return function(user, success, error) {
+          return $http.post(settings.baseurl + '/api-token-auth/', {
+            username: user.username,
+            password: user.password
+          }, {
+            headers: {
+              Authorization: void 0
+            }
+          }).success(function(ret) {
+            user.token = ret.token;
+            return $http.get(settings.baseurl + '/userprofile/curruser/', {
+              headers: {
+                Authorization: 'Token ' + ret.token
+              }
+            }).success(function(user) {
+              var persist_user;
+              persist_user = {
+                id: user.id,
+                username: user.username,
+                phone: user.phone,
+                groups: user.groups,
+                token: ret.token
+              };
+              set_current_user(persist_user);
+              success(persist_user);
+              return $rootScope.$broadcast(event.LOGIN, persist_user);
+            }).error(error);
+          }).error(error);
+        };
+      })(this);
+      this.signup = (function(_this) {
+        return function(user, success, error) {
+          return $http.post(settings.baseurl + '/userprofile/signup/', user).success(function(user) {
+            var persist_user;
+            persist_user = {
+              id: user.id,
+              username: user.username,
+              phone: user.username,
+              groups: user.groups,
+              token: user.token
+            };
+            set_current_user(persist_user);
+            success(persist_user);
+            return $rootScope.$broadcast(event.SIGNUP, persist_user);
+          }).error(error);
+        };
+      })(this);
+      this.logout = (function(_this) {
+        return function() {
+          set_current_user(anon_user);
+          return $rootScope.$broadcast(event.LOGOUT);
+        };
+      })(this);
+      return this;
+    }
+
+    return Auth;
+
+  })();
+
+  angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', '$base64', 'settings', 'event', Auth]);
+
+}).call(this);
+
+(function() {
+  var Beacons;
+
+  Beacons = (function() {
+    function Beacons($resource, settings) {
+      this.$resource = $resource;
+      this.settings = settings;
+      this.url = this.settings.baseurl + '/api/beacon/:id/';
+      this.beacon = this.$resource(this.url, null, {
+        query: {
+          method: 'GET',
+          headers: {
+            Authorization: void 0
+          },
+          isArray: true
+        }
+      });
+    }
+
+    Beacons.prototype.all = function() {
+      return this.beacon.query();
+    };
+
+    return Beacons;
+
+  })();
+
+  angular.module('app').service('Beacons', ['$resource', 'settings', Beacons]);
+
+}).call(this);
+
+(function() {
+  var Messages;
+
+  Messages = (function() {
+    function Messages($resource, settings) {
+      this.$resource = $resource;
+      this.settings = settings;
+      this.url = this.settings.baseurl + "/api/news/:id";
+      this.message = this.$resource(this.url, {
+        id: '@id'
+      });
+    }
+
+    Messages.prototype.all = function() {
+      return this.message.query();
+    };
+
+    return Messages;
+
+  })();
+
+  angular.module('app').service('Message', ['$resource', 'settings', Messages]);
+
+}).call(this);
+
+(function() {
+  var Sms;
+
+  Sms = (function() {
+    function Sms($http, settings) {
+      this.$http = $http;
+      this.settings = settings;
+      this.url = this.settings.baseurl + "/sms/send/";
+    }
+
+    Sms.prototype.send = function(phone) {
+      return this.$http.post(this.url, {
+        'phone': phone
+      });
+    };
+
+    return Sms;
+
+  })();
+
+  angular.module('app').service('Sms', ['$http', 'settings', Sms]);
+
+}).call(this);
+
+(function() {
+  var User;
+
+  User = (function() {
+    function User($resource, $http, settings) {
+      this.$resource = $resource;
+      this.$http = $http;
+      this.settings = settings;
+      this.url = this.settings.baseurl + '/api/user/:id';
+      this.User = this.$resource(this.url, {
+        id: '@id'
+      });
+    }
+
+    User.prototype.all = function() {
+      return this.User.query();
+    };
+
+    User.prototype.save = function(user) {
+      return this.User.save(user);
+    };
+
+    User.prototype.exist = function(username) {
+      return this.$http.get(this.settings.baseurl + '/userprofile/userexist/?q=' + username);
+    };
+
+    return User;
+
+  })();
+
+  angular.module('app').service('User', ['$resource', '$http', 'settings', User]);
+
+}).call(this);
+
+(function() {
+  var UserProfile;
+
+  UserProfile = (function() {
+    function UserProfile($resource, settings) {
+      this.$resource = $resource;
+      this.settings = settings;
+      this.url = this.settings.baseurl + '/api/userprofile/:id/';
+      this.userProfile = this.$resource(this.url, {
+        id: '@uid'
+      }, {
+        update: {
+          method: 'PUT',
+          headers: {
+            'Content-Type': void 0
+          }
+        }
+      });
+    }
+
+    UserProfile.prototype.save = function(user) {
+      var fd;
+      fd = this.formdata(user);
+      return this.userProfile.update(fd);
+    };
+
+    UserProfile.prototype.formdata = function(data) {
+      var addFormData, fd, key, value;
+      fd = new FormData();
+      addFormData = function(key, value) {
+        var ext;
+        if (Object.prototype.toString.apply(value) === "[object Blob]") {
+          ext = value.type.split("/").pop();
+          return fd.append(key, value, "avatar." + ext);
+        } else {
+          return fd.append(key, value);
+        }
+      };
+      for (key in data) {
+        value = data[key];
+        addFormData(key, value);
+      }
+      fd['uid'] = data['uid'];
+      return fd;
+    };
+
+    UserProfile.prototype.get = function(id) {
+      return this.userProfile.get({
+        id: id
+      });
+    };
+
+    return UserProfile;
+
+  })();
+
+  angular.module('app').service('userProfile', ['$resource', 'settings', UserProfile]);
+
+}).call(this);
+
+(function() {
+  var Util;
+
+  Util = (function() {
+    function Util($rootScope, $window, $ionicPopup, $cordovaToast) {
+      this.$rootScope = $rootScope;
+      this.$window = $window;
+      this.$ionicPopup = $ionicPopup;
+      this.$cordovaToast = $cordovaToast;
+    }
+
+    Util.prototype.toast = function(msg, fn) {
+      if (this.$window.cordova) {
+        return this.$cordovaToast.show(msg, 'short', 'bottom').then(function(success) {
+          return fn && fn('ok');
+        }, function(error) {
+          return fn && fn(error);
+        });
+      } else {
+        return this.$ionicPopup.alert({
+          template: msg
+        }).then(function(res) {
+          return fn && fn(res);
+        });
+      }
+    };
+
+    return Util;
+
+  })();
+
+  angular.module('app').service('Util', ['$rootScope', '$window', '$ionicPopup', '$cordovaToast', Util]);
+
+}).call(this);
+
+(function() {
+  var CompareTo;
+
+  CompareTo = (function() {
+    function CompareTo() {
+      var link;
+      link = function(scope, element, attributes, ngModel) {
+        ngModel.$validators.compareTo = function(modelValue) {
+          return modelValue === scope.otherValue.$modelValue;
+        };
+        return scope.$watch("otherValue", function() {
+          return ngModel.$validate();
+        });
+      };
+      return {
+        require: 'ngModel',
+        scope: {
+          otherValue: "=compareTo"
+        },
+        link: link
+      };
+    }
+
+    return CompareTo;
+
+  })();
+
+  angular.module('app').directive('compareTo', CompareTo);
+
+}).call(this);
+
+(function() {
+  var GreaterThan;
+
+  GreaterThan = (function() {
+    function GreaterThan() {
+      var link;
+      link = function(scope, element, attributes, ngModel) {
+        ngModel.$validators.greaterThan = function(value) {
+          return parseInt(value) >= parseInt(scope.greaterThanNumber);
+        };
+        return scope.$watch("greaterThanNumber", function() {
+          return ngModel.$validate();
+        });
+      };
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        scope: {
+          greaterThanNumber: '=greaterThan'
+        },
+        link: link
+      };
+    }
+
+    return GreaterThan;
+
+  })();
+
+  angular.module('app').directive('greateThan', GreaterThan);
+
+}).call(this);
+
+(function() {
+  var UserExist;
+
+  UserExist = (function() {
+    function UserExist($q, User) {
+      var link;
+      link = function(scope, element, attributes, ngModel) {
+        return ngModel.$asyncValidators.userExist = function(value) {
+          var deferred;
+          deferred = $q.defer();
+          User.exist(value).then(function(result) {
+            if (result.data) {
+              return deferred.reject();
+            } else {
+              return deferred.resolve();
+            }
+          }, function(err) {
+            return deferred.reject();
+          });
+          return deferred.promise;
+        };
+      };
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: link
+      };
+    }
+
+    return UserExist;
+
+  })();
+
+  angular.module('app').directive('userExist', ['$q', 'User', UserExist]);
 
 }).call(this);
 
@@ -476,25 +1108,67 @@
 }).call(this);
 
 (function() {
+  var BusOverviewCtrl;
+
+  BusOverviewCtrl = (function() {
+    function BusOverviewCtrl($scope) {
+      this.$scope = $scope;
+      console.log('Bus overview ctrl');
+    }
+
+    BusOverviewCtrl.prototype.doRefresh = function() {
+      console.log('do refresh');
+      return this.$scope.$broadcast('scroll.refreshComplete');
+    };
+
+    return BusOverviewCtrl;
+
+  })();
+
+  angular.module('app').controller('BusOverviewCtrl', ['$scope', BusOverviewCtrl]);
+
+}).call(this);
+
+(function() {
   var BuslocationCtrl;
 
   BuslocationCtrl = (function() {
-    function BuslocationCtrl($scope, $q, $cordovaGeolocation) {
+    function BuslocationCtrl($scope, $q, $localStorage, $cordovaGeolocation, util, storageKey) {
       var height;
       this.$scope = $scope;
       this.$q = $q;
+      this.$localStorage = $localStorage;
       this.$cordovaGeolocation = $cordovaGeolocation;
-      height = document.getElementById("maplocation").offsetHeight;
+      this.util = util;
+      this.storageKey = storageKey;
+      height = document.getElementById("maplocation").offsetHeight - 190;
       document.getElementById("map").style.height = height + "px";
+      this.init_fallback_pos();
+      this.fallback_pos = this.storage[this.storageKey.LAST_POSITION];
+      this.init_map(this.fallback_pos);
       this.get_current_pos().then((function(_this) {
         return function(pos) {
           _this.currpos = pos;
-          _this.init_map(_this.currpos);
+          _this.map.panTo(pos);
           _this.simulate_bus_pos(pos);
           return _this.show_route();
         };
+      })(this), (function(_this) {
+        return function(ret) {
+          return console.log("get position failed.");
+        };
       })(this));
     }
+
+    BuslocationCtrl.prototype.init_fallback_pos = function() {
+      var fallback;
+      fallback = {};
+      fallback[this.storageKey.LAST_POSITION] = {
+        longitude: 116.404,
+        latitude: 39.915
+      };
+      return this.storage = this.$localStorage.$default(fallback);
+    };
 
     BuslocationCtrl.prototype.init_map = function(pos) {
       this.map = new BMap.Map("map");
@@ -503,8 +1177,8 @@
 
     BuslocationCtrl.prototype.simulate_bus_pos = function(pos) {
       this.buspos = {
-        longitude: pos.longitude + Math.random() / 10,
-        latitude: pos.latitude + Math.random() / 10
+        longitude: pos.longitude + Math.random() / 20,
+        latitude: pos.latitude + Math.random() / 20
       };
       return this.buspos;
     };
@@ -566,22 +1240,27 @@
     };
 
     BuslocationCtrl.prototype.get_current_pos = function() {
-      var defer, fallback_pos, posOptions;
+      var defer, posOptions;
       posOptions = {
-        timeout: 3000,
+        timeout: 10000,
         enableHighAccuracy: true
       };
-      fallback_pos = {
-        longitude: 116.404,
-        latitude: 39.915
-      };
       defer = this.$q.defer();
-      this.$cordovaGeolocation.getCurrentPosition(posOptions).then(function(pos) {
-        return defer.resolve(pos.coords);
-      }, function(err) {
-        console.log('Fail to get current postion. Use fallback postion instead.');
-        return defer.resolve(fallback_pos);
-      });
+      this.$cordovaGeolocation.getCurrentPosition(posOptions).then((function(_this) {
+        return function(pos) {
+          var ret;
+          ret = pos.coords;
+          _this.storage[_this.storageKey.LAST_POSITION] = ret;
+          return defer.resolve(ret);
+        };
+      })(this), (function(_this) {
+        return function(err) {
+          console.log('Fail to get current postion. Use fallback postion instead.');
+          console.log(err.code + "," + err.message);
+          _this.util.toast("Get current postion failed. " + err.code + ":" + err.message);
+          return defer.reject(false);
+        };
+      })(this));
       return defer.promise;
     };
 
@@ -589,7 +1268,7 @@
 
   })();
 
-  angular.module('app').controller('BuslocationCtrl', ['$scope', '$q', '$cordovaGeolocation', BuslocationCtrl]);
+  angular.module('app').controller('BuslocationCtrl', ['$scope', '$q', '$localStorage', '$cordovaGeolocation', 'Util', 'storageKey', BuslocationCtrl]);
 
 }).call(this);
 
@@ -1426,18 +2105,24 @@
   var TestCtrl;
 
   TestCtrl = (function() {
-    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope, user, sms) {
+    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope, user, Beacons, sms) {
       this.$scope = $scope;
       this.$ionicPopover = $ionicPopover;
       this.$ionicHistory = $ionicHistory;
       this.$state = $state;
       this.$rootScope = $rootScope;
       this.user = user;
+      this.Beacons = Beacons;
       this.sms = sms;
       this.initPopover();
       this.$scope.get_users = (function(_this) {
         return function() {
           return _this.$scope.users = _this.user.all();
+        };
+      })(this);
+      this.$scope.get_beacons = (function(_this) {
+        return function() {
+          return _this.$scope.beacons = _this.Beacons.all();
         };
       })(this);
       this.initSms();
@@ -1505,7 +2190,7 @@
 
   })();
 
-  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', 'Sms', TestCtrl]);
+  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', 'Beacons', 'Sms', TestCtrl]);
 
 }).call(this);
 
@@ -1555,514 +2240,5 @@
   })();
 
   angular.module('app').controller('VideoCtrl', ['$scope', '$state', '$stateParams', VideoCtrl]);
-
-}).call(this);
-
-(function() {
-  var BindFile;
-
-  BindFile = (function() {
-    function BindFile() {
-      var link;
-      link = function(scope, el, attrs, ngModel) {
-        el.bind('change', function(event) {
-          ngModel.$setViewValue(event.target.files[0]);
-          return scope.$apply();
-        });
-        return scope.$watch(function() {
-          return ngModel.$viewValue;
-        }, function(value) {
-          if (!value) {
-            return el.val("");
-          }
-        });
-      };
-      return {
-        require: 'ngModel',
-        restrict: 'A',
-        link: link
-      };
-    }
-
-    return BindFile;
-
-  })();
-
-  angular.module('app').directive('bindFile', BindFile);
-
-}).call(this);
-
-(function() {
-  var TrustedFilter;
-
-  TrustedFilter = (function() {
-    function TrustedFilter($sce) {
-      return function(url) {
-        return $sce.trustAsResourceUrl(url);
-      };
-    }
-
-    return TrustedFilter;
-
-  })();
-
-  angular.module('app').filter('trusted', ['$sce', TrustedFilter]);
-
-}).call(this);
-
-(function() {
-  var Config, CsrfInterceptor,
-    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  CsrfInterceptor = (function() {
-    function CsrfInterceptor($cookies) {
-      var allowMethods, cookieName, headerName;
-      headerName = 'X-CSRFToken';
-      cookieName = 'csrftoken';
-      allowMethods = ['GET'];
-      return {
-        'request': function(request) {
-          var ref;
-          if (ref = request.method, indexOf.call(allowMethods, ref) < 0) {
-            request.headers[headerName] = $cookies.get(cookieName);
-          }
-          return request;
-        }
-      };
-    }
-
-    return CsrfInterceptor;
-
-  })();
-
-  Config = (function() {
-    function Config($httpProvider) {
-      $httpProvider.interceptors.push(['$cookies', CsrfInterceptor]);
-    }
-
-    return Config;
-
-  })();
-
-  angular.module('app').config(['$httpProvider', Config]);
-
-}).call(this);
-
-(function() {
-  var Config, Interceptor;
-
-  Interceptor = (function() {
-    function Interceptor($log, $rootScope, $q) {
-      return {
-        response: function(response) {
-          $rootScope.$broadcast("success:" + response.status, response);
-          return response;
-        },
-        responseError: function(response) {
-          $rootScope.$broadcast("error:" + response.status, response);
-          return $q.reject(response);
-        }
-      };
-    }
-
-    return Interceptor;
-
-  })();
-
-  Config = (function() {
-    function Config($httpProvider) {
-      $httpProvider.interceptors.push(['$log', '$rootScope', '$q', Interceptor]);
-    }
-
-    return Config;
-
-  })();
-
-  angular.module('app').config(['$httpProvider', Config]);
-
-}).call(this);
-
-(function() {
-  var Auth,
-    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  Auth = (function() {
-    function Auth($http, $rootScope, $localStorage, $base64, settings, event) {
-      var $storage, anon_user, get_current_user, l, role_prefix, self, set_current_user;
-      self = this;
-      anon_user = {
-        username: '',
-        groups: [],
-        token: ''
-      };
-      $storage = $localStorage.$default({
-        user: anon_user
-      });
-      get_current_user = function() {
-        if (!$rootScope.user) {
-          $rootScope.user = $storage.user;
-        }
-        return $rootScope.user;
-      };
-      set_current_user = function(user) {
-        $storage.user = user;
-        $rootScope.user = user;
-        self.user = user;
-        return user;
-      };
-      role_prefix = 'ROLE_';
-      l = role_prefix.length;
-      this.user = get_current_user();
-      this.authorize = (function(_this) {
-        return function(role) {
-          return indexOf.call(_this.user.groups, role) >= 0;
-        };
-      })(this);
-      this.isLoggedIn = (function(_this) {
-        return function(user) {
-          user = user || _this.user;
-          return user.username !== '';
-        };
-      })(this);
-      this.login = (function(_this) {
-        return function(user, success, error) {
-          return $http.post(settings.baseurl + '/api-token-auth/', {
-            username: user.username,
-            password: user.password
-          }, {
-            headers: {
-              Authorization: void 0
-            }
-          }).success(function(ret) {
-            user.token = ret.token;
-            return $http.get(settings.baseurl + '/userprofile/curruser/', {
-              headers: {
-                Authorization: 'Token ' + ret.token
-              }
-            }).success(function(user) {
-              var persist_user;
-              persist_user = {
-                id: user.id,
-                username: user.username,
-                phone: user.phone,
-                groups: user.groups,
-                token: ret.token
-              };
-              set_current_user(persist_user);
-              success(persist_user);
-              return $rootScope.$broadcast(event.LOGIN, persist_user);
-            }).error(error);
-          }).error(error);
-        };
-      })(this);
-      this.signup = (function(_this) {
-        return function(user, success, error) {
-          return $http.post(settings.baseurl + '/userprofile/signup/', user).success(function(user) {
-            var persist_user;
-            persist_user = {
-              id: user.id,
-              username: user.username,
-              phone: user.username,
-              groups: user.groups,
-              token: user.token
-            };
-            set_current_user(persist_user);
-            success(persist_user);
-            return $rootScope.$broadcast(event.SIGNUP, persist_user);
-          }).error(error);
-        };
-      })(this);
-      this.logout = (function(_this) {
-        return function() {
-          set_current_user(anon_user);
-          return $rootScope.$broadcast(event.LOGOUT);
-        };
-      })(this);
-      return this;
-    }
-
-    return Auth;
-
-  })();
-
-  angular.module('app').factory('Auth', ['$http', '$rootScope', '$localStorage', '$base64', 'settings', 'event', Auth]);
-
-}).call(this);
-
-(function() {
-  var Messages;
-
-  Messages = (function() {
-    function Messages($resource, settings) {
-      this.$resource = $resource;
-      this.settings = settings;
-      this.url = this.settings.baseurl + "/api/news/:id";
-      this.message = this.$resource(this.url, {
-        id: '@id'
-      });
-    }
-
-    Messages.prototype.all = function() {
-      return this.message.query();
-    };
-
-    return Messages;
-
-  })();
-
-  angular.module('app').service('Message', ['$resource', 'settings', Messages]);
-
-}).call(this);
-
-(function() {
-  var Sms;
-
-  Sms = (function() {
-    function Sms($http, settings) {
-      this.$http = $http;
-      this.settings = settings;
-      this.url = this.settings.baseurl + "/sms/send/";
-    }
-
-    Sms.prototype.send = function(phone) {
-      return this.$http.post(this.url, {
-        'phone': phone
-      });
-    };
-
-    return Sms;
-
-  })();
-
-  angular.module('app').service('Sms', ['$http', 'settings', Sms]);
-
-}).call(this);
-
-(function() {
-  var User;
-
-  User = (function() {
-    function User($resource, $http, settings) {
-      this.$resource = $resource;
-      this.$http = $http;
-      this.settings = settings;
-      this.url = this.settings.baseurl + '/api/user/:id';
-      this.User = this.$resource(this.url, {
-        id: '@id'
-      });
-    }
-
-    User.prototype.all = function() {
-      return this.User.query();
-    };
-
-    User.prototype.save = function(user) {
-      return this.User.save(user);
-    };
-
-    User.prototype.exist = function(username) {
-      return this.$http.get(this.settings.baseurl + '/userprofile/userexist/?q=' + username);
-    };
-
-    return User;
-
-  })();
-
-  angular.module('app').service('User', ['$resource', '$http', 'settings', User]);
-
-}).call(this);
-
-(function() {
-  var UserProfile;
-
-  UserProfile = (function() {
-    function UserProfile($resource, settings) {
-      this.$resource = $resource;
-      this.settings = settings;
-      this.url = this.settings.baseurl + '/api/userprofile/:id/';
-      this.userProfile = this.$resource(this.url, {
-        id: '@uid'
-      }, {
-        update: {
-          method: 'PUT',
-          headers: {
-            'Content-Type': void 0
-          }
-        }
-      });
-    }
-
-    UserProfile.prototype.save = function(user) {
-      var fd;
-      fd = this.formdata(user);
-      return this.userProfile.update(fd);
-    };
-
-    UserProfile.prototype.formdata = function(data) {
-      var addFormData, fd, key, value;
-      fd = new FormData();
-      addFormData = function(key, value) {
-        var ext;
-        if (Object.prototype.toString.apply(value) === "[object Blob]") {
-          ext = value.type.split("/").pop();
-          return fd.append(key, value, "avatar." + ext);
-        } else {
-          return fd.append(key, value);
-        }
-      };
-      for (key in data) {
-        value = data[key];
-        addFormData(key, value);
-      }
-      fd['uid'] = data['uid'];
-      return fd;
-    };
-
-    UserProfile.prototype.get = function(id) {
-      return this.userProfile.get({
-        id: id
-      });
-    };
-
-    return UserProfile;
-
-  })();
-
-  angular.module('app').service('userProfile', ['$resource', 'settings', UserProfile]);
-
-}).call(this);
-
-(function() {
-  var Util;
-
-  Util = (function() {
-    function Util($rootScope, $window, $ionicPopup, $cordovaToast) {
-      this.$rootScope = $rootScope;
-      this.$window = $window;
-      this.$ionicPopup = $ionicPopup;
-      this.$cordovaToast = $cordovaToast;
-    }
-
-    Util.prototype.toast = function(msg, fn) {
-      if (this.$window.cordova) {
-        return this.$cordovaToast.show(msg, 'short', 'bottom').then(function(success) {
-          return fn && fn('ok');
-        }, function(error) {
-          return fn && fn(error);
-        });
-      } else {
-        return this.$ionicPopup.alert({
-          template: msg
-        }).then(function(res) {
-          return fn && fn(res);
-        });
-      }
-    };
-
-    return Util;
-
-  })();
-
-  angular.module('app').service('Util', ['$rootScope', '$window', '$ionicPopup', '$cordovaToast', Util]);
-
-}).call(this);
-
-(function() {
-  var CompareTo;
-
-  CompareTo = (function() {
-    function CompareTo() {
-      var link;
-      link = function(scope, element, attributes, ngModel) {
-        ngModel.$validators.compareTo = function(modelValue) {
-          return modelValue === scope.otherValue.$modelValue;
-        };
-        return scope.$watch("otherValue", function() {
-          return ngModel.$validate();
-        });
-      };
-      return {
-        require: 'ngModel',
-        scope: {
-          otherValue: "=compareTo"
-        },
-        link: link
-      };
-    }
-
-    return CompareTo;
-
-  })();
-
-  angular.module('app').directive('compareTo', CompareTo);
-
-}).call(this);
-
-(function() {
-  var GreaterThan;
-
-  GreaterThan = (function() {
-    function GreaterThan() {
-      var link;
-      link = function(scope, element, attributes, ngModel) {
-        ngModel.$validators.greaterThan = function(value) {
-          return parseInt(value) >= parseInt(scope.greaterThanNumber);
-        };
-        return scope.$watch("greaterThanNumber", function() {
-          return ngModel.$validate();
-        });
-      };
-      return {
-        restrict: 'A',
-        require: 'ngModel',
-        scope: {
-          greaterThanNumber: '=greaterThan'
-        },
-        link: link
-      };
-    }
-
-    return GreaterThan;
-
-  })();
-
-  angular.module('app').directive('greateThan', GreaterThan);
-
-}).call(this);
-
-(function() {
-  var UserExist;
-
-  UserExist = (function() {
-    function UserExist($q, User) {
-      var link;
-      link = function(scope, element, attributes, ngModel) {
-        return ngModel.$asyncValidators.userExist = function(value) {
-          var deferred;
-          deferred = $q.defer();
-          User.exist(value).then(function(result) {
-            if (result.data) {
-              return deferred.reject();
-            } else {
-              return deferred.resolve();
-            }
-          }, function(err) {
-            return deferred.reject();
-          });
-          return deferred.promise;
-        };
-      };
-      return {
-        restrict: 'A',
-        require: 'ngModel',
-        link: link
-      };
-    }
-
-    return UserExist;
-
-  })();
-
-  angular.module('app').directive('userExist', ['$q', 'User', UserExist]);
 
 }).call(this);

@@ -41,7 +41,8 @@
     "org.apache.cordova.file-transfer",
     "cordova-plugin-geolocation",
     "org.apache.cordova.file",
-    "cordova-plugin-crosswalk-webview"
+    "cordova-plugin-crosswalk-webview",
+    "com.unarin.cordova.beacon"
   ],
   "cordovaPlatforms": []
 }
