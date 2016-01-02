@@ -87,7 +87,7 @@
 }).call(this);
 
 (function() {
-  var BeaconBootstrap, start;
+  var BeaconBootstrap, start, throttle_test, watchdog_test;
 
   BeaconBootstrap = (function() {
     function BeaconBootstrap($rootScope1, $cordovaBeacon1, $cordovaToast1, Beacons1) {
@@ -168,11 +168,41 @@
 
   })();
 
-  start = function($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, Beacons) {
-    return $ionicPlatform.ready(function() {});
+  watchdog_test = function($interval) {
+    var counter, dog;
+    counter = 0;
+    return dog = $interval(function() {
+      console.log('didong .. /s ');
+      counter++;
+      if (counter > 20) {
+        return $interval.cancel(dog);
+      }
+    }, 1000);
   };
 
-  angular.module('app').run(['$rootScope', '$ionicPlatform', '$cordovaBeacon', '$cordovaToast', 'Beacons', start]);
+  throttle_test = function() {
+    var f, f2, i, j, results;
+    f = function(i) {
+      return console.log("f " + i);
+    };
+    f2 = _.throttle(f, 2);
+    results = [];
+    for (i = j = 0; j <= 10000; i = ++j) {
+      results.push(f2(i));
+    }
+    return results;
+  };
+
+  start = function($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, $timeout, $interval, Beacons) {
+    $ionicPlatform.ready(function() {
+      new BeaconBootstrap($rootScope, $cordovaBeacon, $cordovaToast, Beacons);
+      return 'a';
+    });
+    console.log('ibeacon start');
+    return throttle_test();
+  };
+
+  angular.module('app').run(['$rootScope', '$ionicPlatform', '$cordovaBeacon', '$cordovaToast', '$timeout', '$interval', 'Beacons', start]);
 
 }).call(this);
 

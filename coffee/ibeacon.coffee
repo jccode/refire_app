@@ -49,17 +49,40 @@ class BeaconBootstrap
 		@$cordovaToast.show msg, "short", "bottom"
 
 
+watchdog_test = ($interval)->
+	counter = 0
+	dog = $interval ()->
+		console.log 'didong .. /s '
+		counter++
+		if counter > 20
+			$interval.cancel dog
+	, 1000
 
-start = ($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, Beacons)->
+
+throttle_test = ()->
+	f = (i)->
+		console.log "f #{i}"
+	#f i for i in [0..10000]
+	f2 = _.throttle(f, 2)
+	f2 i for i in [0..10000]
+
+
+start = ($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, $timeout, $interval, Beacons)->
 	$ionicPlatform.ready ->
-		#new BeaconBootstrap $rootScope, $cordovaBeacon, $cordovaToast, Beacons
-
+		new BeaconBootstrap $rootScope, $cordovaBeacon, $cordovaToast, Beacons
+		'a'
+	
+	console.log 'ibeacon start'
+	throttle_test()
+	
 
 angular.module('app').run [
 	'$rootScope',
 	'$ionicPlatform',
 	'$cordovaBeacon',
 	'$cordovaToast',
+	'$timeout',
+	'$interval',
 	'Beacons',
 	start
 	]
