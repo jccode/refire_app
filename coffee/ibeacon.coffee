@@ -55,6 +55,7 @@ class BeaconBootstrap
 		@isAndroid = ionic.Platform.isAndroid()
 		console.log "beacon bootstrap. isAndroid? #{@isAndroid}"
 		@check_bluetooth()
+		@beaconState.load_state()
 
 	check_bluetooth: ->
 		try
@@ -106,6 +107,7 @@ class BeaconBootstrap
 start = ($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, Beacons, BeaconManager, BeaconState)->
 	$ionicPlatform.ready ->
 		#new BeaconBootstrap $rootScope, $cordovaBeacon, $cordovaToast, Beacons, BeaconManager, BeaconState
+		BeaconState.load_state()
 	
 
 angular.module('app').run [

@@ -5,33 +5,32 @@
             on-refresh="ctrl.doRefresh()">
         </ion-refresher>
         <div class="busoverview">
-            
             <div class="odometer">
                 <div class="refresh-time">
                     20/12/2015 22:00
                 </div>
                 <div class="milage-remain">
-                    <h2>211 KM</h2>
+                    <h2>{{ctrl.data.MileageData.remain}} KM</h2>
                     <span translate>Available</span>
                 </div>
             </div>
             
             <div class="milage-total">
-                143,200 KM <translate>Total Mileage</translate>
+                {{ctrl.data.MileageData.total | number}} KM <translate>Total Mileage</translate>
             </div>
             <div class="location row">
                 <div class="col" translate>
                     Vehicle location (GPS)
                 </div>
                 <div class="col">
-                    31.2000&deg; N, 121.5000&deg; E
+                    {{ctrl.data.BusData.latitude}}&deg; N, {{ctrl.data.BusData.longitude}}&deg; E
                 </div>
             </div>
             
             <div class="batterys row">
                 <div class="col">
                     <div class="battery right">
-                        <h2>100%</h2>
+                        <h2>{{ctrl.data.GasData.remain}}%</h2>
                         <div class="shape">
                             <div class="cell bg-green-1"> </div>
                             <div class="cell bg-green-1"> </div>
@@ -53,15 +52,15 @@
                     <div class="data-tb">
                         <div class="row">
                             <div class="col" translate> Voltage </div>
-                            <div class="col"> 12V </div>
+                            <div class="col"> {{ctrl.data.FuelCellData.voltage}}V </div>
                         </div>
                         <div class="row">
                             <div class="col" translate> Current </div>
-                            <div class="col"> 10A </div>
+                            <div class="col"> {{ctrl.data.FuelCellData.current}}A </div>
                         </div>
                         <div class="row">
                             <div class="col" translate> Temp. </div>
-                            <div class="col"> 32 &#8451; </div>
+                            <div class="col"> {{ctrl.data.FuelCellData.temp}} &#8451; </div>
                         </div>                        
                     </div>
                     <div class="footer">
@@ -69,7 +68,7 @@
                 </div>
                 <div class="col">
                     <div class="battery left">
-                        <h2>80%</h2>
+                        <h2>{{ctrl.data.PowerBatteryData.remain}}%</h2>
                         <div class="shape">
                             <div class="cell"> </div>
                             <div class="cell"> </div>
@@ -90,15 +89,15 @@
                     <div class="data-tb">
                         <div class="row">
                             <div class="col" translate> Voltage </div>
-                            <div class="col"> 12V </div>
+                            <div class="col"> {{ctrl.data.PowerBatteryData.voltage}}V </div>
                         </div>
                         <div class="row">
                             <div class="col" translate> Current </div>
-                            <div class="col"> 10A </div>
+                            <div class="col"> {{ctrl.data.PowerBatteryData.current}}A </div>
                         </div>
                         <div class="row">
                             <div class="col" translate> Temp. </div>
-                            <div class="col"> 32 &#8451; </div>
+                            <div class="col"> {{ctrl.data.PowerBatteryData.temp}} &#8451; </div>
                         </div>                        
                     </div>
                     <div class="footer">
@@ -114,11 +113,11 @@
                         <div class="data-tb d2">
                             <div class="row">
                                 <div class="col" translate> Speed </div>
-                                <div class="col"> 120 KM/H </div>
+                                <div class="col"> {{ctrl.data.BusData.speed}} KM/H </div>
                             </div>
                             <div class="row">
                                 <div class="col"> <translate>Torque</translate> <br /> (x1000) </div>
-                                <div class="col"> 1,200 RPM </div>
+                                <div class="col"> {{ctrl.data.MotorData.speed}} RPM </div>
                             </div>
                         </div>
                     </div>
@@ -129,15 +128,15 @@
                         <div class="data-tb">
                             <div class="row">
                                 <div class="col" translate> Voltage </div>
-                                <div class="col"> 12V </div>
+                                <div class="col"> {{ctrl.data.MotorData.voltage}}V </div>
                             </div>
                             <div class="row">
                                 <div class="col" translate> Current </div>
-                                <div class="col"> 10A </div>
+                                <div class="col"> {{ctrl.data.MotorData.current}}A </div>
                             </div>
                             <div class="row">
                                 <div class="col" translate> Temp. </div>
-                                <div class="col"> 32 &#8451; </div>
+                                <div class="col"> {{ctrl.data.MotorData.temp}} &#8451; </div>
                             </div>
                         </div>
                     </div>

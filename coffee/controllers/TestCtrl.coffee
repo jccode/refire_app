@@ -1,11 +1,19 @@
 
 class TestCtrl
-	constructor: (@$scope, @$ionicPopover, @$ionicHistory, @$state, @$rootScope, @user, @Beacons, @sms) ->
+	constructor: (@$scope, @$ionicPopover, @$ionicHistory, @$state, @$rootScope, @user, @Beacons, @sms, @$localStorage) ->
 		@initPopover()
 		@$scope.get_users = =>
 			@$scope.users = @user.all()
 		@$scope.get_beacons = =>
 			@$scope.beacons = @Beacons.all()
+		@$scope.set_bus = =>
+			@$scope.beacons.$promise.then (bs)=>
+				beacon = _.find bs, (b)->b.id is 2
+				bus = beacon.stick_on[0]
+				console.log bus
+				@$rootScope.bus = bus
+				@$localStorage.bus = bus
+				
 		@initSms()
 		
 	initSms: ->
@@ -59,4 +67,5 @@ angular.module('app').controller 'TestCtrl', [
 	'User',
 	'Beacons',
 	'Sms',
+	'$localStorage',
 	TestCtrl]

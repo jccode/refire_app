@@ -37,6 +37,10 @@ class BeaconState
 		now = new Date()
 		@$rootScope.beacon_last_ts = now
 		@$localStorage.beacon_last_ts = now
+
+	load_state: ()->
+		@$rootScope.bus = @$localStorage.bus
+		@$rootScope.beacon_last_ts = @$localStorage.beacon_last_ts
 		
 
 class BeaconModel

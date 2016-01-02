@@ -173,6 +173,7 @@
       this.isAndroid = ionic.Platform.isAndroid();
       console.log("beacon bootstrap. isAndroid? " + this.isAndroid);
       this.check_bluetooth();
+      this.beaconState.load_state();
     }
 
     BeaconBootstrap.prototype.check_bluetooth = function() {
@@ -246,7 +247,9 @@
   })();
 
   start = function($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, Beacons, BeaconManager, BeaconState) {
-    return $ionicPlatform.ready(function() {});
+    return $ionicPlatform.ready(function() {
+      return BeaconState.load_state();
+    });
   };
 
   angular.module('app').run(['$rootScope', '$ionicPlatform', '$cordovaBeacon', '$cordovaToast', 'Beacons', 'BeaconManager', 'BeaconState', start]);
@@ -648,13 +651,28 @@
   var BusOverviewCtrl;
 
   BusOverviewCtrl = (function() {
-    function BusOverviewCtrl($scope) {
+    function BusOverviewCtrl($scope, $rootScope, BusData) {
       this.$scope = $scope;
+      this.$rootScope = $rootScope;
+      this.BusData = BusData;
       console.log('Bus overview ctrl');
+      this.bus = this.$rootScope.bus;
+      console.log(this.bus);
+      if (this.bus && this.bus.bid) {
+        this.getdata();
+      }
     }
 
+    BusOverviewCtrl.prototype.getdata = function() {
+      return this.BusData.busdata(this.bus.bid).then((function(_this) {
+        return function(ret) {
+          return _this.data = ret.data;
+        };
+      })(this));
+    };
+
     BusOverviewCtrl.prototype.doRefresh = function() {
-      console.log('do refresh');
+      this.getdata();
       return this.$scope.$broadcast('scroll.refreshComplete');
     };
 
@@ -662,7 +680,7 @@
 
   })();
 
-  angular.module('app').controller('BusOverviewCtrl', ['$scope', BusOverviewCtrl]);
+  angular.module('app').controller('BusOverviewCtrl', ['$scope', '$rootScope', 'BusData', BusOverviewCtrl]);
 
 }).call(this);
 
@@ -1642,7 +1660,7 @@
   var TestCtrl;
 
   TestCtrl = (function() {
-    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope, user, Beacons, sms) {
+    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope, user, Beacons, sms, $localStorage) {
       this.$scope = $scope;
       this.$ionicPopover = $ionicPopover;
       this.$ionicHistory = $ionicHistory;
@@ -1651,6 +1669,7 @@
       this.user = user;
       this.Beacons = Beacons;
       this.sms = sms;
+      this.$localStorage = $localStorage;
       this.initPopover();
       this.$scope.get_users = (function(_this) {
         return function() {
@@ -1660,6 +1679,20 @@
       this.$scope.get_beacons = (function(_this) {
         return function() {
           return _this.$scope.beacons = _this.Beacons.all();
+        };
+      })(this);
+      this.$scope.set_bus = (function(_this) {
+        return function() {
+          return _this.$scope.beacons.$promise.then(function(bs) {
+            var beacon, bus;
+            beacon = _.find(bs, function(b) {
+              return b.id === 2;
+            });
+            bus = beacon.stick_on[0];
+            console.log(bus);
+            _this.$rootScope.bus = bus;
+            return _this.$localStorage.bus = bus;
+          });
         };
       })(this);
       this.initSms();
@@ -1727,7 +1760,7 @@
 
   })();
 
-  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', 'Beacons', 'Sms', TestCtrl]);
+  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', 'Beacons', 'Sms', '$localStorage', TestCtrl]);
 
 }).call(this);
 
@@ -2100,6 +2133,11 @@
       return this.$localStorage.beacon_last_ts = now;
     };
 
+    BeaconState.prototype.load_state = function() {
+      this.$rootScope.bus = this.$localStorage.bus;
+      return this.$rootScope.beacon_last_ts = this.$localStorage.beacon_last_ts;
+    };
+
     return BeaconState;
 
   })();
@@ -2189,6 +2227,28 @@
   })();
 
   angular.module('app').service('Beacons', ['$resource', 'settings', Beacons]);
+
+}).call(this);
+
+(function() {
+  var BusData;
+
+  BusData = (function() {
+    function BusData($http, settings) {
+      this.$http = $http;
+      this.settings = settings;
+      this.url = this.settings.baseurl + '/vehicle/busdata/';
+    }
+
+    BusData.prototype.busdata = function(bid) {
+      return this.$http.get(this.url + bid + "/");
+    };
+
+    return BusData;
+
+  })();
+
+  angular.module('app').service('BusData', ['$http', 'settings', BusData]);
 
 }).call(this);
 

@@ -12,6 +12,7 @@
         <div class="list">
             <button class="button button-light button-block item" ng-click="get_users()"> get users </button>
             <button class="button button-light button-block item" ng-click="get_beacons()"> get beacons </button>
+            <button class="button button-light button-block item" ng-click="set_bus()"> set bus </button>
             <a class="item" href="#/app/signup">sign up</a>
             <a class="item" href="#/app/createprofile">update profile</a>
             <div class="item-input-inset">
@@ -25,8 +26,8 @@
         
 
         <ion-list>
-            <ion-item ng-repeat="user in beacons">
-                Hello, {{user.username}}!
+            <ion-item ng-repeat="b in beacons">
+                {{b}}
             </ion-item>
         </ion-list>
 
