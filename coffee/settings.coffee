@@ -1,5 +1,5 @@
  
 angular.module('app').constant
 	'settings':
-		baseurl: 'http://112.74.93.116'
-		apiurl: 'http://112.74.93.116/api'
+		baseurl: 'http://192.168.1.104:8000'
+		apiurl: 'http://192.168.1.104:8000/api'
