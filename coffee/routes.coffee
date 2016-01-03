@@ -30,6 +30,7 @@ class Config
 			.state 'app.home.tree',
 				url: '/tree'
 				templateUrl: 'templates/home/tree.html'
+				controller: 'TreeCtrl as ctrl'
 
 			.state 'app.buslocation',
 				url: '/buslocation'

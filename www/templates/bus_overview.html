@@ -144,18 +144,18 @@
             </div>
 
             <!-- Others -->
-            <div class="data-tb grey hide">
+            <div class="data-tb grey">
                 <div class="row">
-                    <div class="col" translate> Total overvoltage / undervoltage </div>
-                    <div class="col"> 1 </div>
+                    <div class="col" translate> Total energy saving </div>
+                    <div class="col"> {{ctrl.data.EnergySavingData.energy_saving_amount}} </div>
                 </div>
                 <div class="row">
-                    <div class="col" translate> Mother Line Current </div>
-                    <div class="col"> 12A </div>
+                    <div class="col" translate> Total money saving </div>
+                    <div class="col"> {{ctrl.data.EnergySavingData.energy_saving_money}} </div>
                 </div>
                 <div class="row">
-                    <div class="col" translate> Bus Voltage </div>
-                    <div class="col"> 120V </div>
+                    <div class="col" translate> Total emission reduction </div>
+                    <div class="col"> {{ctrl.data.EnergySavingData.emission_reduction}} </div>
                 </div>
             </div>
         </div>
