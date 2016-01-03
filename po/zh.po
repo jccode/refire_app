@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2016-01-01 22:25+0800\n"
+"PO-Revision-Date: 2016-01-03 19:14+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
@@ -16,6 +16,10 @@ msgstr ""
 #: setting.html:4
 msgid "&nbsp; Logoff"
 msgstr "&nbsp; 退出"
+
+#: pay-confirm.html:14
+msgid "1 bus ticket"
+msgstr "1张车票"
 
 #: health.html:10
 msgid "3 Months"
@@ -29,13 +33,21 @@ msgstr "6个月"
 msgid "AliPay"
 msgstr "支付宝"
 
-#: bus_overview.html:15
+#: bus_overview.html:14
 msgid "Available"
 msgstr "续驶里程"
+
+#: bus_overview.html:88
+msgid "Battery"
+msgstr "动力电池"
 
 #: newprofile.html:23
 msgid "Birth Date"
 msgstr "生日"
+
+#: setting.html:43
+msgid "Break Time"
+msgstr "休息时间"
 
 #: bus_location.html:6
 msgid "BUS ARRIVING"
@@ -45,13 +57,9 @@ msgstr "巴士到站"
 msgid "Bus Infomation"
 msgstr "巴士信息"
 
-#: menu.html:41
+#: bus_location.html:1 menu.html:41
 msgid "Bus Location"
 msgstr "公交位置"
-
-#: bus_overview.html:158
-msgid "Bus Voltage"
-msgstr ""
 
 #: rewards.html:6
 msgid ""
@@ -60,6 +68,10 @@ msgid ""
 msgstr ""
 "使用新能源汽车出行,您可以获得额外的奖励。包括获得积分,车票打折,更多优惠活动正"
 "在推出。"
+
+#: pay-confirm.html:25
+msgid "Cancel"
+msgstr "取消"
 
 #: health.html:2
 msgid "Clean enviroment"
@@ -77,6 +89,14 @@ msgstr "关闭"
 msgid "Collect points for discount on your tickets"
 msgstr "获取积分可以兑换票价打折"
 
+#: home/tree.html:25
+msgid "compare to a <br> traditional bus"
+msgstr "与传统汽车相比"
+
+#: rewards.html:16
+msgid "completed"
+msgstr "完成"
+
 #: signup_bak.html:20
 msgid "Confirm password"
 msgstr "重复密码"
@@ -85,13 +105,37 @@ msgstr "重复密码"
 msgid "confirm password isn't the same"
 msgstr "密码不一致"
 
-#: bus_overview.html:135 bus_overview.html:59 bus_overview.html:96
+#: bus_overview.html:134 bus_overview.html:58 bus_overview.html:95
 msgid "Current"
 msgstr "电流"
 
-#: application.js:1334
+#: setting.html:39
+msgid "Current Bus"
+msgstr "当前巴士"
+
+#: setting.html:49
+msgid "Current Shift"
+msgstr "本班"
+
+#: setting.html:65
+msgid "Data Refresh Rate"
+msgstr "自动刷新频率"
+
+#: setting.html:48
+msgid "DAY SHIFT"
+msgstr "白班"
+
+#: application.js:974
 msgid "December"
 msgstr "12月"
+
+#: rewards.html:20 rewards.html:32 rewards.html:44
+msgid "discount on all your tickets"
+msgstr "票价优惠"
+
+#: health/detail.html:5
+msgid "Energy saving(kwh)"
+msgstr "节能总数(kwh)"
 
 #: bus_overview.html:1 menu.html:46
 msgid "Engine and Milage"
@@ -101,15 +145,27 @@ msgstr "车况信息"
 msgid "Finalize Account"
 msgstr "完成注册"
 
+#: pay-confirm.html:5
+msgid "Finish Payment"
+msgstr "完成支付"
+
 #: login.html:36
 msgid "Forgot your password?"
 msgstr "忘记密码"
 
-#: menu.html:31
+#: home/tree.html:35
+msgid "Help us to create a better enviroment for the future of our child"
+msgstr "帮助我们为我们小孩的未来创造一个更好的环境"
+
+#: home.html:1 menu.html:31
 msgid "Home"
 msgstr "主页"
 
-#: bus_overview.html:52
+#: setting.html:59
+msgid "Hours"
+msgstr "小时"
+
+#: bus_overview.html:51
 msgid "Hydrogen"
 msgstr "氢气"
 
@@ -133,21 +189,25 @@ msgstr "第3班"
 msgid "Login"
 msgstr "登陆"
 
-#: application.js:1032
-msgid "login failed"
-msgstr "登陆失败"
+#: application.js:575
+msgid "Login failed. Incorrect username or password."
+msgstr "登陆失败. 用户名或密码不正确."
 
-#: application.js:1030
+#: application.js:572
 msgid "login success"
 msgstr "登陆成功"
 
-#: application.js:1919
+#: application.js:1582
 msgid "logoff success."
 msgstr "退出登陆成功"
 
-#: application.js:1039
+#: application.js:582
 msgid "logout successful"
 msgstr "退出登陆成功"
+
+#: application.js:1563
+msgid "Manual"
+msgstr "手动"
 
 #: menu.html:25
 msgid "Menu"
@@ -168,10 +228,6 @@ msgstr "手机号"
 #: signup_bak.html:11 signup.html:11
 msgid "mobile number invalid"
 msgstr "手机号码无效"
-
-#: bus_overview.html:154
-msgid "Mother Line Current"
-msgstr ""
 
 #: bus_location.html:11
 msgid "Next Bus"
@@ -197,6 +253,10 @@ msgstr "其他"
 msgid "Password"
 msgstr "密码"
 
+#: pay-confirm.html:24
+msgid "Pay"
+msgstr "支付"
+
 #: menu.html:61
 msgid "Pay Ticket"
 msgstr "购票"
@@ -205,7 +265,7 @@ msgstr "购票"
 msgid "Pay tickets with WeChat or AliPay"
 msgstr "使用微信支付或支付宝购票乘车"
 
-#: menu.html:56
+#: menu.html:56 pay-confirm.html:1 pay.html:1
 msgid "Payment"
 msgstr "支付"
 
@@ -213,7 +273,7 @@ msgstr "支付"
 msgid "Period"
 msgstr "期限"
 
-#: application.js:1086
+#: application.js:629
 msgid "Permission denied"
 msgstr "权限受限"
 
@@ -249,6 +309,22 @@ msgstr "注册新帐号"
 msgid "Rewards"
 msgstr "奖励"
 
+#: rewards.html:13 rewards.html:25 rewards.html:37
+msgid "Rides on a Hydrogen bus"
+msgstr "次乘坐氢能源汽车"
+
+#: application.js:1558
+msgid "second"
+msgstr "秒"
+
+#: pay.html:19
+msgid "Select Bus"
+msgstr "选择线路"
+
+#: pay.html:40
+msgid "Select your payment method"
+msgstr "选择支付方式"
+
 #: menu.html:85
 msgid "Settings"
 msgstr "设置"
@@ -261,13 +337,21 @@ msgstr "跳过"
 msgid "SMS code"
 msgstr "验证码"
 
-#: bus_overview.html:116
+#: bus_overview.html:115
 msgid "Speed"
 msgstr "速度"
 
-#: bus_overview.html:100 bus_overview.html:139 bus_overview.html:63
+#: bus_overview.html:138 bus_overview.html:62 bus_overview.html:99
 msgid "Temp."
 msgstr "温度"
+
+#: rewards.html:7
+msgid "Thank you for riding with us!"
+msgstr "感谢您乘坐我们的汽车!"
+
+#: home/tree.html:20
+msgid "The bus saved"
+msgstr "巴士节省了"
 
 #: errorlist.html:3
 msgid "This field is required!"
@@ -281,11 +365,15 @@ msgstr "此字段太长"
 msgid "This field is too short!"
 msgstr "此字段长度不够"
 
+#: home/tree.html:5
+msgid "This Hydrogen Bus Excretes Water"
+msgstr "氢能源汽车排放出水"
+
 #: health.html:5
 msgid "This month"
 msgstr "本月"
 
-#: bus_overview.html:120
+#: bus_overview.html:119
 msgid "Torque"
 msgstr "扭矩"
 
@@ -297,27 +385,47 @@ msgstr "总的"
 msgid "Total Distance Driven"
 msgstr "行驶里程总数"
 
+#: setting.html:53
+msgid "Total Driving Distance"
+msgstr "行驶里程总数"
+
+#: setting.html:60
+msgid "Total Driving Hours"
+msgstr "总驾驶时间"
+
+#: bus_overview.html:157
+msgid "Total emission reduction"
+msgstr "减排总数"
+
 #: health/detail.html:22
 msgid "Total Emission Reduction"
 msgstr "减排总数"
+
+#: bus_overview.html:149
+msgid "Total energy saving"
+msgstr "节能总数"
 
 #: health/detail.html:18
 msgid "Total Energy Saving"
 msgstr "节能总数"
 
-#: bus_overview.html:20
+#: bus_overview.html:19
 msgid "Total Mileage"
 msgstr "总里程"
 
-#: bus_overview.html:150
-msgid "Total overvoltage / undervoltage"
-msgstr ""
+#: bus_overview.html:153
+msgid "Total money saving"
+msgstr "节省钱总数"
 
-#: application.js:1707
+#: pay-confirm.html:19
+msgid "Total Price"
+msgstr "总价"
+
+#: application.js:1347
 msgid "update profile failed. #{err}"
 msgstr "更新用户信息失败"
 
-#: application.js:1701
+#: application.js:1341
 msgid "update profile successful."
 msgstr "更新用户信息成功"
 
@@ -333,7 +441,7 @@ msgstr "用户名"
 msgid "util sms code invalid"
 msgstr "后短信验证码失效"
 
-#: bus_overview.html:23
+#: bus_overview.html:22
 msgid "Vehicle location (GPS)"
 msgstr "车辆位置 (GPS)"
 
@@ -345,7 +453,7 @@ msgstr "验证手机号"
 msgid "Verifying your Account"
 msgstr "验证帐号"
 
-#: bus_overview.html:131 bus_overview.html:55 bus_overview.html:92
+#: bus_overview.html:130 bus_overview.html:54 bus_overview.html:91
 msgid "Voltage"
 msgstr "电压"
 
@@ -367,7 +475,7 @@ msgstr "微信钱包"
 msgid "Weibo Acount"
 msgstr "微博"
 
-#: application.js:1087
+#: application.js:630
 msgid "You don't have permission to view this page."
 msgstr "你没有权限查看这个页面"
 
@@ -375,9 +483,20 @@ msgstr "你没有权限查看这个页面"
 msgid "Your Profile"
 msgstr "我的"
 
+#: pay-confirm.html:11
+msgid "Your purchase"
+msgstr "你购买的"
+
 #: menu.html:66
 msgid "Your Tickets"
 msgstr "购票记录"
+
+#, fuzzy
+#~ msgid "8% <translate>discount on all your tickets</translate>"
+#~ msgstr "获取积分可以兑换票价打折"
+
+#~ msgid "login failed"
+#~ msgstr "登陆失败"
 
 #~ msgid "Energy Statistics"
 #~ msgstr "节能减排"

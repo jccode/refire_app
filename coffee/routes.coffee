@@ -105,6 +105,13 @@ class Config
 						templateUrl: 'templates/messages.html'
 						controller: 'MessageCtrl'
 
+			.state 'app.message-detail',
+				url: '/message/:id'
+				views:
+					'menuContent':
+						templateUrl: 'templates/message-detail.html'
+						controller: 'MessageDetailCtrl'
+
 			.state 'app.setting',
 				url: '/setting'
 				views:

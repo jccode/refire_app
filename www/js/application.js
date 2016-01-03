@@ -396,6 +396,14 @@
             controller: 'MessageCtrl'
           }
         }
+      }).state('app.message-detail', {
+        url: '/message/:id',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/message-detail.html',
+            controller: 'MessageDetailCtrl'
+          }
+        }
       }).state('app.setting', {
         url: '/setting',
         views: {
@@ -1112,6 +1120,27 @@
   })();
 
   angular.module('app').controller('MessageCtrl', ['$scope', 'Message', MessageCtrl]);
+
+}).call(this);
+
+(function() {
+  var MessageDetailCtrl;
+
+  MessageDetailCtrl = (function() {
+    function MessageDetailCtrl($scope, $stateParams, Message) {
+      var id;
+      this.$scope = $scope;
+      this.$stateParams = $stateParams;
+      this.Message = Message;
+      id = this.$stateParams.id;
+      this.$scope.msg = this.Message.get(id);
+    }
+
+    return MessageDetailCtrl;
+
+  })();
+
+  angular.module('app').controller('MessageDetailCtrl', ['$scope', '$stateParams', 'Message', MessageDetailCtrl]);
 
 }).call(this);
 
@@ -2010,8 +2039,12 @@
 
   TrustedFilter = (function() {
     function TrustedFilter($sce) {
-      return function(url) {
-        return $sce.trustAsResourceUrl(url);
+      return function(url, type) {
+        if (type && type === 'html') {
+          return $sce.trustAsHtml(url);
+        } else {
+          return $sce.trustAsResourceUrl(url);
+        }
       };
     }
 
@@ -2423,7 +2456,7 @@
     function Messages($resource, settings) {
       this.$resource = $resource;
       this.settings = settings;
-      this.url = this.settings.baseurl + "/api/news/:id";
+      this.url = this.settings.baseurl + "/api/news/:id/";
       this.message = this.$resource(this.url, {
         id: '@id'
       });
@@ -2431,6 +2464,12 @@
 
     Messages.prototype.all = function() {
       return this.message.query();
+    };
+
+    Messages.prototype.get = function(id) {
+      return this.message.get({
+        id: id
+      });
     };
 
     return Messages;

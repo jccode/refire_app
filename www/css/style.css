@@ -543,7 +543,7 @@ input.input-blueborder {
     line-height: 28px; }
     .payment-confirm .bill ul.purchase li span, .payment-confirm .bill .total span {
       margin-left: 2px; }
-    .payment-confirm .bill ul.purchase li span:last-child, .payment-confirm .bill .total span:last-child {
+    .payment-confirm .bill ul.purchase li span.price, .payment-confirm .bill .total span.price {
       float: right;
       margin-right: 2px; }
   .payment-confirm .bill .purchase {
@@ -582,6 +582,23 @@ input.input-blueborder {
       margin: 15px 0; }
     .messages-center .msg-item a {
       color: #127BB6; }
+
+.message-detail {
+  background: #eee;
+  padding: 7px;
+  font-size: 13px; }
+  .message-detail .content {
+    background: #fff;
+    padding: 10px 10px; }
+  .message-detail h1 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 15px; }
+  .message-detail .headimg {
+    margin: 10px 0;
+    text-align: center; }
+    .message-detail .headimg img {
+      margin: 0 auto; }
 
 .rewards {
   background: #eee;

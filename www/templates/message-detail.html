@@ -1,0 +1,13 @@
+
+<ion-view view-title="{{'Messages'|translate}}">
+    <ion-content class="message-detail">
+        <div class="content">
+            <h1>{{msg.title}}</h1>
+            <div class="headimg">
+                <img ng-src="{{msg.headimg}}"  alt="" />
+            </div>
+            <div class="text-content" ng-bind-html="msg.content">
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

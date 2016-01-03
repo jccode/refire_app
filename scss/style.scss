@@ -572,7 +572,7 @@ $ion-item-height: 54px;
                 margin-left: 2px;
             }
             
-            span:last-child {
+            span.price {
                 float: right;
                 margin-right: 2px;
             }
@@ -636,6 +636,32 @@ $ion-item-height: 54px;
 
         a {
             color: $calm;
+        }
+    }
+}
+
+.message-detail {
+    background: #eee;
+    padding: 7px;
+    font-size: 13px;
+
+    .content {
+        background: #fff;
+        padding: 10px 10px;
+    }
+
+    h1 {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 10px 0 15px;
+    }
+
+    .headimg {
+        margin: 10px 0;
+        text-align: center;
+
+        img {
+            margin: 0 auto;
         }
     }
 }

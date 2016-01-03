@@ -8,6 +8,10 @@ msgstr ""
 msgid "&nbsp; Logoff"
 msgstr ""
 
+#: pay-confirm.html:14
+msgid "1 bus ticket"
+msgstr ""
+
 #: health.html:10
 msgid "3 Months"
 msgstr ""
@@ -20,12 +24,20 @@ msgstr ""
 msgid "AliPay"
 msgstr ""
 
-#: bus_overview.html:15
+#: bus_overview.html:14
 msgid "Available"
+msgstr ""
+
+#: bus_overview.html:88
+msgid "Battery"
 msgstr ""
 
 #: newprofile.html:23
 msgid "Birth Date"
+msgstr ""
+
+#: setting.html:43
+msgid "Break Time"
 msgstr ""
 
 #: bus_location.html:6
@@ -37,19 +49,16 @@ msgid "Bus Infomation"
 msgstr ""
 
 #: bus_location.html:1
-msgid "Bus Lbocation"
-msgstr ""
-
 #: menu.html:41
 msgid "Bus Location"
 msgstr ""
 
-#: bus_overview.html:158
-msgid "Bus Voltage"
-msgstr ""
-
 #: rewards.html:6
 msgid "By using the Hydrogen Bus as your transportation. You build up reward point. These can provide you with discount ticket prices or other reward."
+msgstr ""
+
+#: pay-confirm.html:25
+msgid "Cancel"
 msgstr ""
 
 #: health.html:2
@@ -68,6 +77,15 @@ msgstr ""
 msgid "Collect points for discount on your tickets"
 msgstr ""
 
+#: home/tree.html:25
+msgid "compare to a <br> traditional bus"
+msgstr ""
+
+#: rewards.html:16
+#: rewards.html:40
+msgid "completed"
+msgstr ""
+
 #: signup_bak.html:20
 msgid "Confirm password"
 msgstr ""
@@ -76,14 +94,40 @@ msgstr ""
 msgid "confirm password isn't the same"
 msgstr ""
 
-#: bus_overview.html:135
-#: bus_overview.html:59
-#: bus_overview.html:96
+#: bus_overview.html:134
+#: bus_overview.html:58
+#: bus_overview.html:95
 msgid "Current"
 msgstr ""
 
-#: application.js:1334
+#: setting.html:39
+msgid "Current Bus"
+msgstr ""
+
+#: setting.html:49
+msgid "Current Shift"
+msgstr ""
+
+#: setting.html:65
+msgid "Data Refresh Rate"
+msgstr ""
+
+#: setting.html:48
+msgid "DAY SHIFT"
+msgstr ""
+
+#: application.js:974
 msgid "December"
+msgstr ""
+
+#: rewards.html:20
+#: rewards.html:32
+#: rewards.html:44
+msgid "discount on all your tickets"
+msgstr ""
+
+#: health/detail.html:5
+msgid "Energy saving(kwh)"
 msgstr ""
 
 #: bus_overview.html:1
@@ -95,15 +139,28 @@ msgstr ""
 msgid "Finalize Account"
 msgstr ""
 
+#: pay-confirm.html:5
+msgid "Finish Payment"
+msgstr ""
+
 #: login.html:36
 msgid "Forgot your password?"
 msgstr ""
 
+#: home/tree.html:35
+msgid "Help us to create a better enviroment for the future of our child"
+msgstr ""
+
+#: home.html:1
 #: menu.html:31
 msgid "Home"
 msgstr ""
 
-#: bus_overview.html:52
+#: setting.html:59
+msgid "Hours"
+msgstr ""
+
+#: bus_overview.html:51
 msgid "Hydrogen"
 msgstr ""
 
@@ -129,20 +186,24 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: application.js:1032
-msgid "login failed"
+#: application.js:575
+msgid "Login failed. Incorrect username or password."
 msgstr ""
 
-#: application.js:1030
+#: application.js:572
 msgid "login success"
 msgstr ""
 
-#: application.js:1919
+#: application.js:1582
 msgid "logoff success."
 msgstr ""
 
-#: application.js:1039
+#: application.js:582
 msgid "logout successful"
+msgstr ""
+
+#: application.js:1563
+msgid "Manual"
 msgstr ""
 
 #: menu.html:25
@@ -166,10 +227,6 @@ msgstr ""
 #: signup_bak.html:11
 #: signup.html:11
 msgid "mobile number invalid"
-msgstr ""
-
-#: bus_overview.html:154
-msgid "Mother Line Current"
 msgstr ""
 
 #: bus_location.html:11
@@ -199,6 +256,10 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
+#: pay-confirm.html:24
+msgid "Pay"
+msgstr ""
+
 #: menu.html:61
 msgid "Pay Ticket"
 msgstr ""
@@ -208,6 +269,8 @@ msgid "Pay tickets with WeChat or AliPay"
 msgstr ""
 
 #: menu.html:56
+#: pay-confirm.html:1
+#: pay.html:1
 msgid "Payment"
 msgstr ""
 
@@ -215,7 +278,7 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
-#: application.js:1086
+#: application.js:629
 msgid "Permission denied"
 msgstr ""
 
@@ -251,6 +314,24 @@ msgstr ""
 msgid "Rewards"
 msgstr ""
 
+#: rewards.html:13
+#: rewards.html:25
+#: rewards.html:37
+msgid "Rides on a Hydrogen bus"
+msgstr ""
+
+#: application.js:1558
+msgid "second"
+msgstr ""
+
+#: pay.html:19
+msgid "Select Bus"
+msgstr ""
+
+#: pay.html:40
+msgid "Select your payment method"
+msgstr ""
+
 #: menu.html:85
 msgid "Settings"
 msgstr ""
@@ -263,14 +344,22 @@ msgstr ""
 msgid "SMS code"
 msgstr ""
 
-#: bus_overview.html:116
+#: bus_overview.html:115
 msgid "Speed"
 msgstr ""
 
-#: bus_overview.html:100
-#: bus_overview.html:139
-#: bus_overview.html:63
+#: bus_overview.html:138
+#: bus_overview.html:62
+#: bus_overview.html:99
 msgid "Temp."
+msgstr ""
+
+#: rewards.html:7
+msgid "Thank you for riding with us!"
+msgstr ""
+
+#: home/tree.html:20
+msgid "The bus saved"
 msgstr ""
 
 #: errorlist.html:3
@@ -285,11 +374,15 @@ msgstr ""
 msgid "This field is too short!"
 msgstr ""
 
+#: home/tree.html:5
+msgid "This Hydrogen Bus Excretes Water"
+msgstr ""
+
 #: health.html:5
 msgid "This month"
 msgstr ""
 
-#: bus_overview.html:120
+#: bus_overview.html:119
 msgid "Torque"
 msgstr ""
 
@@ -301,27 +394,47 @@ msgstr ""
 msgid "Total Distance Driven"
 msgstr ""
 
+#: setting.html:53
+msgid "Total Driving Distance"
+msgstr ""
+
+#: setting.html:60
+msgid "Total Driving Hours"
+msgstr ""
+
+#: bus_overview.html:157
+msgid "Total emission reduction"
+msgstr ""
+
 #: health/detail.html:22
 msgid "Total Emission Reduction"
+msgstr ""
+
+#: bus_overview.html:149
+msgid "Total energy saving"
 msgstr ""
 
 #: health/detail.html:18
 msgid "Total Energy Saving"
 msgstr ""
 
-#: bus_overview.html:20
+#: bus_overview.html:19
 msgid "Total Mileage"
 msgstr ""
 
-#: bus_overview.html:150
-msgid "Total overvoltage / undervoltage"
+#: bus_overview.html:153
+msgid "Total money saving"
 msgstr ""
 
-#: application.js:1707
+#: pay-confirm.html:19
+msgid "Total Price"
+msgstr ""
+
+#: application.js:1347
 msgid "update profile failed. #{err}"
 msgstr ""
 
-#: application.js:1701
+#: application.js:1341
 msgid "update profile successful."
 msgstr ""
 
@@ -340,7 +453,7 @@ msgstr ""
 msgid "util sms code invalid"
 msgstr ""
 
-#: bus_overview.html:23
+#: bus_overview.html:22
 msgid "Vehicle location (GPS)"
 msgstr ""
 
@@ -352,9 +465,9 @@ msgstr ""
 msgid "Verifying your Account"
 msgstr ""
 
-#: bus_overview.html:131
-#: bus_overview.html:55
-#: bus_overview.html:92
+#: bus_overview.html:130
+#: bus_overview.html:54
+#: bus_overview.html:91
 msgid "Voltage"
 msgstr ""
 
@@ -374,12 +487,16 @@ msgstr ""
 msgid "Weibo Acount"
 msgstr ""
 
-#: application.js:1087
+#: application.js:630
 msgid "You don't have permission to view this page."
 msgstr ""
 
 #: setting.html:3
 msgid "Your Profile"
+msgstr ""
+
+#: pay-confirm.html:11
+msgid "Your purchase"
 msgstr ""
 
 #: menu.html:66
