@@ -666,9 +666,70 @@
     BusOverviewCtrl.prototype.getdata = function() {
       return this.BusData.busdata(this.bus.bid).then((function(_this) {
         return function(ret) {
-          return _this.data = ret.data;
+          _this.data = ret.data;
+          _this.calc_refresh_time();
+          _this.set_battery("h2", _this.data.GasData.remain);
+          return _this.set_battery("bat", _this.data.PowerBatteryData.remain);
         };
       })(this));
+    };
+
+    BusOverviewCtrl.prototype.calc_refresh_time = function() {
+      var _t, time;
+      _t = function(s) {
+        return s && moment(s).toDate() || s;
+      };
+      time = [_t(this.data.PowerBatteryData.timestamp), _t(this.data.GasData.timestamp), _t(this.data.FuelCellData.timestamp), _t(this.data.BusData.timestamp), _t(this.data.EnergySavingData.timestamp), _t(this.data.MileageData.timestamp), _t(this.data.MotorData.timestamp)];
+      return this.refresh_time = _.max(time);
+    };
+
+    BusOverviewCtrl.prototype.set_battery = function(id, val) {
+      var cs, el;
+      this.reset_battery(id);
+      el = document.getElementById(id);
+      cs = el.children;
+      if (val >= 10) {
+        cs[9].className = "cell bg-red-1";
+      }
+      if (val >= 20) {
+        cs[8].className = "cell bg-red-1";
+      }
+      if (val >= 30) {
+        cs[7].className = "cell bg-orange-1";
+      }
+      if (val >= 40) {
+        cs[6].className = "cell bg-orange-1";
+      }
+      if (val >= 50) {
+        cs[5].className = "cell bg-orange-1";
+      }
+      if (val >= 60) {
+        cs[4].className = "cell bg-green-2";
+      }
+      if (val >= 70) {
+        cs[3].className = "cell bg-green-2";
+      }
+      if (val >= 80) {
+        cs[2].className = "cell bg-green-2";
+      }
+      if (val >= 90) {
+        cs[4].className = "cell bg-green-1";
+      }
+      if (val >= 100) {
+        return cs[4].className = "cell bg-green-1";
+      }
+    };
+
+    BusOverviewCtrl.prototype.reset_battery = function(id) {
+      var e, el, i, len, ref, results;
+      el = document.getElementById(id);
+      ref = el.children;
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        e = ref[i];
+        results.push(e.className = "cell");
+      }
+      return results;
     };
 
     BusOverviewCtrl.prototype.doRefresh = function() {

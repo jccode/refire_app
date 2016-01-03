@@ -7,7 +7,7 @@
         <div class="busoverview">
             <div class="odometer">
                 <div class="refresh-time">
-                    20/12/2015 22:00
+                    {{ctrl.refresh_time | amDateFormat:'YYYY-MM-DD hh:mm:ss'}}
                 </div>
                 <div class="milage-remain">
                     <h2>{{ctrl.data.MileageData.remain}} KM</h2>
@@ -31,7 +31,7 @@
                 <div class="col">
                     <div class="battery right">
                         <h2>{{ctrl.data.GasData.remain}}%</h2>
-                        <div class="shape">
+                        <div class="shape" id="h2">
                             <div class="cell bg-green-1"> </div>
                             <div class="cell bg-green-1"> </div>
                             <div class="cell bg-green-2"> </div>
@@ -69,7 +69,7 @@
                 <div class="col">
                     <div class="battery left">
                         <h2>{{ctrl.data.PowerBatteryData.remain}}%</h2>
-                        <div class="shape">
+                        <div class="shape" id="bat">
                             <div class="cell"> </div>
                             <div class="cell"> </div>
                             <div class="cell bg-green-2"> </div>
