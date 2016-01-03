@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2016-01-03 19:14+0800\n"
+"PO-Revision-Date: 2016-01-04 02:25+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
@@ -39,6 +39,10 @@ msgstr "续驶里程"
 
 #: bus_overview.html:88
 msgid "Battery"
+msgstr "动力电池"
+
+#: home/energy2.html:27
+msgid "BATTERY"
 msgstr "动力电池"
 
 #: newprofile.html:23
@@ -93,7 +97,7 @@ msgstr "获取积分可以兑换票价打折"
 msgid "compare to a <br> traditional bus"
 msgstr "与传统汽车相比"
 
-#: rewards.html:16
+#: rewards.html:16 rewards.html:40
 msgid "completed"
 msgstr "完成"
 
@@ -125,7 +129,7 @@ msgstr "自动刷新频率"
 msgid "DAY SHIFT"
 msgstr "白班"
 
-#: application.js:974
+#: application.js:1189
 msgid "December"
 msgstr "12月"
 
@@ -152,6 +156,10 @@ msgstr "完成支付"
 #: login.html:36
 msgid "Forgot your password?"
 msgstr "忘记密码"
+
+#: home/energy2.html:19
+msgid "FUEL CELL"
+msgstr "燃料电池"
 
 #: home/tree.html:35
 msgid "Help us to create a better enviroment for the future of our child"
@@ -189,23 +197,23 @@ msgstr "第3班"
 msgid "Login"
 msgstr "登陆"
 
-#: application.js:575
+#: application.js:669
 msgid "Login failed. Incorrect username or password."
 msgstr "登陆失败. 用户名或密码不正确."
 
-#: application.js:572
+#: application.js:666
 msgid "login success"
 msgstr "登陆成功"
 
-#: application.js:1582
+#: application.js:1818
 msgid "logoff success."
 msgstr "退出登陆成功"
 
-#: application.js:582
+#: application.js:676
 msgid "logout successful"
 msgstr "退出登陆成功"
 
-#: application.js:1563
+#: application.js:1799
 msgid "Manual"
 msgstr "手动"
 
@@ -213,7 +221,7 @@ msgstr "手动"
 msgid "Menu"
 msgstr "目录"
 
-#: menu.html:80
+#: menu.html:80 message-detail.html:2 messages.html:1
 msgid "Messages"
 msgstr "消息中心"
 
@@ -273,7 +281,7 @@ msgstr "支付"
 msgid "Period"
 msgstr "期限"
 
-#: application.js:629
+#: application.js:723
 msgid "Permission denied"
 msgstr "权限受限"
 
@@ -313,7 +321,7 @@ msgstr "奖励"
 msgid "Rides on a Hydrogen bus"
 msgstr "次乘坐氢能源汽车"
 
-#: application.js:1558
+#: application.js:1794
 msgid "second"
 msgstr "秒"
 
@@ -421,11 +429,11 @@ msgstr "节省钱总数"
 msgid "Total Price"
 msgstr "总价"
 
-#: application.js:1347
+#: application.js:1583
 msgid "update profile failed. #{err}"
 msgstr "更新用户信息失败"
 
-#: application.js:1341
+#: application.js:1577
 msgid "update profile successful."
 msgstr "更新用户信息成功"
 
@@ -475,7 +483,7 @@ msgstr "微信钱包"
 msgid "Weibo Acount"
 msgstr "微博"
 
-#: application.js:630
+#: application.js:724
 msgid "You don't have permission to view this page."
 msgstr "你没有权限查看这个页面"
 

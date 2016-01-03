@@ -32,6 +32,10 @@ msgstr ""
 msgid "Battery"
 msgstr ""
 
+#: home/energy2.html:27
+msgid "BATTERY"
+msgstr ""
+
 #: newprofile.html:23
 msgid "Birth Date"
 msgstr ""
@@ -116,7 +120,7 @@ msgstr ""
 msgid "DAY SHIFT"
 msgstr ""
 
-#: application.js:974
+#: application.js:1189
 msgid "December"
 msgstr ""
 
@@ -145,6 +149,10 @@ msgstr ""
 
 #: login.html:36
 msgid "Forgot your password?"
+msgstr ""
+
+#: home/energy2.html:19
+msgid "FUEL CELL"
 msgstr ""
 
 #: home/tree.html:35
@@ -186,23 +194,23 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: application.js:575
+#: application.js:669
 msgid "Login failed. Incorrect username or password."
 msgstr ""
 
-#: application.js:572
+#: application.js:666
 msgid "login success"
 msgstr ""
 
-#: application.js:1582
+#: application.js:1818
 msgid "logoff success."
 msgstr ""
 
-#: application.js:582
+#: application.js:676
 msgid "logout successful"
 msgstr ""
 
-#: application.js:1563
+#: application.js:1799
 msgid "Manual"
 msgstr ""
 
@@ -211,6 +219,8 @@ msgid "Menu"
 msgstr ""
 
 #: menu.html:80
+#: message-detail.html:2
+#: messages.html:1
 msgid "Messages"
 msgstr ""
 
@@ -278,7 +288,7 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
-#: application.js:629
+#: application.js:723
 msgid "Permission denied"
 msgstr ""
 
@@ -320,7 +330,7 @@ msgstr ""
 msgid "Rides on a Hydrogen bus"
 msgstr ""
 
-#: application.js:1558
+#: application.js:1794
 msgid "second"
 msgstr ""
 
@@ -430,11 +440,11 @@ msgstr ""
 msgid "Total Price"
 msgstr ""
 
-#: application.js:1347
+#: application.js:1583
 msgid "update profile failed. #{err}"
 msgstr ""
 
-#: application.js:1341
+#: application.js:1577
 msgid "update profile successful."
 msgstr ""
 
@@ -487,7 +497,7 @@ msgstr ""
 msgid "Weibo Acount"
 msgstr ""
 
-#: application.js:630
+#: application.js:724
 msgid "You don't have permission to view this page."
 msgstr ""
 
