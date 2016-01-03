@@ -39,6 +39,12 @@ class BeaconState
 		@$localStorage.beacon_last_ts = now
 
 	load_state: ()->
+		# default bus for testing
+		@$localStorage.$default
+			bus:
+				bid: "9527"
+				plate_number: "粤E9527"
+		
 		@$rootScope.bus = @$localStorage.bus
 		@$rootScope.beacon_last_ts = @$localStorage.beacon_last_ts
 		

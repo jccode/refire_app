@@ -1,16 +1,5 @@
 # -*- mode: org; -*-
 
 * items
-** Engine & Milage 后台;
-** Engine & Milage popup
-** Engine & Milage 小屏幕适配
-** 登陆
-** 注册
-** 地图
-** 节能减排
-** DONE Rewards
-** Message center detail page
-** Profile
-** 首页播放
-** PAD开发
-
+** 登陆失败提示不够友好
+** 

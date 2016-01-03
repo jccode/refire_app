@@ -19,8 +19,9 @@ class AppCtrl
 				@Util.toast @gettextCatalog.getString 'login success'
 			, (e)=>
 				# @Util.toast @gettext('login failed')+"."+JSON.stringify e
-				@Util.toast "#{@gettextCatalog.getString('login failed')}.#{JSON.stringify e}"
-				# console.log 'login failed', JSON.stringify e
+				#@Util.toast "#{@gettextCatalog.getString('login failed')}.#{JSON.stringify e}"
+				console.log 'login failed', JSON.stringify e
+				@Util.toast @gettextCatalog.getString("Login failed. Incorrect username or password.")
 
 
 		# @$scope.logout_old = ()=>

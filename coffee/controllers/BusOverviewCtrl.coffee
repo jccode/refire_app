@@ -1,11 +1,16 @@
 
 class BusOverviewCtrl
-	constructor: (@$scope, @$rootScope, @BusData)->
-		console.log 'Bus overview ctrl'
+	constructor: (@$scope, @$rootScope, @$localStorage, @$interval, @BusData, @storageKey)->
 		@bus = @$rootScope.bus
-		console.log @bus
+		#console.log @bus
 		if @bus and @bus.bid
 			@getdata()
+			@auto_refresh()
+			
+		# destroy
+		@$scope.$on "$destroy", ()=>
+			if @refresh_timer
+				@$interval.cancel @refresh_timer
 
 	getdata: ()->
 		@BusData.busdata @bus.bid
@@ -14,6 +19,14 @@ class BusOverviewCtrl
 				@calc_refresh_time()
 				@set_battery "h2", @data.GasData.remain
 				@set_battery "bat", @data.PowerBatteryData.remain
+
+	auto_refresh: ()->
+		@refresh_rate = @$localStorage[@storageKey.SETTING_REFRESH_RATE]
+		if @refresh_rate && @refresh_rate > 0
+			@refresh_timer = @$interval ()=>
+				console.log 'loaddata'
+				@getdata()
+			, @refresh_rate * 1000
 
 	calc_refresh_time: ()->
 		_t = (s)->
@@ -50,9 +63,9 @@ class BusOverviewCtrl
 		if val >= 80
 			cs[2].className = "cell bg-green-2"
 		if val >= 90
-			cs[4].className = "cell bg-green-1"
+			cs[1].className = "cell bg-green-1"
 		if val >= 100
-			cs[4].className = "cell bg-green-1"
+			cs[0].className = "cell bg-green-1"
 
 	reset_battery: (id)->
 		el = document.getElementById id
@@ -65,6 +78,9 @@ class BusOverviewCtrl
 angular.module('app').controller 'BusOverviewCtrl', [
 	'$scope',
 	'$rootScope',
+	'$localStorage',
+	'$interval',
 	'BusData',
+	'storageKey',
 	BusOverviewCtrl
 	]

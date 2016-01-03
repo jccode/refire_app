@@ -17,6 +17,7 @@ angular.module('app').constant
 		TICKETS: 'tickets'
 		SIGNUP_USER: 'signup_user'
 		LAST_POSITION: 'last_position'
+		SETTING_REFRESH_RATE: 'setting_refresh_rate'
 		BUS: 'bus'
 		BEACON_LAST_TS: 'beacon_last_ts'
 

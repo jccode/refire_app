@@ -67,6 +67,7 @@
       TICKETS: 'tickets',
       SIGNUP_USER: 'signup_user',
       LAST_POSITION: 'last_position',
+      SETTING_REFRESH_RATE: 'setting_refresh_rate',
       BUS: 'bus',
       BEACON_LAST_TS: 'beacon_last_ts'
     }
@@ -504,8 +505,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://192.168.1.104:8000',
-      apiurl: 'http://192.168.1.104:8000/api'
+      baseurl: 'http://112.74.93.116',
+      apiurl: 'http://112.74.93.116/api'
     }
   });
 
@@ -569,7 +570,8 @@
             _this.$scope.closeLogin();
             return _this.Util.toast(_this.gettextCatalog.getString('login success'));
           }, function(e) {
-            return _this.Util.toast((_this.gettextCatalog.getString('login failed')) + "." + (JSON.stringify(e)));
+            console.log('login failed', JSON.stringify(e));
+            return _this.Util.toast(_this.gettextCatalog.getString("Login failed. Incorrect username or password."));
           });
         };
       })(this);
@@ -651,16 +653,25 @@
   var BusOverviewCtrl;
 
   BusOverviewCtrl = (function() {
-    function BusOverviewCtrl($scope, $rootScope, BusData) {
+    function BusOverviewCtrl($scope, $rootScope, $localStorage, $interval, BusData, storageKey) {
       this.$scope = $scope;
       this.$rootScope = $rootScope;
+      this.$localStorage = $localStorage;
+      this.$interval = $interval;
       this.BusData = BusData;
-      console.log('Bus overview ctrl');
+      this.storageKey = storageKey;
       this.bus = this.$rootScope.bus;
-      console.log(this.bus);
       if (this.bus && this.bus.bid) {
         this.getdata();
+        this.auto_refresh();
       }
+      this.$scope.$on("$destroy", (function(_this) {
+        return function() {
+          if (_this.refresh_timer) {
+            return _this.$interval.cancel(_this.refresh_timer);
+          }
+        };
+      })(this));
     }
 
     BusOverviewCtrl.prototype.getdata = function() {
@@ -672,6 +683,18 @@
           return _this.set_battery("bat", _this.data.PowerBatteryData.remain);
         };
       })(this));
+    };
+
+    BusOverviewCtrl.prototype.auto_refresh = function() {
+      this.refresh_rate = this.$localStorage[this.storageKey.SETTING_REFRESH_RATE];
+      if (this.refresh_rate && this.refresh_rate > 0) {
+        return this.refresh_timer = this.$interval((function(_this) {
+          return function() {
+            console.log('loaddata');
+            return _this.getdata();
+          };
+        })(this), this.refresh_rate * 1000);
+      }
     };
 
     BusOverviewCtrl.prototype.calc_refresh_time = function() {
@@ -713,10 +736,10 @@
         cs[2].className = "cell bg-green-2";
       }
       if (val >= 90) {
-        cs[4].className = "cell bg-green-1";
+        cs[1].className = "cell bg-green-1";
       }
       if (val >= 100) {
-        return cs[4].className = "cell bg-green-1";
+        return cs[0].className = "cell bg-green-1";
       }
     };
 
@@ -741,7 +764,7 @@
 
   })();
 
-  angular.module('app').controller('BusOverviewCtrl', ['$scope', '$rootScope', 'BusData', BusOverviewCtrl]);
+  angular.module('app').controller('BusOverviewCtrl', ['$scope', '$rootScope', '$localStorage', '$interval', 'BusData', 'storageKey', BusOverviewCtrl]);
 
 }).call(this);
 
@@ -1515,19 +1538,42 @@
   var SettingCtrl;
 
   SettingCtrl = (function() {
-    function SettingCtrl($scope, $rootScope, $state, gettextCatalog, $ionicHistory, auth, userProfile, util, roles) {
+    function SettingCtrl($scope, $rootScope, $state, gettextCatalog, $ionicHistory, $localStorage, auth, userProfile, util, roles, storageKey) {
+      var default_setting, sec;
       this.$scope = $scope;
       this.$rootScope = $rootScope;
       this.$state = $state;
       this.gettextCatalog = gettextCatalog;
       this.$ionicHistory = $ionicHistory;
+      this.$localStorage = $localStorage;
       this.auth = auth;
       this.userProfile = userProfile;
       this.util = util;
       this.roles = roles;
+      this.storageKey = storageKey;
       this.user = this.$rootScope.user;
       this.isdriver = this.auth.authorize(this.roles.driver);
       this.profile = this.userProfile.get(this.user.id);
+      sec = this.gettextCatalog.getString("second");
+      this.refresh_rate = "0";
+      this.refresh_options = [
+        {
+          value: "0",
+          label: this.gettextCatalog.getString("Manual")
+        }, {
+          value: "30",
+          label: "30 " + sec
+        }, {
+          value: "60",
+          label: "60 " + sec
+        }, {
+          value: "90",
+          label: "90 " + sec
+        }
+      ];
+      default_setting = {};
+      default_setting[this.storageKey.SETTING_REFRESH_RATE] = this.refresh_rate;
+      this.storage = this.$localStorage.$default(default_setting);
     }
 
     SettingCtrl.prototype.logoff = function() {
@@ -1539,11 +1585,15 @@
       return this.$state.go('app.home.energy');
     };
 
+    SettingCtrl.prototype.update_refresh_rate = function() {
+      return this.storage[this.storageKey.SETTING_REFRESH_RATE] = this.refresh_rate;
+    };
+
     return SettingCtrl;
 
   })();
 
-  angular.module('app').controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'gettextCatalog', '$ionicHistory', 'Auth', 'userProfile', 'Util', 'userRoles', SettingCtrl]);
+  angular.module('app').controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'gettextCatalog', '$ionicHistory', '$localStorage', 'Auth', 'userProfile', 'Util', 'userRoles', 'storageKey', SettingCtrl]);
 
 }).call(this);
 
@@ -1875,40 +1925,6 @@
 }).call(this);
 
 (function() {
-  var BindFile;
-
-  BindFile = (function() {
-    function BindFile() {
-      var link;
-      link = function(scope, el, attrs, ngModel) {
-        el.bind('change', function(event) {
-          ngModel.$setViewValue(event.target.files[0]);
-          return scope.$apply();
-        });
-        return scope.$watch(function() {
-          return ngModel.$viewValue;
-        }, function(value) {
-          if (!value) {
-            return el.val("");
-          }
-        });
-      };
-      return {
-        require: 'ngModel',
-        restrict: 'A',
-        link: link
-      };
-    }
-
-    return BindFile;
-
-  })();
-
-  angular.module('app').directive('bindFile', BindFile);
-
-}).call(this);
-
-(function() {
   var TrustedFilter;
 
   TrustedFilter = (function() {
@@ -1923,78 +1939,6 @@
   })();
 
   angular.module('app').filter('trusted', ['$sce', TrustedFilter]);
-
-}).call(this);
-
-(function() {
-  var Config, CsrfInterceptor,
-    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  CsrfInterceptor = (function() {
-    function CsrfInterceptor($cookies) {
-      var allowMethods, cookieName, headerName;
-      headerName = 'X-CSRFToken';
-      cookieName = 'csrftoken';
-      allowMethods = ['GET'];
-      return {
-        'request': function(request) {
-          var ref;
-          if (ref = request.method, indexOf.call(allowMethods, ref) < 0) {
-            request.headers[headerName] = $cookies.get(cookieName);
-          }
-          return request;
-        }
-      };
-    }
-
-    return CsrfInterceptor;
-
-  })();
-
-  Config = (function() {
-    function Config($httpProvider) {
-      $httpProvider.interceptors.push(['$cookies', CsrfInterceptor]);
-    }
-
-    return Config;
-
-  })();
-
-  angular.module('app').config(['$httpProvider', Config]);
-
-}).call(this);
-
-(function() {
-  var Config, Interceptor;
-
-  Interceptor = (function() {
-    function Interceptor($log, $rootScope, $q) {
-      return {
-        response: function(response) {
-          $rootScope.$broadcast("success:" + response.status, response);
-          return response;
-        },
-        responseError: function(response) {
-          $rootScope.$broadcast("error:" + response.status, response);
-          return $q.reject(response);
-        }
-      };
-    }
-
-    return Interceptor;
-
-  })();
-
-  Config = (function() {
-    function Config($httpProvider) {
-      $httpProvider.interceptors.push(['$log', '$rootScope', '$q', Interceptor]);
-    }
-
-    return Config;
-
-  })();
-
-  angular.module('app').config(['$httpProvider', Config]);
 
 }).call(this);
 
@@ -2195,6 +2139,12 @@
     };
 
     BeaconState.prototype.load_state = function() {
+      this.$localStorage.$default({
+        bus: {
+          bid: "9527",
+          plate_number: "粤E9527"
+        }
+      });
       this.$rootScope.bus = this.$localStorage.bus;
       return this.$rootScope.beacon_last_ts = this.$localStorage.beacon_last_ts;
     };
@@ -2488,6 +2438,112 @@
   })();
 
   angular.module('app').service('Util', ['$rootScope', '$window', '$ionicPopup', '$cordovaToast', Util]);
+
+}).call(this);
+
+(function() {
+  var BindFile;
+
+  BindFile = (function() {
+    function BindFile() {
+      var link;
+      link = function(scope, el, attrs, ngModel) {
+        el.bind('change', function(event) {
+          ngModel.$setViewValue(event.target.files[0]);
+          return scope.$apply();
+        });
+        return scope.$watch(function() {
+          return ngModel.$viewValue;
+        }, function(value) {
+          if (!value) {
+            return el.val("");
+          }
+        });
+      };
+      return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return BindFile;
+
+  })();
+
+  angular.module('app').directive('bindFile', BindFile);
+
+}).call(this);
+
+(function() {
+  var Config, CsrfInterceptor,
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  CsrfInterceptor = (function() {
+    function CsrfInterceptor($cookies) {
+      var allowMethods, cookieName, headerName;
+      headerName = 'X-CSRFToken';
+      cookieName = 'csrftoken';
+      allowMethods = ['GET'];
+      return {
+        'request': function(request) {
+          var ref;
+          if (ref = request.method, indexOf.call(allowMethods, ref) < 0) {
+            request.headers[headerName] = $cookies.get(cookieName);
+          }
+          return request;
+        }
+      };
+    }
+
+    return CsrfInterceptor;
+
+  })();
+
+  Config = (function() {
+    function Config($httpProvider) {
+      $httpProvider.interceptors.push(['$cookies', CsrfInterceptor]);
+    }
+
+    return Config;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', Config]);
+
+}).call(this);
+
+(function() {
+  var Config, Interceptor;
+
+  Interceptor = (function() {
+    function Interceptor($log, $rootScope, $q) {
+      return {
+        response: function(response) {
+          $rootScope.$broadcast("success:" + response.status, response);
+          return response;
+        },
+        responseError: function(response) {
+          $rootScope.$broadcast("error:" + response.status, response);
+          return $q.reject(response);
+        }
+      };
+    }
+
+    return Interceptor;
+
+  })();
+
+  Config = (function() {
+    function Config($httpProvider) {
+      $httpProvider.interceptors.push(['$log', '$rootScope', '$q', Interceptor]);
+    }
+
+    return Config;
+
+  })();
+
+  angular.module('app').config(['$httpProvider', Config]);
 
 }).call(this);
 
