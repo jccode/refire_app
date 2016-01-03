@@ -20,7 +20,8 @@ class Config
 
 			.state 'app.home.energy',
 				url: '/energy'
-				templateUrl: 'templates/home/energy.html'
+				templateUrl: 'templates/home/energy2.html'
+				controller: 'EnergyFlowCtrl as ctrl'
 
 			.state 'app.home.video',
 				url: '/video/:type'
@@ -194,6 +195,14 @@ class Config
 				views:
 					'menuContent':
 						templateUrl: 'templates/login.html'
+
+			.state 'app.energy',
+				url: '/energy'
+				views:
+					'menuContent':
+						templateUrl: 'templates/home/energy2.html'
+						controller: 'EnergyFlowCtrl as ctrl'
+				
 
 		$urlRouterProvider.otherwise '/app/home/energy'
 

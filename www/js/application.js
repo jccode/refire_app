@@ -297,7 +297,8 @@
         }
       }).state('app.home.energy', {
         url: '/energy',
-        templateUrl: 'templates/home/energy.html'
+        templateUrl: 'templates/home/energy2.html',
+        controller: 'EnergyFlowCtrl as ctrl'
       }).state('app.home.video', {
         url: '/video/:type',
         templateUrl: 'templates/home/video.html',
@@ -499,6 +500,14 @@
             templateUrl: 'templates/login.html'
           }
         }
+      }).state('app.energy', {
+        url: '/energy',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/home/energy2.html',
+            controller: 'EnergyFlowCtrl as ctrl'
+          }
+        }
       });
       $urlRouterProvider.otherwise('/app/home/energy');
     }
@@ -543,6 +552,83 @@
   })();
 
   angular.module('app').config(['$httpProvider', '$resourceProvider', Ajax]);
+
+}).call(this);
+
+(function() {
+  var BindFile;
+
+  BindFile = (function() {
+    function BindFile() {
+      var link;
+      link = function(scope, el, attrs, ngModel) {
+        el.bind('change', function(event) {
+          ngModel.$setViewValue(event.target.files[0]);
+          return scope.$apply();
+        });
+        return scope.$watch(function() {
+          return ngModel.$viewValue;
+        }, function(value) {
+          if (!value) {
+            return el.val("");
+          }
+        });
+      };
+      return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return BindFile;
+
+  })();
+
+  angular.module('app').directive('bindFile', BindFile);
+
+}).call(this);
+
+(function() {
+  var EfBattery;
+
+  EfBattery = (function() {
+    function EfBattery($window, $document) {
+      var bw0, f0, flh0, flh_min, link, w0;
+      w0 = 1044;
+      bw0 = 290;
+      f0 = 200;
+      flh0 = 30;
+      flh_min = 12;
+      link = function(scope, el, attrs) {
+        var main, set_width;
+        console.log('ef battery');
+        main = el.parent()[0];
+        set_width = function() {
+          var factor;
+          factor = main.clientWidth / w0;
+          return el.css({
+            "width": bw0 * factor + "px",
+            "font-size": f0 * factor + "%",
+            "line-height": Math.max(flh0 * factor, flh_min) + "px"
+          });
+        };
+        set_width();
+        return angular.element($window).bind('resize', function() {
+          return set_width();
+        });
+      };
+      return {
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return EfBattery;
+
+  })();
+
+  angular.module('app').directive('efbattery', ['$window', '$document', EfBattery]);
 
 }).call(this);
 
@@ -917,6 +1003,127 @@
   })();
 
   angular.module('app').controller('BuslocationCtrl', ['$scope', '$q', '$localStorage', '$cordovaGeolocation', 'Util', 'storageKey', BuslocationCtrl]);
+
+}).call(this);
+
+(function() {
+  var EnergyFlowCtrl;
+
+  EnergyFlowCtrl = (function() {
+    function EnergyFlowCtrl($scope, $rootScope, BusData) {
+      this.$scope = $scope;
+      this.$rootScope = $rootScope;
+      this.BusData = BusData;
+      this.bus = this.$rootScope.bus;
+      this.img_base_url = "img/engineflow/";
+      if (this.bus && this.bus.bid) {
+        this.getdata();
+      }
+    }
+
+    EnergyFlowCtrl.prototype.getdata = function() {
+      return this.BusData.busdata(this.bus.bid).then((function(_this) {
+        return function(ret) {
+          _this.data = ret.data;
+          return _this.init_data();
+        };
+      })(this));
+    };
+
+    EnergyFlowCtrl.prototype.init_data = function() {
+      this.$scope.gif_src = this.get_energy_flow_gif(this.data.BusData.status);
+      this.$scope.fuel_cell_src = this.get_fuel_cell_img(this.data.GasData.remain);
+      return this.$scope.battery_src = this.get_battery_img(this.data.PowerBatteryData.remain);
+    };
+
+    EnergyFlowCtrl.prototype.get_energy_flow_gif = function(status) {
+      var img;
+      img = (function() {
+        switch (status) {
+          case 0:
+            return "GIF-1044-E-only.gif";
+          case 1:
+            return "GIF-1044-E-only.gif";
+          case 2:
+            return "GIF-1044-H-and-E.gif";
+          case 3:
+            return "GIF-1044-H-to-E-and-engine.gif";
+          case 4:
+            return "GIF-1044-Engine-to-E.gif";
+          default:
+            return "GIF-1044-E-only.gif";
+        }
+      })();
+      return this.img_base_url + img;
+    };
+
+    EnergyFlowCtrl.prototype.get_fuel_cell_img = function(remain) {
+      var img;
+      img = (function() {
+        switch (false) {
+          case !(remain >= 100):
+            return "battery-h-100.png";
+          case !(remain >= 90):
+            return "battery-h-90.png";
+          case !(remain >= 80):
+            return "battery-h-80.png";
+          case !(remain >= 70):
+            return "battery-h-70.png";
+          case !(remain >= 60):
+            return "battery-h-60.png";
+          case !(remain >= 50):
+            return "battery-h-50.png";
+          case !(remain >= 40):
+            return "battery-h-40.png";
+          case !(remain >= 30):
+            return "battery-h-30.png";
+          case !(remain >= 20):
+            return "battery-h-20.png";
+          case !(remain >= 10):
+            return "battery-h-10.png";
+          default:
+            return "battery-h-0.png";
+        }
+      })();
+      return this.img_base_url + img;
+    };
+
+    EnergyFlowCtrl.prototype.get_battery_img = function(remain) {
+      var img;
+      img = (function() {
+        switch (false) {
+          case !(remain >= 100):
+            return "battery-e-100.png";
+          case !(remain >= 90):
+            return "battery-e-90.png";
+          case !(remain >= 80):
+            return "battery-e-80.png";
+          case !(remain >= 70):
+            return "battery-e-70.png";
+          case !(remain >= 60):
+            return "battery-e-60.png";
+          case !(remain >= 50):
+            return "battery-e-50.png";
+          case !(remain >= 40):
+            return "battery-e-40.png";
+          case !(remain >= 30):
+            return "battery-e-30.png";
+          case !(remain >= 20):
+            return "battery-e-20.png";
+          case !(remain >= 10):
+            return "battery-e-10.png";
+          default:
+            return "battery-e-0.png";
+        }
+      })();
+      return this.img_base_url + img;
+    };
+
+    return EnergyFlowCtrl;
+
+  })();
+
+  angular.module('app').controller('EnergyFlowCtrl', ['$scope', '$rootScope', 'BusData', EnergyFlowCtrl]);
 
 }).call(this);
 
@@ -1997,40 +2204,6 @@
   })();
 
   angular.module('app').controller('VideoCtrl', ['$scope', '$state', '$stateParams', VideoCtrl]);
-
-}).call(this);
-
-(function() {
-  var BindFile;
-
-  BindFile = (function() {
-    function BindFile() {
-      var link;
-      link = function(scope, el, attrs, ngModel) {
-        el.bind('change', function(event) {
-          ngModel.$setViewValue(event.target.files[0]);
-          return scope.$apply();
-        });
-        return scope.$watch(function() {
-          return ngModel.$viewValue;
-        }, function(value) {
-          if (!value) {
-            return el.val("");
-          }
-        });
-      };
-      return {
-        require: 'ngModel',
-        restrict: 'A',
-        link: link
-      };
-    }
-
-    return BindFile;
-
-  })();
-
-  angular.module('app').directive('bindFile', BindFile);
 
 }).call(this);
 

@@ -1623,6 +1623,86 @@ $ion-item-height: 54px;
     }
 }
 
+.energy2 {
+    /* margin-top: 70px; */
+}
+
+.endashboard {
+    
+    img.full {
+        width: 100%;
+        vertical-align: top;
+    }
+    .main {
+        position: relative;
+        
+        .batterys {
+            position: absolute;
+            width: 290px;
+            /* border: 1px solid #e08; */
+            top: 32%;
+            left: 62%;
+
+            .battery-container {
+                width: 36.2%;   /* 105 / 290 */
+                /* position: relative; */
+                
+                &:first-child {
+                    float: left;
+
+                    .text {
+                        left: -10%;
+                    }
+                }
+                &:last-child {
+                    float: right;
+
+                    .text {
+                        right: -10%;
+                    }
+                }
+
+                img {
+                    width: 100%;
+                }
+
+                .text {
+                    position: absolute;
+                    top: -33%;
+                    
+                    color: #fff;
+                    font-weight: bold;
+                    whitespace: nowrap;
+
+                    p {
+                        margin: 0;
+                        padding: 0;
+                    }
+                }
+            }
+            
+        }
+    }
+
+    @include mq($until:mobileExtra) {
+        .main .batterys .battery-container {
+            .text {
+                top: -40%;
+            }
+            &:first-child {
+                .text {
+                    left: -30%;
+                }
+            }
+            &:last-child {
+                .text {
+                    right: -30%;
+                }
+            }
+        }
+    }
+}
+
 
 /* common */
 // ========================================
