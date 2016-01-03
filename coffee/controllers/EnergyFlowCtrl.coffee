@@ -5,17 +5,27 @@ class EnergyFlowCtrl
 		@img_base_url = "img/engineflow/"
 		if @bus and @bus.bid
 			@getdata()
+		else
+			@fallback_init()
+
 
 	getdata: ->
 		@BusData.busdata @bus.bid
 			.then (ret)=>
 				@data = ret.data
 				@init_data()
+			, ()=>
+				@fallback_init()
 
 	init_data:->
 		@$scope.gif_src = @get_energy_flow_gif @data.BusData.status
 		@$scope.fuel_cell_src = @get_fuel_cell_img @data.GasData.remain
 		@$scope.battery_src = @get_battery_img @data.PowerBatteryData.remain
+
+	fallback_init:->
+		@$scope.gif_src = @get_energy_flow_gif null
+		@$scope.fuel_cell_src = @get_fuel_cell_img null
+		@$scope.battery_src = @get_battery_img null
 
 	get_energy_flow_gif: (status)->
 		img = switch status

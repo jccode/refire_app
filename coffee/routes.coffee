@@ -204,7 +204,7 @@ class Config
 						controller: 'EnergyFlowCtrl as ctrl'
 				
 
-		$urlRouterProvider.otherwise '/app/home/energy'
+		$urlRouterProvider.otherwise '/app/home/video/1'
 
 
 

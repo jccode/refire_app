@@ -17,7 +17,7 @@
                 <div class="battery-container">
                     <div class="text">
                         <p translate>FUEL CELL</p>
-                        <p>{{ctrl.data.GasData.remain}}%  &nbsp;&nbsp;  {{ctrl.data.GasData.bottle_temp}}&#8451;</p>
+                        <p ng-show="ctrl.data">{{ctrl.data.GasData.remain}}%  &nbsp;&nbsp;  {{ctrl.data.GasData.bottle_temp}}&#8451;</p>
                     </div>
                     <img ng-src="{{fuel_cell_src}}" alt="" /> <!-- img/engineflow/battery-h-90.png -->
                 </div>
@@ -25,7 +25,7 @@
                 <div class="battery-container">
                     <div class="text">
                         <p translate>BATTERY</p>
-                        <p>{{ctrl.data.PowerBatteryData.remain}}%  &nbsp;&nbsp;  {{ctrl.data.PowerBatteryData.temp}}&#8451;</p>
+                        <p ng-show="ctrl.data">{{ctrl.data.PowerBatteryData.remain}}%  &nbsp;&nbsp;  {{ctrl.data.PowerBatteryData.temp}}&#8451;</p>
                     </div>
                     <img ng-src="{{battery_src}}" alt="" /> <!-- img/engineflow/battery-e-80.png -->
                 </div>
