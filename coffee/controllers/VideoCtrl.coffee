@@ -9,6 +9,7 @@ class VideoCtrl
 		return switch id
 			when "1" then "img/video/energyflow_sd_high.mp4"
 			when "2" then "img/video/fuelcell_sd_high.mp4"
+			when "3" then "img/video/zero_emission_sd_high.mp4"
 		
 
 angular.module('app').controller 'VideoCtrl', [

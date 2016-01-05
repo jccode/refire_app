@@ -130,6 +130,10 @@ msgstr ""
 msgid "discount on all your tickets"
 msgstr ""
 
+#: home.html:9
+msgid "Energy flow"
+msgstr ""
+
 #: health/detail.html:5
 msgid "Energy saving(kwh)"
 msgstr ""
@@ -149,6 +153,10 @@ msgstr ""
 
 #: login.html:36
 msgid "Forgot your password?"
+msgstr ""
+
+#: home.html:25
+msgid "Fuel Cell"
 msgstr ""
 
 #: home/energy2.html:19
@@ -182,14 +190,6 @@ msgstr ""
 
 #: login.html:52
 msgid "Know when each bus is arriving"
-msgstr ""
-
-#: bus_location.html:16
-msgid "Last 2"
-msgstr ""
-
-#: bus_location.html:21
-msgid "Last 3"
 msgstr ""
 
 #: login.html:3
@@ -311,6 +311,10 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
+#: home.html:16
+msgid "Real Time Energy Diagram"
+msgstr ""
+
 #: login.html:47
 msgid "Reason to sign-up:"
 msgstr ""
@@ -373,6 +377,14 @@ msgstr ""
 
 #: home/tree.html:20
 msgid "The bus saved"
+msgstr ""
+
+#: bus_location.html:16
+msgid "The second one"
+msgstr ""
+
+#: bus_location.html:21
+msgid "The third one"
 msgstr ""
 
 #: errorlist.html:3
@@ -441,6 +453,10 @@ msgstr ""
 
 #: pay-confirm.html:19
 msgid "Total Price"
+msgstr ""
+
+#: home.html:39
+msgid "Trees saved"
 msgstr ""
 
 #: application.js:1518
@@ -514,4 +530,8 @@ msgstr ""
 
 #: menu.html:66
 msgid "Your Tickets"
+msgstr ""
+
+#: home.html:32
+msgid "Zero Emission"
 msgstr ""

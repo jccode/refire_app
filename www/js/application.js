@@ -2131,6 +2131,8 @@
           return "img/video/energyflow_sd_high.mp4";
         case "2":
           return "img/video/fuelcell_sd_high.mp4";
+        case "3":
+          return "img/video/zero_emission_sd_high.mp4";
       }
     };
 

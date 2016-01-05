@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2016-01-05 00:21+0800\n"
+"PO-Revision-Date: 2016-01-05 23:42+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
@@ -137,6 +137,10 @@ msgstr "12月"
 msgid "discount on all your tickets"
 msgstr "票价优惠"
 
+#: home.html:9
+msgid "Energy flow"
+msgstr "能流图"
+
 #: health/detail.html:5
 msgid "Energy saving(kwh)"
 msgstr "节能总数(kwh)"
@@ -156,6 +160,10 @@ msgstr "完成支付"
 #: login.html:36
 msgid "Forgot your password?"
 msgstr "忘记密码"
+
+#: home.html:25
+msgid "Fuel Cell"
+msgstr "燃料电池"
 
 #: home/energy2.html:19
 msgid "FUEL CELL"
@@ -188,14 +196,6 @@ msgstr "氢切生活"
 #: login.html:52
 msgid "Know when each bus is arriving"
 msgstr "随时掌握公交的到达时间"
-
-#: bus_location.html:16
-msgid "Last 2"
-msgstr "下下班"
-
-#: bus_location.html:21
-msgid "Last 3"
-msgstr "第3班"
 
 #: login.html:3 login.html:33
 msgid "Login"
@@ -243,7 +243,7 @@ msgstr "手机号码无效"
 
 #: bus_location.html:11
 msgid "Next Bus"
-msgstr "下一班"
+msgstr "第一辆"
 
 #: newprofile.html:15 setting.html:10
 msgid "Nickname"
@@ -305,6 +305,10 @@ msgstr "QQ"
 msgid "Read more"
 msgstr "更多"
 
+#: home.html:16
+msgid "Real Time Energy Diagram"
+msgstr "实时能流图"
+
 #: login.html:47
 msgid "Reason to sign-up:"
 msgstr "为什么要注册:"
@@ -364,6 +368,14 @@ msgstr "感谢您乘坐我们的汽车!"
 #: home/tree.html:20
 msgid "The bus saved"
 msgstr "巴士节省了"
+
+#: bus_location.html:16
+msgid "The second one"
+msgstr "第二辆"
+
+#: bus_location.html:21
+msgid "The third one"
+msgstr "第三辆"
 
 #: errorlist.html:3
 msgid "This field is required!"
@@ -432,6 +444,10 @@ msgstr "节省钱总数"
 #: pay-confirm.html:19
 msgid "Total Price"
 msgstr "总价"
+
+#: home.html:39
+msgid "Trees saved"
+msgstr "节省树量"
 
 #: application.js:1518
 msgid "update profile failed. #{err}"
@@ -502,6 +518,16 @@ msgstr "你购买的"
 #: menu.html:66
 msgid "Your Tickets"
 msgstr "购票记录"
+
+#: home.html:32
+msgid "Zero Emission"
+msgstr "零污染"
+
+#~ msgid "Last 2"
+#~ msgstr "下下班"
+
+#~ msgid "Last 3"
+#~ msgstr "第3班"
 
 #, fuzzy
 #~ msgid "8% <translate>discount on all your tickets</translate>"
