@@ -3,6 +3,9 @@
 class BeaconEventHandler
 	constructor: (@beaconManager, @beaconState)->
 		@notified = false
+		@throttleRange = _.throttle (result)=>
+			@rangeRegion result
+		, 5000
 
 	didStartMonitoringForRegion: (event, pluginResult)->
 		console.log "[Start monitoring for region] "+(event)
@@ -18,9 +21,10 @@ class BeaconEventHandler
 			@exitRegion(pluginResult.region)
 
 	didRangeBeaconsInRegion: (event, pluginResult)->
-		console.log "[Range beacons in region] "+(event)
-		console.log "[Range beacons in region] "+JSON.stringify(pluginResult)
-		@throttleRangin(pluginResult.region)
+		#console.log "[Range beacons in region] "+(event)
+		#console.log "[Range beacons in region] "+JSON.stringify(pluginResult)
+		console.log "."
+		@throttleRange pluginResult
 
 	didEnterRegion: (event, pluginResult)->
 		console.log "[Enter region] "+(event)
@@ -34,24 +38,42 @@ class BeaconEventHandler
 
 	enterRegion: (region)->
 		bus = @beaconManager.find_bus(region.identifier, region.uuid, region.major, region.minor)
-		console.log JSON.stringify bus
-		@beaconState.enter_bus(bus)
+		if bus
+			console.log 'enter bus'
+			# @beaconState.enter_bus(bus)
 
 	exitRegion: (region)->
 		bus = @beaconManager.find_bus(region.identifier, region.uuid, region.major, region.minor)
-		@beaconState.leave_bus(bus)
+		if bus
+			@beaconState.leave_bus(bus)
 
-	throttleRangin: (region)->
-		_.throttle ()=>
-			@rangeRegion(region)
-		, 5000
-
-	rangeRegion: (region)->
-		console.log ".......... Ranging .........."
+	rangeRegion: (result)->
+		console.log "---------- Ranging ----------"
+		region = result.region
+		close_beacons = _.filter result.beacons, (b)-> b.proximity in ['ProximityImmediate', 'ProximityNear']
+		console.log "close beacons: "+JSON.stringify(close_beacons)
+		if close_beacons and close_beacons.length > 0
+			buses = _.map close_beacons, (b)=>
+				return @beaconManager.find_bus(b.identifier, b.uuid, b.major, b.minor)
+			buses = _.flatten buses
+			console.log "buses:"+JSON.stringify(buses)
+			if buses and buses.length>0
+				bus = buses[0]
+				if @beaconState.is_on_bus(bus)
+					@beaconState.on_bus(bus)
+				else
+					@beaconState.enter_bus(bus)
+		
+		# bus = @beaconManager.find_bus(region.identifier, region.uuid, region.major, region.minor)
+		# if bus
+		# 	if @beaconState.is_on_bus(bus)
+		# 		@beaconState.on_bus(bus)
+		# 	else
+		# 		@beaconState.enter_bus(bus)
 
 
 class BeaconBootstrap
-	constructor: (@$rootScope, @$cordovaBeacon, @$cordovaToast, @Beacons, @beaconManager, @beaconState)->
+	constructor: (@$rootScope, @$cordovaBeacon, @$cordovaToast, @$cordovaLocalNotification, @gettextCatalog, @event, @Beacons, @beaconManager, @beaconState)->
 		@isAndroid = ionic.Platform.isAndroid()
 		console.log "beacon bootstrap. isAndroid? #{@isAndroid}"
 		@check_bluetooth()
@@ -69,6 +91,7 @@ class BeaconBootstrap
 					@$cordovaBeacon.enableBluetooth()
 				@init_beacons()
 				@add_beacon_event_handler()
+				@add_bus_event_handler()
 			.fail (err)=>
 				console.log "detect bluetooth failed. #{JSON.stringifty(err)}"
 				@toast "detect bluetooth failed. #{JSON.stringifty(err)}"
@@ -99,22 +122,37 @@ class BeaconBootstrap
 		@$rootScope.$on "$cordovaBeacon:didEnterRegion", @beaconEventHandler.didEnterRegion.bind(@beaconEventHandler)
 		@$rootScope.$on "$cordovaBeacon:didExitRegion", @beaconEventHandler.didExitRegion.bind(@beaconEventHandler)
 
+	add_bus_event_handler: ->
+		@$rootScope.$on @event.ENTER_BUS, (bus)=>
+			@$cordovaLocalNotification.schedule
+				id: 1
+				title: @gettextCatalog.getString('Welcome')
+				text: @gettextCatalog.getString('Thanks for riding with us!')
+		@$rootScope.$on @event.LEAVE_BUS, (bus)=>
+			@$cordovaLocalNotification.schedule
+				id: 2
+				title: @gettextCatalog.getString('Goodbye')
+				text: @gettextCatalog.getString('Hoping to see you again!')
+
 	toast: (msg)->
 		@$cordovaToast.show msg, "short", "bottom"
 
 
 
-start = ($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, Beacons, BeaconManager, BeaconState)->
+start = ($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState)->
 	$ionicPlatform.ready ->
-		#new BeaconBootstrap $rootScope, $cordovaBeacon, $cordovaToast, Beacons, BeaconManager, BeaconState
-		BeaconState.load_state()
-	
+		new BeaconBootstrap $rootScope, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState
+		# BeaconState.load_state()
+		
 
 angular.module('app').run [
 	'$rootScope',
 	'$ionicPlatform',
 	'$cordovaBeacon',
 	'$cordovaToast',
+	'$cordovaLocalNotification',
+	'gettextCatalog',
+	'event',
 	'Beacons',
 	'BeaconManager',
 	'BeaconState',

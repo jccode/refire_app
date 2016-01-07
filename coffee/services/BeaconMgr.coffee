@@ -4,7 +4,8 @@ class BeaconState
 	constructor: (@$rootScope, @$localStorage, @event, @$timeout, @BeaconCheckin)->
 
 	enter_bus: (bus)->
-		#console.log ' ---------- ENTER BUS ---------- '
+		console.log ' ---------- [BeaconState] ENTER BUS ---------- '
+		console.log JSON.stringify bus
 		if @$rootScope.bus and @$rootScope.bus.bid is bus.bid
 			@update_ts()
 		else
@@ -38,6 +39,9 @@ class BeaconState
 		@$rootScope.beacon_last_ts = now
 		@$localStorage.beacon_last_ts = now
 
+	is_on_bus: (bus)->
+		return @$rootScope.bus and @$rootScope.bus.bid = bus.bid
+
 	load_state: ()->
 		# default bus for testing
 		@$localStorage.$default
@@ -66,17 +70,35 @@ class BeaconManager
 		major: Optional, maybe undefined
 		minor: Optional, maybe undefined
 		###
-		if major
-			predicator = (m)->
-				m.identifier is identifier and m.uuid is uuid and m.major is major and m.minor is minor
-		else
-			predicator = (m)->
-				m.identifier is identifier and m.uuid is uuid
-				
+		
+		# if major
+		# 	predicator = (m)->
+		# 		m.identifier is identifier and m.uuid is uuid and m.major is major and m.minor is minor
+		# else
+		# 	predicator = (m)->
+		# 		m.identifier is identifier and m.uuid is uuid
+
+		predicator = (m)->
+			result = m.uuid.toUpperCase() is uuid.toUpperCase()
+			if identifier
+				result = result and m.identifier is identifier
+			if major
+				result = result and m.major.toString() is major.toString()
+			if minor
+				result = result and m.minor.toString() is minor.toString()
+			result
+			
 		ret = _.filter @beacon_models, predicator
-		ret[0].buses
+		
+		console.log 'find_bus result'
+		# console.log JSON.stringify(@beacon_models)
+		# console.log identifier+";"+uuid+";"+major+";"+minor
+		console.log ret
+		
+		ret and ret.length>0 and ret[0].buses || null
 
 
+window.BeaconManager = BeaconManager
 
 angular.module("app").service "BeaconState", [
 	'$rootScope',

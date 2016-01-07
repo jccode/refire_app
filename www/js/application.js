@@ -99,6 +99,11 @@
       this.beaconManager = beaconManager;
       this.beaconState = beaconState;
       this.notified = false;
+      this.throttleRange = _.throttle((function(_this) {
+        return function(result) {
+          return _this.rangeRegion(result);
+        };
+      })(this), 5000);
     }
 
     BeaconEventHandler.prototype.didStartMonitoringForRegion = function(event, pluginResult) {
@@ -117,9 +122,8 @@
     };
 
     BeaconEventHandler.prototype.didRangeBeaconsInRegion = function(event, pluginResult) {
-      console.log("[Range beacons in region] " + event);
-      console.log("[Range beacons in region] " + JSON.stringify(pluginResult));
-      return this.throttleRangin(pluginResult.region);
+      console.log(".");
+      return this.throttleRange(pluginResult);
     };
 
     BeaconEventHandler.prototype.didEnterRegion = function(event, pluginResult) {
@@ -137,26 +141,45 @@
     BeaconEventHandler.prototype.enterRegion = function(region) {
       var bus;
       bus = this.beaconManager.find_bus(region.identifier, region.uuid, region.major, region.minor);
-      console.log(JSON.stringify(bus));
-      return this.beaconState.enter_bus(bus);
+      if (bus) {
+        return console.log('enter bus');
+      }
     };
 
     BeaconEventHandler.prototype.exitRegion = function(region) {
       var bus;
       bus = this.beaconManager.find_bus(region.identifier, region.uuid, region.major, region.minor);
-      return this.beaconState.leave_bus(bus);
+      if (bus) {
+        return this.beaconState.leave_bus(bus);
+      }
     };
 
-    BeaconEventHandler.prototype.throttleRangin = function(region) {
-      return _.throttle((function(_this) {
-        return function() {
-          return _this.rangeRegion(region);
-        };
-      })(this), 5000);
-    };
-
-    BeaconEventHandler.prototype.rangeRegion = function(region) {
-      return console.log(".......... Ranging ..........");
+    BeaconEventHandler.prototype.rangeRegion = function(result) {
+      var bus, buses, close_beacons, region;
+      console.log("---------- Ranging ----------");
+      region = result.region;
+      close_beacons = _.filter(result.beacons, function(b) {
+        var ref;
+        return (ref = b.proximity) === 'ProximityImmediate' || ref === 'ProximityNear';
+      });
+      console.log("close beacons: " + JSON.stringify(close_beacons));
+      if (close_beacons && close_beacons.length > 0) {
+        buses = _.map(close_beacons, (function(_this) {
+          return function(b) {
+            return _this.beaconManager.find_bus(b.identifier, b.uuid, b.major, b.minor);
+          };
+        })(this));
+        buses = _.flatten(buses);
+        console.log("buses:" + JSON.stringify(buses));
+        if (buses && buses.length > 0) {
+          bus = buses[0];
+          if (this.beaconState.is_on_bus(bus)) {
+            return this.beaconState.on_bus(bus);
+          } else {
+            return this.beaconState.enter_bus(bus);
+          }
+        }
+      }
     };
 
     return BeaconEventHandler;
@@ -164,10 +187,13 @@
   })();
 
   BeaconBootstrap = (function() {
-    function BeaconBootstrap($rootScope1, $cordovaBeacon1, $cordovaToast1, Beacons1, beaconManager, beaconState) {
+    function BeaconBootstrap($rootScope1, $cordovaBeacon1, $cordovaToast1, $cordovaLocalNotification1, gettextCatalog1, event1, Beacons1, beaconManager, beaconState) {
       this.$rootScope = $rootScope1;
       this.$cordovaBeacon = $cordovaBeacon1;
       this.$cordovaToast = $cordovaToast1;
+      this.$cordovaLocalNotification = $cordovaLocalNotification1;
+      this.gettextCatalog = gettextCatalog1;
+      this.event = event1;
       this.Beacons = Beacons1;
       this.beaconManager = beaconManager;
       this.beaconState = beaconState;
@@ -192,7 +218,8 @@
             _this.$cordovaBeacon.enableBluetooth();
           }
           _this.init_beacons();
-          return _this.add_beacon_event_handler();
+          _this.add_beacon_event_handler();
+          return _this.add_bus_event_handler();
         };
       })(this)).fail((function(_this) {
         return function(err) {
@@ -239,6 +266,27 @@
       return this.$rootScope.$on("$cordovaBeacon:didExitRegion", this.beaconEventHandler.didExitRegion.bind(this.beaconEventHandler));
     };
 
+    BeaconBootstrap.prototype.add_bus_event_handler = function() {
+      this.$rootScope.$on(this.event.ENTER_BUS, (function(_this) {
+        return function(bus) {
+          return _this.$cordovaLocalNotification.schedule({
+            id: 1,
+            title: _this.gettextCatalog.getString('Welcome'),
+            text: _this.gettextCatalog.getString('Thanks for riding with us!')
+          });
+        };
+      })(this));
+      return this.$rootScope.$on(this.event.LEAVE_BUS, (function(_this) {
+        return function(bus) {
+          return _this.$cordovaLocalNotification.schedule({
+            id: 2,
+            title: _this.gettextCatalog.getString('Goodbye'),
+            text: _this.gettextCatalog.getString('Hoping to see you again!')
+          });
+        };
+      })(this));
+    };
+
     BeaconBootstrap.prototype.toast = function(msg) {
       return this.$cordovaToast.show(msg, "short", "bottom");
     };
@@ -247,13 +295,13 @@
 
   })();
 
-  start = function($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, Beacons, BeaconManager, BeaconState) {
+  start = function($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState) {
     return $ionicPlatform.ready(function() {
-      return BeaconState.load_state();
+      return new BeaconBootstrap($rootScope, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState);
     });
   };
 
-  angular.module('app').run(['$rootScope', '$ionicPlatform', '$cordovaBeacon', '$cordovaToast', 'Beacons', 'BeaconManager', 'BeaconState', start]);
+  angular.module('app').run(['$rootScope', '$ionicPlatform', '$cordovaBeacon', '$cordovaToast', '$cordovaLocalNotification', 'gettextCatalog', 'event', 'Beacons', 'BeaconManager', 'BeaconState', start]);
 
 }).call(this);
 
@@ -2471,6 +2519,8 @@
     }
 
     BeaconState.prototype.enter_bus = function(bus) {
+      console.log(' ---------- [BeaconState] ENTER BUS ---------- ');
+      console.log(JSON.stringify(bus));
       if (this.$rootScope.bus && this.$rootScope.bus.bid === bus.bid) {
         return this.update_ts();
       } else {
@@ -2509,6 +2559,10 @@
       now = new Date();
       this.$rootScope.beacon_last_ts = now;
       return this.$localStorage.beacon_last_ts = now;
+    };
+
+    BeaconState.prototype.is_on_bus = function(bus) {
+      return this.$rootScope.bus && (this.$rootScope.bus.bid = bus.bid);
     };
 
     BeaconState.prototype.load_state = function() {
@@ -2560,22 +2614,31 @@
       		minor: Optional, maybe undefined
        */
       var predicator, ret;
-      if (major) {
-        predicator = function(m) {
-          return m.identifier === identifier && m.uuid === uuid && m.major === major && m.minor === minor;
-        };
-      } else {
-        predicator = function(m) {
-          return m.identifier === identifier && m.uuid === uuid;
-        };
-      }
+      predicator = function(m) {
+        var result;
+        result = m.uuid.toUpperCase() === uuid.toUpperCase();
+        if (identifier) {
+          result = result && m.identifier === identifier;
+        }
+        if (major) {
+          result = result && m.major.toString() === major.toString();
+        }
+        if (minor) {
+          result = result && m.minor.toString() === minor.toString();
+        }
+        return result;
+      };
       ret = _.filter(this.beacon_models, predicator);
-      return ret[0].buses;
+      console.log('find_bus result');
+      console.log(ret);
+      return ret && ret.length > 0 && ret[0].buses || null;
     };
 
     return BeaconManager;
 
   })();
+
+  window.BeaconManager = BeaconManager;
 
   angular.module("app").service("BeaconState", ['$rootScope', '$localStorage', 'event', '$timeout', 'BeaconCheckin', BeaconState]);
 
