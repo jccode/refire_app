@@ -8,7 +8,14 @@ class BusOverviewCtrl
 			@auto_refresh()
 		else
 			@init_demo_data()
-			
+
+		@init_event()
+
+	init_event: ->
+		@$scope.$on @event.ENTER_BUS, (bus)=>
+			@bus = bus
+			@getdata()
+		
 		# destroy
 		@$scope.$on "$destroy", ()=>
 			if @refresh_timer

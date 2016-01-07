@@ -602,6 +602,83 @@
 }).call(this);
 
 (function() {
+  var BindFile;
+
+  BindFile = (function() {
+    function BindFile() {
+      var link;
+      link = function(scope, el, attrs, ngModel) {
+        el.bind('change', function(event) {
+          ngModel.$setViewValue(event.target.files[0]);
+          return scope.$apply();
+        });
+        return scope.$watch(function() {
+          return ngModel.$viewValue;
+        }, function(value) {
+          if (!value) {
+            return el.val("");
+          }
+        });
+      };
+      return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return BindFile;
+
+  })();
+
+  angular.module('app').directive('bindFile', BindFile);
+
+}).call(this);
+
+(function() {
+  var EfBattery;
+
+  EfBattery = (function() {
+    function EfBattery($window, $document) {
+      var bw0, f0, flh0, flh_min, link, w0;
+      w0 = 1044;
+      bw0 = 290;
+      f0 = 200;
+      flh0 = 30;
+      flh_min = 12;
+      link = function(scope, el, attrs) {
+        var main, set_width;
+        console.log('ef battery');
+        main = el.parent()[0];
+        set_width = function() {
+          var factor;
+          factor = main.clientWidth / w0;
+          return el.css({
+            "width": bw0 * factor + "px",
+            "font-size": f0 * factor + "%",
+            "line-height": Math.max(flh0 * factor, flh_min) + "px"
+          });
+        };
+        set_width();
+        return angular.element($window).bind('resize', function() {
+          return set_width();
+        });
+      };
+      return {
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return EfBattery;
+
+  })();
+
+  angular.module('app').directive('efbattery', ['$window', '$document', EfBattery]);
+
+}).call(this);
+
+(function() {
   var AppCtrl;
 
   AppCtrl = (function() {
@@ -736,14 +813,24 @@
       } else {
         this.init_demo_data();
       }
-      this.$scope.$on("$destroy", (function(_this) {
+      this.init_event();
+    }
+
+    BusOverviewCtrl.prototype.init_event = function() {
+      this.$scope.$on(this.event.ENTER_BUS, (function(_this) {
+        return function(bus) {
+          _this.bus = bus;
+          return _this.getdata();
+        };
+      })(this));
+      return this.$scope.$on("$destroy", (function(_this) {
         return function() {
           if (_this.refresh_timer) {
             return _this.$interval.cancel(_this.refresh_timer);
           }
         };
       })(this));
-    }
+    };
 
     BusOverviewCtrl.prototype.init_demo_data = function() {
       this.demodata = true;
@@ -2239,83 +2326,6 @@
   })();
 
   angular.module('app').controller('VideoCtrl', ['$scope', '$state', '$stateParams', VideoCtrl]);
-
-}).call(this);
-
-(function() {
-  var BindFile;
-
-  BindFile = (function() {
-    function BindFile() {
-      var link;
-      link = function(scope, el, attrs, ngModel) {
-        el.bind('change', function(event) {
-          ngModel.$setViewValue(event.target.files[0]);
-          return scope.$apply();
-        });
-        return scope.$watch(function() {
-          return ngModel.$viewValue;
-        }, function(value) {
-          if (!value) {
-            return el.val("");
-          }
-        });
-      };
-      return {
-        require: 'ngModel',
-        restrict: 'A',
-        link: link
-      };
-    }
-
-    return BindFile;
-
-  })();
-
-  angular.module('app').directive('bindFile', BindFile);
-
-}).call(this);
-
-(function() {
-  var EfBattery;
-
-  EfBattery = (function() {
-    function EfBattery($window, $document) {
-      var bw0, f0, flh0, flh_min, link, w0;
-      w0 = 1044;
-      bw0 = 290;
-      f0 = 200;
-      flh0 = 30;
-      flh_min = 12;
-      link = function(scope, el, attrs) {
-        var main, set_width;
-        console.log('ef battery');
-        main = el.parent()[0];
-        set_width = function() {
-          var factor;
-          factor = main.clientWidth / w0;
-          return el.css({
-            "width": bw0 * factor + "px",
-            "font-size": f0 * factor + "%",
-            "line-height": Math.max(flh0 * factor, flh_min) + "px"
-          });
-        };
-        set_width();
-        return angular.element($window).bind('resize', function() {
-          return set_width();
-        });
-      };
-      return {
-        restrict: 'A',
-        link: link
-      };
-    }
-
-    return EfBattery;
-
-  })();
-
-  angular.module('app').directive('efbattery', ['$window', '$document', EfBattery]);
 
 }).call(this);
 
