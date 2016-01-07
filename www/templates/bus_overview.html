@@ -9,6 +9,9 @@
                 <div class="refresh-time">
                     {{ctrl.refresh_time | amDateFormat:'YYYY-MM-DD hh:mm:ss'}}
                 </div>
+                <div class="demo-tips" ng-show="ctrl.demodata" translate>
+                    Demo data. <a href="#/app/busoverview" ng-click="popup_login()">Login</a> to view the real data
+                </div>
                 <div class="milage-remain">
                     <h2>{{ctrl.data.MileageData.remain}} KM</h2>
                     <span translate>Available</span>
@@ -48,7 +51,7 @@
                         </div>
                     </div>
                     
-                    <h1 translate>Hydrogen</h1>
+                    <h1 translate>Fuel Cell</h1>
                     <div class="data-tb">
                         <div class="row">
                             <div class="col" translate> Voltage </div>

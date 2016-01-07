@@ -4,8 +4,8 @@ class BeaconState
 	constructor: (@$rootScope, @$localStorage, @event, @$timeout, @BeaconCheckin)->
 
 	enter_bus: (bus)->
-		console.log ' ---------- [BeaconState] ENTER BUS ---------- '
-		console.log JSON.stringify bus
+		#console.log ' ---------- [BeaconState] ENTER BUS ---------- '
+		#console.log JSON.stringify bus
 		if @$rootScope.bus and @$rootScope.bus.bid is bus.bid
 			@update_ts()
 		else
@@ -25,7 +25,7 @@ class BeaconState
 		# clear leaveTimer if needed, checkin on server
 		if @leaveTimer
 			@$timeout.cancel @leaveTimer
-		console.log '---------- ON BUS ----------'
+		#console.log '---------- ON BUS ----------'
 		@update_ts()
 		# @BeaconCheckin.checkin bus.bid, @BeaconCheckin.event.STAY
 
@@ -70,14 +70,6 @@ class BeaconManager
 		major: Optional, maybe undefined
 		minor: Optional, maybe undefined
 		###
-		
-		# if major
-		# 	predicator = (m)->
-		# 		m.identifier is identifier and m.uuid is uuid and m.major is major and m.minor is minor
-		# else
-		# 	predicator = (m)->
-		# 		m.identifier is identifier and m.uuid is uuid
-
 		predicator = (m)->
 			result = m.uuid.toUpperCase() is uuid.toUpperCase()
 			if identifier
@@ -90,15 +82,15 @@ class BeaconManager
 			
 		ret = _.filter @beacon_models, predicator
 		
-		console.log 'find_bus result'
+		#console.log 'find_bus result'
 		# console.log JSON.stringify(@beacon_models)
 		# console.log identifier+";"+uuid+";"+major+";"+minor
-		console.log ret
+		#console.log ret
 		
 		ret and ret.length>0 and ret[0].buses || null
 
 
-window.BeaconManager = BeaconManager
+#window.BeaconManager = BeaconManager
 
 angular.module("app").service "BeaconState", [
 	'$rootScope',

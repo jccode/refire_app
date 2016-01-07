@@ -163,6 +163,10 @@ input.input-blueborder {
       margin-top: 10px;
       margin-right: 10px;
       white-space: nowrap; }
+    .busoverview .odometer .demo-tips {
+      float: right;
+      white-space: nowrap;
+      font-size: 10px; }
     .busoverview .odometer .milage-remain {
       width: 200px;
       height: 200px;

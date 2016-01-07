@@ -1,6 +1,6 @@
 
 class AppCtrl
-	constructor: (@$scope, @$rootScope, @$state, @$ionicModal, @$ionicPopup, @$timeout, @auth, @$ionicHistory, @gettext, @gettextCatalog, @Util) ->
+	constructor: (@$scope, @$rootScope, @$state, @$ionicModal, @$ionicPopup, @$timeout, @auth, @$ionicHistory, @gettext, @gettextCatalog, @event, @Util) ->
 		@loginModal()
 		@permissionCheck()
 		
@@ -79,6 +79,7 @@ class AppCtrl
 			
 		@$scope.$on "error:403", loginRequireHandler
 		@$scope.$on "error:401", loginRequireHandler
+		@$scope.$on @event.REQUIRE_LOGIN, loginRequireHandler
 
 
 angular.module('app').controller 'AppCtrl', [
@@ -92,5 +93,6 @@ angular.module('app').controller 'AppCtrl', [
 	'$ionicHistory',
 	'gettext',
 	'gettextCatalog',
+	'event',
 	'Util',
 	AppCtrl]

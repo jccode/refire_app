@@ -164,6 +164,12 @@ $ion-item-height: 54px;
             white-space: nowrap;
         }
 
+        .demo-tips {
+            float: right;
+            white-space: nowrap;
+            font-size: 10px;
+        }
+
         .milage-remain {
             @include circle(200px);
             margin: 18px auto 0;

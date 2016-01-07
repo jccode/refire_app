@@ -6,6 +6,7 @@ angular.module('app').constant
 		driver: 'driver'
 		admin: 'admin'
 	'event':
+		REQUIRE_LOGIN: 'require_login'
 		LOGIN: 'login'
 		LOGOUT: 'logout'
 		SIGNUP: 'signup'

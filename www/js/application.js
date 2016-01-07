@@ -55,6 +55,7 @@
       admin: 'admin'
     },
     'event': {
+      REQUIRE_LOGIN: 'require_login',
       LOGIN: 'login',
       LOGOUT: 'logout',
       SIGNUP: 'signup',
@@ -156,13 +157,11 @@
 
     BeaconEventHandler.prototype.rangeRegion = function(result) {
       var bus, buses, close_beacons, region;
-      console.log("---------- Ranging ----------");
       region = result.region;
       close_beacons = _.filter(result.beacons, function(b) {
         var ref;
         return (ref = b.proximity) === 'ProximityImmediate' || ref === 'ProximityNear';
       });
-      console.log("close beacons: " + JSON.stringify(close_beacons));
       if (close_beacons && close_beacons.length > 0) {
         buses = _.map(close_beacons, (function(_this) {
           return function(b) {
@@ -170,7 +169,6 @@
           };
         })(this));
         buses = _.flatten(buses);
-        console.log("buses:" + JSON.stringify(buses));
         if (buses && buses.length > 0) {
           bus = buses[0];
           if (this.beaconState.is_on_bus(bus)) {
@@ -607,7 +605,7 @@
   var AppCtrl;
 
   AppCtrl = (function() {
-    function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, $ionicHistory, gettext, gettextCatalog, Util) {
+    function AppCtrl($scope, $rootScope, $state, $ionicModal, $ionicPopup, $timeout, auth, $ionicHistory, gettext, gettextCatalog, event, Util) {
       var self;
       this.$scope = $scope;
       this.$rootScope = $rootScope;
@@ -619,6 +617,7 @@
       this.$ionicHistory = $ionicHistory;
       this.gettext = gettext;
       this.gettextCatalog = gettextCatalog;
+      this.event = event;
       this.Util = Util;
       this.loginModal();
       this.permissionCheck();
@@ -704,14 +703,15 @@
         };
       })(this);
       this.$scope.$on("error:403", loginRequireHandler);
-      return this.$scope.$on("error:401", loginRequireHandler);
+      this.$scope.$on("error:401", loginRequireHandler);
+      return this.$scope.$on(this.event.REQUIRE_LOGIN, loginRequireHandler);
     };
 
     return AppCtrl;
 
   })();
 
-  angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', '$ionicHistory', 'gettext', 'gettextCatalog', 'Util', AppCtrl]);
+  angular.module('app').controller('AppCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicPopup', '$timeout', 'Auth', '$ionicHistory', 'gettext', 'gettextCatalog', 'event', 'Util', AppCtrl]);
 
 }).call(this);
 
@@ -719,17 +719,22 @@
   var BusOverviewCtrl;
 
   BusOverviewCtrl = (function() {
-    function BusOverviewCtrl($scope, $rootScope, $localStorage, $interval, BusData, storageKey) {
+    function BusOverviewCtrl($scope, $rootScope, $localStorage, $interval, gettextCatalog, BusData, storageKey, event) {
       this.$scope = $scope;
       this.$rootScope = $rootScope;
       this.$localStorage = $localStorage;
       this.$interval = $interval;
+      this.gettextCatalog = gettextCatalog;
       this.BusData = BusData;
       this.storageKey = storageKey;
+      this.event = event;
       this.bus = this.$rootScope.bus;
       if (this.bus && this.bus.bid) {
+        this.demodata = false;
         this.getdata();
         this.auto_refresh();
+      } else {
+        this.init_demo_data();
       }
       this.$scope.$on("$destroy", (function(_this) {
         return function() {
@@ -739,6 +744,51 @@
         };
       })(this));
     }
+
+    BusOverviewCtrl.prototype.init_demo_data = function() {
+      this.demodata = true;
+      this.data = {
+        MileageData: {
+          total: 211,
+          remain: 143200
+        },
+        BusData: {
+          latitude: 31.2000,
+          longitude: 121.5000,
+          speed: 120
+        },
+        GasData: {
+          remain: 100,
+          bottle_temp: 32
+        },
+        FuelCellData: {
+          voltage: 12,
+          current: 10
+        },
+        PowerBatteryData: {
+          remain: 80,
+          voltage: 12,
+          current: 10,
+          temp: 40
+        },
+        MotorData: {
+          speed: 1200,
+          voltage: 12,
+          current: 10,
+          temp: 40
+        },
+        EnergySavingData: {
+          energy_saving_amount: 100,
+          energy_saving_money: 2143,
+          emission_reduction: 320
+        }
+      };
+      return this.$scope.popup_login = (function(_this) {
+        return function() {
+          return _this.$rootScope.$broadcast(_this.event.REQUIRE_LOGIN, '');
+        };
+      })(this);
+    };
 
     BusOverviewCtrl.prototype.getdata = function() {
       return this.BusData.busdata(this.bus.bid).then((function(_this) {
@@ -830,7 +880,7 @@
 
   })();
 
-  angular.module('app').controller('BusOverviewCtrl', ['$scope', '$rootScope', '$localStorage', '$interval', 'BusData', 'storageKey', BusOverviewCtrl]);
+  angular.module('app').controller('BusOverviewCtrl', ['$scope', '$rootScope', '$localStorage', '$interval', 'gettextCatalog', 'BusData', 'storageKey', 'event', BusOverviewCtrl]);
 
 }).call(this);
 
@@ -2519,8 +2569,6 @@
     }
 
     BeaconState.prototype.enter_bus = function(bus) {
-      console.log(' ---------- [BeaconState] ENTER BUS ---------- ');
-      console.log(JSON.stringify(bus));
       if (this.$rootScope.bus && this.$rootScope.bus.bid === bus.bid) {
         return this.update_ts();
       } else {
@@ -2544,7 +2592,6 @@
       if (this.leaveTimer) {
         this.$timeout.cancel(this.leaveTimer);
       }
-      console.log('---------- ON BUS ----------');
       return this.update_ts();
     };
 
@@ -2629,16 +2676,12 @@
         return result;
       };
       ret = _.filter(this.beacon_models, predicator);
-      console.log('find_bus result');
-      console.log(ret);
       return ret && ret.length > 0 && ret[0].buses || null;
     };
 
     return BeaconManager;
 
   })();
-
-  window.BeaconManager = BeaconManager;
 
   angular.module("app").service("BeaconState", ['$rootScope', '$localStorage', 'event', '$timeout', 'BeaconCheckin', BeaconState]);
 

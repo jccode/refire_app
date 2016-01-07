@@ -1,16 +1,52 @@
 
 class BusOverviewCtrl
-	constructor: (@$scope, @$rootScope, @$localStorage, @$interval, @BusData, @storageKey)->
+	constructor: (@$scope, @$rootScope, @$localStorage, @$interval, @gettextCatalog, @BusData, @storageKey, @event)->
 		@bus = @$rootScope.bus
-		#console.log @bus
 		if @bus and @bus.bid
+			@demodata = false
 			@getdata()
 			@auto_refresh()
+		else
+			@init_demo_data()
 			
 		# destroy
 		@$scope.$on "$destroy", ()=>
 			if @refresh_timer
 				@$interval.cancel @refresh_timer
+
+	init_demo_data: ()->
+		@demodata = true
+		@data =
+			MileageData:
+				total: 211
+				remain: 143200
+			BusData:
+				latitude: 31.2000
+				longitude: 121.5000
+				speed: 120
+			GasData:
+				remain: 100
+				bottle_temp: 32
+			FuelCellData:
+				voltage: 12
+				current: 10
+			PowerBatteryData:
+				remain: 80
+				voltage: 12
+				current: 10
+				temp: 40
+			MotorData:
+				speed: 1200
+				voltage: 12
+				current: 10
+				temp: 40
+			EnergySavingData:
+				energy_saving_amount: 100
+				energy_saving_money: 2143
+				emission_reduction: 320
+				
+		@$scope.popup_login = ()=>
+			@$rootScope.$broadcast @event.REQUIRE_LOGIN, ''
 
 	getdata: ()->
 		@BusData.busdata @bus.bid
@@ -80,7 +116,9 @@ angular.module('app').controller 'BusOverviewCtrl', [
 	'$rootScope',
 	'$localStorage',
 	'$interval',
+	'gettextCatalog',
 	'BusData',
 	'storageKey',
+	'event',
 	BusOverviewCtrl
 	]
