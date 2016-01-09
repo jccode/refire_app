@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2016-01-09 13:00+0800\n"
+"PO-Revision-Date: 2016-01-09 13:23+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
@@ -18,7 +18,7 @@ msgid "1 bus ticket"
 msgstr "1张车票"
 
 #: rewards.html:44
-msgid "1,000 points & gifts"
+msgid "1,000 points &amp; gifts"
 msgstr "1000积分,积分商城兑换礼品"
 
 #: health.html:10
@@ -149,7 +149,9 @@ msgstr "12月"
 msgid ""
 "Demo data. <span class=\"link\" ng-click=\"popup_login()\">Login</span> to "
 "view the real data"
-msgstr "模拟数据.<span class=\"link\" ng-click=\"popup_login()\">登陆</span>查看真实数据 "
+msgstr ""
+"模拟数据.<span class=\"link\" ng-click=\"popup_login()\">登陆</span>查看真实"
+"数据 "
 
 #: bus_overview.html:12 home/energy2.html:10
 msgid "Demo data. To view the real data when you take our bus."
@@ -178,6 +180,10 @@ msgstr "车况信息"
 #: application.js:1491
 msgid "February"
 msgstr "二月"
+
+#: newprofile.html:63
+msgid "Finalize Account"
+msgstr "完成注册"
 
 #: pay-confirm.html:5
 msgid "Finish Payment"
@@ -551,6 +557,10 @@ msgstr "树量"
 msgid "Trees saved"
 msgstr "节省树量"
 
+#: newprofile.html:63
+msgid "Update"
+msgstr "更新"
+
 #: newprofile.html:1
 msgid "Update Profile"
 msgstr "更新个人资料"
@@ -632,9 +642,6 @@ msgstr "购票记录"
 #: home.html:32
 msgid "Zero Emission"
 msgstr "零污染"
-
-#~ msgid "Finalize Account"
-#~ msgstr "完成注册"
 
 #~ msgid "Hydrogen"
 #~ msgstr "氢气"

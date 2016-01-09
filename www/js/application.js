@@ -575,8 +575,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://192.168.1.104:8000',
-      apiurl: 'http://192.168.1.104:8000/api'
+      baseurl: 'http://112.74.93.116',
+      apiurl: 'http://112.74.93.116/api'
     }
   });
 
@@ -1854,9 +1854,11 @@
           this.userprofile.phone = cuser.username;
           post_data = this.userprofile;
         } else {
-          post_data = angular.copy(this.userprofile);
           if (post_data.avatar && post_data.avatar.toString() !== "[object Blob]") {
+            post_data = angular.copy(this.userprofile);
             delete post_data.avatar;
+          } else {
+            post_data = this.userprofile;
           }
         }
         ret = this.userProfileSvc.save(post_data);
@@ -2311,7 +2313,7 @@
   var TestCtrl;
 
   TestCtrl = (function() {
-    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope, user, Beacons, sms, $localStorage) {
+    function TestCtrl($scope, $ionicPopover, $ionicHistory, $state, $rootScope, user, Beacons, sms, $localStorage, BeaconCheckin) {
       this.$scope = $scope;
       this.$ionicPopover = $ionicPopover;
       this.$ionicHistory = $ionicHistory;
@@ -2321,6 +2323,7 @@
       this.Beacons = Beacons;
       this.sms = sms;
       this.$localStorage = $localStorage;
+      this.BeaconCheckin = BeaconCheckin;
       this.initPopover();
       this.$scope.get_users = (function(_this) {
         return function() {
@@ -2344,6 +2347,18 @@
             _this.$rootScope.bus = bus;
             return _this.$localStorage.bus = bus;
           });
+        };
+      })(this);
+      this.$scope.beacon_onbus = (function(_this) {
+        return function() {
+          return _this.BeaconCheckin.checkin("9527", 0).then(function(ret) {
+            return console.log(ret);
+          });
+        };
+      })(this);
+      this.$scope.beacon_offbus = (function(_this) {
+        return function() {
+          return _this.BeaconCheckin.checkin("9527", 1);
         };
       })(this);
       this.initSms();
@@ -2411,7 +2426,7 @@
 
   })();
 
-  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', 'Beacons', 'Sms', '$localStorage', TestCtrl]);
+  angular.module('app').controller('TestCtrl', ['$scope', '$ionicPopover', '$ionicHistory', '$state', '$rootScope', 'User', 'Beacons', 'Sms', '$localStorage', 'BeaconCheckin', TestCtrl]);
 
 }).call(this);
 
@@ -2839,6 +2854,11 @@
     }
 
     BeaconState.prototype.enter_bus = function(bus) {
+      if (!bus) {
+        return;
+      }
+      console.log(' ---------- [BeaconState] ENTER BUS ---------- ');
+      console.log(JSON.stringify(bus));
       if (this.$rootScope.bus && this.$rootScope.bus.bid === bus.bid) {
         return this.update_ts();
       } else {

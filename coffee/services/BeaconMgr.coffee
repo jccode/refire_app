@@ -4,8 +4,11 @@ class BeaconState
 	constructor: (@$rootScope, @$localStorage, @event, @$timeout, @BeaconCheckin)->
 
 	enter_bus: (bus)->
-		#console.log ' ---------- [BeaconState] ENTER BUS ---------- '
-		#console.log JSON.stringify bus
+		if not bus
+			return
+			
+		console.log ' ---------- [BeaconState] ENTER BUS ---------- '
+		console.log JSON.stringify bus
 		if @$rootScope.bus and @$rootScope.bus.bid is bus.bid
 			@update_ts()
 		else
