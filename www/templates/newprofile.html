@@ -1,11 +1,11 @@
-<ion-view view-title="Update Profile">
+<ion-view view-title="{{'Update Profile' | translate}}">
     <ion-content class="newprofile" >
         <form name="profileForm" novalidate="" ng-submit="ctrl.submit(profileForm)">
         <div class="basicinfo">
-            <h1>About You</h1>
+            <h1 translate>About You</h1>
             <div class="imgupload">
                 <div class="avatar-wrapper">
-                    <img ng-src="{{ctrl.imgurl || 'img/default_avatar.png'}}" alt="" />
+                    <img ng-src="{{ctrl.imgurl || ctrl.userprofile.avatar || 'img/default_avatar.png'}}" alt="" />
                 </div>
                 <button type="button" class="button button-orange button-short" ng-click="ctrl.imagepicker()"> <i class="icon ion-android-camera"></i> </button>
                 <!-- <input type="file" name="avatar" ng-model="ctrl.userprofile.avatar" bind-file /> -->
@@ -27,10 +27,10 @@
             </div>
         </div>
         <div class="social">
-            <h1>Social Media</h1>
+            <h1 translate>Social Media</h1>
             <div class="list gap">
                 <label class="item item-input item-icon-right">
-                    <input type="number" name="qq" placeholder="{{'QQ Acount' | translate}}" ng-model="ctrl.userprofile.qq" ng-maxlength="20"/>
+                    <input type="text" name="qq" placeholder="{{'QQ Acount' | translate}}" ng-model="ctrl.userprofile.qq" ng-maxlength="20"/>
                     <i class="fa fa-qq"></i>
                 </label>
                 <div class="error-container" ng-show="profileForm.qq.$error && profileForm.$submitted" ng-messages="profileForm.qq.$error">
@@ -54,13 +54,13 @@
         </div>
         <div class="btns row">
             <div class="col-33">
-                <button class="button button-gray button-short" translate ng-click="ctrl.skip()">
+                <button class="button button-gray button-short" translate ng-click="ctrl.skip()" ng-hide="ctrl.id">
                     Skip
                 </button>
             </div>
             <div class="col-67">
-                <button class="button button-orange button-short" translate type="submit">
-                    Finalize Account
+                <button class="button button-orange button-short" type="submit">
+                    {{ctrl.id ? 'Update' : 'Finalize Account' | translate}}
                 </button>
             </div>
         </div>

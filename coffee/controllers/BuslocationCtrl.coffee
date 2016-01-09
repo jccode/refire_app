@@ -13,16 +13,17 @@ class BuslocationCtrl
 		@get_current_pos().then (pos)=>
 			@currpos = pos
 			@map.panTo pos
-			@simulate_bus_pos(pos)
-			@show_route()
+			#@simulate_bus_pos(pos)
+			#@show_route()
+			@demo_route()
 		, (ret)=>
 			console.log "get position failed."
 
 	init_fallback_pos: ()->
 		fallback = {}
 		fallback[@storageKey.LAST_POSITION] =
-			longitude: 116.404
-			latitude: 39.915
+			longitude: 113.0989
+			latitude: 23.004068
 		@storage = @$localStorage.$default fallback
 
 	init_map: (pos)->
@@ -53,12 +54,11 @@ class BuslocationCtrl
 		start.marker.setLabel startLabel
 		end.marker.setLabel endLabel
 
-		# myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157))
-		# start.marker.setIcon(myIcon)
 		sicon = new BMap.Icon("http://api0.map.bdimg.com/images/marker_red_sprite.png", new BMap.Size(39,25))
 		start.marker.setIcon(sicon)
 		eicon = new BMap.Icon("img/bus.png", {offset: new BMap.Size(32,32)})
 		end.marker.setIcon eicon
+		
 
 	set_label_style: (label, bgColor)->
 		label.setStyle {
@@ -86,6 +86,27 @@ class BuslocationCtrl
 			policy: 0
 			onMarkersSet: @show_positions.bind @
 		driving.search p1, p2
+
+	demo_route: ->
+		p1 = new BMap.Point @currpos.longitude, @currpos.latitude
+		p2 = new BMap.Point "112.05277", "22.921587"
+		driving = new BMap.DrivingRoute @map,
+			renderOptions:
+				map: @map,
+				autoViewport: true
+			policy: 0
+			onMarkersSet: @demo_positions.bind @
+		driving.search p1, p2
+
+	demo_positions: (positions)->
+		[start, end] = positions
+		start.title = "Your position"
+		start.marker.setTitle "Your position"
+		startLabel = new BMap.Label "YOUR POSITION", {offset: new BMap.Size(-25,-50)}
+		@set_label_style startLabel, '#339966'
+		start.marker.setLabel startLabel
+		eicon = new BMap.Icon("img/bus.png", {offset: new BMap.Size(32,32)})
+		start.marker.setIcon(eicon)
 
 	get_current_pos: ->
 		posOptions =

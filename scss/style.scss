@@ -165,9 +165,14 @@ $ion-item-height: 54px;
         }
 
         .demo-tips {
-            float: right;
             white-space: nowrap;
             font-size: 10px;
+            position: absolute;
+            width: 100%;
+            background-color: rgba(250,250,250,0.5);
+            padding: 4px 0;
+            display: block;
+            text-align:center;
         }
 
         .milage-remain {
@@ -497,6 +502,7 @@ $ion-item-height: 54px;
             font-size: 12px;
             overflow: hidden;
             text-align: center;
+            white-space: nowrap;
 
             img {
                 width: 45px;
@@ -1230,6 +1236,11 @@ $ion-item-height: 54px;
 .chart-detail {
     padding: 0 10px;
     @include background-gradient(#fefefe, #eee);
+
+    .demo-tips {
+        text-align: center;
+        padding: 4px 0;
+    }
     
     h1 {
         font-size: 14px;
@@ -1631,6 +1642,13 @@ $ion-item-height: 54px;
 
 .energy2 {
     /* margin-top: 70px; */
+    .demo-tips {
+        text-align: center;
+        background-color: #000;
+        color: white;
+        padding: 4px 0;
+        font-weight: bold;
+    }
 }
 
 .endashboard {
@@ -1735,4 +1753,17 @@ $ion-item-height: 54px;
     padding-left: 8px;
 }
 
+.date-picker.item-icon-right {
+    position: relative;
+    
+    .fa {
+        position: absolute;
+        right: 6px;
+        top: 15px;
+    }
+}
 
+.link {
+    text-decoration: underline;
+    cursor: pointer;
+}

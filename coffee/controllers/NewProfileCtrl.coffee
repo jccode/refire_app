@@ -1,7 +1,11 @@
 
 class NewProfileCtrl
-	constructor:(@$scope, @$rootScope, @$state, @$ionicHistory, @gettextCatalog, @moment, @$cordovaFile, @$cordovaImagePicker, @userProfileSvc, @util)->
-		@userprofile = {}
+	constructor:(@$scope, @$rootScope, @$state, @$stateParams, @$ionicHistory, @gettextCatalog, @moment, @$cordovaFile, @$cordovaImagePicker, @userProfileSvc, @util)->
+		@id = @$stateParams.id
+		if @id
+			@userprofile = @userProfileSvc.get @id
+		else
+			@userprofile = {}
 		@$scope.datepickerObject =
 			callback: (val)=>
 				@datePickerCallback(val)
@@ -19,11 +23,12 @@ class NewProfileCtrl
 	submit: (form)->
 		if form.$valid
 			cuser = @$rootScope.user
-			# console.log @userprofile
-			# console.log cuser
-			
 			@userprofile.uid = cuser.id
-			@userprofile.phone = cuser.username
+			if not @id
+				@userprofile.phone = cuser.username
+			else
+				if @userprofile.avatar and @userprofile.avatar.toString() is not "[object Blob]"
+					delete @userprofile.avatar
 			
 			ret = @userProfileSvc.save @userprofile
 			ret.$promise.then (ret)=>
@@ -76,6 +81,7 @@ angular.module('app').controller 'NewProfileCtrl', [
 	'$scope',
 	'$rootScope',
 	'$state',
+	'$stateParams',
 	'$ionicHistory',
 	'gettextCatalog',
 	'moment',

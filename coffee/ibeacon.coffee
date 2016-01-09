@@ -141,8 +141,14 @@ class BeaconBootstrap
 
 start = ($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState)->
 	$ionicPlatform.ready ->
-		new BeaconBootstrap $rootScope, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState
-		# BeaconState.load_state()
+		try
+			new BeaconBootstrap $rootScope, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState
+		catch e
+			console.log e
+
+		# test
+		#BeaconState.load_state()
+		#console.log $rootScope.bus
 		
 
 angular.module('app').run [

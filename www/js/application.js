@@ -295,7 +295,13 @@
 
   start = function($rootScope, $ionicPlatform, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState) {
     return $ionicPlatform.ready(function() {
-      return new BeaconBootstrap($rootScope, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState);
+      var e, error;
+      try {
+        return new BeaconBootstrap($rootScope, $cordovaBeacon, $cordovaToast, $cordovaLocalNotification, gettextCatalog, event, Beacons, BeaconManager, BeaconState);
+      } catch (error) {
+        e = error;
+        return console.log(e);
+      }
     });
   };
 
@@ -500,7 +506,7 @@
           }
         }
       }).state('app.createprofile', {
-        url: '/createprofile',
+        url: '/createprofile/:id',
         views: {
           'menuContent': {
             templateUrl: 'templates/newprofile.html',
@@ -569,8 +575,8 @@
 (function() {
   angular.module('app').constant({
     'settings': {
-      baseurl: 'http://112.74.93.116',
-      apiurl: 'http://112.74.93.116/api'
+      baseurl: 'http://192.168.1.104:8000',
+      apiurl: 'http://192.168.1.104:8000/api'
     }
   });
 
@@ -915,8 +921,7 @@
         return function(pos) {
           _this.currpos = pos;
           _this.map.panTo(pos);
-          _this.simulate_bus_pos(pos);
-          return _this.show_route();
+          return _this.demo_route();
         };
       })(this), (function(_this) {
         return function(ret) {
@@ -929,8 +934,8 @@
       var fallback;
       fallback = {};
       fallback[this.storageKey.LAST_POSITION] = {
-        longitude: 116.404,
-        latitude: 39.915
+        longitude: 113.0989,
+        latitude: 23.004068
       };
       return this.storage = this.$localStorage.$default(fallback);
     };
@@ -1004,6 +1009,37 @@
       return driving.search(p1, p2);
     };
 
+    BuslocationCtrl.prototype.demo_route = function() {
+      var driving, p1, p2;
+      p1 = new BMap.Point(this.currpos.longitude, this.currpos.latitude);
+      p2 = new BMap.Point("112.05277", "22.921587");
+      driving = new BMap.DrivingRoute(this.map, {
+        renderOptions: {
+          map: this.map,
+          autoViewport: true
+        },
+        policy: 0,
+        onMarkersSet: this.demo_positions.bind(this)
+      });
+      return driving.search(p1, p2);
+    };
+
+    BuslocationCtrl.prototype.demo_positions = function(positions) {
+      var eicon, end, start, startLabel;
+      start = positions[0], end = positions[1];
+      start.title = "Your position";
+      start.marker.setTitle("Your position");
+      startLabel = new BMap.Label("YOUR POSITION", {
+        offset: new BMap.Size(-25, -50)
+      });
+      this.set_label_style(startLabel, '#339966');
+      start.marker.setLabel(startLabel);
+      eicon = new BMap.Icon("img/bus.png", {
+        offset: new BMap.Size(32, 32)
+      });
+      return start.marker.setIcon(eicon);
+    };
+
     BuslocationCtrl.prototype.get_current_pos = function() {
       var defer, posOptions;
       posOptions = {
@@ -1041,16 +1077,24 @@
   var EnergyFlowCtrl;
 
   EnergyFlowCtrl = (function() {
-    function EnergyFlowCtrl($scope, $rootScope, BusData) {
+    function EnergyFlowCtrl($scope, $rootScope, BusData, event) {
       this.$scope = $scope;
       this.$rootScope = $rootScope;
       this.BusData = BusData;
+      this.event = event;
       this.bus = this.$rootScope.bus;
       this.img_base_url = "img/engineflow/";
       if (this.bus && this.bus.bid) {
+        this.demodata = false;
         this.getdata();
       } else {
+        this.demodata = true;
         this.fallback_init();
+        this.$scope.popup_login = (function(_this) {
+          return function() {
+            return _this.$rootScope.$broadcast(_this.event.REQUIRE_LOGIN, '');
+          };
+        })(this);
       }
     }
 
@@ -1166,7 +1210,7 @@
 
   })();
 
-  angular.module('app').controller('EnergyFlowCtrl', ['$scope', '$rootScope', 'BusData', EnergyFlowCtrl]);
+  angular.module('app').controller('EnergyFlowCtrl', ['$scope', '$rootScope', 'BusData', 'event', EnergyFlowCtrl]);
 
 }).call(this);
 
@@ -1174,31 +1218,72 @@
   var HealthCtrl;
 
   HealthCtrl = (function() {
-    function HealthCtrl($scope, $stateParams, gettextCatalog) {
+    function HealthCtrl($rootScope, $scope, $stateParams, gettextCatalog, moment, auth, event, DataStat, util) {
+      var now;
+      this.$rootScope = $rootScope;
       this.$scope = $scope;
       this.$stateParams = $stateParams;
       this.gettextCatalog = gettextCatalog;
+      this.moment = moment;
+      this.auth = auth;
+      this.event = event;
+      this.DataStat = DataStat;
+      this.util = util;
       this.$scope.type = this.$stateParams.type;
-      this.init_1m();
+      this.init_date_select();
+      now = new Date();
+      this.init_1m(now);
       this.$scope.total_distance = '400 KM';
       this.$scope.total_energy_saving = '300 KMK';
       this.$scope.total_emission_reduction = '200 KWH';
+      this.$scope.demodata = this.auth.isLoggedIn() ? false : true;
       this.$scope.onTabSelect = (function(_this) {
         return function(type) {
           _this.$scope.type = type;
+          _this.$scope.data = [[]];
+          _this.$scope.show_total = true;
           switch (type) {
             case 1:
-              return _this.init_1m();
+              return _this.init_1m(now);
             case 2:
-              return _this.init_3m();
+              return _this.init_3m(now);
             case 3:
-              return _this.init_6m();
+              return _this.init_6m(now);
             default:
-              return init_period();
+              return _this.init_period();
           }
         };
       })(this);
+      this.$scope.search = (function(_this) {
+        return function() {
+          return _this.search_by_period();
+        };
+      })(this);
+      this.$scope.popup_login = (function(_this) {
+        return function() {
+          return _this.$rootScope.$broadcast(_this.event.REQUIRE_LOGIN, '');
+        };
+      })(this);
     }
+
+    HealthCtrl.prototype.init_date_select = function() {
+      this.$scope.datepickerFrom = {
+        callback: (function(_this) {
+          return function(val) {
+            _this.from_val = val;
+            return _this.$scope.from = _this.moment(val).format('YYYY-MM-DD');
+          };
+        })(this)
+      };
+      return this.$scope.datepickerTo = {
+        callback: (function(_this) {
+          return function(val) {
+            _this.to_val = val;
+            return _this.$scope.to = _this.moment(val).format('YYYY-MM-DD');
+          };
+        })(this)
+      };
+    };
 
     HealthCtrl.prototype.init_chart = function() {
       var i, j, results;
@@ -1220,80 +1305,226 @@
           return results1;
         }).call(this)
       ];
-      console.log(this.$scope.labels);
-      console.log(this.$scope.data);
       return this.$scope.onClick = function(points, evt) {
         return console.log(points, evt);
       };
     };
 
-    HealthCtrl.prototype.init_1m = function() {
-      var i, j, results;
-      this.$scope.head = this.gettextCatalog.getString('December');
+    HealthCtrl.prototype.init_1m = function(now) {
+      var date, i, j, month, results, year;
+      year = now.getFullYear();
+      month = now.getMonth() + 1;
+      date = now.getDate();
+      this.$scope.head = this.get_month(now.getMonth() + 1);
       this.$scope.labels = (function() {
         results = [];
-        for (j = 1; j <= 30; j++){ results.push(j); }
+        for (var j = 1; 1 <= date ? j <= date : j >= date; 1 <= date ? j++ : j--){ results.push(j); }
         return results;
       }).apply(this);
-      return this.$scope.data = [
-        (function() {
-          var k, len, ref, results1;
-          ref = this.$scope.labels;
-          results1 = [];
-          for (k = 0, len = ref.length; k < len; k++) {
-            i = ref[k];
-            results1.push(Math.round(Math.random() * 100));
-          }
-          return results1;
-        }).call(this)
-      ];
+      if (this.auth.isLoggedIn()) {
+        return this.DataStat.month_archive(year, month).then((function(_this) {
+          return function(ret) {
+            return _this.$scope.data = [
+              _.map(ret.data, function(d) {
+                return d.energy_saving_amount;
+              })
+            ];
+          };
+        })(this));
+      } else {
+        return this.$scope.data = [
+          (function() {
+            var k, len, ref, results1;
+            ref = this.$scope.labels;
+            results1 = [];
+            for (k = 0, len = ref.length; k < len; k++) {
+              i = ref[k];
+              results1.push(Math.round(Math.random() * 100));
+            }
+            return results1;
+          }).call(this)
+        ];
+      }
     };
 
-    HealthCtrl.prototype.init_3m = function() {
-      var i;
-      this.$scope.head = '10 ~ 12';
-      this.$scope.labels = [10, 11, 12];
-      return this.$scope.data = [
-        (function() {
-          var j, len, ref, results;
-          ref = this.$scope.labels;
-          results = [];
-          for (j = 0, len = ref.length; j < len; j++) {
-            i = ref[j];
-            results.push(Math.round(Math.random() * 100));
-          }
-          return results;
-        }).call(this)
-      ];
+    HealthCtrl.prototype.init_3m = function(now) {
+      var from_month, i, month;
+      month = now.getMonth();
+      from_month = this._m((month + 12 - 3) % 12);
+      this.$scope.head = from_month + " ~ " + this._m(month);
+      this.$scope.labels = [this._m(from_month), this._m(from_month + 1), this._m(from_month + 2)];
+      if (this.auth.isLoggedIn()) {
+        return this.DataStat.last_n_month(3).then((function(_this) {
+          return function(ret) {
+            return _this.$scope.data = [
+              _.map(ret.data, function(d) {
+                return d.energy_saving_amount;
+              })
+            ];
+          };
+        })(this));
+      } else {
+        return this.$scope.data = [
+          (function() {
+            var j, len, ref, results;
+            ref = this.$scope.labels;
+            results = [];
+            for (j = 0, len = ref.length; j < len; j++) {
+              i = ref[j];
+              results.push(Math.round(Math.random() * 100));
+            }
+            return results;
+          }).call(this)
+        ];
+      }
     };
 
-    HealthCtrl.prototype.init_6m = function() {
-      var i;
-      this.$scope.head = '7 ~ 12';
-      this.$scope.labels = [7, 8, 9, 10, 11, 12];
-      return this.$scope.data = [
-        (function() {
-          var j, len, ref, results;
-          ref = this.$scope.labels;
-          results = [];
-          for (j = 0, len = ref.length; j < len; j++) {
-            i = ref[j];
-            results.push(Math.round(Math.random() * 100));
-          }
-          return results;
-        }).call(this)
-      ];
+    HealthCtrl.prototype.init_6m = function(now) {
+      var from_month, i, j, month, ref, ref1;
+      month = now.getMonth();
+      from_month = this._m((month + 12 - 6) % 12);
+      this.$scope.head = from_month + " ~ " + this._m(month);
+      this.$scope.labels = [];
+      for (i = j = ref = from_month, ref1 = from_month + 6; ref <= ref1 ? j <= ref1 : j >= ref1; i = ref <= ref1 ? ++j : --j) {
+        this.$scope.labels.push(this._m(i));
+      }
+      if (this.auth.isLoggedIn()) {
+        return this.DataStat.last_n_month(6).then((function(_this) {
+          return function(ret) {
+            return _this.$scope.data = [
+              _.map(ret.data, function(d) {
+                return d.energy_saving_amount;
+              })
+            ];
+          };
+        })(this));
+      } else {
+        return this.$scope.data = [
+          (function() {
+            var k, len, ref2, results;
+            ref2 = this.$scope.labels;
+            results = [];
+            for (k = 0, len = ref2.length; k < len; k++) {
+              i = ref2[k];
+              results.push(Math.round(Math.random() * 100));
+            }
+            return results;
+          }).call(this)
+        ];
+      }
     };
 
     HealthCtrl.prototype.init_period = function() {
-      return this.init_6m();
+      this.$scope.labels = [];
+      this.$scope.head = "";
+      this.$scope.data = [[]];
+      return this.$scope.show_total = false;
+    };
+
+    HealthCtrl.prototype.search_by_period = function() {
+      var fd, fm, fy, i, j, k, l, results, results1, results2, td, tm, ty;
+      if (this.from_val > this.to_val) {
+        this.util.toast(this.gettextCatalog.getString("from date must less than to date."));
+        return;
+      }
+      this.$scope.show_total = true;
+      fy = this.from_val.getFullYear();
+      fm = this.from_val.getMonth() + 1;
+      fd = this.from_val.getDate();
+      ty = this.to_val.getFullYear();
+      tm = this.to_val.getMonth() + 1;
+      td = this.to_val.getDate();
+      if (fy !== ty) {
+        this.$scope.head = fy + " ~ " + ty;
+        this.$scope.labels = (function() {
+          results = [];
+          for (var j = fy; fy <= ty ? j <= ty : j >= ty; fy <= ty ? j++ : j--){ results.push(j); }
+          return results;
+        }).apply(this);
+        this.$scope.data = [[]];
+      } else if (fm !== tm) {
+        this.$scope.head = fy + "-" + fm + " ~ " + ty + "-" + tm;
+        this.$scope.labels = (function() {
+          results1 = [];
+          for (var k = fm; fm <= tm ? k <= tm : k >= tm; fm <= tm ? k++ : k--){ results1.push(k); }
+          return results1;
+        }).apply(this);
+      } else {
+        this.$scope.head = this.$scope.from + " ~ " + this.$scope.to;
+        this.$scope.labels = (function() {
+          results2 = [];
+          for (var l = fd; fd <= td ? l <= td : l >= td; fd <= td ? l++ : l--){ results2.push(l); }
+          return results2;
+        }).apply(this);
+      }
+      if (this.auth.isLoggedIn()) {
+        return this.DataStat.query(this.$scope.from, this.$scope.to).then((function(_this) {
+          return function(ret) {
+            return _this.$scope.data = [
+              _.map(ret.data, function(d) {
+                return d.energy_saving_amount;
+              })
+            ];
+          };
+        })(this));
+      } else {
+        return this.$scope.data = [
+          (function() {
+            var len, n, ref, results3;
+            ref = this.$scope.labels;
+            results3 = [];
+            for (n = 0, len = ref.length; n < len; n++) {
+              i = ref[n];
+              results3.push(Math.round(Math.random() * 100));
+            }
+            return results3;
+          }).call(this)
+        ];
+      }
+    };
+
+    HealthCtrl.prototype.get_month = function(m) {
+      switch (m) {
+        case 1:
+          return this.gettextCatalog.getString('January');
+        case 2:
+          return this.gettextCatalog.getString('February');
+        case 3:
+          return this.gettextCatalog.getString('March');
+        case 4:
+          return this.gettextCatalog.getString('April');
+        case 5:
+          return this.gettextCatalog.getString('May');
+        case 6:
+          return this.gettextCatalog.getString('June');
+        case 7:
+          return this.gettextCatalog.getString('July');
+        case 8:
+          return this.gettextCatalog.getString('August');
+        case 9:
+          return this.gettextCatalog.getString('September');
+        case 10:
+          return this.gettextCatalog.getString('October');
+        case 11:
+          return this.gettextCatalog.getString('November');
+        case 12:
+          return this.gettextCatalog.getString('December');
+      }
+    };
+
+    HealthCtrl.prototype._m = function(m) {
+      if (m === 0) {
+        return 12;
+      } else {
+        return m;
+      }
     };
 
     return HealthCtrl;
 
   })();
 
-  angular.module('app').controller('HealthCtrl', ['$scope', '$stateParams', 'gettextCatalog', HealthCtrl]);
+  angular.module('app').controller('HealthCtrl', ['$rootScope', '$scope', '$stateParams', 'gettextCatalog', 'moment', 'Auth', 'event', 'DataStat', 'Util', HealthCtrl]);
 
 }).call(this);
 
@@ -1575,10 +1806,11 @@
   var NewProfileCtrl;
 
   NewProfileCtrl = (function() {
-    function NewProfileCtrl($scope, $rootScope, $state, $ionicHistory, gettextCatalog, moment, $cordovaFile, $cordovaImagePicker, userProfileSvc, util) {
+    function NewProfileCtrl($scope, $rootScope, $state, $stateParams, $ionicHistory, gettextCatalog, moment, $cordovaFile, $cordovaImagePicker, userProfileSvc, util) {
       this.$scope = $scope;
       this.$rootScope = $rootScope;
       this.$state = $state;
+      this.$stateParams = $stateParams;
       this.$ionicHistory = $ionicHistory;
       this.gettextCatalog = gettextCatalog;
       this.moment = moment;
@@ -1586,7 +1818,12 @@
       this.$cordovaImagePicker = $cordovaImagePicker;
       this.userProfileSvc = userProfileSvc;
       this.util = util;
-      this.userprofile = {};
+      this.id = this.$stateParams.id;
+      if (this.id) {
+        this.userprofile = this.userProfileSvc.get(this.id);
+      } else {
+        this.userprofile = {};
+      }
       this.$scope.datepickerObject = {
         callback: (function(_this) {
           return function(val) {
@@ -1613,7 +1850,13 @@
       if (form.$valid) {
         cuser = this.$rootScope.user;
         this.userprofile.uid = cuser.id;
-        this.userprofile.phone = cuser.username;
+        if (!this.id) {
+          this.userprofile.phone = cuser.username;
+        } else {
+          if (this.userprofile.avatar && this.userprofile.avatar.toString() === !"[object Blob]") {
+            delete this.userprofile.avatar;
+          }
+        }
         ret = this.userProfileSvc.save(this.userprofile);
         return ret.$promise.then((function(_this) {
           return function(ret) {
@@ -1681,7 +1924,7 @@
 
   })();
 
-  angular.module('app').controller('NewProfileCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', 'gettextCatalog', 'moment', '$cordovaFile', '$cordovaImagePicker', 'userProfile', 'Util', NewProfileCtrl]);
+  angular.module('app').controller('NewProfileCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicHistory', 'gettextCatalog', 'moment', '$cordovaFile', '$cordovaImagePicker', 'userProfile', 'Util', NewProfileCtrl]);
 
 }).call(this);
 
@@ -1732,13 +1975,15 @@
   var PayCtrl;
 
   PayCtrl = (function() {
-    function PayCtrl($scope, $state, $localStorage, $sessionStorage, storageKey) {
+    function PayCtrl($rootScope, $scope, $state, $localStorage, $sessionStorage, storageKey, event) {
       var defaultVal;
+      this.$rootScope = $rootScope;
       this.$scope = $scope;
       this.$state = $state;
       this.$localStorage = $localStorage;
       this.$sessionStorage = $sessionStorage;
       this.storageKey = storageKey;
+      this.event = event;
       this.$scope.ibeacon_detected = false;
       this.$scope.step = this.$scope.ibeacon_detected ? 1 : 2;
       this.busline = 'M474';
@@ -1754,13 +1999,24 @@
           });
         };
       })(this);
+      this.$scope.ibeacon_detected = this.$rootScope.bus ? true : false;
+      this.$rootScope.$on(this.event.ENTER_BUS, (function(_this) {
+        return function(bus) {
+          return _this.$scope.ibeacon_detected = true;
+        };
+      })(this));
+      this.$rootScope.$on(this.event.LEAVE_BUS, (function(_this) {
+        return function(bus) {
+          return _this.$scope.ibeacon_detected = false;
+        };
+      })(this));
     }
 
     return PayCtrl;
 
   })();
 
-  angular.module('app').controller('PayCtrl', ['$scope', '$state', '$localStorage', '$sessionStorage', 'storageKey', PayCtrl]);
+  angular.module('app').controller('PayCtrl', ['$rootScope', '$scope', '$state', '$localStorage', '$sessionStorage', 'storageKey', 'event', PayCtrl]);
 
 }).call(this);
 
@@ -2756,16 +3012,31 @@
   var DataStatSrv;
 
   DataStatSrv = (function() {
-    function DataStatSrv($http) {
+    function DataStatSrv($http, settings) {
       this.$http = $http;
-      console.log('data stat');
+      this.settings = settings;
+      this.url = this.settings.baseurl + '/datastat/energysaving/';
     }
+
+    DataStatSrv.prototype.month_archive = function(year, month) {
+      month = month.toString();
+      month = month.length < 2 ? "0" + month : month;
+      return this.$http.get(this.url + (year + "/" + month + "/"));
+    };
+
+    DataStatSrv.prototype.last_n_month = function(n) {
+      return this.$http.get(this.url + ("lastnmonth/" + n + "/"));
+    };
+
+    DataStatSrv.prototype.query = function(from, to) {
+      return this.$http.get(this.url + ("query/?from=" + from + "&to=" + to));
+    };
 
     return DataStatSrv;
 
   })();
 
-  angular.module('app').server('DataStat', ['$http', DataStatSrv]);
+  angular.module('app').service('DataStat', ['$http', 'settings', DataStatSrv]);
 
 }).call(this);
 
