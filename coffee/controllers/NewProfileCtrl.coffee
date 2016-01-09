@@ -26,15 +26,18 @@ class NewProfileCtrl
 			@userprofile.uid = cuser.id
 			if not @id
 				@userprofile.phone = cuser.username
+				post_data = @userprofile
 			else
-				if @userprofile.avatar and @userprofile.avatar.toString() is not "[object Blob]"
-					delete @userprofile.avatar
+				post_data = angular.copy @userprofile
+				if post_data.avatar and post_data.avatar.toString() isnt "[object Blob]"
+					delete post_data.avatar
 			
-			ret = @userProfileSvc.save @userprofile
+			ret = @userProfileSvc.save post_data
 			ret.$promise.then (ret)=>
 				# console.log "save success. #{JSON.stringify(ret)} "
 				@util.toast @gettextCatalog.getString 'update profile successful.'
-				@skip()
+				if not @id
+					@skip()
 			, (err) =>
 				console.log 'save failed. #{err}'
 				@util.toast @gettextCatalog.getString 'update profile failed. #{err}'
