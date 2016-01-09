@@ -2883,12 +2883,6 @@
     };
 
     BeaconState.prototype.load_state = function() {
-      this.$localStorage.$default({
-        bus: {
-          bid: "9527",
-          plate_number: "粤E9527"
-        }
-      });
       this.$rootScope.bus = this.$localStorage.bus;
       return this.$rootScope.beacon_last_ts = this.$localStorage.beacon_last_ts;
     };
