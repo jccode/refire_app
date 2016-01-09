@@ -1657,6 +1657,16 @@ $ion-item-height: 54px;
         width: 100%;
         vertical-align: top;
     }
+    .head {
+        position: relative;
+        
+        .title {
+            position: absolute;
+            color: #fff;
+            top: 0;
+            left: 50%;
+        }
+    }
     .main {
         position: relative;
         
@@ -1704,7 +1714,13 @@ $ion-item-height: 54px;
                     }
                 }
             }
-            
+        }
+
+        .bottle-text {
+            position: absolute;
+            color: #fff;
+            bottom: 0;
+            left: 50%;
         }
     }
 
@@ -1767,3 +1783,4 @@ $ion-item-height: 54px;
     text-decoration: underline;
     cursor: pointer;
 }
+

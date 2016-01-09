@@ -31,14 +31,24 @@ class EnergyFlowCtrl
 		@$scope.fuel_cell_src = @get_fuel_cell_img null
 		@$scope.battery_src = @get_battery_img null
 
-	get_energy_flow_gif: (status)->
+	_get_energy_flow_gif: (status)->
 		img = switch status
 			when 0 then "GIF-1044-E-only.gif" # TODO: need correct
 			when 1 then "GIF-1044-E-only.gif"
 			when 2 then "GIF-1044-H-and-E.gif"
 			when 3 then "GIF-1044-H-to-E-and-engine.gif"
 			when 4 then "GIF-1044-Engine-to-E.gif"
-			else "GIF-1044-E-only.gif"
+			else "GIF-1044-H-and-E.gif"
+		@img_base_url + img
+
+	get_energy_flow_gif: (status)->
+		img = switch status
+			when 0 then "LOGO-still.png"
+			when 1 then "LOGO-E-only.gif"
+			when 2 then "LOGO-H-and-E.gif"
+			when 3 then "LOGO-H-to-E.gif"
+			when 4 then "LOGO-Engine-to-E.gif"
+			else "LOGO-E-only.gif"
 		@img_base_url + img
 
 	get_fuel_cell_img: (remain)->

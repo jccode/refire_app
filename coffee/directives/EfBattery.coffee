@@ -8,7 +8,7 @@ class EfBattery
 		flh_min = 12
 
 		link = (scope, el, attrs)->
-			console.log 'ef battery'
+			#console.log 'ef battery'
 			main = el.parent()[0]
 			# console.log main
 			# console.log main.clientWidth
