@@ -153,7 +153,7 @@ class Config
 						controller: 'SmsCtrl as ctrl'
 
 			.state 'app.createprofile',
-				url: '/createprofile'
+				url: '/createprofile/:id'
 				views:
 					'menuContent':
 						templateUrl: 'templates/newprofile.html'

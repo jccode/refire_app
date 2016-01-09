@@ -164,9 +164,14 @@ input.input-blueborder {
       margin-right: 10px;
       white-space: nowrap; }
     .busoverview .odometer .demo-tips {
-      float: right;
       white-space: nowrap;
-      font-size: 10px; }
+      font-size: 10px;
+      position: absolute;
+      width: 100%;
+      background-color: rgba(250, 250, 250, 0.5);
+      padding: 4px 0;
+      display: block;
+      text-align: center; }
     .busoverview .odometer .milage-remain {
       width: 200px;
       height: 200px;
@@ -475,7 +480,8 @@ input.input-blueborder {
     margin: 10px 0px 10px 21px;
     font-size: 12px;
     overflow: hidden;
-    text-align: center; }
+    text-align: center;
+    white-space: nowrap; }
     .payment .beacon-section .beacon-container img {
       width: 45px;
       height: 47px;
@@ -1523,6 +1529,9 @@ input.input-blueborder {
   background-image: -o-linear-gradient(top, #fefefe, #eee);
   background-image: linear-gradient(top, #fefefe, #eee);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fefefe', endColorStr='#eee'); }
+  .chart-detail .demo-tips {
+    text-align: center;
+    padding: 4px 0; }
   .chart-detail h1 {
     font-size: 14px;
     font-weight: bold;
@@ -1852,6 +1861,12 @@ input.input-blueborder {
 
 .energy2 {
   /* margin-top: 70px; */ }
+  .energy2 .demo-tips {
+    text-align: center;
+    background-color: #000;
+    color: white;
+    padding: 4px 0;
+    font-weight: bold; }
 
 .endashboard img.full {
   width: 100%;
@@ -1919,3 +1934,14 @@ input.input-blueborder {
   color: #fff;
   font-size: 12px;
   padding-left: 8px; }
+
+.date-picker.item-icon-right {
+  position: relative; }
+  .date-picker.item-icon-right .fa {
+    position: absolute;
+    right: 6px;
+    top: 15px; }
+
+.link {
+  text-decoration: underline;
+  cursor: pointer; }

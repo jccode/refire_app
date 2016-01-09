@@ -1,26 +1,51 @@
 
 <ion-content class="chart-detail">
-   <!--Your Template Content Goes here-->
-   <h1> {{head}} </h1>
-   <h3 translate>Energy saving(kwh)</h3>
-   <div class="chart-container">
-       <canvas id="line" class="chart chart-line" chart-data="data"
-               chart-labels="labels" chart-legend="false" chart-click="onClick" chart-series="series" >
-       </canvas> 
-   </div>
-   <h2 translate>Total</h2>
-   <div class="data-tb">
-       <div class="row">
-           <div class="col" translate> Total Distance Driven </div>
-           <div class="col"> {{total_distance}} </div>
-       </div>
-       <div class="row">
-           <div class="col" translate> Total Energy Saving </div>
-           <div class="col"> {{total_energy_saving}} </div>
-       </div>
-       <div class="row">
-           <div class="col" translate> Total Emission Reduction </div>
-           <div class="col"> {{total_emission_reduction}} </div>
-       </div>
-   </div>
+    <div class="demo-tips" ng-show="demodata" translate>
+        Demo data. <span class="link" ng-click="popup_login()">Login</span> to view the real data
+    </div>
+    <div class="date-select row" ng-show="type == 4">
+        <div class="col">
+            <label class="item item-input item-icon-right date-picker">
+                <ionic-datepicker input-obj="datepickerFrom" style="width: 100%;">
+                    <i class="fa fa-calendar"></i>
+                    <input type="text" name="from" ng-model="from" placeholder="{{'From date'|translate}}" />
+                    
+                </ionic-datepicker>
+            </label>
+        </div>
+        <div class="col">
+            <label class="item item-input item-icon-right date-picker">
+                <ionic-datepicker input-obj="datepickerTo" style="width: 100%;">
+                    <input type="text" name="to" ng-model="to" placeholder="{{'To date'|translate}}" />
+                    <i class="fa fa-calendar"></i>
+                </ionic-datepicker>
+            </label>
+        </div>
+        <div style="padding:5px 0;">
+            <button class="button icon ion-search" ng-click="search()"></button>
+        </div>
+    </div>
+    
+    <h1> {{head}} </h1>
+    <h3 translate>Energy saving(kwh)</h3>
+    <div class="chart-container">
+        <canvas id="line" class="chart chart-line" chart-data="data"
+                chart-labels="labels" chart-legend="false" chart-click="onClick" chart-series="series" >
+        </canvas> 
+    </div>
+    <h2 translate ng-show="show_total">Total</h2>
+    <div class="data-tb" ng-show="show_total">
+        <div class="row">
+            <div class="col" translate> Total Distance Driven </div>
+            <div class="col"> {{total_distance}} </div>
+        </div>
+        <div class="row">
+            <div class="col" translate> Total Energy Saving </div>
+            <div class="col"> {{total_energy_saving}} </div>
+        </div>
+        <div class="row">
+            <div class="col" translate> Total Emission Reduction </div>
+            <div class="col"> {{total_emission_reduction}} </div>
+        </div>
+    </div>
 </ion-content>

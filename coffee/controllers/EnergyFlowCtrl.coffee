@@ -1,12 +1,16 @@
 
 class EnergyFlowCtrl
-	constructor: (@$scope, @$rootScope, @BusData)->
+	constructor: (@$scope, @$rootScope, @BusData, @event)->
 		@bus = @$rootScope.bus
 		@img_base_url = "img/engineflow/"
 		if @bus and @bus.bid
+			@demodata = false
 			@getdata()
 		else
+			@demodata = true
 			@fallback_init()
+			@$scope.popup_login = ()=>
+				@$rootScope.$broadcast @event.REQUIRE_LOGIN, ''
 
 
 	getdata: ->
@@ -72,5 +76,6 @@ angular.module('app').controller 'EnergyFlowCtrl', [
 	'$scope',
 	'$rootScope',
 	'BusData',
+	'event',
 	EnergyFlowCtrl
 ]
