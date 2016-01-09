@@ -1,8 +1,8 @@
-<ion-view view-title="Setting">
+<ion-view view-title="Setting" cache-view="false">
     <ion-content class="setting">
         <h1> <translate> Your Profile </translate>
         <a class="button icon-left ion-locked button-clear" ng-click="ctrl.logoff()" translate> Logoff </a> 
-        <a class="button icon-left ion-edit button-clear" ng-click="ctrl.edit()" translate> Edit </a> 
+        <a class="button icon-left ion-edit button-clear" href="#/app/createprofile/{{ctrl.user.id}}" translate> Edit </a> 
         </h1>
         
         <div class="profile">

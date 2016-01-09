@@ -1846,22 +1846,26 @@
     };
 
     NewProfileCtrl.prototype.submit = function(form) {
-      var cuser, ret;
+      var cuser, post_data, ret;
       if (form.$valid) {
         cuser = this.$rootScope.user;
         this.userprofile.uid = cuser.id;
         if (!this.id) {
           this.userprofile.phone = cuser.username;
+          post_data = this.userprofile;
         } else {
-          if (this.userprofile.avatar && this.userprofile.avatar.toString() === !"[object Blob]") {
-            delete this.userprofile.avatar;
+          post_data = angular.copy(this.userprofile);
+          if (post_data.avatar && post_data.avatar.toString() !== "[object Blob]") {
+            delete post_data.avatar;
           }
         }
-        ret = this.userProfileSvc.save(this.userprofile);
+        ret = this.userProfileSvc.save(post_data);
         return ret.$promise.then((function(_this) {
           return function(ret) {
             _this.util.toast(_this.gettextCatalog.getString('update profile successful.'));
-            return _this.skip();
+            if (!_this.id) {
+              return _this.skip();
+            }
           };
         })(this), (function(_this) {
           return function(err) {
