@@ -4,12 +4,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
-#: setting.html:4
-msgid "&nbsp; Logoff"
-msgstr ""
-
 #: pay-confirm.html:14
 msgid "1 bus ticket"
+msgstr ""
+
+#: rewards.html:44
+msgid "1,000 points & gifts"
 msgstr ""
 
 #: health.html:10
@@ -20,19 +20,31 @@ msgstr ""
 msgid "6 Months"
 msgstr ""
 
+#: newprofile.html:5
+msgid "About You"
+msgstr ""
+
 #: pay.html:55
 msgid "AliPay"
 msgstr ""
 
-#: bus_overview.html:14
+#: application.js:1495
+msgid "April"
+msgstr ""
+
+#: application.js:1503
+msgid "August"
+msgstr ""
+
+#: bus_overview.html:17
 msgid "Available"
 msgstr ""
 
-#: bus_overview.html:88
+#: bus_overview.html:91
 msgid "Battery"
 msgstr ""
 
-#: home/energy2.html:27
+#: home/energy2.html:33
 msgid "BATTERY"
 msgstr ""
 
@@ -40,7 +52,7 @@ msgstr ""
 msgid "Birth Date"
 msgstr ""
 
-#: setting.html:43
+#: setting.html:44
 msgid "Break Time"
 msgstr ""
 
@@ -81,12 +93,11 @@ msgstr ""
 msgid "Collect points for discount on your tickets"
 msgstr ""
 
-#: home/tree.html:25
+#: home/tree.html:28
 msgid "compare to a <br> traditional bus"
 msgstr ""
 
 #: rewards.html:16
-#: rewards.html:40
 msgid "completed"
 msgstr ""
 
@@ -98,43 +109,55 @@ msgstr ""
 msgid "confirm password isn't the same"
 msgstr ""
 
-#: bus_overview.html:134
-#: bus_overview.html:58
-#: bus_overview.html:95
+#: bus_overview.html:137
+#: bus_overview.html:61
+#: bus_overview.html:98
 msgid "Current"
 msgstr ""
 
-#: setting.html:39
+#: setting.html:40
 msgid "Current Bus"
 msgstr ""
 
-#: setting.html:49
+#: setting.html:50
 msgid "Current Shift"
 msgstr ""
 
-#: setting.html:65
+#: setting.html:66
 msgid "Data Refresh Rate"
 msgstr ""
 
-#: setting.html:48
+#: setting.html:49
 msgid "DAY SHIFT"
 msgstr ""
 
-#: application.js:1124
+#: application.js:1511
 msgid "December"
+msgstr ""
+
+#: health/detail.html:3
+msgid "Demo data. <span class=\"link\" ng-click=\"popup_login()\">Login</span> to view the real data"
+msgstr ""
+
+#: bus_overview.html:12
+#: home/energy2.html:10
+msgid "Demo data. To view the real data when you take our bus."
 msgstr ""
 
 #: rewards.html:20
 #: rewards.html:32
-#: rewards.html:44
 msgid "discount on all your tickets"
+msgstr ""
+
+#: setting.html:5
+msgid "Edit"
 msgstr ""
 
 #: home.html:9
 msgid "Energy flow"
 msgstr ""
 
-#: health/detail.html:5
+#: health/detail.html:30
 msgid "Energy saving(kwh)"
 msgstr ""
 
@@ -143,8 +166,8 @@ msgstr ""
 msgid "Engine and Milage"
 msgstr ""
 
-#: newprofile.html:62
-msgid "Finalize Account"
+#: application.js:1491
+msgid "February"
 msgstr ""
 
 #: pay-confirm.html:5
@@ -155,15 +178,28 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr ""
 
+#: health/detail.html:11
+msgid "From date"
+msgstr ""
+
+#: application.js:1427
+msgid "from date must less than to date."
+msgstr ""
+
+#: bus_overview.html:54
 #: home.html:25
 msgid "Fuel Cell"
 msgstr ""
 
-#: home/energy2.html:19
+#: home/energy2.html:25
 msgid "FUEL CELL"
 msgstr ""
 
-#: home/tree.html:35
+#: application.js:281
+msgid "Goodbye"
+msgstr ""
+
+#: home/tree.html:38
 msgid "Help us to create a better enviroment for the future of our child"
 msgstr ""
 
@@ -171,21 +207,40 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: setting.html:59
+#: application.js:282
+msgid "Hoping to see you again!"
+msgstr ""
+
+#: setting.html:60
 msgid "Hours"
 msgstr ""
 
-#: bus_overview.html:51
-msgid "Hydrogen"
-msgstr ""
-
-#: pay.html:33
 #: pay.html:8
 msgid "iBeacon Detected"
 msgstr ""
 
+#: pay.html:33
+msgid "iBeacon not detected"
+msgstr ""
+
 #: home.html:1
 msgid "Index"
+msgstr ""
+
+#: application.js:1489
+msgid "January"
+msgstr ""
+
+#: application.js:1501
+msgid "July"
+msgstr ""
+
+#: application.js:1499
+msgid "June"
+msgstr ""
+
+#: rewards.html:37
+msgid "kilometers on a Hydrogen bus"
 msgstr ""
 
 #: login.html:52
@@ -197,24 +252,36 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: application.js:592
+#: application.js:645
 msgid "Login failed. Incorrect username or password."
 msgstr ""
 
-#: application.js:589
+#: application.js:642
 msgid "login success"
 msgstr ""
 
-#: application.js:1753
+#: setting.html:4
+msgid "Logoff"
+msgstr ""
+
+#: application.js:2121
 msgid "logoff success."
 msgstr ""
 
-#: application.js:599
+#: application.js:652
 msgid "logout successful"
 msgstr ""
 
-#: application.js:1734
+#: application.js:2102
 msgid "Manual"
+msgstr ""
+
+#: application.js:1493
+msgid "March"
+msgstr ""
+
+#: application.js:1497
+msgid "May"
 msgstr ""
 
 #: menu.html:25
@@ -233,7 +300,7 @@ msgstr ""
 msgid "mins"
 msgstr ""
 
-#: setting.html:12
+#: setting.html:13
 msgid "Mobile No."
 msgstr ""
 
@@ -247,7 +314,7 @@ msgid "Next Bus"
 msgstr ""
 
 #: newprofile.html:15
-#: setting.html:10
+#: setting.html:11
 msgid "Nickname"
 msgstr ""
 
@@ -257,6 +324,14 @@ msgstr ""
 
 #: tickets.html:10
 msgid "No records."
+msgstr ""
+
+#: application.js:1509
+msgid "November"
+msgstr ""
+
+#: application.js:1507
+msgid "October"
 msgstr ""
 
 #: menu.html:76
@@ -291,7 +366,7 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
-#: application.js:646
+#: application.js:699
 msgid "Permission denied"
 msgstr ""
 
@@ -328,16 +403,16 @@ msgid "Register New Account"
 msgstr ""
 
 #: menu.html:71
+#: rewards.html:2
 msgid "Rewards"
 msgstr ""
 
 #: rewards.html:13
 #: rewards.html:25
-#: rewards.html:37
 msgid "Rides on a Hydrogen bus"
 msgstr ""
 
-#: application.js:1729
+#: application.js:2097
 msgid "second"
 msgstr ""
 
@@ -347,6 +422,10 @@ msgstr ""
 
 #: pay.html:40
 msgid "Select your payment method"
+msgstr ""
+
+#: application.js:1505
+msgid "September"
 msgstr ""
 
 #: menu.html:85
@@ -361,18 +440,30 @@ msgstr ""
 msgid "SMS code"
 msgstr ""
 
-#: bus_overview.html:115
+#: newprofile.html:30
+msgid "Social Media"
+msgstr ""
+
+#: bus_overview.html:118
 msgid "Speed"
 msgstr ""
 
-#: bus_overview.html:138
-#: bus_overview.html:62
-#: bus_overview.html:99
+#: home/tree.html:26
+msgid "Take our bus to see how many trees saved by bus"
+msgstr ""
+
+#: bus_overview.html:102
+#: bus_overview.html:141
+#: bus_overview.html:65
 msgid "Temp."
 msgstr ""
 
 #: rewards.html:7
 msgid "Thank you for riding with us!"
+msgstr ""
+
+#: application.js:273
+msgid "Thanks for riding with us!"
 msgstr ""
 
 #: home/tree.html:20
@@ -407,47 +498,51 @@ msgstr ""
 msgid "This month"
 msgstr ""
 
-#: bus_overview.html:119
+#: health/detail.html:19
+msgid "To date"
+msgstr ""
+
+#: bus_overview.html:122
 msgid "Torque"
 msgstr ""
 
-#: health/detail.html:11
+#: health/detail.html:36
 msgid "Total"
 msgstr ""
 
-#: health/detail.html:14
+#: health/detail.html:39
 msgid "Total Distance Driven"
 msgstr ""
 
-#: setting.html:53
+#: setting.html:54
 msgid "Total Driving Distance"
 msgstr ""
 
-#: setting.html:60
+#: setting.html:61
 msgid "Total Driving Hours"
 msgstr ""
 
-#: bus_overview.html:157
+#: bus_overview.html:160
 msgid "Total emission reduction"
 msgstr ""
 
-#: health/detail.html:22
+#: health/detail.html:47
 msgid "Total Emission Reduction"
 msgstr ""
 
-#: bus_overview.html:149
+#: bus_overview.html:152
 msgid "Total energy saving"
 msgstr ""
 
-#: health/detail.html:18
+#: health/detail.html:43
 msgid "Total Energy Saving"
 msgstr ""
 
-#: bus_overview.html:19
+#: bus_overview.html:22
 msgid "Total Mileage"
 msgstr ""
 
-#: bus_overview.html:153
+#: bus_overview.html:156
 msgid "Total money saving"
 msgstr ""
 
@@ -455,15 +550,23 @@ msgstr ""
 msgid "Total Price"
 msgstr ""
 
+#: home/tree.html:23
+msgid "Trees"
+msgstr ""
+
 #: home.html:39
 msgid "Trees saved"
 msgstr ""
 
-#: application.js:1518
+#: newprofile.html:1
+msgid "Update Profile"
+msgstr ""
+
+#: application.js:1873
 msgid "update profile failed. #{err}"
 msgstr ""
 
-#: application.js:1512
+#: application.js:1865
 msgid "update profile successful."
 msgstr ""
 
@@ -482,7 +585,7 @@ msgstr ""
 msgid "util sms code invalid"
 msgstr ""
 
-#: bus_overview.html:22
+#: bus_overview.html:25
 msgid "Vehicle location (GPS)"
 msgstr ""
 
@@ -494,9 +597,9 @@ msgstr ""
 msgid "Verifying your Account"
 msgstr ""
 
-#: bus_overview.html:130
-#: bus_overview.html:54
-#: bus_overview.html:91
+#: bus_overview.html:133
+#: bus_overview.html:57
+#: bus_overview.html:94
 msgid "Voltage"
 msgstr ""
 
@@ -516,7 +619,11 @@ msgstr ""
 msgid "Weibo Acount"
 msgstr ""
 
-#: application.js:647
+#: application.js:272
+msgid "Welcome"
+msgstr ""
+
+#: application.js:700
 msgid "You don't have permission to view this page."
 msgstr ""
 

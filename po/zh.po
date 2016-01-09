@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2016-01-05 23:42+0800\n"
+"PO-Revision-Date: 2016-01-09 13:00+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
@@ -13,13 +13,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: setting.html:4
-msgid "&nbsp; Logoff"
-msgstr "&nbsp; 退出"
-
 #: pay-confirm.html:14
 msgid "1 bus ticket"
 msgstr "1张车票"
+
+#: rewards.html:44
+msgid "1,000 points & gifts"
+msgstr "1000积分,积分商城兑换礼品"
 
 #: health.html:10
 msgid "3 Months"
@@ -29,19 +29,31 @@ msgstr "3个月"
 msgid "6 Months"
 msgstr "6个月"
 
+#: newprofile.html:5
+msgid "About You"
+msgstr "关于我"
+
 #: pay.html:55
 msgid "AliPay"
 msgstr "支付宝"
 
-#: bus_overview.html:14
+#: application.js:1495
+msgid "April"
+msgstr "四月"
+
+#: application.js:1503
+msgid "August"
+msgstr "八月"
+
+#: bus_overview.html:17
 msgid "Available"
 msgstr "续驶里程"
 
-#: bus_overview.html:88
+#: bus_overview.html:91
 msgid "Battery"
 msgstr "动力电池"
 
-#: home/energy2.html:27
+#: home/energy2.html:33
 msgid "BATTERY"
 msgstr "动力电池"
 
@@ -49,7 +61,7 @@ msgstr "动力电池"
 msgid "Birth Date"
 msgstr "生日"
 
-#: setting.html:43
+#: setting.html:44
 msgid "Break Time"
 msgstr "休息时间"
 
@@ -93,11 +105,11 @@ msgstr "关闭"
 msgid "Collect points for discount on your tickets"
 msgstr "获取积分可以兑换票价打折"
 
-#: home/tree.html:25
+#: home/tree.html:28
 msgid "compare to a <br> traditional bus"
 msgstr "与传统汽车相比"
 
-#: rewards.html:16 rewards.html:40
+#: rewards.html:16
 msgid "completed"
 msgstr "完成"
 
@@ -109,39 +121,53 @@ msgstr "重复密码"
 msgid "confirm password isn't the same"
 msgstr "密码不一致"
 
-#: bus_overview.html:134 bus_overview.html:58 bus_overview.html:95
+#: bus_overview.html:137 bus_overview.html:61 bus_overview.html:98
 msgid "Current"
 msgstr "电流"
 
-#: setting.html:39
+#: setting.html:40
 msgid "Current Bus"
 msgstr "当前巴士"
 
-#: setting.html:49
+#: setting.html:50
 msgid "Current Shift"
 msgstr "本班"
 
-#: setting.html:65
+#: setting.html:66
 msgid "Data Refresh Rate"
 msgstr "自动刷新频率"
 
-#: setting.html:48
+#: setting.html:49
 msgid "DAY SHIFT"
 msgstr "白班"
 
-#: application.js:1124
+#: application.js:1511
 msgid "December"
 msgstr "12月"
 
-#: rewards.html:20 rewards.html:32 rewards.html:44
+#: health/detail.html:3
+msgid ""
+"Demo data. <span class=\"link\" ng-click=\"popup_login()\">Login</span> to "
+"view the real data"
+msgstr "模拟数据.<span class=\"link\" ng-click=\"popup_login()\">登陆</span>查看真实数据 "
+
+#: bus_overview.html:12 home/energy2.html:10
+msgid "Demo data. To view the real data when you take our bus."
+msgstr "模拟数据.乘坐我们的巴士可以查看巴士的真实数据."
+
+#: rewards.html:20 rewards.html:32
 msgid "discount on all your tickets"
 msgstr "票价优惠"
+
+#: setting.html:5
+msgid "Edit"
+msgstr "编辑"
 
 #: home.html:9
 msgid "Energy flow"
 msgstr "能流图"
 
-#: health/detail.html:5
+#: health/detail.html:30
 msgid "Energy saving(kwh)"
 msgstr "节能总数(kwh)"
 
@@ -149,9 +175,9 @@ msgstr "节能总数(kwh)"
 msgid "Engine and Milage"
 msgstr "车况信息"
 
-#: newprofile.html:62
-msgid "Finalize Account"
-msgstr "完成注册"
+#: application.js:1491
+msgid "February"
+msgstr "二月"
 
 #: pay-confirm.html:5
 msgid "Finish Payment"
@@ -161,15 +187,27 @@ msgstr "完成支付"
 msgid "Forgot your password?"
 msgstr "忘记密码"
 
-#: home.html:25
+#: health/detail.html:11
+msgid "From date"
+msgstr "开始日期"
+
+#: application.js:1427
+msgid "from date must less than to date."
+msgstr "开始日期必须小于结束日期"
+
+#: bus_overview.html:54 home.html:25
 msgid "Fuel Cell"
 msgstr "燃料电池"
 
-#: home/energy2.html:19
+#: home/energy2.html:25
 msgid "FUEL CELL"
 msgstr "燃料电池"
 
-#: home/tree.html:35
+#: application.js:281
+msgid "Goodbye"
+msgstr "再见"
+
+#: home/tree.html:38
 msgid "Help us to create a better enviroment for the future of our child"
 msgstr "帮助我们为我们小孩的未来创造一个更好的环境"
 
@@ -177,21 +215,41 @@ msgstr "帮助我们为我们小孩的未来创造一个更好的环境"
 msgid "Home"
 msgstr "主页"
 
-#: setting.html:59
+#: application.js:282
+msgid "Hoping to see you again!"
+msgstr "希望您再次乘坐我们的汽车"
+
+#: setting.html:60
 msgid "Hours"
 msgstr "小时"
 
-#: bus_overview.html:51
-msgid "Hydrogen"
-msgstr "氢气"
-
-#: pay.html:33 pay.html:8
+#: pay.html:8
 msgid "iBeacon Detected"
 msgstr "检测到iBeacon"
+
+#: pay.html:33
+msgid "iBeacon not detected"
+msgstr "检测不到iBeacon"
 
 #: home.html:1
 msgid "Index"
 msgstr "氢切生活"
+
+#: application.js:1489
+msgid "January"
+msgstr "一月"
+
+#: application.js:1501
+msgid "July"
+msgstr "七月"
+
+#: application.js:1499
+msgid "June"
+msgstr "六月"
+
+#: rewards.html:37
+msgid "kilometers on a Hydrogen bus"
+msgstr "公里乘坐氢能源汽车"
 
 #: login.html:52
 msgid "Know when each bus is arriving"
@@ -201,25 +259,37 @@ msgstr "随时掌握公交的到达时间"
 msgid "Login"
 msgstr "登陆"
 
-#: application.js:592
+#: application.js:645
 msgid "Login failed. Incorrect username or password."
 msgstr "登陆失败. 用户名或密码不正确."
 
-#: application.js:589
+#: application.js:642
 msgid "login success"
 msgstr "登陆成功"
 
-#: application.js:1753
+#: setting.html:4
+msgid "Logoff"
+msgstr "退出"
+
+#: application.js:2121
 msgid "logoff success."
 msgstr "退出登陆成功"
 
-#: application.js:599
+#: application.js:652
 msgid "logout successful"
 msgstr "退出登陆成功"
 
-#: application.js:1734
+#: application.js:2102
 msgid "Manual"
 msgstr "手动"
+
+#: application.js:1493
+msgid "March"
+msgstr "三月"
+
+#: application.js:1497
+msgid "May"
+msgstr "五月"
 
 #: menu.html:25
 msgid "Menu"
@@ -233,7 +303,7 @@ msgstr "消息中心"
 msgid "mins"
 msgstr "分钟"
 
-#: setting.html:12
+#: setting.html:13
 msgid "Mobile No."
 msgstr "手机号"
 
@@ -245,7 +315,7 @@ msgstr "手机号码无效"
 msgid "Next Bus"
 msgstr "第一辆"
 
-#: newprofile.html:15 setting.html:10
+#: newprofile.html:15 setting.html:11
 msgid "Nickname"
 msgstr "昵称"
 
@@ -256,6 +326,14 @@ msgstr "还没有帐号?"
 #: tickets.html:10
 msgid "No records."
 msgstr "无任何记录"
+
+#: application.js:1509
+msgid "November"
+msgstr "11月"
+
+#: application.js:1507
+msgid "October"
+msgstr "10月"
 
 #: menu.html:76
 msgid "Others"
@@ -285,7 +363,7 @@ msgstr "支付"
 msgid "Period"
 msgstr "期限"
 
-#: application.js:646
+#: application.js:699
 msgid "Permission denied"
 msgstr "权限受限"
 
@@ -321,15 +399,15 @@ msgstr "注册"
 msgid "Register New Account"
 msgstr "注册新帐号"
 
-#: menu.html:71
+#: menu.html:71 rewards.html:2
 msgid "Rewards"
 msgstr "奖励"
 
-#: rewards.html:13 rewards.html:25 rewards.html:37
+#: rewards.html:13 rewards.html:25
 msgid "Rides on a Hydrogen bus"
 msgstr "次乘坐氢能源汽车"
 
-#: application.js:1729
+#: application.js:2097
 msgid "second"
 msgstr "秒"
 
@@ -340,6 +418,10 @@ msgstr "选择线路"
 #: pay.html:40
 msgid "Select your payment method"
 msgstr "选择支付方式"
+
+#: application.js:1505
+msgid "September"
+msgstr "九月"
 
 #: menu.html:85
 msgid "Settings"
@@ -353,16 +435,28 @@ msgstr "跳过"
 msgid "SMS code"
 msgstr "验证码"
 
-#: bus_overview.html:115
+#: newprofile.html:30
+msgid "Social Media"
+msgstr "社交媒体"
+
+#: bus_overview.html:118
 msgid "Speed"
 msgstr "速度"
 
-#: bus_overview.html:138 bus_overview.html:62 bus_overview.html:99
+#: home/tree.html:26
+msgid "Take our bus to see how many trees saved by bus"
+msgstr "乘坐我们的汽车可以查看汽车节省的树量"
+
+#: bus_overview.html:102 bus_overview.html:141 bus_overview.html:65
 msgid "Temp."
 msgstr "温度"
 
 #: rewards.html:7
 msgid "Thank you for riding with us!"
+msgstr "感谢您乘坐我们的汽车!"
+
+#: application.js:273
+msgid "Thanks for riding with us!"
 msgstr "感谢您乘坐我们的汽车!"
 
 #: home/tree.html:20
@@ -397,47 +491,51 @@ msgstr "氢能源汽车排放出水"
 msgid "This month"
 msgstr "本月"
 
-#: bus_overview.html:119
+#: health/detail.html:19
+msgid "To date"
+msgstr "结束日期"
+
+#: bus_overview.html:122
 msgid "Torque"
 msgstr "扭矩"
 
-#: health/detail.html:11
+#: health/detail.html:36
 msgid "Total"
 msgstr "总的"
 
-#: health/detail.html:14
+#: health/detail.html:39
 msgid "Total Distance Driven"
 msgstr "行驶里程总数"
 
-#: setting.html:53
+#: setting.html:54
 msgid "Total Driving Distance"
 msgstr "行驶里程总数"
 
-#: setting.html:60
+#: setting.html:61
 msgid "Total Driving Hours"
 msgstr "总驾驶时间"
 
-#: bus_overview.html:157
+#: bus_overview.html:160
 msgid "Total emission reduction"
 msgstr "减排总数"
 
-#: health/detail.html:22
+#: health/detail.html:47
 msgid "Total Emission Reduction"
 msgstr "减排总数"
 
-#: bus_overview.html:149
+#: bus_overview.html:152
 msgid "Total energy saving"
 msgstr "节能总数"
 
-#: health/detail.html:18
+#: health/detail.html:43
 msgid "Total Energy Saving"
 msgstr "节能总数"
 
-#: bus_overview.html:19
+#: bus_overview.html:22
 msgid "Total Mileage"
 msgstr "总里程"
 
-#: bus_overview.html:153
+#: bus_overview.html:156
 msgid "Total money saving"
 msgstr "节省钱总数"
 
@@ -445,15 +543,23 @@ msgstr "节省钱总数"
 msgid "Total Price"
 msgstr "总价"
 
+#: home/tree.html:23
+msgid "Trees"
+msgstr "树量"
+
 #: home.html:39
 msgid "Trees saved"
 msgstr "节省树量"
 
-#: application.js:1518
+#: newprofile.html:1
+msgid "Update Profile"
+msgstr "更新个人资料"
+
+#: application.js:1873
 msgid "update profile failed. #{err}"
 msgstr "更新用户信息失败"
 
-#: application.js:1512
+#: application.js:1865
 msgid "update profile successful."
 msgstr "更新用户信息成功"
 
@@ -469,7 +575,7 @@ msgstr "用户名"
 msgid "util sms code invalid"
 msgstr "后短信验证码失效"
 
-#: bus_overview.html:22
+#: bus_overview.html:25
 msgid "Vehicle location (GPS)"
 msgstr "车辆位置 (GPS)"
 
@@ -481,7 +587,7 @@ msgstr "验证手机号"
 msgid "Verifying your Account"
 msgstr "验证帐号"
 
-#: bus_overview.html:130 bus_overview.html:54 bus_overview.html:91
+#: bus_overview.html:133 bus_overview.html:57 bus_overview.html:94
 msgid "Voltage"
 msgstr "电压"
 
@@ -503,7 +609,11 @@ msgstr "微信钱包"
 msgid "Weibo Acount"
 msgstr "微博"
 
-#: application.js:647
+#: application.js:272
+msgid "Welcome"
+msgstr "欢迎"
+
+#: application.js:700
 msgid "You don't have permission to view this page."
 msgstr "你没有权限查看这个页面"
 
@@ -522,6 +632,12 @@ msgstr "购票记录"
 #: home.html:32
 msgid "Zero Emission"
 msgstr "零污染"
+
+#~ msgid "Finalize Account"
+#~ msgstr "完成注册"
+
+#~ msgid "Hydrogen"
+#~ msgstr "氢气"
 
 #~ msgid "Last 2"
 #~ msgstr "下下班"
