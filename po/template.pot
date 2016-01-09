@@ -9,7 +9,7 @@ msgid "1 bus ticket"
 msgstr ""
 
 #: rewards.html:44
-msgid "1,000 points & gifts"
+msgid "1,000 points &amp; gifts"
 msgstr ""
 
 #: health.html:10
@@ -168,6 +168,10 @@ msgstr ""
 
 #: application.js:1491
 msgid "February"
+msgstr ""
+
+#: newprofile.html:63
+msgid "Finalize Account"
 msgstr ""
 
 #: pay-confirm.html:5
@@ -556,6 +560,10 @@ msgstr ""
 
 #: home.html:39
 msgid "Trees saved"
+msgstr ""
+
+#: newprofile.html:63
+msgid "Update"
 msgstr ""
 
 #: newprofile.html:1

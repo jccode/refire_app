@@ -14,6 +14,7 @@ class BeaconCheckin
 			bid: bid
 			event: event
 			timestamp: new Date()
+		#console.log 'checkin: '+JSON.stringify(data)
 		@$http.post @url, data
 
 
