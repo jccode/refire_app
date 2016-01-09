@@ -28,11 +28,11 @@ msgstr ""
 msgid "AliPay"
 msgstr ""
 
-#: application.js:1495
+#: application.js:1517
 msgid "April"
 msgstr ""
 
-#: application.js:1503
+#: application.js:1525
 msgid "August"
 msgstr ""
 
@@ -40,11 +40,15 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
+#: home/energy2.html:18
+msgid "Available Mileage"
+msgstr ""
+
 #: bus_overview.html:91
 msgid "Battery"
 msgstr ""
 
-#: home/energy2.html:33
+#: home/energy2.html:36
 msgid "BATTERY"
 msgstr ""
 
@@ -131,7 +135,7 @@ msgstr ""
 msgid "DAY SHIFT"
 msgstr ""
 
-#: application.js:1511
+#: application.js:1533
 msgid "December"
 msgstr ""
 
@@ -166,7 +170,7 @@ msgstr ""
 msgid "Engine and Milage"
 msgstr ""
 
-#: application.js:1491
+#: application.js:1513
 msgid "February"
 msgstr ""
 
@@ -186,7 +190,7 @@ msgstr ""
 msgid "From date"
 msgstr ""
 
-#: application.js:1427
+#: application.js:1449
 msgid "from date must less than to date."
 msgstr ""
 
@@ -195,7 +199,7 @@ msgstr ""
 msgid "Fuel Cell"
 msgstr ""
 
-#: home/energy2.html:25
+#: home/energy2.html:28
 msgid "FUEL CELL"
 msgstr ""
 
@@ -231,15 +235,15 @@ msgstr ""
 msgid "Index"
 msgstr ""
 
-#: application.js:1489
+#: application.js:1511
 msgid "January"
 msgstr ""
 
-#: application.js:1501
+#: application.js:1523
 msgid "July"
 msgstr ""
 
-#: application.js:1499
+#: application.js:1521
 msgid "June"
 msgstr ""
 
@@ -256,11 +260,11 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: application.js:645
+#: application.js:646
 msgid "Login failed. Incorrect username or password."
 msgstr ""
 
-#: application.js:642
+#: application.js:643
 msgid "login success"
 msgstr ""
 
@@ -268,23 +272,23 @@ msgstr ""
 msgid "Logoff"
 msgstr ""
 
-#: application.js:2121
+#: application.js:2145
 msgid "logoff success."
 msgstr ""
 
-#: application.js:652
+#: application.js:653
 msgid "logout successful"
 msgstr ""
 
-#: application.js:2102
+#: application.js:2126
 msgid "Manual"
 msgstr ""
 
-#: application.js:1493
+#: application.js:1515
 msgid "March"
 msgstr ""
 
-#: application.js:1497
+#: application.js:1519
 msgid "May"
 msgstr ""
 
@@ -330,11 +334,11 @@ msgstr ""
 msgid "No records."
 msgstr ""
 
-#: application.js:1509
+#: application.js:1531
 msgid "November"
 msgstr ""
 
-#: application.js:1507
+#: application.js:1529
 msgid "October"
 msgstr ""
 
@@ -370,7 +374,7 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
-#: application.js:699
+#: application.js:700
 msgid "Permission denied"
 msgstr ""
 
@@ -416,7 +420,7 @@ msgstr ""
 msgid "Rides on a Hydrogen bus"
 msgstr ""
 
-#: application.js:2097
+#: application.js:2121
 msgid "second"
 msgstr ""
 
@@ -428,7 +432,7 @@ msgstr ""
 msgid "Select your payment method"
 msgstr ""
 
-#: application.js:1505
+#: application.js:1527
 msgid "September"
 msgstr ""
 
@@ -543,6 +547,7 @@ msgid "Total Energy Saving"
 msgstr ""
 
 #: bus_overview.html:22
+#: home/energy2.html:44
 msgid "Total Mileage"
 msgstr ""
 
@@ -570,11 +575,11 @@ msgstr ""
 msgid "Update Profile"
 msgstr ""
 
-#: application.js:1873
+#: application.js:1897
 msgid "update profile failed. #{err}"
 msgstr ""
 
-#: application.js:1865
+#: application.js:1889
 msgid "update profile successful."
 msgstr ""
 
@@ -631,7 +636,7 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
-#: application.js:700
+#: application.js:701
 msgid "You don't have permission to view this page."
 msgstr ""
 

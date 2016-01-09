@@ -1,8 +1,8 @@
 
-<!-- 
+<!--
 <ion-view view-title="abc">
     <ion-content class="message-detail">
--->
+ -->
 
 
 
@@ -14,6 +14,9 @@
     <div class="endashboard">
         <div class="head">
             <img src="img/engineflow/menu-bar-top.png" alt="" class="full"/>
+            <div class="title" scale-font='{"width":"200px","line-height":"87px"}' ng-show="ctrl.data">
+                <translate>Available Mileage</translate> &nbsp;&nbsp; {{ctrl.data.MileageData.remain}} KM
+            </div>
         </div>
         <div class="main" id="main">
             <img src="img/engineflow/TOP-1044-no-fuel.png" alt="" class="full"/>
@@ -36,11 +39,17 @@
                     <img ng-src="{{battery_src}}" alt="" /> <!-- img/engineflow/battery-e-80.png -->
                 </div>
             </div>
+
+            <div class="bottle-text" scale-font='{"width":"200px","line-height":"112px"}' ng-show="ctrl.data">
+                <translate>Total Mileage</translate> &nbsp;&nbsp; {{ctrl.data.MileageData.total | number}} KM
+            </div>
         </div>
+        <!-- 
         <div class="footer">
             <img src="img/engineflow/menu-bar-bottom.png" alt="" class="full"/>
             <div class="footer-left"> </div>
         </div>
+        -->
     </div>
 </div>
 

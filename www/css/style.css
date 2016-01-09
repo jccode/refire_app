@@ -1872,6 +1872,14 @@ input.input-blueborder {
   width: 100%;
   vertical-align: top; }
 
+.endashboard .head {
+  position: relative; }
+  .endashboard .head .title {
+    position: absolute;
+    color: #fff;
+    top: 0;
+    left: 50%; }
+
 .endashboard .main {
   position: relative; }
   .endashboard .main .batterys {
@@ -1903,6 +1911,11 @@ input.input-blueborder {
         .endashboard .main .batterys .battery-container .text p {
           margin: 0;
           padding: 0; }
+  .endashboard .main .bottle-text {
+    position: absolute;
+    color: #fff;
+    bottom: 0;
+    left: 50%; }
 
 @media (max-width: 24.99em) {
   .endashboard .main .batterys .battery-container .text {

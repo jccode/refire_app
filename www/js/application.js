@@ -1123,7 +1123,7 @@
       return this.$scope.battery_src = this.get_battery_img(null);
     };
 
-    EnergyFlowCtrl.prototype.get_energy_flow_gif = function(status) {
+    EnergyFlowCtrl.prototype._get_energy_flow_gif = function(status) {
       var img;
       img = (function() {
         switch (status) {
@@ -1138,7 +1138,28 @@
           case 4:
             return "GIF-1044-Engine-to-E.gif";
           default:
-            return "GIF-1044-E-only.gif";
+            return "GIF-1044-H-and-E.gif";
+        }
+      })();
+      return this.img_base_url + img;
+    };
+
+    EnergyFlowCtrl.prototype.get_energy_flow_gif = function(status) {
+      var img;
+      img = (function() {
+        switch (status) {
+          case 0:
+            return "LOGO-still.png";
+          case 1:
+            return "LOGO-E-only.gif";
+          case 2:
+            return "LOGO-H-and-E.gif";
+          case 3:
+            return "LOGO-H-to-E.gif";
+          case 4:
+            return "LOGO-Engine-to-E.gif";
+          default:
+            return "LOGO-E-only.gif";
         }
       })();
       return this.img_base_url + img;
@@ -1854,7 +1875,7 @@
           this.userprofile.phone = cuser.username;
           post_data = this.userprofile;
         } else {
-          if (post_data.avatar && post_data.avatar.toString() !== "[object Blob]") {
+          if (this.userprofile.avatar && this.userprofile.avatar.toString() !== "[object Blob]") {
             post_data = angular.copy(this.userprofile);
             delete post_data.avatar;
           } else {
@@ -2574,7 +2595,6 @@
       flh_min = 12;
       link = function(scope, el, attrs) {
         var main, set_width;
-        console.log('ef battery');
         main = el.parent()[0];
         set_width = function() {
           var factor;
@@ -2601,6 +2621,48 @@
   })();
 
   angular.module('app').directive('efbattery', ['$window', '$document', EfBattery]);
+
+}).call(this);
+
+(function() {
+  var ScaleFont;
+
+  ScaleFont = (function() {
+    function ScaleFont($window, $document) {
+      var f0, link, w0;
+      w0 = 1044;
+      f0 = 30;
+      link = function(scope, el, attrs) {
+        var lineHeight, pare, scale, style0, width;
+        pare = el.parent()[0];
+        style0 = JSON.parse(attrs.scaleFont);
+        width = parseInt(style0['width']);
+        lineHeight = parseInt(style0['line-height']);
+        scale = function() {
+          var factor;
+          factor = pare.clientWidth / w0;
+          return el.css({
+            "font-size": f0 * factor + "px",
+            "line-height": lineHeight * factor + "px",
+            "margin-left": -(width * factor) / 2 + "px"
+          });
+        };
+        scale();
+        return angular.element($window).bind('resize', function() {
+          return scale();
+        });
+      };
+      return {
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return ScaleFont;
+
+  })();
+
+  angular.module('app').directive('scaleFont', ['$window', '$document', ScaleFont]);
 
 }).call(this);
 
