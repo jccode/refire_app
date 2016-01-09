@@ -28,7 +28,7 @@ class NewProfileCtrl
 				@userprofile.phone = cuser.username
 				post_data = @userprofile
 			else
-				if post_data.avatar and post_data.avatar.toString() isnt "[object Blob]"
+				if @userprofile.avatar and @userprofile.avatar.toString() isnt "[object Blob]"
 					post_data = angular.copy @userprofile
 					delete post_data.avatar
 				else
