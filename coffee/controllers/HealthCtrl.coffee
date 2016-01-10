@@ -7,11 +7,16 @@ class HealthCtrl
 		now = new Date()
 		@init_1m(now)
 
-		@$scope.total_distance = '400 KM'
-		@$scope.total_energy_saving = '300 KMK'
-		@$scope.total_emission_reduction = '200 KWH'
-
 		@$scope.demodata = if @auth.isLoggedIn() then false else true
+		if @$scope.demodata
+			@$scope.total_distance = '400 KM'
+			@$scope.total_energy_saving = '30'
+			@$scope.total_emission_reduction = '200 KWH'
+		else
+			@$scope.total_distance = '0 KM'
+			@$scope.total_energy_saving = '0'
+			@$scope.total_emission_reduction = '0 KWH'
+
 		
 		@$scope.onTabSelect = (type) =>
 			@$scope.type = type
