@@ -8,7 +8,7 @@
             <label class="item item-input item-icon-right date-picker">
                 <ionic-datepicker input-obj="datepickerFrom" style="width: 100%;">
                     <i class="fa fa-calendar"></i>
-                    <input type="text" name="from" ng-model="from" placeholder="{{'From date'|translate}}" />
+                    <input type="text" name="from" ng-model="from" placeholder="{{'From date'|translate}}" readonly="true"/>
                     
                 </ionic-datepicker>
             </label>
@@ -16,7 +16,7 @@
         <div class="col">
             <label class="item item-input item-icon-right date-picker">
                 <ionic-datepicker input-obj="datepickerTo" style="width: 100%;">
-                    <input type="text" name="to" ng-model="to" placeholder="{{'To date'|translate}}" />
+                    <input type="text" name="to" ng-model="to" placeholder="{{'To date'|translate}}" readonly="true"/>
                     <i class="fa fa-calendar"></i>
                 </ionic-datepicker>
             </label>
