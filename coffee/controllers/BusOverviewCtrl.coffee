@@ -1,8 +1,8 @@
 
 class BusOverviewCtrl
-	constructor: (@$scope, @$rootScope, @$localStorage, @$interval, @gettextCatalog, @BusData, @storageKey, @event)->
+	constructor: (@$scope, @$rootScope, @$localStorage, @$interval, @gettextCatalog, @BusData, @auth, @storageKey, @event)->
 		@bus = @$rootScope.bus
-		if @bus and @bus.bid
+		if @bus and @bus.bid and @auth.isLoggedIn()
 			@demodata = false
 			@getdata()
 			@auto_refresh()
@@ -125,6 +125,7 @@ angular.module('app').controller 'BusOverviewCtrl', [
 	'$interval',
 	'gettextCatalog',
 	'BusData',
+	'Auth',
 	'storageKey',
 	'event',
 	BusOverviewCtrl

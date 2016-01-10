@@ -725,17 +725,18 @@
   var BusOverviewCtrl;
 
   BusOverviewCtrl = (function() {
-    function BusOverviewCtrl($scope, $rootScope, $localStorage, $interval, gettextCatalog, BusData, storageKey, event) {
+    function BusOverviewCtrl($scope, $rootScope, $localStorage, $interval, gettextCatalog, BusData, auth, storageKey, event) {
       this.$scope = $scope;
       this.$rootScope = $rootScope;
       this.$localStorage = $localStorage;
       this.$interval = $interval;
       this.gettextCatalog = gettextCatalog;
       this.BusData = BusData;
+      this.auth = auth;
       this.storageKey = storageKey;
       this.event = event;
       this.bus = this.$rootScope.bus;
-      if (this.bus && this.bus.bid) {
+      if (this.bus && this.bus.bid && this.auth.isLoggedIn()) {
         this.demodata = false;
         this.getdata();
         this.auto_refresh();
@@ -896,7 +897,7 @@
 
   })();
 
-  angular.module('app').controller('BusOverviewCtrl', ['$scope', '$rootScope', '$localStorage', '$interval', 'gettextCatalog', 'BusData', 'storageKey', 'event', BusOverviewCtrl]);
+  angular.module('app').controller('BusOverviewCtrl', ['$scope', '$rootScope', '$localStorage', '$interval', 'gettextCatalog', 'BusData', 'Auth', 'storageKey', 'event', BusOverviewCtrl]);
 
 }).call(this);
 
@@ -1077,14 +1078,15 @@
   var EnergyFlowCtrl;
 
   EnergyFlowCtrl = (function() {
-    function EnergyFlowCtrl($scope, $rootScope, BusData, event) {
+    function EnergyFlowCtrl($scope, $rootScope, BusData, auth, event) {
       this.$scope = $scope;
       this.$rootScope = $rootScope;
       this.BusData = BusData;
+      this.auth = auth;
       this.event = event;
       this.bus = this.$rootScope.bus;
       this.img_base_url = "img/engineflow/";
-      if (this.bus && this.bus.bid) {
+      if (this.bus && this.bus.bid && this.auth.isLoggedIn()) {
         this.demodata = false;
         this.getdata();
       } else {
@@ -1231,7 +1233,7 @@
 
   })();
 
-  angular.module('app').controller('EnergyFlowCtrl', ['$scope', '$rootScope', 'BusData', 'event', EnergyFlowCtrl]);
+  angular.module('app').controller('EnergyFlowCtrl', ['$scope', '$rootScope', 'BusData', 'Auth', 'event', EnergyFlowCtrl]);
 
 }).call(this);
 
@@ -2474,13 +2476,14 @@
   var TreeCtrl;
 
   TreeCtrl = (function() {
-    function TreeCtrl($scope, $rootScope, BusData) {
+    function TreeCtrl($scope, $rootScope, BusData, auth) {
       this.$scope = $scope;
       this.$rootScope = $rootScope;
       this.BusData = BusData;
+      this.auth = auth;
       this.bus = this.$rootScope.bus;
       this.BASE = 100;
-      if (this.bus && this.bus.bid) {
+      if (this.bus && this.bus.bid && this.auth.isLoggedIn()) {
         this.getdata();
       }
     }
@@ -2512,7 +2515,7 @@
 
   })();
 
-  angular.module('app').controller('TreeCtrl', ['$scope', '$rootScope', 'BusData', TreeCtrl]);
+  angular.module('app').controller('TreeCtrl', ['$scope', '$rootScope', 'BusData', 'Auth', TreeCtrl]);
 
 }).call(this);
 

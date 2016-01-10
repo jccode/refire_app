@@ -1,9 +1,9 @@
 
 class TreeCtrl
-	constructor: (@$scope, @$rootScope, @BusData)->
+	constructor: (@$scope, @$rootScope, @BusData, @auth)->
 		@bus = @$rootScope.bus
 		@BASE = 100				# base number
-		if @bus and @bus.bid
+		if @bus and @bus.bid and @auth.isLoggedIn()
 			@getdata()
 
 	getdata: ()->
@@ -28,5 +28,6 @@ angular.module('app').controller 'TreeCtrl', [
 	'$scope',
 	'$rootScope',
 	'BusData',
+	'Auth',
 	TreeCtrl
 ]

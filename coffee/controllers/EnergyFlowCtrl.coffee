@@ -1,9 +1,9 @@
 
 class EnergyFlowCtrl
-	constructor: (@$scope, @$rootScope, @BusData, @event)->
+	constructor: (@$scope, @$rootScope, @BusData, @auth, @event)->
 		@bus = @$rootScope.bus
 		@img_base_url = "img/engineflow/"
-		if @bus and @bus.bid
+		if @bus and @bus.bid and @auth.isLoggedIn()
 			@demodata = false
 			@getdata()
 		else
@@ -86,6 +86,7 @@ angular.module('app').controller 'EnergyFlowCtrl', [
 	'$scope',
 	'$rootScope',
 	'BusData',
+	'Auth',
 	'event',
 	EnergyFlowCtrl
 ]
