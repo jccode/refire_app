@@ -22,7 +22,7 @@ class BeaconState
 			@save_bus null
 			@BeaconCheckin.checkin bus.bid, @BeaconCheckin.event.LEAVE
 			@$rootScope.$broadcast @event.LEAVE_BUS, bus
-		, 30*1000
+		, 15*1000
 
 	on_bus: (bus)->
 		# clear leaveTimer if needed, checkin on server
