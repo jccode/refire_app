@@ -1078,9 +1078,10 @@
   var EnergyFlowCtrl;
 
   EnergyFlowCtrl = (function() {
-    function EnergyFlowCtrl($scope, $rootScope, BusData, auth, event) {
+    function EnergyFlowCtrl($scope, $rootScope, $interval, BusData, auth, event) {
       this.$scope = $scope;
       this.$rootScope = $rootScope;
+      this.$interval = $interval;
       this.BusData = BusData;
       this.auth = auth;
       this.event = event;
@@ -1089,6 +1090,7 @@
       if (this.bus && this.bus.bid && this.auth.isLoggedIn()) {
         this.demodata = false;
         this.getdata();
+        this.auto_refresh();
       } else {
         this.demodata = true;
         this.fallback_init();
@@ -1099,6 +1101,21 @@
         })(this);
       }
     }
+
+    EnergyFlowCtrl.prototype.auto_refresh = function() {
+      this.refresh_timer = this.$interval((function(_this) {
+        return function() {
+          return _this.getdata();
+        };
+      })(this), 3000);
+      return this.$scope.$on('$destroy', (function(_this) {
+        return function() {
+          if (_this.refresh_timer) {
+            return _this.$interval.cancel(_this.refresh_timer);
+          }
+        };
+      })(this));
+    };
 
     EnergyFlowCtrl.prototype.getdata = function() {
       return this.BusData.busdata(this.bus.bid).then((function(_this) {
@@ -1233,7 +1250,7 @@
 
   })();
 
-  angular.module('app').controller('EnergyFlowCtrl', ['$scope', '$rootScope', 'BusData', 'Auth', 'event', EnergyFlowCtrl]);
+  angular.module('app').controller('EnergyFlowCtrl', ['$scope', '$rootScope', '$interval', 'BusData', 'Auth', 'event', EnergyFlowCtrl]);
 
 }).call(this);
 
@@ -1256,10 +1273,12 @@
       this.init_date_select();
       now = new Date();
       this.init_1m(now);
-      this.$scope.total_distance = '400 KM';
-      this.$scope.total_energy_saving = '300 KMK';
-      this.$scope.total_emission_reduction = '200 KWH';
       this.$scope.demodata = this.auth.isLoggedIn() ? false : true;
+      if (this.$scope.demodata) {
+        this.$scope.total_distance = '400 KM';
+        this.$scope.total_energy_saving = '30';
+        this.$scope.total_emission_reduction = '200 KWH';
+      }
       this.$scope.onTabSelect = (function(_this) {
         return function(type) {
           _this.$scope.type = type;
@@ -1333,6 +1352,24 @@
       };
     };
 
+    HealthCtrl.prototype.sum = function(arr) {
+      return _.reduce(arr, function(memo, num) {
+        return memo + num;
+      }, 0);
+    };
+
+    HealthCtrl.prototype.calc_total = function(data) {
+      this.$scope.total_distance = _.reduce(data, function(memo, o) {
+        return memo + o.total_milage;
+      }, 0);
+      this.$scope.total_energy_saving = _.reduce(data, function(memo, o) {
+        return memo + o.energy_saving_amount;
+      }, 0);
+      return this.$scope.total_emission_reduction = _.reduce(data, function(memo, o) {
+        return memo + o.emission_reduction;
+      }, 0);
+    };
+
     HealthCtrl.prototype.init_1m = function(now) {
       var date, i, j, month, results, year;
       year = now.getFullYear();
@@ -1347,11 +1384,12 @@
       if (this.auth.isLoggedIn()) {
         return this.DataStat.month_archive(year, month).then((function(_this) {
           return function(ret) {
-            return _this.$scope.data = [
+            _this.$scope.data = [
               _.map(ret.data, function(d) {
                 return d.energy_saving_amount;
               })
             ];
+            return _this.calc_total(ret.data);
           };
         })(this));
       } else {
@@ -1379,11 +1417,12 @@
       if (this.auth.isLoggedIn()) {
         return this.DataStat.last_n_month(3).then((function(_this) {
           return function(ret) {
-            return _this.$scope.data = [
+            _this.$scope.data = [
               _.map(ret.data, function(d) {
                 return d.energy_saving_amount;
               })
             ];
+            return _this.calc_total(ret.data);
           };
         })(this));
       } else {
@@ -1414,11 +1453,12 @@
       if (this.auth.isLoggedIn()) {
         return this.DataStat.last_n_month(6).then((function(_this) {
           return function(ret) {
-            return _this.$scope.data = [
+            _this.$scope.data = [
               _.map(ret.data, function(d) {
                 return d.energy_saving_amount;
               })
             ];
+            return _this.calc_total(ret.data);
           };
         })(this));
       } else {
@@ -1483,11 +1523,12 @@
       if (this.auth.isLoggedIn()) {
         return this.DataStat.query(this.$scope.from, this.$scope.to).then((function(_this) {
           return function(ret) {
-            return _this.$scope.data = [
+            _this.$scope.data = [
               _.map(ret.data, function(d) {
                 return d.energy_saving_amount;
               })
             ];
+            return _this.calc_total(ret.data);
           };
         })(this));
       } else {
@@ -2940,7 +2981,7 @@
           _this.BeaconCheckin.checkin(bus.bid, _this.BeaconCheckin.event.LEAVE);
           return _this.$rootScope.$broadcast(_this.event.LEAVE_BUS, bus);
         };
-      })(this), 30 * 1000);
+      })(this), 15 * 1000);
     };
 
     BeaconState.prototype.on_bus = function(bus) {

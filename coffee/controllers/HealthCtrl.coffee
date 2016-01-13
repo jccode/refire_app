@@ -12,11 +12,6 @@ class HealthCtrl
 			@$scope.total_distance = '400 KM'
 			@$scope.total_energy_saving = '30'
 			@$scope.total_emission_reduction = '200 KWH'
-		else
-			@$scope.total_distance = '0 KM'
-			@$scope.total_energy_saving = '0'
-			@$scope.total_emission_reduction = '0 KWH'
-
 		
 		@$scope.onTabSelect = (type) =>
 			@$scope.type = type
@@ -59,6 +54,26 @@ class HealthCtrl
 		@$scope.onClick = (points, evt) ->
 			console.log(points, evt)
 
+	sum: (arr)->
+		_.reduce arr, (memo, num)->
+			memo+num
+		, 0
+
+	calc_total: (data)->
+		# @$scope.total_distance = '0 KM'
+		# @$scope.total_energy_saving = '0'
+		# @$scope.total_emission_reduction = '0 KWH'
+		@$scope.total_distance = _.reduce data, (memo, o)->
+			memo + o.total_milage
+		, 0
+		@$scope.total_energy_saving = _.reduce data, (memo, o)->
+			memo + o.energy_saving_amount
+		, 0
+		@$scope.total_emission_reduction = _.reduce data, (memo, o)->
+			memo + o.emission_reduction
+		, 0
+		
+
 	init_1m: (now)->
 		year = now.getFullYear()
 		month = now.getMonth() + 1
@@ -68,7 +83,7 @@ class HealthCtrl
 		if @auth.isLoggedIn()
 			@DataStat.month_archive(year, month).then (ret)=>
 				@$scope.data = [_.map(ret.data, (d)->d.energy_saving_amount)]
-				#@$scope.data = [[10,9,8,7,6,5,4,3]]
+				@calc_total ret.data
 		else
 			@$scope.data = [(Math.round(Math.random()*100) for i in @$scope.labels)]
 
@@ -80,6 +95,7 @@ class HealthCtrl
 		if @auth.isLoggedIn()
 			@DataStat.last_n_month(3).then (ret)=>
 				@$scope.data = [_.map(ret.data, (d)->d.energy_saving_amount)]
+				@calc_total ret.data
 		else
 			@$scope.data = [(Math.round(Math.random()*100) for i in @$scope.labels)]
 
@@ -92,6 +108,7 @@ class HealthCtrl
 		if @auth.isLoggedIn()
 			@DataStat.last_n_month(6).then (ret)=>
 				@$scope.data = [_.map(ret.data, (d)->d.energy_saving_amount)]
+				@calc_total ret.data
 		else
 			@$scope.data = [(Math.round(Math.random()*100) for i in @$scope.labels)]
 
@@ -130,6 +147,7 @@ class HealthCtrl
 		if @auth.isLoggedIn()
 			@DataStat.query(@$scope.from, @$scope.to).then (ret)=>
 				@$scope.data = [_.map(ret.data, (d)->d.energy_saving_amount)]
+				@calc_total ret.data
 		else
 			@$scope.data = [(Math.round(Math.random()*100) for i in @$scope.labels)]
 			
