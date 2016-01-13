@@ -613,6 +613,28 @@
 }).call(this);
 
 (function() {
+  var TrustedFilter;
+
+  TrustedFilter = (function() {
+    function TrustedFilter($sce) {
+      return function(url, type) {
+        if (type && type === 'html') {
+          return $sce.trustAsHtml(url);
+        } else {
+          return $sce.trustAsResourceUrl(url);
+        }
+      };
+    }
+
+    return TrustedFilter;
+
+  })();
+
+  angular.module('app').filter('trusted', ['$sce', TrustedFilter]);
+
+}).call(this);
+
+(function() {
   var AppCtrl;
 
   AppCtrl = (function() {
@@ -2712,28 +2734,6 @@
   })();
 
   angular.module('app').directive('scaleFont', ['$window', '$document', ScaleFont]);
-
-}).call(this);
-
-(function() {
-  var TrustedFilter;
-
-  TrustedFilter = (function() {
-    function TrustedFilter($sce) {
-      return function(url, type) {
-        if (type && type === 'html') {
-          return $sce.trustAsHtml(url);
-        } else {
-          return $sce.trustAsResourceUrl(url);
-        }
-      };
-    }
-
-    return TrustedFilter;
-
-  })();
-
-  angular.module('app').filter('trusted', ['$sce', TrustedFilter]);
 
 }).call(this);
 

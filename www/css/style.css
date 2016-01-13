@@ -65,6 +65,19 @@
     padding: 20px 49px 4px 12px;
     color: #555; }
 
+.mcontent {
+  margin-bottom: 25px; }
+
+.version-number {
+  color: #888;
+  font-size: 10px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-bottom: 5px; }
+
 /* Color */
 .c-green-1 {
   color: #009900; }
