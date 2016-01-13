@@ -1,17 +1,27 @@
 
 class EnergyFlowCtrl
-	constructor: (@$scope, @$rootScope, @BusData, @auth, @event)->
+	constructor: (@$scope, @$rootScope, @$interval, @BusData, @auth, @event)->
 		@bus = @$rootScope.bus
 		@img_base_url = "img/engineflow/"
 		if @bus and @bus.bid and @auth.isLoggedIn()
 			@demodata = false
 			@getdata()
+			@auto_refresh()
 		else
 			@demodata = true
 			@fallback_init()
 			@$scope.popup_login = ()=>
 				@$rootScope.$broadcast @event.REQUIRE_LOGIN, ''
 
+
+	auto_refresh: ()->
+		@refresh_timer = @$interval ()=>
+			@getdata()
+		, 3000
+
+		@$scope.$on '$destroy', ()=>
+			if @refresh_timer
+				@$interval.cancel @refresh_timer
 
 	getdata: ->
 		@BusData.busdata @bus.bid
@@ -85,6 +95,7 @@ class EnergyFlowCtrl
 angular.module('app').controller 'EnergyFlowCtrl', [
 	'$scope',
 	'$rootScope',
+	'$interval',
 	'BusData',
 	'Auth',
 	'event',

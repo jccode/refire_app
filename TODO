@@ -1,8 +1,12 @@
 # -*- mode: org; -*-
 
 * items
-** terminal api log改一下. 要带IP,时间,xxxx,参考apache log.
+** DONE terminal api log改一下. 要带IP,时间,xxxx,参考apache log.
+** DONE 实时能流图.自动刷新.
+** 注册短信验证码. ps: 联系客服增加短信.
+** pad端,能流图.  
+
 * plan B
 ** 佛山飞弛车厂 -> 云浮():  地图画线.
-** 
+
 
