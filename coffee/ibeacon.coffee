@@ -51,12 +51,13 @@ class BeaconEventHandler
 		#console.log "---------- Ranging ----------"
 		region = result.region
 		close_beacons = _.filter result.beacons, (b)-> b.proximity in ['ProximityImmediate', 'ProximityNear']
-		#console.log "close beacons: "+JSON.stringify(close_beacons)
+		console.log "close beacons: "+JSON.stringify(close_beacons)
 		if close_beacons and close_beacons.length > 0
 			buses = _.map close_beacons, (b)=>
 				return @beaconManager.find_bus(b.identifier, b.uuid, b.major, b.minor)
 			buses = _.flatten buses
-			#console.log "buses:"+JSON.stringify(buses)
+			buses = _.filter buses, (b)->!!b
+			console.log "ranging, buses:"+JSON.stringify(buses)
 			if buses and buses.length>0
 				bus = buses[0]
 				if @beaconState.is_on_bus(bus)

@@ -89,8 +89,18 @@ class BeaconManager
 		# console.log JSON.stringify(@beacon_models)
 		# console.log identifier+";"+uuid+";"+major+";"+minor
 		#console.log ret
-		
-		ret and ret.length>0 and ret[0].buses || null
+		#ret and ret.length>0 and ret[0].buses || null
+
+		if ret and ret.length > 0
+			buses = _.map ret, (r)-> r.buses
+			buses = _.flatten buses
+			buses = _.filter buses, (b)->!!b
+			if buses.length > 0
+				return buses[0]
+			else
+				null
+		else
+			null
 
 
 #window.BeaconManager = BeaconManager
