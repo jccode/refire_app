@@ -1,6 +1,14 @@
 # -*- mode: org; -*-
 
 * items
-** terminal api log改一下. 要带IP,时间,xxxx,参考apache log.
-** 
+** DONE terminal api log改一下. 要带IP,时间,xxxx,参考apache log.
+** 通过admin页面可以查看log
+** terminal api容错.改成字符串
+** app加版本号
+** 注册时发短信会有问题
+** 进入beacon范围,返回,退出app,再次进入,要记住目前在车上.
+
+* plan B
+** 佛山飞弛车厂 -> 云浮():  地图画线.
+
 
