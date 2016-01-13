@@ -613,124 +613,6 @@
 }).call(this);
 
 (function() {
-  var BindFile;
-
-  BindFile = (function() {
-    function BindFile() {
-      var link;
-      link = function(scope, el, attrs, ngModel) {
-        el.bind('change', function(event) {
-          ngModel.$setViewValue(event.target.files[0]);
-          return scope.$apply();
-        });
-        return scope.$watch(function() {
-          return ngModel.$viewValue;
-        }, function(value) {
-          if (!value) {
-            return el.val("");
-          }
-        });
-      };
-      return {
-        require: 'ngModel',
-        restrict: 'A',
-        link: link
-      };
-    }
-
-    return BindFile;
-
-  })();
-
-  angular.module('app').directive('bindFile', BindFile);
-
-}).call(this);
-
-(function() {
-  var EfBattery;
-
-  EfBattery = (function() {
-    function EfBattery($window, $document) {
-      var bw0, f0, flh0, flh_min, link, w0;
-      w0 = 1044;
-      bw0 = 290;
-      f0 = 200;
-      flh0 = 30;
-      flh_min = 12;
-      link = function(scope, el, attrs) {
-        var main, set_width;
-        main = el.parent()[0];
-        set_width = function() {
-          var factor;
-          factor = main.clientWidth / w0;
-          return el.css({
-            "width": bw0 * factor + "px",
-            "font-size": f0 * factor + "%",
-            "line-height": Math.max(flh0 * factor, flh_min) + "px"
-          });
-        };
-        set_width();
-        return angular.element($window).bind('resize', function() {
-          return set_width();
-        });
-      };
-      return {
-        restrict: 'A',
-        link: link
-      };
-    }
-
-    return EfBattery;
-
-  })();
-
-  angular.module('app').directive('efbattery', ['$window', '$document', EfBattery]);
-
-}).call(this);
-
-(function() {
-  var ScaleFont;
-
-  ScaleFont = (function() {
-    function ScaleFont($window, $document) {
-      var f0, link, w0;
-      w0 = 1044;
-      f0 = 30;
-      link = function(scope, el, attrs) {
-        var lineHeight, pare, scale, style0, width;
-        pare = el.parent()[0];
-        style0 = JSON.parse(attrs.scaleFont);
-        width = parseInt(style0['width']);
-        lineHeight = parseInt(style0['line-height']);
-        scale = function() {
-          var factor;
-          factor = pare.clientWidth / w0;
-          return el.css({
-            "font-size": f0 * factor + "px",
-            "line-height": lineHeight * factor + "px",
-            "margin-left": -(width * factor) / 2 + "px"
-          });
-        };
-        scale();
-        return angular.element($window).bind('resize', function() {
-          return scale();
-        });
-      };
-      return {
-        restrict: 'A',
-        link: link
-      };
-    }
-
-    return ScaleFont;
-
-  })();
-
-  angular.module('app').directive('scaleFont', ['$window', '$document', ScaleFont]);
-
-}).call(this);
-
-(function() {
   var AppCtrl;
 
   AppCtrl = (function() {
@@ -2716,6 +2598,124 @@
 }).call(this);
 
 (function() {
+  var BindFile;
+
+  BindFile = (function() {
+    function BindFile() {
+      var link;
+      link = function(scope, el, attrs, ngModel) {
+        el.bind('change', function(event) {
+          ngModel.$setViewValue(event.target.files[0]);
+          return scope.$apply();
+        });
+        return scope.$watch(function() {
+          return ngModel.$viewValue;
+        }, function(value) {
+          if (!value) {
+            return el.val("");
+          }
+        });
+      };
+      return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return BindFile;
+
+  })();
+
+  angular.module('app').directive('bindFile', BindFile);
+
+}).call(this);
+
+(function() {
+  var EfBattery;
+
+  EfBattery = (function() {
+    function EfBattery($window, $document) {
+      var bw0, f0, flh0, flh_min, link, w0;
+      w0 = 1044;
+      bw0 = 290;
+      f0 = 200;
+      flh0 = 30;
+      flh_min = 12;
+      link = function(scope, el, attrs) {
+        var main, set_width;
+        main = el.parent()[0];
+        set_width = function() {
+          var factor;
+          factor = main.clientWidth / w0;
+          return el.css({
+            "width": bw0 * factor + "px",
+            "font-size": f0 * factor + "%",
+            "line-height": Math.max(flh0 * factor, flh_min) + "px"
+          });
+        };
+        set_width();
+        return angular.element($window).bind('resize', function() {
+          return set_width();
+        });
+      };
+      return {
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return EfBattery;
+
+  })();
+
+  angular.module('app').directive('efbattery', ['$window', '$document', EfBattery]);
+
+}).call(this);
+
+(function() {
+  var ScaleFont;
+
+  ScaleFont = (function() {
+    function ScaleFont($window, $document) {
+      var f0, link, w0;
+      w0 = 1044;
+      f0 = 30;
+      link = function(scope, el, attrs) {
+        var lineHeight, pare, scale, style0, width;
+        pare = el.parent()[0];
+        style0 = JSON.parse(attrs.scaleFont);
+        width = parseInt(style0['width']);
+        lineHeight = parseInt(style0['line-height']);
+        scale = function() {
+          var factor;
+          factor = pare.clientWidth / w0;
+          return el.css({
+            "font-size": f0 * factor + "px",
+            "line-height": lineHeight * factor + "px",
+            "margin-left": -(width * factor) / 2 + "px"
+          });
+        };
+        scale();
+        return angular.element($window).bind('resize', function() {
+          return scale();
+        });
+      };
+      return {
+        restrict: 'A',
+        link: link
+      };
+    }
+
+    return ScaleFont;
+
+  })();
+
+  angular.module('app').directive('scaleFont', ['$window', '$document', ScaleFont]);
+
+}).call(this);
+
+(function() {
   var TrustedFilter;
 
   TrustedFilter = (function() {
@@ -3010,7 +3010,11 @@
     };
 
     BeaconState.prototype.is_on_bus = function(bus) {
-      return this.$rootScope.bus && (this.$rootScope.bus.bid = bus.bid);
+      if (this.$rootScope.bus) {
+        return this.$rootScope.bus.bid.toString() === bus.bid.toString();
+      } else {
+        return false;
+      }
     };
 
     BeaconState.prototype.load_state = function() {

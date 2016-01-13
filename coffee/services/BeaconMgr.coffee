@@ -43,7 +43,10 @@ class BeaconState
 		@$localStorage.beacon_last_ts = now
 
 	is_on_bus: (bus)->
-		return @$rootScope.bus and @$rootScope.bus.bid = bus.bid
+		if @$rootScope.bus
+			@$rootScope.bus.bid.toString() is bus.bid.toString()
+		else
+			false
 
 	load_state: ()->
 		# default bus for testing
