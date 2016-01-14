@@ -32,7 +32,7 @@
   <!-- <gap:plugin name="cordova-plugin-x-toast" /> -->
   <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
   <!-- <gap:plugin name="cordova-plugin-crosswalk-webview" /> -->
-  <gap:plugin name="cordova-plugin-app-event" />
+  <!-- <gap:plugin name="cordova-plugin-app-event" /> -->
   <gap:plugin name="com.unarin.cordova.beacon" />
   <gap:plugin name="com.synconset.imagepicker" />
   <platform name="android">
