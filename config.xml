@@ -29,7 +29,7 @@
   <gap:plugin name="cordova-plugin-file" />
   <gap:plugin name="cordova-plugin-file-transfer" />
   <gap:plugin name="cordova-plugin-geolocation" />
-  <gap:plugin name="cordova-plugin-x-toast" />
+  <!-- <gap:plugin name="cordova-plugin-x-toast" /> -->
   <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
   <gap:plugin name="cordova-plugin-crosswalk-webview" />
   <gap:plugin name="cordova-plugin-app-event" />
