@@ -44,5 +44,7 @@
     "cordova-plugin-crosswalk-webview",
     "com.unarin.cordova.beacon"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }
