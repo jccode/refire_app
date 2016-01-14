@@ -282,8 +282,8 @@ input.input-blueborder {
     .busoverview .batterys.row .data-tb {
       margin: 0 14px 9px; }
       .busoverview .batterys.row .data-tb .col {
-        height: 37px;
-        line-height: 37px; }
+        height: 33px;
+        line-height: 33px; }
     .busoverview .batterys.row .battery {
       position: absolute;
       top: 29px;
@@ -317,7 +317,7 @@ input.input-blueborder {
         /* @include border-gradient(#ccc, #666); */ }
         .busoverview .batterys.row .battery .shape .cell {
           /* width: 52px; */
-          height: 10px;
+          height: 11px;
           background: #eee;
           margin-bottom: 3px; }
       .busoverview .batterys.row .battery .shape:before, .busoverview .batterys.row .battery .shape:after {

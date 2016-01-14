@@ -28,11 +28,11 @@ msgstr ""
 msgid "AliPay"
 msgstr ""
 
-#: application.js:1517
+#: application.js:1564
 msgid "April"
 msgstr ""
 
-#: application.js:1525
+#: application.js:1572
 msgid "August"
 msgstr ""
 
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Available Mileage"
 msgstr ""
 
-#: bus_overview.html:91
+#: bus_overview.html:95
 msgid "Battery"
 msgstr ""
 
@@ -113,9 +113,9 @@ msgstr ""
 msgid "confirm password isn't the same"
 msgstr ""
 
-#: bus_overview.html:137
+#: bus_overview.html:102
+#: bus_overview.html:145
 #: bus_overview.html:61
-#: bus_overview.html:98
 msgid "Current"
 msgstr ""
 
@@ -135,7 +135,7 @@ msgstr ""
 msgid "DAY SHIFT"
 msgstr ""
 
-#: application.js:1533
+#: application.js:1580
 msgid "December"
 msgstr ""
 
@@ -170,12 +170,8 @@ msgstr ""
 msgid "Engine and Milage"
 msgstr ""
 
-#: application.js:1513
+#: application.js:1560
 msgid "February"
-msgstr ""
-
-#: newprofile.html:63
-msgid "Finalize Account"
 msgstr ""
 
 #: pay-confirm.html:5
@@ -190,7 +186,7 @@ msgstr ""
 msgid "From date"
 msgstr ""
 
-#: application.js:1449
+#: application.js:1495
 msgid "from date must less than to date."
 msgstr ""
 
@@ -203,7 +199,7 @@ msgstr ""
 msgid "FUEL CELL"
 msgstr ""
 
-#: application.js:281
+#: application.js:286
 msgid "Goodbye"
 msgstr ""
 
@@ -215,7 +211,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: application.js:282
+#: application.js:287
 msgid "Hoping to see you again!"
 msgstr ""
 
@@ -235,15 +231,15 @@ msgstr ""
 msgid "Index"
 msgstr ""
 
-#: application.js:1511
+#: application.js:1558
 msgid "January"
 msgstr ""
 
-#: application.js:1523
+#: application.js:1570
 msgid "July"
 msgstr ""
 
-#: application.js:1521
+#: application.js:1568
 msgid "June"
 msgstr ""
 
@@ -260,11 +256,11 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: application.js:646
+#: application.js:650
 msgid "Login failed. Incorrect username or password."
 msgstr ""
 
-#: application.js:643
+#: application.js:647
 msgid "login success"
 msgstr ""
 
@@ -272,23 +268,23 @@ msgstr ""
 msgid "Logoff"
 msgstr ""
 
-#: application.js:2145
+#: application.js:2192
 msgid "logoff success."
 msgstr ""
 
-#: application.js:653
+#: application.js:657
 msgid "logout successful"
 msgstr ""
 
-#: application.js:2126
+#: application.js:2173
 msgid "Manual"
 msgstr ""
 
-#: application.js:1515
+#: application.js:1562
 msgid "March"
 msgstr ""
 
-#: application.js:1519
+#: application.js:1566
 msgid "May"
 msgstr ""
 
@@ -334,11 +330,11 @@ msgstr ""
 msgid "No records."
 msgstr ""
 
-#: application.js:1531
+#: application.js:1578
 msgid "November"
 msgstr ""
 
-#: application.js:1529
+#: application.js:1576
 msgid "October"
 msgstr ""
 
@@ -374,7 +370,7 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
-#: application.js:700
+#: application.js:704
 msgid "Permission denied"
 msgstr ""
 
@@ -420,7 +416,7 @@ msgstr ""
 msgid "Rides on a Hydrogen bus"
 msgstr ""
 
-#: application.js:2121
+#: application.js:2168
 msgid "second"
 msgstr ""
 
@@ -432,7 +428,7 @@ msgstr ""
 msgid "Select your payment method"
 msgstr ""
 
-#: application.js:1527
+#: application.js:1574
 msgid "September"
 msgstr ""
 
@@ -452,7 +448,7 @@ msgstr ""
 msgid "Social Media"
 msgstr ""
 
-#: bus_overview.html:118
+#: bus_overview.html:126
 msgid "Speed"
 msgstr ""
 
@@ -460,8 +456,8 @@ msgstr ""
 msgid "Take our bus to see how many trees saved by bus"
 msgstr ""
 
-#: bus_overview.html:102
-#: bus_overview.html:141
+#: bus_overview.html:106
+#: bus_overview.html:149
 #: bus_overview.html:65
 msgid "Temp."
 msgstr ""
@@ -470,7 +466,7 @@ msgstr ""
 msgid "Thank you for riding with us!"
 msgstr ""
 
-#: application.js:273
+#: application.js:278
 msgid "Thanks for riding with us!"
 msgstr ""
 
@@ -510,7 +506,7 @@ msgstr ""
 msgid "To date"
 msgstr ""
 
-#: bus_overview.html:122
+#: bus_overview.html:130
 msgid "Torque"
 msgstr ""
 
@@ -530,7 +526,7 @@ msgstr ""
 msgid "Total Driving Hours"
 msgstr ""
 
-#: bus_overview.html:160
+#: bus_overview.html:168
 msgid "Total emission reduction"
 msgstr ""
 
@@ -538,7 +534,7 @@ msgstr ""
 msgid "Total Emission Reduction"
 msgstr ""
 
-#: bus_overview.html:152
+#: bus_overview.html:160
 msgid "Total energy saving"
 msgstr ""
 
@@ -551,7 +547,7 @@ msgstr ""
 msgid "Total Mileage"
 msgstr ""
 
-#: bus_overview.html:156
+#: bus_overview.html:164
 msgid "Total money saving"
 msgstr ""
 
@@ -567,19 +563,15 @@ msgstr ""
 msgid "Trees saved"
 msgstr ""
 
-#: newprofile.html:63
-msgid "Update"
-msgstr ""
-
 #: newprofile.html:1
 msgid "Update Profile"
 msgstr ""
 
-#: application.js:1897
+#: application.js:1944
 msgid "update profile failed. #{err}"
 msgstr ""
 
-#: application.js:1889
+#: application.js:1936
 msgid "update profile successful."
 msgstr ""
 
@@ -610,10 +602,15 @@ msgstr ""
 msgid "Verifying your Account"
 msgstr ""
 
-#: bus_overview.html:133
+#: bus_overview.html:141
 #: bus_overview.html:57
-#: bus_overview.html:94
+#: bus_overview.html:98
 msgid "Voltage"
+msgstr ""
+
+#: bus_overview.html:110
+#: bus_overview.html:69
+msgid "Wattage"
 msgstr ""
 
 #: sms.html:5
@@ -632,11 +629,11 @@ msgstr ""
 msgid "Weibo Acount"
 msgstr ""
 
-#: application.js:272
+#: application.js:277
 msgid "Welcome"
 msgstr ""
 
-#: application.js:701
+#: application.js:705
 msgid "You don't have permission to view this page."
 msgstr ""
 

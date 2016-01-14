@@ -64,7 +64,11 @@
                         <div class="row">
                             <div class="col" translate> Temp. </div>
                             <div class="col"> {{ctrl.data.GasData.bottle_temp}} &#8451; </div>
-                        </div>                        
+                        </div>
+                        <div class="row">
+                            <div class="col" translate> Wattage </div>
+                            <div class="col"> {{ctrl.data.FuelCellData.voltage * ctrl.data.FuelCellData.current}}W </div>
+                        </div>
                     </div>
                     <div class="footer">
                     </div>
@@ -101,7 +105,11 @@
                         <div class="row">
                             <div class="col" translate> Temp. </div>
                             <div class="col"> {{ctrl.data.PowerBatteryData.temp}} &#8451; </div>
-                        </div>                        
+                        </div>
+                        <div class="row">
+                            <div class="col" translate> Wattage </div>
+                            <div class="col"> {{ctrl.data.PowerBatteryData.voltage * ctrl.data.PowerBatteryData.current}}W </div>
+                        </div>
                     </div>
                     <div class="footer">
                     </div>

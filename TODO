@@ -2,9 +2,18 @@
 
 * items
 ** DONE terminal api log改一下. 要带IP,时间,xxxx,参考apache log.
+** DONE 通过admin页面可以查看log
+** DONE terminal api容错.改成字符串
+** DONE app加版本号
+** DONE 注册时发短信会有问题
+** 进入beacon范围,返回,退出app,再次进入,要记住目前在车上.
 ** DONE 实时能流图.自动刷新.
-** 注册短信验证码. ps: 联系客服增加短信.
-** pad端,能流图.  
+** DONE 注册短信验证码. ps: 联系客服增加短信.
+** pad端,能流图. 
+** ios
+** DONE 车况加功率
+** 能流图,树,要显示数据出来
+** 节能减排曲线,假数据.
 
 * plan B
 ** 佛山飞弛车厂 -> 云浮():  地图画线.

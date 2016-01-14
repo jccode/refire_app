@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Refire\n"
-"PO-Revision-Date: 2016-01-09 22:14+0800\n"
+"PO-Revision-Date: 2016-01-14 13:27+0800\n"
 "Last-Translator: jessie <jessie.chen@hongdingltd.com>\n"
 "Language-Team: jessie <jessie.chen@hongdingltd.com>\n"
 "Language: zh\n"
@@ -37,11 +37,11 @@ msgstr "关于我"
 msgid "AliPay"
 msgstr "支付宝"
 
-#: application.js:1517
+#: application.js:1564
 msgid "April"
 msgstr "四月"
 
-#: application.js:1525
+#: application.js:1572
 msgid "August"
 msgstr "八月"
 
@@ -53,7 +53,7 @@ msgstr "续驶里程"
 msgid "Available Mileage"
 msgstr "剩余里程"
 
-#: bus_overview.html:91
+#: bus_overview.html:95
 msgid "Battery"
 msgstr "动力电池"
 
@@ -125,7 +125,7 @@ msgstr "重复密码"
 msgid "confirm password isn't the same"
 msgstr "密码不一致"
 
-#: bus_overview.html:137 bus_overview.html:61 bus_overview.html:98
+#: bus_overview.html:102 bus_overview.html:145 bus_overview.html:61
 msgid "Current"
 msgstr "电流"
 
@@ -145,7 +145,7 @@ msgstr "自动刷新频率"
 msgid "DAY SHIFT"
 msgstr "白班"
 
-#: application.js:1533
+#: application.js:1580
 msgid "December"
 msgstr "12月"
 
@@ -181,13 +181,9 @@ msgstr "节能总数(kwh)"
 msgid "Engine and Milage"
 msgstr "车况信息"
 
-#: application.js:1513
+#: application.js:1560
 msgid "February"
 msgstr "二月"
-
-#: newprofile.html:63
-msgid "Finalize Account"
-msgstr "完成注册"
 
 #: pay-confirm.html:5
 msgid "Finish Payment"
@@ -201,7 +197,7 @@ msgstr "忘记密码"
 msgid "From date"
 msgstr "开始日期"
 
-#: application.js:1449
+#: application.js:1495
 msgid "from date must less than to date."
 msgstr "开始日期必须小于结束日期"
 
@@ -213,7 +209,7 @@ msgstr "燃料电池"
 msgid "FUEL CELL"
 msgstr "燃料电池"
 
-#: application.js:281
+#: application.js:286
 msgid "Goodbye"
 msgstr "再见"
 
@@ -225,7 +221,7 @@ msgstr "帮助我们为我们小孩的未来创造一个更好的环境"
 msgid "Home"
 msgstr "主页"
 
-#: application.js:282
+#: application.js:287
 msgid "Hoping to see you again!"
 msgstr "希望您再次乘坐我们的汽车"
 
@@ -245,15 +241,15 @@ msgstr "检测不到iBeacon"
 msgid "Index"
 msgstr "氢切生活"
 
-#: application.js:1511
+#: application.js:1558
 msgid "January"
 msgstr "一月"
 
-#: application.js:1523
+#: application.js:1570
 msgid "July"
 msgstr "七月"
 
-#: application.js:1521
+#: application.js:1568
 msgid "June"
 msgstr "六月"
 
@@ -269,11 +265,11 @@ msgstr "随时掌握公交的到达时间"
 msgid "Login"
 msgstr "登陆"
 
-#: application.js:646
+#: application.js:650
 msgid "Login failed. Incorrect username or password."
 msgstr "登陆失败. 用户名或密码不正确."
 
-#: application.js:643
+#: application.js:647
 msgid "login success"
 msgstr "登陆成功"
 
@@ -281,23 +277,23 @@ msgstr "登陆成功"
 msgid "Logoff"
 msgstr "退出"
 
-#: application.js:2145
+#: application.js:2192
 msgid "logoff success."
 msgstr "退出登陆成功"
 
-#: application.js:653
+#: application.js:657
 msgid "logout successful"
 msgstr "退出登陆成功"
 
-#: application.js:2126
+#: application.js:2173
 msgid "Manual"
 msgstr "手动"
 
-#: application.js:1515
+#: application.js:1562
 msgid "March"
 msgstr "三月"
 
-#: application.js:1519
+#: application.js:1566
 msgid "May"
 msgstr "五月"
 
@@ -337,11 +333,11 @@ msgstr "还没有帐号?"
 msgid "No records."
 msgstr "无任何记录"
 
-#: application.js:1531
+#: application.js:1578
 msgid "November"
 msgstr "11月"
 
-#: application.js:1529
+#: application.js:1576
 msgid "October"
 msgstr "10月"
 
@@ -373,7 +369,7 @@ msgstr "支付"
 msgid "Period"
 msgstr "期限"
 
-#: application.js:700
+#: application.js:704
 msgid "Permission denied"
 msgstr "权限受限"
 
@@ -417,7 +413,7 @@ msgstr "奖励"
 msgid "Rides on a Hydrogen bus"
 msgstr "次乘坐氢能源汽车"
 
-#: application.js:2121
+#: application.js:2168
 msgid "second"
 msgstr "秒"
 
@@ -429,7 +425,7 @@ msgstr "选择线路"
 msgid "Select your payment method"
 msgstr "选择支付方式"
 
-#: application.js:1527
+#: application.js:1574
 msgid "September"
 msgstr "九月"
 
@@ -449,7 +445,7 @@ msgstr "验证码"
 msgid "Social Media"
 msgstr "社交媒体"
 
-#: bus_overview.html:118
+#: bus_overview.html:126
 msgid "Speed"
 msgstr "速度"
 
@@ -457,7 +453,7 @@ msgstr "速度"
 msgid "Take our bus to see how many trees saved by bus"
 msgstr "乘坐我们的汽车可以查看汽车节省的树量"
 
-#: bus_overview.html:102 bus_overview.html:141 bus_overview.html:65
+#: bus_overview.html:106 bus_overview.html:149 bus_overview.html:65
 msgid "Temp."
 msgstr "温度"
 
@@ -465,7 +461,7 @@ msgstr "温度"
 msgid "Thank you for riding with us!"
 msgstr "感谢您乘坐我们的汽车!"
 
-#: application.js:273
+#: application.js:278
 msgid "Thanks for riding with us!"
 msgstr "感谢您乘坐我们的汽车!"
 
@@ -505,7 +501,7 @@ msgstr "本月"
 msgid "To date"
 msgstr "结束日期"
 
-#: bus_overview.html:122
+#: bus_overview.html:130
 msgid "Torque"
 msgstr "扭矩"
 
@@ -525,7 +521,7 @@ msgstr "行驶里程总数"
 msgid "Total Driving Hours"
 msgstr "总驾驶时间"
 
-#: bus_overview.html:160
+#: bus_overview.html:168
 msgid "Total emission reduction"
 msgstr "减排总数"
 
@@ -533,7 +529,7 @@ msgstr "减排总数"
 msgid "Total Emission Reduction"
 msgstr "减排总数"
 
-#: bus_overview.html:152
+#: bus_overview.html:160
 msgid "Total energy saving"
 msgstr "节能总数"
 
@@ -545,7 +541,7 @@ msgstr "节能总数"
 msgid "Total Mileage"
 msgstr "总里程"
 
-#: bus_overview.html:156
+#: bus_overview.html:164
 msgid "Total money saving"
 msgstr "节省钱总数"
 
@@ -561,19 +557,15 @@ msgstr "树量"
 msgid "Trees saved"
 msgstr "节省树量"
 
-#: newprofile.html:63
-msgid "Update"
-msgstr "更新"
-
 #: newprofile.html:1
 msgid "Update Profile"
 msgstr "更新个人资料"
 
-#: application.js:1897
+#: application.js:1944
 msgid "update profile failed. #{err}"
 msgstr "更新用户信息失败"
 
-#: application.js:1889
+#: application.js:1936
 msgid "update profile successful."
 msgstr "更新用户信息成功"
 
@@ -601,9 +593,13 @@ msgstr "验证手机号"
 msgid "Verifying your Account"
 msgstr "验证帐号"
 
-#: bus_overview.html:133 bus_overview.html:57 bus_overview.html:94
+#: bus_overview.html:141 bus_overview.html:57 bus_overview.html:98
 msgid "Voltage"
 msgstr "电压"
+
+#: bus_overview.html:110 bus_overview.html:69
+msgid "Wattage"
+msgstr "功率"
 
 #: sms.html:5
 msgid ""
@@ -623,11 +619,11 @@ msgstr "微信钱包"
 msgid "Weibo Acount"
 msgstr "微博"
 
-#: application.js:272
+#: application.js:277
 msgid "Welcome"
 msgstr "欢迎"
 
-#: application.js:701
+#: application.js:705
 msgid "You don't have permission to view this page."
 msgstr "你没有权限查看这个页面"
 
@@ -646,6 +642,12 @@ msgstr "购票记录"
 #: home.html:32
 msgid "Zero Emission"
 msgstr "零污染"
+
+#~ msgid "Finalize Account"
+#~ msgstr "完成注册"
+
+#~ msgid "Update"
+#~ msgstr "更新"
 
 #~ msgid "Hydrogen"
 #~ msgstr "氢气"
